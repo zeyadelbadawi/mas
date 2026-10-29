@@ -1,8 +1,6 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useMotion } from "@mas/motion/provider";
+import { useMotionEffect } from "@mas/motion/provider";
 import { useRef, type ReactNode } from "react";
 
 /** C6: arch-shaped frames (the facade's arches) that open from a slit as each one scrolls in. */
@@ -12,11 +10,10 @@ export function ArchGallery({
   items: { id: string; label: string; image: ReactNode }[];
 }) {
   const ref = useRef<HTMLUListElement>(null);
-  const { tier } = useMotion();
 
-  useGSAP(
-    () => {
-      if (!ref.current || tier === null || tier === "STATIC" || tier === "LOW") return;
+  useMotionEffect(
+    ({ gsap }) => {
+      if (!ref.current) return;
       gsap.utils.toArray<HTMLElement>(".arch-frame").forEach((el) => {
         gsap.fromTo(
           el,
@@ -29,7 +26,8 @@ export function ArchGallery({
         );
       });
     },
-    { dependencies: [tier], scope: ref },
+    [],
+    { scope: ref },
   );
 
   return (

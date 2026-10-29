@@ -1,12 +1,7 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useMotion } from "@mas/motion/provider";
+import { useMotionEffect } from "@mas/motion/provider";
 import { useRef } from "react";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** A figure that counts up once when it scrolls into view. The final value is in the HTML from the start. */
 export function CountUp({
@@ -22,16 +17,15 @@ export function CountUp({
   grouping?: boolean;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const { tier } = useMotion();
   const format = (n: number) =>
     new Intl.NumberFormat(locale === "ar" ? "ar-EG-u-nu-latn" : "en-EG", {
       useGrouping: grouping,
     }).format(Math.round(n));
 
-  useGSAP(
-    () => {
+  useMotionEffect(
+    ({ gsap }) => {
       const el = ref.current;
-      if (!el || tier === null || tier === "STATIC" || tier === "LOW") return;
+      if (!el) return;
       // Start from zero only when the animation will actually run.
       el.textContent = format(0);
       const state = { n: 0 };
@@ -45,7 +39,7 @@ export function CountUp({
         },
       });
     },
-    { dependencies: [tier, value, grouping] },
+    [value, grouping],
   );
 
   return (

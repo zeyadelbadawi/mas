@@ -32,7 +32,9 @@ Decisions made with the project owner. Newest at the bottom. Change a decision o
 | D26 | 2026-10-29 | Digits in Arabic | **Western digits (0-9)** for prices, phones, dates, times | |
 | D27 | 2026-10-29 | Default locale | **English at `/`**, Arabic at `/ar` (`localePrefix: 'as-needed'`) | |
 | D28 | 2026-10-29 | Arabic docs | Arabic translation of the planning pack in `docs/ar/`; **English docs stay canonical** | Owner reads the Arabic version. |
+| D29 | 2026-10-29 | JS budget | **Keep ≤ 180 KB** initial JS per route; GSAP, ScrollTrigger, SplitText and Lenis load after first paint through `loadMotionLib()` | Measured: 166 KB initial + 53 KB deferred on every route. Animation code uses `useMotionEffect`; no direct `gsap` imports in apps. |
+| D30 | 2026-10-29 | `covy.hero` | Redo as **two 5-second shots** joined at the doorway (facade → doors → blue tree) | 965 credits. v1 flew through the terrace tree. |
 
 ## Open items (need the owner)
 
-None. Next gate: owner approval of the plan to start P1.
+None. Next gate: owner approval of P2 (look and motion per brand) before final renders.

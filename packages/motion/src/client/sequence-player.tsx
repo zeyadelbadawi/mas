@@ -1,14 +1,10 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { FrameCache } from "../frame-cache";
 import { fitRect, progressToFrame } from "../frame-math";
 import { frameUrl, type SequenceManifest, type SequenceVariant } from "../manifest";
 import { useMotion } from "./motion-provider";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export type SequencePoster = { avif: string; webp: string; width: number; height: number };
 
@@ -65,7 +61,7 @@ export function SequencePlayer({
   children,
   className,
 }: SequencePlayerProps) {
-  const { tier } = useMotion();
+  const { tier, lib } = useMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -75,7 +71,9 @@ export function SequencePlayer({
   const staticLayout = tier === "LOW" || tier === "STATIC";
 
   useEffect(() => {
-    if (!animated) return;
+    // The poster is on screen until the motion library (ScrollTrigger) arrives after first paint.
+    if (!animated || !lib) return;
+    const { ScrollTrigger } = lib;
     const section = sectionRef.current;
     const stage = stageRef.current;
     const canvas = canvasRef.current;
@@ -85,7 +83,7 @@ export function SequencePlayer({
 
     let cancelled = false;
     let cache: FrameCache | null = null;
-    let trigger: ScrollTrigger | null = null;
+    let trigger: ReturnType<typeof ScrollTrigger.create> | null = null;
     let manifest: SequenceManifest | null = null;
     let variant: SequenceVariant | undefined;
     let format: "avif" | "webp" = "webp";
@@ -171,7 +169,7 @@ export function SequencePlayer({
       trigger?.kill();
       cache?.destroy();
     };
-  }, [animated, manifestUrl, fit, tier, poster.avif]);
+  }, [animated, lib, manifestUrl, fit, tier, poster.avif]);
 
   const style = { "--scroll-vh": scrollVh } as CSSProperties;
 

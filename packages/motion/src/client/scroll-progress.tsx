@@ -1,11 +1,7 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, type RefObject } from "react";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+import { useMotionEffect } from "./motion-provider";
 
 type Options = {
   /** ScrollTrigger start/end, e.g. "top top" / "bottom bottom" for a pinned stage. */
@@ -18,6 +14,7 @@ type Options = {
 /**
  * Scroll progress (0..1) of `target` through the viewport, written to a ref so per-frame consumers
  * (canvas, WebGL) read it without re-rendering React. Reversible: it follows the scroll position only.
+ * Starts once the motion library has loaded; until then progress stays 0.
  */
 export function useScrollProgress(
   target: RefObject<HTMLElement | null>,
@@ -30,8 +27,8 @@ export function useScrollProgress(
     onUpdateRef.current = onUpdate;
   }, [onUpdate]);
 
-  useGSAP(
-    () => {
+  useMotionEffect(
+    ({ ScrollTrigger }) => {
       if (!target.current) return;
       ScrollTrigger.create({
         trigger: target.current,
@@ -43,7 +40,8 @@ export function useScrollProgress(
         },
       });
     },
-    { dependencies: [start, end] },
+    [target, start, end],
+    { when: "any" },
   );
 
   return progressRef;

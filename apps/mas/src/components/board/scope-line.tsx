@@ -1,23 +1,17 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useMotion } from "@mas/motion/provider";
+import { useMotionEffect } from "@mas/motion/provider";
 import { useRef } from "react";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type Step = { title: string; line: string };
 
 /** M4: a crimson rule draws down through the five stages of support; each stage lights as the line reaches it. */
 export function ScopeLine({ steps }: { steps: Step[] }) {
   const ref = useRef<HTMLOListElement>(null);
-  const { tier } = useMotion();
 
-  useGSAP(
-    () => {
-      if (!ref.current || tier === null || tier === "STATIC" || tier === "LOW") return;
+  useMotionEffect(
+    ({ gsap }) => {
+      if (!ref.current) return;
       gsap.fromTo(
         ".scope-rule",
         { scaleY: 0 },
@@ -44,7 +38,8 @@ export function ScopeLine({ steps }: { steps: Step[] }) {
         );
       });
     },
-    { dependencies: [tier], scope: ref },
+    [],
+    { scope: ref },
   );
 
   return (

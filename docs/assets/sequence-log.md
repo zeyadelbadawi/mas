@@ -20,10 +20,21 @@ Spent: **5,280 credits** (12 keyframes × 65 + 5 drafts × 900). Balance before:
 
 | Sequence | Verdict | Next step |
 |---|---|---|
-| `covy.hero` | **Redo.** The camera flies into the terrace tree, then cuts to a different doorway | Split into two shots (facade → doors beside the tree, doors → interior) or add a mid keyframe; quote before running |
+| `covy.hero` | **Redone (batch 2).** v1 flew into the terrace tree, then cut to a different doorway | See batch 2 |
 | `covy.signature` | Good. Milk, espresso ribbons, foam cap read clearly | Final at 1080p; add the ✦ sparkle on the foam |
 | `aroma.hero` | Good. Steam builds steadily | Final as is |
 | `aroma.terrace` | Good motion. Generated location | Prefer a start frame from a real photo of the terrace if the client has one |
 | `mas.portal` | Good. Steady dolly, two arches resolve cleanly | Final as is |
 
 Review previews (960×540, 96 frames, AVIF only) are in `apps/*/public/sequences/drafts/` and play on each app's `/art-direction` board. Finals will be encoded at full size and served from R2.
+
+## Batch 2 (P2, approved by the owner: two-shot COVY hero redo)
+
+Spent: **965 credits** (1 keyframe × 65 + 2 Kling 3.0 shots × 450). Quoted at up to 1,865 with 10-second shots; two 5-second shots give the same 10 s of footage for half the price.
+
+| Item | Detail | Verdict |
+|---|---|---|
+| Doorway keyframe | Camera at the open glass doors, terrace tree at the left edge, interior visible ahead (generated from the facade and interior frames) | Good |
+| Shot A | Facade → doorway, passing to the right of the tree (5 s) | Good |
+| Shot B | Doorway → blue tree and mural (5 s) | Good |
+| Joined clip | `ffmpeg` concat, no visible seam; shot B moves about 40% slower, so the camera settles at the door | **Approved for the board.** For the final, sample shot A more densely to even the pace |

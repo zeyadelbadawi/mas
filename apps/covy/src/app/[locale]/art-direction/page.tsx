@@ -133,12 +133,12 @@ export default async function ArtDirection({ params }: PageProps<"/[locale]/art-
           </h1>
         </div>
       </SequencePlayer>
-      <Note scene="C1 Through the arches · MAG draft (Kling 3.0, 960×540 preview)">
+      <Note scene="C1 Through the arches · MAG draft v2 (two Kling 3.0 shots, 960×540 preview)">
         Starts on the client&apos;s facade render (COVY sign removed so the logo can sit on top as
-        HTML) and ends on their blue-tree render.{" "}
-        <strong className="text-fg">Needs another pass:</strong> the camera flies through the
-        terrace tree and cuts to a different doorway before the interior. The logo and tagline fade
-        in over the last frames.
+        HTML), crosses the terrace passing the tree on the left, goes through the open doors and
+        ends on their blue-tree render. Two 5-second shots joined at the doorway. The camera slows
+        slightly at the door; the final evens out the pace. The logo and tagline fade in over the
+        last frames.
       </Note>
 
       {/* C2 */}

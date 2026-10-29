@@ -1,8 +1,6 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useMotion } from "@mas/motion/provider";
+import { useMotionEffect } from "@mas/motion/provider";
 import { useRef, type ReactNode } from "react";
 
 /**
@@ -11,11 +9,10 @@ import { useRef, type ReactNode } from "react";
  */
 export function Drift({ children, className }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { tier } = useMotion();
 
-  useGSAP(
-    () => {
-      if (!ref.current || tier === null || tier === "STATIC" || tier === "LOW") return;
+  useMotionEffect(
+    ({ gsap }) => {
+      if (!ref.current) return;
       gsap.utils.toArray<HTMLElement>("[data-depth]").forEach((el) => {
         const depth = Number(el.dataset.depth ?? 1);
         gsap.fromTo(
@@ -46,7 +43,8 @@ export function Drift({ children, className }: { children: ReactNode; className?
         });
       });
     },
-    { dependencies: [tier], scope: ref },
+    [],
+    { scope: ref },
   );
 
   return (

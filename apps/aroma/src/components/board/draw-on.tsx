@@ -1,12 +1,7 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useMotion } from "@mas/motion/provider";
+import { useMotionEffect } from "@mas/motion/provider";
 import { useRef, type ReactNode } from "react";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
  * Draws every stroke inside it as it scrolls through the viewport (scrubbed, so it undraws going back up).
@@ -14,11 +9,10 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  */
 export function DrawOn({ children, className }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { tier } = useMotion();
 
-  useGSAP(
-    () => {
-      if (!ref.current || tier === null || tier === "STATIC" || tier === "LOW") return;
+  useMotionEffect(
+    ({ gsap }) => {
+      if (!ref.current) return;
       gsap.fromTo(
         ref.current.querySelectorAll("path, circle"),
         { strokeDasharray: 1, strokeDashoffset: 1 },
@@ -30,7 +24,8 @@ export function DrawOn({ children, className }: { children: ReactNode; className
         },
       );
     },
-    { dependencies: [tier], scope: ref },
+    [],
+    { scope: ref },
   );
 
   return (

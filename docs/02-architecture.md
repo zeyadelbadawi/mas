@@ -395,7 +395,7 @@ Reviewed with the `security-and-hardening` skill before Milestone A and again be
 | LCP | ≤ 2.5 s (target 2.0 s). The LCP element is a poster image or headline, never the canvas |
 | INP | ≤ 200 ms |
 | CLS | ≤ 0.05; every slot reserves its aspect ratio |
-| Initial JS per route (gzip) | ≤ 180 KB, excluding the lazily loaded 3D chunk |
+| Initial JS per route (gzip) | ≤ 180 KB, excluding the lazily loaded 3D chunk and the motion library, which loads after first paint (D29) |
 | 3D chunk (three + R3F + scene) | ≤ 250 KB gzip, loaded after first paint on HIGH/MID tiers only |
 | Fonts | ≤ 2 preloaded files per locale, subset woff2 |
 | Sequence poster | ≤ 120 KB AVIF |

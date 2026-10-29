@@ -51,6 +51,22 @@ test.describe("every site", () => {
     }
   });
 
+  test("stays inside the 180 KB initial JavaScript budget (D29)", async ({ page }) => {
+    for (const path of ["/", "/ar"]) {
+      await page.goto(path, { waitUntil: "load" });
+      const initialKB = await page.evaluate(() => {
+        const load = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
+        return (
+          performance
+            .getEntriesByType("resource")
+            .filter((e) => e.name.endsWith(".js") && e.startTime <= load.loadEventEnd)
+            .reduce((sum, e) => sum + (e as PerformanceResourceTiming).transferSize, 0) / 1024
+        );
+      });
+      expect(initialKB, path).toBeLessThanOrEqual(180);
+    }
+  });
+
   test("has no horizontal scroll", async ({ page }) => {
     for (const path of ["/", "/ar", "/kitchen-sink", "/ar/kitchen-sink"]) {
       await page.goto(path);

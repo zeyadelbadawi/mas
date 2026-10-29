@@ -21,21 +21,13 @@ The extra JavaScript on the MAS and COVY boards is the three.js chunk, which loa
 
 - **MAS board froze for 5.3 s once.** Cause: the reflection map for the obsidian materials was built at 256 px with an extra blur pass. On the software GPU that blocked the main thread. Now built at 64 px with no blur (same look on dark stone): worst block 925 ms on the software GPU; on a real GPU this is a few tens of milliseconds.
 
-## Open item for the owner: the JavaScript budget
+## JavaScript budget (decided: keep 180 KB, D29)
 
-The architecture doc sets **≤ 180 KB** of initial JavaScript per route. The home pages ship **217 KB**:
+The home pages first shipped 217 KB of initial JavaScript against the 180 KB budget. The motion library (GSAP, ScrollTrigger, SplitText, Lenis, ~52 KB) now loads after the page's load event, when the browser is idle, through `loadMotionLib()` in `@mas/motion`. Components run their animations with `useMotionEffect`, and every animated element renders its final, readable state before the library arrives.
 
-| Part | Gzipped |
-|---|---|
-| React + Next.js runtime | ~120 KB (fixed) |
-| GSAP + ScrollTrigger + SplitText + Lenis | ~52 KB |
-| next-intl message formatting | ~26 KB |
-| App code | ~19 KB |
-
-Two ways forward:
-
-1. **Keep 180 KB (recommended).** In P3 the landing pages load the motion stack after first paint (dynamic import once the page is interactive). The first paint and LCP never wait for GSAP; motion starts a moment later, which nobody sees because the first screen is a poster.
-2. **Raise the budget to ~220 KB** and keep the simpler static imports.
+| Route (all three sites) | Initial JS | Loaded after first paint |
+|---|---|---|
+| `/`, `/ar`, `/privacy` | **166 KB** | 53 KB (motion library) |
 
 ## Real-device check (owner)
 
