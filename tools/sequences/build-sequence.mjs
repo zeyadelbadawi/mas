@@ -6,7 +6,7 @@
 //                       [--focal 0.5,0.5] [--poster 0] [--avif-quality 50] [--webp-quality 72]
 //
 // Output: <out>/<id>/manifest.json, poster.{avif,webp}, desktop/{avif,webp}/0000.*, mobile/{avif,webp}/0000.*
-// Desktop is 1920×1080 (16:9), mobile is a 4:5 crop (864×1080) around the focal point at half the frame rate.
+// Desktop is 1920×1080 (16:9), mobile is a 4:5 crop (1080×1350) around the focal point at half the frame rate.
 
 import { execFileSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -28,8 +28,8 @@ const { values } = parseArgs({
     "webp-quality": { type: "string", default: "72" },
     "desktop-width": { type: "string", default: "1920" },
     "desktop-height": { type: "string", default: "1080" },
-    "mobile-width": { type: "string", default: "864" },
-    "mobile-height": { type: "string", default: "1080" },
+    "mobile-width": { type: "string", default: "1080" },
+    "mobile-height": { type: "string", default: "1350" },
   },
 });
 

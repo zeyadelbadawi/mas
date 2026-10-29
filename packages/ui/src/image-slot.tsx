@@ -6,7 +6,7 @@ import { cn } from "./cn";
 export type ImageSlotProps = {
   /** Stable ID used in docs/assets/asset-manifest.md, e.g. "covy.menu.mezze.hero". */
   id: string;
-  /** Delivery size in px (2× the largest rendered size). Must be literal numbers so the manifest script can read them. */
+  /** Delivery size in px (2× the largest rendered size). Comes from the slot registry in @mas/content. */
   width: number;
   height: number;
   alt: LocalizedText;
