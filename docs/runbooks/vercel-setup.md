@@ -54,7 +54,7 @@ For local development, `.env.example` already holds Cloudflare's always-pass tes
 On each preview URL:
 
 - `/` and `/ar` load, the cookie banner appears, and "Reject all" hides it.
-- `/kitchen-sink` shows the building blocks. It returns 404 on production deployments.
+- `/kitchen-sink` (P1 building blocks) and `/art-direction` (P2 board) load. Both switch off automatically at launch, when `SITE_INDEXABLE=true` is set.
 - Submit a test reservation (COVY or Aroma) or inquiry (MAS): the team inbox gets the request with a reference like `CV-7K3P`, and the guest address gets the auto-reply.
 - `/robots.txt` says `Disallow: /`.
 

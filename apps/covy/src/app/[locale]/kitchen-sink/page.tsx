@@ -9,6 +9,7 @@ import { SplitReveal } from "@mas/motion/split-reveal";
 import { Button, ImageSlot, PlaceholderBadge, SlotBox } from "@mas/ui";
 import { LanguageSwitcher } from "@mas/ui/language-switcher";
 import type { Metadata } from "next";
+import { internalPagesEnabled } from "@mas/seo";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -16,7 +17,7 @@ import { DemoSceneLoader } from "@/components/demo-scene-loader";
 import { brand, privacyHref } from "@/site";
 
 // Internal review page for the P1 gate: every building block in this brand's theme.
-// It is never part of a production build.
+// It switches off at launch (SITE_INDEXABLE=true).
 export const metadata: Metadata = {
   title: "Kitchen sink",
   robots: { index: false, follow: false },
@@ -48,7 +49,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 
 export default async function KitchenSink({ params }: PageProps<"/[locale]/kitchen-sink">) {
   const { locale } = await params;
-  if (!isLocale(locale) || process.env.VERCEL_ENV === "production") notFound();
+  if (!isLocale(locale) || !internalPagesEnabled()) notFound();
   setRequestLocale(locale);
   const seq = sequenceSlot("covy.hero");
   const ar = locale === "ar";

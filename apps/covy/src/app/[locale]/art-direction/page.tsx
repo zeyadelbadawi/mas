@@ -4,6 +4,7 @@ import { SequencePlayer } from "@mas/motion/sequence-player";
 import { ImageSlot, PlaceholderBadge } from "@mas/ui";
 import { LanguageSwitcher } from "@mas/ui/language-switcher";
 import type { Metadata } from "next";
+import { internalPagesEnabled } from "@mas/seo";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import type { CSSProperties, ReactNode } from "react";
@@ -13,7 +14,7 @@ import { Drift } from "@/components/board/drift";
 import { CaladiumLeaf, Star, Terrazzo } from "@/components/board/motifs";
 
 // P2 art-direction board: how the COVY landing will look and move, scene by scene (docs/03 §4.2).
-// Internal review page; never part of a production build.
+// Internal review page; switches off at launch (SITE_INDEXABLE=true).
 export const metadata: Metadata = {
   title: "Art direction",
   robots: { index: false, follow: false },
@@ -90,7 +91,7 @@ const PALETTE = [
 
 export default async function ArtDirection({ params }: PageProps<"/[locale]/art-direction">) {
   const { locale } = await params;
-  if (!isLocale(locale) || process.env.VERCEL_ENV === "production") notFound();
+  if (!isLocale(locale) || !internalPagesEnabled()) notFound();
   setRequestLocale(locale);
 
   return (

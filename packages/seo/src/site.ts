@@ -20,3 +20,11 @@ export function localePath(locale: Locale, path: string): string {
   if (locale === "en") return path;
   return path === "/" ? "/ar" : `/ar${path}`;
 }
+
+/**
+ * Internal review pages (/kitchen-sink, /art-direction) exist until launch. They switch off with the
+ * same flag that lets search engines in, so a live site can never show them.
+ */
+export function internalPagesEnabled(): boolean {
+  return !isIndexable();
+}

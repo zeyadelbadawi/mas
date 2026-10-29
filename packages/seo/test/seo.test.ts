@@ -1,6 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { brands, locations } from "@mas/content";
-import { pageMetadata, restaurantJsonLd, robotsFor, serializeJsonLd } from "../src";
+import {
+  internalPagesEnabled,
+  pageMetadata,
+  restaurantJsonLd,
+  robotsFor,
+  serializeJsonLd,
+} from "../src";
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -29,6 +35,12 @@ describe("pageMetadata", () => {
     expect(robotsFor(brands.mas)).toEqual({ rules: { userAgent: "*", disallow: "/" } });
     vi.stubEnv("SITE_INDEXABLE", "true");
     expect(robotsFor(brands.mas).sitemap).toBe("https://mas.com/sitemap.xml");
+  });
+  it("shows the internal review pages until launch, on every deployment type", () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    expect(internalPagesEnabled()).toBe(true);
+    vi.stubEnv("SITE_INDEXABLE", "true");
+    expect(internalPagesEnabled()).toBe(false);
   });
 });
 
