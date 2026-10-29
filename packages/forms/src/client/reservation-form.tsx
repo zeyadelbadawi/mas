@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { track } from "@mas/analytics";
 import type { Location } from "@mas/content";
 import { formatDate, formatTime, type Locale } from "@mas/i18n";
 import { Button, ChoiceCard, Field, Input, Select, Textarea } from "@mas/ui";
@@ -130,12 +131,19 @@ export function ReservationForm({
         setError(issue.path[0] as keyof ReservationInput, { type: "rule", message: issue.message });
       if (issues.length) return;
     }
-    if (valid) setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    if (!valid) return;
+    if (step === 0) track("reservation_start", { type: getValues("type") });
+    track("reservation_step", { step: step + 2 });
+    setStep((s) => Math.min(s + 1, STEPS.length - 1));
   }
 
   const onSubmit = handleSubmit(
     async (data) => {
       const ok = await send(data);
+      track(ok ? "reservation_submit_success" : "reservation_submit_error", {
+        type: data.type,
+        guests: data.guests,
+      });
       if (!ok) setStep(stepOf(form.formState.errors));
     },
     (invalid) => setStep(stepOf(invalid)),
@@ -167,6 +175,7 @@ export function ReservationForm({
 
   return (
     <form
+      data-clarity-mask="true"
       noValidate
       onSubmit={onSubmit}
       className="relative flex flex-col gap-8"

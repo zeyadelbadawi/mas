@@ -6,7 +6,8 @@
   "exports": {
     "./tsconfig/*": "./tsconfig/*",
     "./eslint": "./eslint/index.js",
-    "./styles/*": "./styles/*"
+    "./styles/*": "./styles/*",
+    "./next/security": "./next/security.js"
   },
   "dependencies": {
     "@eslint-react/eslint-plugin": "5.28.8",

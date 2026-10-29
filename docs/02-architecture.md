@@ -378,7 +378,7 @@ The reference is a short random ID (e.g. `CV-7K3P`) shown to the guest and put i
 |---|---|
 | Spam / bots exhausting the 100 emails/day quota | Turnstile (server-verified), honeypot field, minimum fill time, body-size limit; plus a Vercel Firewall rate-limit rule if the plan allows it (to verify on Hobby; available on Pro) |
 | Injection into emails (header/HTML) | zod schemas with length limits; React Email escapes content; no user input in `from`/headers except `replyTo` validated as email |
-| XSS | No `dangerouslySetInnerHTML` with user data; strict CSP with nonces; JSON-LD serialised safely |
+| XSS | No `dangerouslySetInnerHTML` with user data; JSON-LD serialised with `<` escaped; CSP with an allow-list of script hosts (GA4, Clarity, Turnstile) plus `object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'none'`. Inline scripts stay allowed: per-request nonces would force every page to render dynamically and lose static generation (see `packages/config/next/security.js`) |
 | CSRF / cross-site posting | `Origin` allow-list per app; JSON-only content-type; Turnstile token bound to site key |
 | Secrets exposure | `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY` server-only env vars; `server-only` import guard; separate keys per environment |
 | Clickjacking & misc headers | `Content-Security-Policy`, `frame-ancestors 'none'`, `X-Content-Type-Options`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`, HSTS (on the custom domain) |
@@ -446,7 +446,7 @@ Consent stored in a first-party cookie for 6 months, editable from the footer li
 | Preview | Vercel Hobby, one project per app (root dir `apps/<name>`) | `*.vercel.app` per branch | Test inboxes |
 | Production | Client's Vercel Pro team | `mas.com`, `www.mas.com`, `covy.mas.com`, `aroma.mas.com` | Real inboxes |
 
-Env vars per app: `RESEND_API_KEY`, `MAIL_FROM`, `MAIL_TO`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_MEDIA_URL`.
+Env vars per app: `RESEND_API_KEY`, `MAIL_FROM`, `MAIL_TO`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_MEDIA_URL`, `SITE_INDEXABLE` (set to `true` on production only at launch; until then every page is `noindex` and robots.txt disallows crawling, so placeholder data never gets indexed).
 
 **DNS at launch (owner):** CNAMEs for `covy` and `aroma` (and `www`) to Vercel, apex A/ALIAS for `mas.com`, Resend SPF/DKIM records for the sending subdomain, DMARC TXT, `media` custom domain for the R2 bucket.
 

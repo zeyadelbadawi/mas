@@ -6,9 +6,7 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.ts",
-    "./client/*": "./src/client/*.tsx",
-    "./server/*": "./src/server/*.ts"
+    "./consent": "./src/client/consent.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

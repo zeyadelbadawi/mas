@@ -4,3 +4,4 @@ export { Label, Input, Textarea, Select, Checkbox, Field, ChoiceCard } from "./f
 export { SlotBox, aspectLabel } from "./slot-box";
 export { ImageSlot, type ImageSlotProps } from "./image-slot";
 export { SkipLink, SiteHeader, SiteFooter, PlaceholderBadge, type NavItem } from "./site-shell";
+export { LegalArticle } from "./legal-article";

@@ -1,1 +1,7 @@
-{ "home": { "title": "MAS", "tagline": "Supporting business owners to achieve their goals." } }
+{
+  "home": {
+    "title": "MAS",
+    "tagline": "Supporting business owners to achieve their goals.",
+    "description": "MAS helps restaurant and café owners in Egypt plan, open and grow their venues, from concept and menu costing to operations and marketing."
+  }
+}

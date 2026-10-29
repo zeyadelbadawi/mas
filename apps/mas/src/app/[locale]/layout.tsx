@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { ConsentProvider } from "@mas/analytics/consent";
 import { directions, routing } from "@mas/i18n";
+import { pageMetadata } from "@mas/seo";
 import { SkipLink } from "@mas/ui";
+import { Footer } from "@/components/footer";
 import { fontVariables } from "@/fonts";
+import { brand, privacyHref } from "@/site";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -13,8 +17,11 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "home" });
-  return { title: `${t("title")} — ${t("tagline")}` };
+  const title = `${t("title")} · ${t("tagline")}`;
+  const base = pageMetadata({ brand, locale, path: "/", title, description: t("description") });
+  return { ...base, title: { default: title, template: `%s · ${brand.name[locale]}` } };
 }
 
 export default async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
@@ -27,8 +34,15 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
     <html lang={locale} dir={directions[locale]} className={fontVariables}>
       <body>
         <NextIntlClientProvider>
-          <SkipLink label={t("skipToContent")} />
-          {children}
+          <ConsentProvider
+            ga4Id={process.env.NEXT_PUBLIC_GA4_ID}
+            clarityId={process.env.NEXT_PUBLIC_CLARITY_ID}
+            privacyHref={privacyHref(locale)}
+          >
+            <SkipLink label={t("skipToContent")} />
+            {children}
+            <Footer locale={locale} />
+          </ConsentProvider>
         </NextIntlClientProvider>
       </body>
     </html>

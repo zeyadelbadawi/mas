@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { track } from "@mas/analytics";
 import { Button, Checkbox, Field, Input, Textarea } from "@mas/ui";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -67,8 +68,11 @@ export function FeedbackForm({ privacyHref, turnstileSiteKey, turnstileTheme }: 
 
   return (
     <form
+      data-clarity-mask="true"
       noValidate
-      onSubmit={handleSubmit((data) => send(data))}
+      onSubmit={handleSubmit(async (data) => {
+        if (await send(data)) track("feedback_submit");
+      })}
       className="relative flex flex-col gap-6"
     >
       <Honeypot inputRef={honeypotRef} />

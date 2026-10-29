@@ -19,6 +19,7 @@
   "dependencies": {
     "@hookform/resolvers": "6.0.2",
     "@marsidev/react-turnstile": "1.6.3",
+    "@mas/analytics": "workspace:*",
     "@mas/content": "workspace:*",
     "@mas/i18n": "workspace:*",
     "@mas/ui": "workspace:*",

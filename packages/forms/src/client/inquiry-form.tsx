@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { track } from "@mas/analytics";
 import type { MasService } from "@mas/content";
 import { pick } from "@mas/i18n";
 import { Button, ChoiceCard, Field, Input, Select, Textarea } from "@mas/ui";
@@ -80,8 +81,11 @@ export function InquiryForm({
 
   return (
     <form
+      data-clarity-mask="true"
       noValidate
-      onSubmit={handleSubmit((data) => send(data))}
+      onSubmit={handleSubmit(async (data) => {
+        if (await send(data)) track("inquiry_submit");
+      })}
       className="relative flex flex-col gap-6"
     >
       <Honeypot inputRef={honeypotRef} />

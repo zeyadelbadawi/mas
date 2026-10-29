@@ -12,7 +12,10 @@
     "terms": "شروط الاستخدام",
     "rights": "جميع الحقوق محفوظة.",
     "placeholderBadge": "محتوى تجريبي",
-    "managedBy": "تحت إدارة MAS"
+    "managedBy": "تحت إدارة MAS",
+    "lastUpdated": "آخر تحديث",
+    "legalDraft": "مسودة · بانتظار المراجعة القانونية",
+    "home": "الرئيسية"
   },
   "slots": {
     "image": "صورة",

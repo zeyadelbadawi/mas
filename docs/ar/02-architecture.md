@@ -397,7 +397,7 @@ sequenceDiagram
 |---|---|
 | سبام أو بوتات يخلّصوا حصة الـ 100 إيميل في اليوم | Turnstile (متحقق منه على السيرفر)، وhoneypot، وأقل وقت للملء، وحد لحجم الطلب. وقاعدة rate-limit في Vercel Firewall لو الخطة بتسمح (هنتأكد منها على Hobby، ومتاحة على Pro) |
 | حقن كود في الإيميلات (headers أو HTML) | zod schemas بحدود للطول، وReact Email بيعمل escape للمحتوى، ومفيش أي input من المستخدم في `from` أو الـ headers غير `replyTo` بعد ما يتحقق إنه إيميل |
-| XSS | مفيش `dangerouslySetInnerHTML` مع بيانات المستخدم، وCSP صارم بـ nonces، والـ JSON-LD بيتكتب بطريقة آمنة |
+| XSS | مفيش `dangerouslySetInnerHTML` مع بيانات المستخدم، والـ JSON-LD بيتكتب مع تحويل `<` بطريقة آمنة، وCSP فيه قائمة محددة لمصادر السكريبتات (GA4 وClarity وTurnstile) مع `object-src 'none'` و`base-uri 'self'` و`form-action 'self'` و`frame-ancestors 'none'`. السكريبتات الـ inline مسموحة لأن الـ nonces لكل طلب هتخلي كل الصفحات dynamic وتلغي التوليد الثابت (static) (شوف `packages/config/next/security.js`) |
 | CSRF أو إرسال من مواقع تانية | قائمة Origin مسموحة لكل تطبيق، وJSON بس، والـ Turnstile token مربوط بالـ site key |
 | تسريب الأسرار | `RESEND_API_KEY` و`TURNSTILE_SECRET_KEY` متغيرات على السيرفر بس، و`server-only` كحماية، ومفاتيح مختلفة لكل بيئة |
 | Clickjacking وheaders تانية | `Content-Security-Policy`، و`frame-ancestors 'none'`، و`X-Content-Type-Options`، و`Referrer-Policy: strict-origin-when-cross-origin`، و`Permissions-Policy`، وHSTS (على الدومين الحقيقي) |
@@ -470,7 +470,7 @@ stateDiagram-v2
 | Preview | Vercel Hobby، مشروع لكل تطبيق (الـ root dir هو `apps/<name>`) | `*.vercel.app` لكل branch | إيميلات تجربة |
 | Production | حساب Vercel Pro بتاع العميل | `mas.com` و`www.mas.com` و`covy.mas.com` و`aroma.mas.com` | الإيميلات الحقيقية |
 
-متغيرات البيئة لكل تطبيق: `RESEND_API_KEY`، و`MAIL_FROM`، و`MAIL_TO`، و`TURNSTILE_SECRET_KEY`، و`NEXT_PUBLIC_TURNSTILE_SITE_KEY`، و`NEXT_PUBLIC_GA4_ID`، و`NEXT_PUBLIC_CLARITY_ID`، و`NEXT_PUBLIC_SITE_URL`، و`NEXT_PUBLIC_MEDIA_URL`.
+متغيرات البيئة لكل تطبيق: `RESEND_API_KEY`، و`MAIL_FROM`، و`MAIL_TO`، و`TURNSTILE_SECRET_KEY`، و`NEXT_PUBLIC_TURNSTILE_SITE_KEY`، و`NEXT_PUBLIC_GA4_ID`، و`NEXT_PUBLIC_CLARITY_ID`، و`NEXT_PUBLIC_SITE_URL`، و`NEXT_PUBLIC_MEDIA_URL`، و`SITE_INDEXABLE` (بيتضبط `true` على الإنتاج بس وقت الإطلاق؛ قبل كده كل الصفحات `noindex` وملف robots.txt بيمنع الزحف، علشان البيانات التجريبية متتفهرسش).
 
 **الـ DNS وقت الإطلاق (عندك):**
 - CNAME لـ `covy` و`aroma` (و`www`) على Vercel.

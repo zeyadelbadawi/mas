@@ -1,1 +1,7 @@
-{ "home": { "title": "COVY", "tagline": "The Taste of Everywhere" } }
+{
+  "home": {
+    "title": "COVY",
+    "tagline": "The Taste of Everywhere",
+    "description": "COVY is a restaurant and café in Cairo serving breakfast, lunch, dinner and coffee. See the menu and book a table or your next celebration."
+  }
+}

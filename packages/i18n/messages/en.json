@@ -12,7 +12,10 @@
     "terms": "Terms of Use",
     "rights": "All rights reserved.",
     "placeholderBadge": "Sample content",
-    "managedBy": "Managed by MAS"
+    "managedBy": "Managed by MAS",
+    "lastUpdated": "Last updated",
+    "legalDraft": "Draft · pending legal review",
+    "home": "Home"
   },
   "slots": {
     "image": "Image",
