@@ -6,9 +6,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   setRequestLocale(locale);
   const t = await getTranslations("home");
   return (
-    <main id="main" className="mx-auto flex min-h-svh max-w-3xl flex-col items-start justify-center gap-6 px-6">
+    <main
+      id="main"
+      className="mx-auto flex min-h-svh max-w-3xl flex-col items-start justify-center gap-6 px-6"
+    >
       <h1 className="font-display text-6xl tracking-[0.2em]">{t("title")}</h1>
-      <p className="font-editorial text-2xl text-muted">{t("tagline")}</p>
+      <p className="font-editorial text-muted text-2xl">{t("tagline")}</p>
       <LanguageSwitcher />
     </main>
   );

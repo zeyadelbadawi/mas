@@ -6,9 +6,10 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.ts",
-    "./client/*": "./src/client/*.tsx",
-    "./server/*": "./src/server/*.ts"
+    "./provider": "./src/client/motion-provider.tsx",
+    "./sequence-player": "./src/client/sequence-player.tsx",
+    "./sequence-slot": "./src/client/sequence-slot.tsx",
+    "./split-reveal": "./src/client/split-reveal.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

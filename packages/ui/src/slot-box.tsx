@@ -33,12 +33,15 @@ export function SlotBox({ slotId, kind, width, height, lines, label, className }
       data-slot-kind={kind}
       style={{ aspectRatio: `${width} / ${height}` }}
       className={cn(
-        "relative flex w-full max-w-full items-center justify-center overflow-hidden border border-dashed border-slot-fg/40 bg-slot text-slot-fg",
+        "border-slot-fg/40 bg-slot text-slot-fg relative flex w-full max-w-full items-center justify-center overflow-hidden border border-dashed",
         "bg-[repeating-linear-gradient(135deg,transparent_0_14px,color-mix(in_oklab,currentColor_7%,transparent)_14px_15px)]",
         className,
       )}
     >
-      <div className="flex max-w-[90%] flex-col items-center gap-1 text-center font-mono text-xs leading-snug sm:text-sm" dir="ltr">
+      <div
+        className="flex max-w-[90%] flex-col items-center gap-1 text-center font-mono text-xs leading-snug sm:text-sm"
+        dir="ltr"
+      >
         {lines.map((line, i) => (
           <span key={line} className={i === 0 ? "font-semibold" : "opacity-80"}>
             {line}

@@ -7,11 +7,17 @@ export const intlLocale: Record<Locale, string> = {
 };
 
 export function formatPrice(amountEGP: number, locale: Locale): string {
-  const n = new Intl.NumberFormat(intlLocale[locale], { maximumFractionDigits: 0 }).format(amountEGP);
+  const n = new Intl.NumberFormat(intlLocale[locale], { maximumFractionDigits: 0 }).format(
+    amountEGP,
+  );
   return locale === "ar" ? `${n} ج.م` : `EGP ${n}`;
 }
 
-export function formatDate(date: Date, locale: Locale, options?: Intl.DateTimeFormatOptions): string {
+export function formatDate(
+  date: Date,
+  locale: Locale,
+  options?: Intl.DateTimeFormatOptions,
+): string {
   return new Intl.DateTimeFormat(intlLocale[locale], {
     weekday: "short",
     day: "numeric",

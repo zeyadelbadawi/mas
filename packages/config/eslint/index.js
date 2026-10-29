@@ -27,7 +27,10 @@ export function createConfig({ next = false, rootDir }) {
         ...reactHooks.configs.recommended.rules,
         ...jsxA11y.flatConfigs.recommended.rules,
         "@typescript-eslint/consistent-type-imports": "error",
-        "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+        ],
         // Never inject untrusted HTML; JSON-LD uses a vetted helper with an explicit disable.
         "@eslint-react/dom-no-dangerously-set-innerhtml": "error",
       },

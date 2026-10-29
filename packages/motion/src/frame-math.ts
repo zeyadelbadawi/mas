@@ -1,0 +1,81 @@
+/** Map normalised scroll progress (0..1) to a frame index, clamped to the frame range. */
+export function progressToFrame(progress: number, frameCount: number): number {
+  if (frameCount <= 0) return 0;
+  const p = Number.isFinite(progress) ? Math.min(1, Math.max(0, progress)) : 0;
+  return Math.min(frameCount - 1, Math.round(p * (frameCount - 1)));
+}
+
+/**
+ * Order in which to request frames around the current one: current first, then alternating
+ * ahead/behind (ahead weighted by scroll direction), never outside 0..frameCount-1.
+ */
+export function framePriority(
+  current: number,
+  frameCount: number,
+  ahead: number,
+  behind: number,
+  direction: 1 | -1 = 1,
+): number[] {
+  const out: number[] = [];
+  const seen = new Set<number>();
+  const push = (i: number) => {
+    if (i >= 0 && i < frameCount && !seen.has(i)) {
+      seen.add(i);
+      out.push(i);
+    }
+  };
+  push(current);
+  // `ahead` always means "in the scroll direction"; multiplying by direction handles reverse scrolling.
+  for (let d = 1; d <= Math.max(ahead, behind); d++) {
+    if (d <= ahead) push(current + d * direction);
+    if (d <= behind) push(current - d * direction);
+  }
+  return out;
+}
+
+/** Frames outside [current - keepBehind, current + keepAhead] can be evicted from memory. */
+export function evictable(
+  cached: Iterable<number>,
+  current: number,
+  keepAhead: number,
+  keepBehind: number,
+): number[] {
+  const out: number[] = [];
+  for (const i of cached) if (i > current + keepAhead || i < current - keepBehind) out.push(i);
+  return out;
+}
+
+/** object-fit: cover/contain with a focal point (0..1) for drawing a frame onto a canvas. */
+export function fitRect(
+  srcW: number,
+  srcH: number,
+  dstW: number,
+  dstH: number,
+  fit: "cover" | "contain",
+  focal: { x: number; y: number } = { x: 0.5, y: 0.5 },
+): {
+  sx: number;
+  sy: number;
+  sw: number;
+  sh: number;
+  dx: number;
+  dy: number;
+  dw: number;
+  dh: number;
+} {
+  const srcRatio = srcW / srcH;
+  const dstRatio = dstW / dstH;
+  if (fit === "contain") {
+    const scale = Math.min(dstW / srcW, dstH / srcH);
+    const dw = srcW * scale;
+    const dh = srcH * scale;
+    return { sx: 0, sy: 0, sw: srcW, sh: srcH, dx: (dstW - dw) / 2, dy: (dstH - dh) / 2, dw, dh };
+  }
+  let sw = srcW;
+  let sh = srcH;
+  if (srcRatio > dstRatio) sw = srcH * dstRatio;
+  else sh = srcW / dstRatio;
+  const sx = Math.min(srcW - sw, Math.max(0, focal.x * srcW - sw / 2));
+  const sy = Math.min(srcH - sh, Math.max(0, focal.y * srcH - sh / 2));
+  return { sx, sy, sw, sh, dx: 0, dy: 0, dw: dstW, dh: dstH };
+}

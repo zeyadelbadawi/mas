@@ -5,10 +5,8 @@
   "type": "module",
   "sideEffects": false,
   "exports": {
-    ".": "./src/index.ts",
-    "./*": "./src/*.ts",
-    "./client/*": "./src/client/*.tsx",
-    "./server/*": "./src/server/*.ts"
+    "./scene-canvas": "./src/client/scene-canvas.tsx",
+    "./test-scene": "./src/client/test-scene.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -19,6 +17,7 @@
     "@react-three/drei": "10.7.9",
     "@react-three/fiber": "9.8.2",
     "react": "19.3.1",
+    "react-dom": "19.3.1",
     "three": "0.186.1"
   },
   "devDependencies": {

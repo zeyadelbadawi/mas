@@ -1,4 +1,4 @@
 {
   "extends": "@mas/config/tsconfig/library.json",
-  "include": ["src", "messages/*.json", "*.ts"]
+  "include": ["src", "test", "messages/*.json", "*.ts"]
 }

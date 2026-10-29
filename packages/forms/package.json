@@ -6,9 +6,10 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.ts",
-    "./client/*": "./src/client/*.tsx",
-    "./server/*": "./src/server/*.ts"
+    "./server": "./src/server/handler.ts",
+    "./reservation-form": "./src/client/reservation-form.tsx",
+    "./feedback-form": "./src/client/feedback-form.tsx",
+    "./inquiry-form": "./src/client/inquiry-form.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

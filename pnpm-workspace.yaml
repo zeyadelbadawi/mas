@@ -1,8 +1,9 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - "tools"
 
-# Native build scripts we allow (Next.js file watching / SWC). Everything else stays blocked.
+# Native build scripts we allow (Next.js file watching / SWC / image encoding). Everything else stays blocked.
 onlyBuiltDependencies:
   - "@parcel/watcher"
   - "@swc/core"

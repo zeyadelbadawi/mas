@@ -1,0 +1,15 @@
+{
+  "name": "@mas/tools",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sequence:build": "node sequences/build-sequence.mjs",
+    "sequence:test": "node sequences/make-test-sequence.mjs",
+    "assets:manifest": "node assets/manifest.mjs",
+    "placeholders:report": "node assets/placeholders.mjs"
+  },
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
+}

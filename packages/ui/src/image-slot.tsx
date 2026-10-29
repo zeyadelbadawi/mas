@@ -18,7 +18,17 @@ export type ImageSlotProps = {
   className?: string;
 };
 
-export function ImageSlot({ id, width, height, alt, locale, src, sizes = "100vw", priority, className }: ImageSlotProps) {
+export function ImageSlot({
+  id,
+  width,
+  height,
+  alt,
+  locale,
+  src,
+  sizes = "100vw",
+  priority,
+  className,
+}: ImageSlotProps) {
   const altText = alt[locale];
   if (src) {
     return (

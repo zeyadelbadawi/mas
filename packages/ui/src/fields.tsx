@@ -6,7 +6,7 @@ const control =
 
 export function Label({ className, ...props }: ComponentProps<"label">) {
   // eslint-disable-next-line jsx-a11y/label-has-associated-control -- htmlFor is passed by Field
-  return <label className={cn("text-sm font-medium text-fg", className)} {...props} />;
+  return <label className={cn("text-fg text-sm font-medium", className)} {...props} />;
 }
 
 export function Input({ className, ...props }: ComponentProps<"input">) {
@@ -14,7 +14,9 @@ export function Input({ className, ...props }: ComponentProps<"input">) {
 }
 
 export function Textarea({ className, ...props }: ComponentProps<"textarea">) {
-  return <textarea className={cn(control, "min-h-28 py-3 leading-relaxed", className)} {...props} />;
+  return (
+    <textarea className={cn(control, "min-h-28 py-3 leading-relaxed", className)} {...props} />
+  );
 }
 
 export function Select({ className, ...props }: ComponentProps<"select">) {
@@ -25,7 +27,10 @@ export function Checkbox({ className, ...props }: Omit<ComponentProps<"input">, 
   return (
     <input
       type="checkbox"
-      className={cn("mt-0.5 size-5 shrink-0 rounded-sm border-line accent-[var(--color-accent)]", className)}
+      className={cn(
+        "border-line mt-0.5 size-5 shrink-0 rounded-sm accent-[var(--color-accent)]",
+        className,
+      )}
       {...props}
     />
   );
@@ -39,11 +44,25 @@ type FieldProps = {
   required?: boolean;
   optionalLabel?: string;
   className?: string;
-  children: (a11y: { id: string; "aria-describedby"?: string; "aria-invalid"?: true; required?: boolean }) => ReactNode;
+  children: (a11y: {
+    id: string;
+    "aria-describedby"?: string;
+    "aria-invalid"?: true;
+    required?: boolean;
+  }) => ReactNode;
 };
 
 /** Label + control + hint + error, wired with ids so screen readers announce hint and error. */
-export function Field({ id, label, hint, error, required, optionalLabel, className, children }: FieldProps) {
+export function Field({
+  id,
+  label,
+  hint,
+  error,
+  required,
+  optionalLabel,
+  className,
+  children,
+}: FieldProps) {
   const hintId = hint ? `${id}-hint` : undefined;
   const errorId = error ? `${id}-error` : undefined;
   const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
@@ -51,7 +70,9 @@ export function Field({ id, label, hint, error, required, optionalLabel, classNa
     <div className={cn("flex flex-col gap-1.5", className)}>
       <Label htmlFor={id}>
         {label}
-        {!required && optionalLabel ? <span className="ms-1.5 font-normal text-muted">({optionalLabel})</span> : null}
+        {!required && optionalLabel ? (
+          <span className="text-muted ms-1.5 font-normal">({optionalLabel})</span>
+        ) : null}
       </Label>
       {children({
         id,
@@ -60,12 +81,12 @@ export function Field({ id, label, hint, error, required, optionalLabel, classNa
         ...(required ? { required: true } : {}),
       })}
       {hint ? (
-        <p id={hintId} className="text-sm text-muted">
+        <p id={hintId} className="text-muted text-sm">
           {hint}
         </p>
       ) : null}
       {error ? (
-        <p id={errorId} role="alert" className="text-sm font-medium text-danger">
+        <p id={errorId} role="alert" className="text-danger text-sm font-medium">
           {error}
         </p>
       ) : null}
@@ -80,18 +101,25 @@ type ChoiceCardProps = Omit<ComponentProps<"input">, "type"> & {
 };
 
 /** A large tappable radio/checkbox card. Keeps the native input for keyboard and screen readers. */
-export function ChoiceCard({ type = "radio", title, description, className, id, ...props }: ChoiceCardProps) {
+export function ChoiceCard({
+  type = "radio",
+  title,
+  description,
+  className,
+  id,
+  ...props
+}: ChoiceCardProps) {
   return (
     <label
       htmlFor={id}
       className={cn(
-        "group relative flex cursor-pointer flex-col gap-1 rounded-card border border-line bg-surface p-4 transition-colors duration-150 hover:border-fg/50 has-[:checked]:border-accent has-[:checked]:bg-surface-2 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-focus",
+        "group rounded-card border-line bg-surface hover:border-fg/50 has-[:checked]:border-accent has-[:checked]:bg-surface-2 has-[:focus-visible]:outline-focus relative flex cursor-pointer flex-col gap-1 border p-4 transition-colors duration-150 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2",
         className,
       )}
     >
       <input id={id} type={type} className="peer sr-only" {...props} />
-      <span className="font-medium text-fg">{title}</span>
-      {description ? <span className="text-sm text-muted">{description}</span> : null}
+      <span className="text-fg font-medium">{title}</span>
+      {description ? <span className="text-muted text-sm">{description}</span> : null}
     </label>
   );
 }

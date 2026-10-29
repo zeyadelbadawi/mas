@@ -1,1 +1,6 @@
-{ "home": { "title": "Aroma Lounge", "tagline": "Good food comes from good hearts, we aspire for both." } }
+{
+  "home": {
+    "title": "Aroma Lounge",
+    "tagline": "Good food comes from good hearts, we aspire for both."
+  }
+}

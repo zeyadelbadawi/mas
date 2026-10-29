@@ -50,7 +50,11 @@
     },
     "reservation": {
       "title": "Book a table or an event",
-      "steps": { "what": "What & when", "details": "Your details", "review": "Review & send" },
+      "steps": {
+        "what": "What & when",
+        "details": "Your details",
+        "review": "Review & send"
+      },
       "type": "What would you like to book?",
       "types": {
         "table": "Table",
@@ -75,7 +79,11 @@
       "guestsCount": "{count, plural, one {# guest} other {# guests}}",
       "bigGroup": "For more than {max} guests, choose an event type so our events team can plan it with you.",
       "seating": "Seating",
-      "seatings": { "indoor": "Indoor", "outdoor": "Outdoor", "any": "No preference" },
+      "seatings": {
+        "indoor": "Indoor",
+        "outdoor": "Outdoor",
+        "any": "No preference"
+      },
       "fullName": "Full name",
       "phone": "Mobile number",
       "email": "Email",
@@ -112,7 +120,12 @@
       "fullName": "Full name",
       "company": "Company or brand name",
       "role": "Your role",
-      "roles": { "owner": "Owner", "investor": "Investor", "manager": "Manager", "other": "Other" },
+      "roles": {
+        "owner": "Owner",
+        "investor": "Investor",
+        "manager": "Manager",
+        "other": "Other"
+      },
       "email": "Email",
       "phone": "Mobile number",
       "stage": "Where is your business today?",
@@ -125,7 +138,12 @@
       "services": "Which services interest you?",
       "city": "City",
       "timeline": "When do you want to start?",
-      "timelines": { "asap": "As soon as possible", "1-3": "In 1–3 months", "3-6": "In 3–6 months", "6+": "In 6+ months" },
+      "timelines": {
+        "asap": "As soon as possible",
+        "1-3": "In 1–3 months",
+        "3-6": "In 3–6 months",
+        "6+": "In 6+ months"
+      },
       "budget": "Budget range",
       "budgets": {
         "undisclosed": "Prefer not to say",
@@ -138,7 +156,10 @@
       "submit": "Send to MAS",
       "successTitle": "Message received",
       "successBody": "Thank you. Our team will reply within one business day. Your reference is {reference}."
-    }
+    },
+    "honeypot": "Leave this field empty",
+    "checkFields": "Please check the highlighted fields.",
+    "verifying": "Checking your connection…"
   },
   "consent": {
     "title": "Cookies on this site",

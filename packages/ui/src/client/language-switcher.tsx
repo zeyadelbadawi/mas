@@ -18,7 +18,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
       lang={target}
       aria-label={t("switchToLabel")}
       className={cn(
-        "inline-flex h-10 items-center rounded-control px-3 text-sm font-medium text-fg underline-offset-4 hover:underline",
+        "rounded-control text-fg inline-flex h-10 items-center px-3 text-sm font-medium underline-offset-4 hover:underline",
         className,
       )}
     >

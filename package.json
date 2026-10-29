@@ -17,8 +17,10 @@
     "e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "assets:manifest": "node tools/assets/manifest.mjs",
-    "placeholders:report": "node tools/assets/placeholders.mjs"
+    "assets:manifest": "pnpm --filter @mas/tools assets:manifest",
+    "placeholders:report": "pnpm --filter @mas/tools placeholders:report",
+    "sequence:build": "pnpm --filter @mas/tools sequence:build --",
+    "sequence:test": "pnpm --filter @mas/tools sequence:test"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

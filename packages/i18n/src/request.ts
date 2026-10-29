@@ -9,7 +9,9 @@ type Messages = Record<string, unknown>;
 export function createRequestConfig(appMessages: Record<Locale, Messages>) {
   return getRequestConfig(async ({ requestLocale }) => {
     const requested = await requestLocale;
-    const locale: Locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+    const locale: Locale = hasLocale(routing.locales, requested)
+      ? requested
+      : routing.defaultLocale;
     return {
       locale,
       messages: loadMessages(locale, appMessages),
