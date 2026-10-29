@@ -1,0 +1,12 @@
+# MAS Websites — Planning Pack
+
+| Doc | Contents |
+|---|---|
+| [00-decisions.md](00-decisions.md) | Decisions made with the owner + open items |
+| [01-prd.md](01-prd.md) | Goals, users, scope, functional & non-functional requirements, Milestone A acceptance criteria |
+| [02-architecture.md](02-architecture.md) | System architecture, stack, monorepo, class diagram, ERD (content model), form sequence diagram, security, performance budget, i18n, analytics/consent, deployment, testing |
+| [03-experience-design.md](03-experience-design.md) | 3D approach, brand tokens & fonts, sitemaps, scene-by-scene storyboards, menu experience, forms UX, placeholder system |
+| [04-asset-pipeline.md](04-asset-pipeline.md) | MAG sequence production, credit budget, 3D models, designer handoff |
+| [05-master-plan.md](05-master-plan.md) | Phases, gates, client inputs, risks |
+
+Project rules for AI-assisted work: [`../CLAUDE.md`](../CLAUDE.md). Installed skills: [`../.claude/skills/SOURCES.md`](../.claude/skills/SOURCES.md).
