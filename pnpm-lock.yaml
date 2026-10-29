@@ -26,6 +26,9 @@ importers:
 
   apps/aroma:
     dependencies:
+      '@gsap/react':
+        specifier: 2.1.2
+        version: 2.1.2(gsap@3.15.0)(react@19.3.1)
       '@mas/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
@@ -50,6 +53,9 @@ importers:
       '@mas/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      gsap:
+        specifier: 3.15.0
+        version: 3.15.0
       next:
         specifier: 16.4.3
         version: 16.4.3(@playwright/test@1.63.0)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -90,6 +96,9 @@ importers:
 
   apps/covy:
     dependencies:
+      '@gsap/react':
+        specifier: 2.1.2
+        version: 2.1.2(gsap@3.15.0)(react@19.3.1)
       '@mas/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
@@ -114,6 +123,9 @@ importers:
       '@mas/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      gsap:
+        specifier: 3.15.0
+        version: 3.15.0
       next:
         specifier: 16.4.3
         version: 16.4.3(@playwright/test@1.63.0)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -154,6 +166,9 @@ importers:
 
   apps/mas:
     dependencies:
+      '@gsap/react':
+        specifier: 2.1.2
+        version: 2.1.2(gsap@3.15.0)(react@19.3.1)
       '@mas/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
@@ -178,6 +193,9 @@ importers:
       '@mas/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      gsap:
+        specifier: 3.15.0
+        version: 3.15.0
       next:
         specifier: 16.4.3
         version: 16.4.3(@playwright/test@1.63.0)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)

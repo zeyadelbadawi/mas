@@ -14,5 +14,6 @@ test-results/
 # generated sequence frames live on R2, not in git (except the small test sequence)
 public/sequences/*
 !public/sequences/test/
+!public/sequences/drafts/
 next-env.d.ts
 test-results/

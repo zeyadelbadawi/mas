@@ -32,7 +32,13 @@ export function SplitReveal({
   useGSAP(
     () => {
       if (!ref.current || tier === null || tier === "STATIC" || tier === "LOW") return;
-      const split = SplitText.create(ref.current, { type: "words", aria: "auto", mask: "words" });
+      // Masks clip Arabic dots and descenders, so right-to-left text rises without one.
+      const rtl = getComputedStyle(ref.current).direction === "rtl";
+      const split = SplitText.create(ref.current, {
+        type: "words",
+        aria: "auto",
+        ...(rtl ? {} : { mask: "words" as const }),
+      });
       gsap.from(split.words, {
         yPercent: 110,
         opacity: 0,

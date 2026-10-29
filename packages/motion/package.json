@@ -9,7 +9,8 @@
     "./provider": "./src/client/motion-provider.tsx",
     "./sequence-player": "./src/client/sequence-player.tsx",
     "./sequence-slot": "./src/client/sequence-slot.tsx",
-    "./split-reveal": "./src/client/split-reveal.tsx"
+    "./split-reveal": "./src/client/split-reveal.tsx",
+    "./scroll-progress": "./src/client/scroll-progress.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
