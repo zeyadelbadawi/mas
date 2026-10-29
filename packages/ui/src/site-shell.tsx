@@ -66,7 +66,7 @@ export function PlaceholderBadge({ label, className }: { label: string; classNam
   return (
     <span
       className={cn(
-        "border-slot-fg/50 text-slot-fg inline-flex items-center rounded-full border border-dashed px-2 py-0.5 font-mono text-[11px] tracking-wide uppercase",
+        "border-slot-fg/50 text-slot-fg inline-flex items-center rounded-full border border-dashed px-2 py-0.5 font-mono text-[11px] tracking-wide uppercase rtl:font-sans rtl:tracking-normal",
         className,
       )}
     >

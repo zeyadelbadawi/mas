@@ -37,6 +37,13 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    /* In-page links land below the fixed header (Lenis uses the same offset). */
+    scroll-padding-top: 4.5rem;
+  }
+
+  /* The cookie banner is in the server HTML; hide it before paint when a choice is stored. */
+  html[data-consent-set] [data-consent-pending] {
+    display: none;
   }
 
   body {

@@ -3,7 +3,7 @@ import { isLocale, pick, type Locale } from "@mas/i18n";
 import { SequencePlayer } from "@mas/motion/sequence-player";
 import { SplitReveal } from "@mas/motion/split-reveal";
 import { PlaceholderBadge } from "@mas/ui";
-import { LanguageSwitcher } from "@mas/ui/language-switcher";
+import { LanguageSwitch } from "@mas/ui/language-switch";
 import type { Metadata } from "next";
 import { internalPagesEnabled } from "@mas/seo";
 import { notFound } from "next/navigation";
@@ -84,7 +84,7 @@ export default async function ArtDirection({ params }: PageProps<"/[locale]/art-
     <main id="main" className="bg-bg relative">
       <div className="absolute inset-x-0 top-0 z-10 mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-8">
         <PlaceholderBadge label="Internal · P2 art direction" />
-        <LanguageSwitcher />
+        <LanguageSwitch />
       </div>
 
       <MasHero

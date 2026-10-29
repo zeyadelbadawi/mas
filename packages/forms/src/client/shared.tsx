@@ -111,11 +111,15 @@ export function useFormSubmit<T extends FieldValues>(kind: FormKind, setError: U
   return { send, state, setState, setToken, honeypotRef, turnstileRef };
 }
 
-/** Off-screen field that only bots fill in. Not announced, not focusable. */
+/** Zero-size field that only bots fill in. Not announced, not focusable. Clipped rather than pushed
+ * off-screen, because a negative start offset becomes a huge right overflow in Arabic (RTL). */
 export function Honeypot({ inputRef }: { inputRef: RefObject<HTMLInputElement | null> }) {
   const t = useTranslations("forms");
   return (
-    <div aria-hidden="true" className="absolute -start-[9999px] h-px w-px overflow-hidden">
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute top-0 h-0 w-0 overflow-hidden opacity-0"
+    >
       <label>
         {t("honeypot")}
         <input

@@ -2,6 +2,7 @@
 // `pnpm assets:manifest` turns this file into docs/assets/asset-manifest.md, the designer's checklist,
 // so it must stay free of runtime imports (the script loads it with Node's type stripping).
 import type { LocalizedText } from "@mas/i18n";
+import type { BrandEvent, MenuCategory } from "./types";
 
 type App = "mas" | "covy" | "aroma";
 
@@ -152,6 +153,16 @@ export const slots: SlotSpec[] = [
   ),
   {
     kind: "image",
+    id: "covy.visit.facade",
+    app: "covy",
+    page: "Landing",
+    section: "C10 Find us",
+    width: 1200,
+    height: 1500,
+    alt: { en: "COVY's arched entrance", ar: "مدخل COVY المقوّس" },
+  },
+  {
+    kind: "image",
     id: "covy.og",
     app: "covy",
     page: "All",
@@ -200,25 +211,48 @@ export const slots: SlotSpec[] = [
   },
 ];
 
-/** Image slot props for <ImageSlot {...imageSlot("covy.spaces.indoor")} locale={locale} />. */
-export function imageSlot(
-  id: string,
-): Pick<ImageSlotSpec, "id" | "width" | "height" | "alt" | "src"> {
-  const s = slots.find((x) => x.id === id);
-  if (!s || s.kind !== "image")
-    throw new Error(`Unknown image slot "${id}": add it to packages/content/src/slots.ts`);
-  return {
-    id: s.id,
-    width: s.width,
-    height: s.height,
-    alt: s.alt,
-    ...(s.src ? { src: s.src } : {}),
-  };
+/** Menu slots: a chapter-opener photo per category and a thumbnail per signature dish. */
+export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
+  return menu.flatMap((c): ImageSlotSpec[] => [
+    {
+      kind: "image",
+      id: `${c.brandId}.menu.${c.id}.hero`,
+      app: c.brandId,
+      page: "Landing",
+      section: `Menu · ${c.name.en}`,
+      width: 1600,
+      height: 1000,
+      alt: {
+        en: `${c.name.en} at ${c.brandId === "covy" ? "COVY" : "Aroma Lounge"}`,
+        ar: c.name.ar,
+      },
+    },
+    ...c.items
+      .filter((item) => item.imageSlotId)
+      .map(
+        (item): ImageSlotSpec => ({
+          kind: "image",
+          id: item.imageSlotId!,
+          app: c.brandId,
+          page: "Landing",
+          section: `Menu · ${c.name.en} · ${item.name.en}`,
+          width: 800,
+          height: 800,
+          alt: item.name,
+        }),
+      ),
+  ]);
 }
 
-export function sequenceSlot(id: string): SequenceSlotSpec {
-  const s = slots.find((x) => x.id === id);
-  if (!s || s.kind !== "sequence")
-    throw new Error(`Unknown sequence slot "${id}": add it to packages/content/src/slots.ts`);
-  return s;
+export function eventSlots(events: BrandEvent[]): ImageSlotSpec[] {
+  return events.map((e) => ({
+    kind: "image",
+    id: e.imageSlotId,
+    app: e.brandId,
+    page: "Landing",
+    section: `Events · ${e.title.en}`,
+    width: 1200,
+    height: 900,
+    alt: e.title,
+  }));
 }

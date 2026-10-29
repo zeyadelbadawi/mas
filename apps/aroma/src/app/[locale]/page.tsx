@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { LanguageSwitcher } from "@mas/ui/language-switcher";
+import { LanguageSwitch } from "@mas/ui/language-switch";
 import { locations } from "@mas/content";
 import { JsonLd, restaurantJsonLd } from "@mas/seo";
 import { brand } from "@/site";
@@ -16,7 +16,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <JsonLd data={restaurantJsonLd(brand, locations.aroma, locale === "ar" ? "ar" : "en")} />
       <h1 className="font-display text-6xl tracking-[0.2em]">{t("title")}</h1>
       <p className="font-editorial text-muted text-2xl">{t("tagline")}</p>
-      <LanguageSwitcher />
+      <LanguageSwitch />
     </main>
   );
 }

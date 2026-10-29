@@ -5,7 +5,12 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { slots } from "../../packages/content/src/slots.ts";
+import { events } from "../../packages/content/src/events.ts";
+import { covyMenu } from "../../packages/content/src/menus/covy.ts";
+import { eventSlots, menuSlots, slots as listedSlots } from "../../packages/content/src/slots.ts";
+
+// Same composition as packages/content/src/registry.ts (which uses extensionless imports Node can't load).
+const slots = [...listedSlots, ...menuSlots(covyMenu), ...eventSlots(events)];
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const out = path.join(root, "docs/assets/asset-manifest.md");

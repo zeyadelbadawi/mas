@@ -5,9 +5,13 @@ export { masServices } from "./services";
 export { privacyPolicy, termsOfUse, type LegalDocument, type LegalSection } from "./legal";
 export {
   slots,
-  imageSlot,
-  sequenceSlot,
+  menuSlots,
+  eventSlots,
   type SlotSpec,
   type ImageSlotSpec,
   type SequenceSlotSpec,
 } from "./slots";
+export { allSlots, imageSlot, sequenceSlot } from "./registry";
+export { covyMenu } from "./menus/covy";
+export { events } from "./events";
+export { testimonials } from "./testimonials";

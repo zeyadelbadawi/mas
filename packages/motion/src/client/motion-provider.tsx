@@ -98,7 +98,8 @@ export function MotionProvider({ children, ease = "power3.out" }: MotionProvider
   useEffect(() => {
     if (!lib || (tier !== "HIGH" && tier !== "MID")) return;
     const { gsap, ScrollTrigger } = lib;
-    const lenis = new lib.Lenis({ lerp: 0.09, smoothWheel: true, anchors: true });
+    // Anchor jumps stop below the fixed 64 px header (matches scroll-padding-top in base.css).
+    const lenis = new lib.Lenis({ lerp: 0.09, smoothWheel: true, anchors: { offset: -72 } });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);

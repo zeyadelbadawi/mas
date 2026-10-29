@@ -11,7 +11,8 @@
     "./sequence-slot": "./src/client/sequence-slot.tsx",
     "./split-reveal": "./src/client/split-reveal.tsx",
     "./scroll-progress": "./src/client/scroll-progress.tsx",
-    "./motion-lib": "./src/client/motion-lib.ts"
+    "./motion-lib": "./src/client/motion-lib.ts",
+    "./near-viewport": "./src/client/near-viewport.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

@@ -14,7 +14,10 @@ export function Drift({ children, className }: { children: ReactNode; className?
     ({ gsap }) => {
       if (!ref.current) return;
       gsap.utils.toArray<HTMLElement>("[data-depth]").forEach((el) => {
-        const depth = Number(el.dataset.depth ?? 1);
+        // Phones get half the travel, so leaves stay clear of the headline.
+        const depth =
+          Number(el.dataset.depth ?? 1) *
+          (window.matchMedia("(max-width: 639px)").matches ? 0.5 : 1);
         gsap.fromTo(
           el,
           { yPercent: 30 * depth, rotate: -6 * depth },

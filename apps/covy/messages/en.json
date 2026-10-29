@@ -3,5 +3,106 @@
     "title": "COVY",
     "tagline": "The Taste of Everywhere",
     "description": "COVY is a restaurant and café in Cairo serving breakfast, lunch, dinner and coffee. See the menu and book a table or your next celebration."
+  },
+  "nav": {
+    "label": "Main",
+    "story": "Our story",
+    "menu": "Menu",
+    "spaces": "Spaces",
+    "events": "Events",
+    "visit": "Visit",
+    "book": "Book a table",
+    "open": "Open menu",
+    "close": "Close menu"
+  },
+  "hero": {
+    "title": "COVY, restaurant and café in Cairo",
+    "kicker": "A restaurant and café in Cairo",
+    "scroll": "Scroll to step inside"
+  },
+  "story": {
+    "quote": "At COVY, our passion for international cuisine comes from a belief that food is the most delicious way to connect cultures.",
+    "body": "Great food knows no borders, and neither do our guests' tastes. Come for a slow breakfast and stay for dinner under the blue tree."
+  },
+  "signature": {
+    "title": "Built in the glass",
+    "body": "Our signature iced latte: a double espresso over cold milk and ice, finished with cold foam and a dusting of cocoa.",
+    "milk": "Cold milk",
+    "espresso": "Double espresso",
+    "foam": "Cold foam",
+    "cocoa": "Cocoa dusting",
+    "link": "See the iced drinks"
+  },
+  "taste": {
+    "title": "The Taste of Everywhere",
+    "intro": "From the richness of Mediterranean cooking to the bold spices of Asia and the street food soul of Latin America, each dish at COVY is chosen for its story, its flavour and the experience it offers.",
+    "mediterranean": "Olive oil, citrus and the grill, the way coastal towns cook.",
+    "asian": "Bright broths, wok heat and fresh herbs.",
+    "latin": "Smoke, lime and slow-cooked spice.",
+    "middle-eastern": "Mezze to share and bread from the oven.",
+    "italian": "Fresh pasta and coffee done properly.",
+    "names": {
+      "mediterranean": "Mediterranean",
+      "asian": "Asian",
+      "latin": "Latin American",
+      "middle-eastern": "Middle-Eastern",
+      "italian": "Italian"
+    }
+  },
+  "menu": {
+    "title": "Menu",
+    "sample": "Sample menu: dishes and prices will be confirmed",
+    "search": "Search the menu",
+    "searchPlaceholder": "Try latte, ramen or vegetarian",
+    "filters": "Show only",
+    "categories": "Menu sections",
+    "clear": "Clear",
+    "allergens": "Tell our team about any allergy before you order. Prices in Egyptian pounds.",
+    "tags": {
+      "veg": "Vegetarian",
+      "spicy": "Spicy",
+      "nuts": "Contains nuts",
+      "new": "New",
+      "signature": "Signature"
+    },
+    "resultsForms": {
+      "zero": "No dishes match. Try another word.",
+      "one": "# dish matches",
+      "other": "# dishes match"
+    }
+  },
+  "spaces": {
+    "title": "Our spaces",
+    "intro": "Arched windows, terrazzo floors and a blue tree at the centre. Pick your corner.",
+    "indoor": "Indoor",
+    "terrace": "Terrace",
+    "shisha": "Shisha area",
+    "corner": "Photo corner"
+  },
+  "events": {
+    "title": "Events at COVY",
+    "intro": "Brunches, music nights and a different kitchen every month.",
+    "book": "Book this event",
+    "walkIn": "No booking needed",
+    "sample": "Sample events"
+  },
+  "reviews": {
+    "title": "What guests say",
+    "sample": "Sample reviews: real Google reviews will replace these before launch",
+    "stars": "{count} out of 5 stars"
+  },
+  "reserve": {
+    "title": "Book a table, or tell us how it went",
+    "book": "Book a table or event",
+    "feedback": "Share your feedback"
+  },
+  "visit": {
+    "title": "Visit us",
+    "hours": "Opening hours",
+    "everyDay": "Every day",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "directions": "Get directions",
+    "sample": "Address, phone and hours are samples until confirmed"
   }
 }

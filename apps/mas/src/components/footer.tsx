@@ -1,7 +1,8 @@
 import { CookieSettingsButton } from "@mas/analytics/consent";
-import { Link } from "@mas/i18n/navigation";
+import { localePath } from "@mas/seo";
+import Link from "next/link";
 import { SiteFooter } from "@mas/ui";
-import { LanguageSwitcher } from "@mas/ui/language-switcher";
+import { LanguageSwitch } from "@mas/ui/language-switch";
 import { getTranslations } from "next-intl/server";
 import { brand } from "@/site";
 
@@ -13,14 +14,14 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
       brandLine={<p className="font-display text-fg text-2xl">{brand.name[locale]}</p>}
       links={
         <>
-          <Link href="/privacy" className={link}>
+          <Link href={localePath(locale, "/privacy")} className={link}>
             {t("privacy")}
           </Link>
-          <Link href="/terms" className={link}>
+          <Link href={localePath(locale, "/terms")} className={link}>
             {t("terms")}
           </Link>
           <CookieSettingsButton className={link} />
-          <LanguageSwitcher className="h-auto px-0" />
+          <LanguageSwitch className="h-auto px-0" />
         </>
       }
       legal={

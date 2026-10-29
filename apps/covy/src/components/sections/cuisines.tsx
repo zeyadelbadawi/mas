@@ -1,8 +1,16 @@
 "use client";
 
+import { useNearViewport } from "@mas/motion/near-viewport";
 import { useScrollProgress } from "@mas/motion/scroll-progress";
 import dynamic from "next/dynamic";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+
+const WIDE = "(min-width: 768px)";
+const subscribeWide = (onChange: () => void) => {
+  const mq = window.matchMedia(WIDE);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+};
 
 const LeafStage = dynamic(() => import("./scenes").then((m) => m.LeafStage), { ssr: false });
 
@@ -12,9 +20,16 @@ type Stop = { id: string; name: string; line: string; image: ReactNode };
  * C4: pinned through five cuisine stops. The leaf ring turns with the scroll and the dish still and
  * one-line story swap at each stop. Reduced motion shows all five stops as a list.
  */
-export function Cuisines({ heading, stops }: { heading: string; stops: Stop[] }) {
+export function Cuisines({ heading, stops }: { heading?: string; stops: Stop[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+  // three.js (~240 KB) loads only on tablet/desktop widths, and only when this section is about a screen away.
+  const near = useNearViewport(sectionRef);
+  const wide = useSyncExternalStore(
+    subscribeWide,
+    () => window.matchMedia(WIDE).matches,
+    () => false,
+  );
   const progress = useScrollProgress(sectionRef, {
     start: "top top",
     end: "bottom bottom",
@@ -25,22 +40,26 @@ export function Cuisines({ heading, stops }: { heading: string; stops: Stop[] })
   });
 
   return (
-    <section ref={sectionRef} className="relative h-[340svh] motion-reduce:h-auto">
+    <section ref={sectionRef} className="relative h-[300svh] motion-reduce:h-auto">
       <div className="sticky top-0 h-svh overflow-hidden motion-reduce:static motion-reduce:h-auto">
         {/* Fades the ring out before it reaches the heading and the stop card. */}
-        <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_36%_44%_at_46%_58%,black_45%,transparent_100%)] motion-reduce:hidden">
-          <LeafStage progress={progress} />
+        <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_36%_44%_at_46%_58%,black_45%,transparent_100%)] motion-reduce:hidden max-md:hidden">
+          {near && wide ? <LeafStage progress={progress} /> : null}
         </div>
         <div className="relative mx-auto grid h-full max-w-7xl content-center gap-10 px-4 motion-reduce:py-24 sm:px-8 md:grid-cols-[1fr_minmax(0,22rem)]">
-          <h2 className="font-editorial text-fg max-w-md text-5xl leading-[1.05] sm:text-6xl">
-            {heading}
-          </h2>
+          {heading ? (
+            <h2 className="font-editorial text-fg max-w-md text-5xl leading-[1.05] sm:text-6xl">
+              {heading}
+            </h2>
+          ) : (
+            <span aria-hidden="true" />
+          )}
           <ol className="relative">
             {stops.map((s, i) => (
               <li
                 key={s.id}
                 aria-current={i === active ? "step" : undefined}
-                className={`flex flex-col gap-4 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.37,0,0.63,1)] motion-reduce:static motion-reduce:mb-10 motion-reduce:opacity-100 ${
+                className={`flex flex-col gap-4 transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:static motion-reduce:mb-10 motion-reduce:opacity-100 ${
                   i === active
                     ? "opacity-100"
                     : "pointer-events-none absolute inset-x-0 top-0 translate-y-6 opacity-0"

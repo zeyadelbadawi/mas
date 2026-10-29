@@ -40,6 +40,8 @@ export type ReservationFormProps = {
   defaultType?: ReservationType;
   /** Set when booking from an event card. */
   eventId?: string;
+  /** Prefill from an event card: its date (YYYY-MM-DD) and start time (HH:MM). */
+  defaults?: { date?: string; time?: string };
 };
 
 const STEPS = ["what", "details", "review"] as const;
@@ -61,6 +63,7 @@ export function ReservationForm({
   turnstileTheme,
   defaultType = "table",
   eventId,
+  defaults,
 }: ReservationFormProps) {
   const t = useTranslations("forms");
   const locale = useLocale() as Locale;
@@ -74,8 +77,8 @@ export function ReservationForm({
     mode: "onTouched",
     defaultValues: {
       type: defaultType,
-      date: "",
-      time: "",
+      date: defaults?.date ?? "",
+      time: defaults?.time ?? "",
       guests: 2,
       seating: "any",
       fullName: "",

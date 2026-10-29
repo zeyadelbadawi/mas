@@ -5,7 +5,13 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { slots } from "../../packages/content/src/slots.ts";
+import { events } from "../../packages/content/src/events.ts";
+import { testimonials } from "../../packages/content/src/testimonials.ts";
+import { covyMenu } from "../../packages/content/src/menus/covy.ts";
+import { eventSlots, menuSlots, slots as listedSlots } from "../../packages/content/src/slots.ts";
+
+// Same composition as packages/content/src/registry.ts (which uses extensionless imports Node can't load).
+const slots = [...listedSlots, ...menuSlots(covyMenu), ...eventSlots(events)];
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const SCAN = [
@@ -54,9 +60,15 @@ const section = (title, items) => {
 };
 console.log("Placeholder report");
 section("Data records marked placeholder: true", records);
+const sampleItems = covyMenu.flatMap((c) => c.items).filter((i) => i.placeholder).map((i) => i.id);
+const sampleEvents = events.filter((e) => e.placeholder).map((e) => e.id);
+const sampleReviews = testimonials.filter((t) => t.placeholder).map((t) => t.id);
+section("Sample menu items (COVY)", sampleItems);
+section("Sample events", sampleEvents);
+section("Sample reviews (never shown as real)", sampleReviews);
 section("Image slots waiting for the designer", images);
 section("Sequence slots waiting for MAG renders", sequences);
 
-const total = records.length + images.length + sequences.length;
+const total = records.length + sampleItems.length + sampleEvents.length + sampleReviews.length + images.length + sequences.length;
 console.log(`\nTotal: ${total}`);
 if (process.argv.includes("--strict") && total > 0) process.exit(1);

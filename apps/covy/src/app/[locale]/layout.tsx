@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { ConsentBootScript, getConsentLabels } from "@mas/analytics";
 import { ConsentProvider } from "@mas/analytics/consent";
 import { directions, routing } from "@mas/i18n";
 import { MotionProvider } from "@mas/motion/provider";
@@ -32,21 +33,23 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const t = await getTranslations({ locale, namespace: "common" });
 
   return (
-    <html lang={locale} dir={directions[locale]} className={fontVariables}>
+    <html lang={locale} dir={directions[locale]} className={fontVariables} suppressHydrationWarning>
+      <head>
+        <ConsentBootScript />
+      </head>
       <body>
-        <NextIntlClientProvider>
-          <ConsentProvider
-            ga4Id={process.env.NEXT_PUBLIC_GA4_ID}
-            clarityId={process.env.NEXT_PUBLIC_CLARITY_ID}
-            privacyHref={privacyHref(locale)}
-          >
-            <MotionProvider>
-              <SkipLink label={t("skipToContent")} />
-              {children}
-              <Footer locale={locale} />
-            </MotionProvider>
-          </ConsentProvider>
-        </NextIntlClientProvider>
+        <ConsentProvider
+          ga4Id={process.env.NEXT_PUBLIC_GA4_ID}
+          clarityId={process.env.NEXT_PUBLIC_CLARITY_ID}
+          privacyHref={privacyHref(locale)}
+          labels={await getConsentLabels(locale)}
+        >
+          <MotionProvider ease="sine.inOut">
+            <SkipLink label={t("skipToContent")} />
+            {children}
+            <Footer locale={locale} />
+          </MotionProvider>
+        </ConsentProvider>
       </body>
     </html>
   );

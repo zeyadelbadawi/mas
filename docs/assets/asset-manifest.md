@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images (designer) | 13 | 0 | 13 |
+| Images (designer) | 38 | 0 | 38 |
 | Sequences (MAG) | 5 | 0 | 5 |
 
 ## MAS (mas.com)
@@ -43,7 +43,29 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | `covy.spaces.terrace` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | COVY outdoor terrace | التراس الخارجي في COVY | ⬜ placeholder |  |
 | `covy.spaces.shisha` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | COVY shisha area | منطقة الشيشة في COVY | ⬜ placeholder |  |
 | `covy.spaces.corner` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | COVY's photo corner | ركن التصوير في COVY | ⬜ placeholder |  |
+| `covy.visit.facade` | Landing · C10 Find us | 1200 × 1500 px | 4:5 | COVY's arched entrance | مدخل COVY المقوّس | ⬜ placeholder |  |
 | `covy.og` | All · Social share image | 1200 × 630 px | 40:21 | COVY | COVY | ⬜ placeholder |  |
+| `covy.menu.breakfast.hero` | Landing · Menu · Breakfast | 1600 × 1000 px | 8:5 | Breakfast at COVY | الفطار | ⬜ placeholder |  |
+| `covy.menu.covy-benedict` | Landing · Menu · Breakfast · COVY Benedict | 800 × 800 px | 1:1 | COVY Benedict | بينيديكت COVY | ⬜ placeholder |  |
+| `covy.menu.mezze.hero` | Landing · Menu · Mezze | 1600 × 1000 px | 8:5 | Mezze at COVY | المقبلات الشرقية | ⬜ placeholder |  |
+| `covy.menu.mezze-board` | Landing · Menu · Mezze · COVY mezze board | 800 × 800 px | 1:1 | COVY mezze board | تشكيلة مقبلات COVY | ⬜ placeholder |  |
+| `covy.menu.mediterranean.hero` | Landing · Menu · Mediterranean | 1600 × 1000 px | 8:5 | Mediterranean at COVY | البحر المتوسط | ⬜ placeholder |  |
+| `covy.menu.sea-bass` | Landing · Menu · Mediterranean · Grilled sea bass | 800 × 800 px | 1:1 | Grilled sea bass | قاروص مشوي | ⬜ placeholder |  |
+| `covy.menu.asian.hero` | Landing · Menu · Asian kitchen | 1600 × 1000 px | 8:5 | Asian kitchen at COVY | المطبخ الآسيوي | ⬜ placeholder |  |
+| `covy.menu.salmon-poke` | Landing · Menu · Asian kitchen · Salmon poke bowl | 800 × 800 px | 1:1 | Salmon poke bowl | بوكي سلمون | ⬜ placeholder |  |
+| `covy.menu.latin.hero` | Landing · Menu · Latin American | 1600 × 1000 px | 8:5 | Latin American at COVY | أمريكا اللاتينية | ⬜ placeholder |  |
+| `covy.menu.italian.hero` | Landing · Menu · Pasta & pizza | 1600 × 1000 px | 8:5 | Pasta & pizza at COVY | باستا وبيتزا | ⬜ placeholder |  |
+| `covy.menu.truffle-tagliatelle` | Landing · Menu · Pasta & pizza · Truffle tagliatelle | 800 × 800 px | 1:1 | Truffle tagliatelle | تالياتيلي بالترافل | ⬜ placeholder |  |
+| `covy.menu.desserts.hero` | Landing · Menu · Desserts | 1600 × 1000 px | 8:5 | Desserts at COVY | الحلويات | ⬜ placeholder |  |
+| `covy.menu.blue-tree-cake` | Landing · Menu · Desserts · Blue tree cake | 800 × 800 px | 1:1 | Blue tree cake | كيكة الشجرة الزرقاء | ⬜ placeholder |  |
+| `covy.menu.hot-coffee.hero` | Landing · Menu · Hot coffee | 1600 × 1000 px | 8:5 | Hot coffee at COVY | القهوة الساخنة | ⬜ placeholder |  |
+| `covy.menu.iced.hero` | Landing · Menu · Iced & signature | 1600 × 1000 px | 8:5 | Iced & signature at COVY | المثلجات والمشروبات المميزة | ⬜ placeholder |  |
+| `covy.menu.covy-signature` | Landing · Menu · Iced & signature · COVY signature iced latte | 800 × 800 px | 1:1 | COVY signature iced latte | آيس لاتيه COVY | ⬜ placeholder |  |
+| `covy.menu.tea-juices.hero` | Landing · Menu · Tea, juices & smoothies | 1600 × 1000 px | 8:5 | Tea, juices & smoothies at COVY | الشاي والعصائر والسموذي | ⬜ placeholder |  |
+| `covy.menu.shisha.hero` | Landing · Menu · Shisha | 1600 × 1000 px | 8:5 | Shisha at COVY | الشيشة | ⬜ placeholder |  |
+| `covy.events.brunch-club` | Landing · Events · Friday brunch club | 1200 × 900 px | 4:3 | Friday brunch club | برانش الجمعة | ⬜ placeholder |  |
+| `covy.events.oud-evening` | Landing · Events · Oud and coffee evening | 1200 × 900 px | 4:3 | Oud and coffee evening | أمسية عود وقهوة | ⬜ placeholder |  |
+| `covy.events.japan-week` | Landing · Events · World kitchen week: Japan | 1200 × 900 px | 4:3 | World kitchen week: Japan | أسبوع المطابخ: اليابان | ⬜ placeholder |  |
 
 ### Scroll sequences
 
@@ -59,6 +81,9 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
 | `aroma.og` | All · Social share image | 1200 × 630 px | 40:21 | Aroma Lounge | أروما لاونج | ⬜ placeholder |  |
+| `aroma.events.paella-night` | Landing · Events · Paella night | 1200 × 900 px | 4:3 | Paella night | ليلة الباييلا | ⬜ placeholder |  |
+| `aroma.events.terrace-jazz` | Landing · Events · Jazz on the terrace | 1200 × 900 px | 4:3 | Jazz on the terrace | جاز على التراس | ⬜ placeholder |  |
+| `aroma.events.new-year` | Landing · Events · New Year's Eve dinner | 1200 × 900 px | 4:3 | New Year's Eve dinner | عشاء ليلة رأس السنة | ⬜ placeholder |  |
 
 ### Scroll sequences
 

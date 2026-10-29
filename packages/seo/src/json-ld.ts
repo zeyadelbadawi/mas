@@ -1,4 +1,4 @@
-import type { Brand, Location } from "@mas/content";
+import type { Brand, Location, MenuCategory } from "@mas/content";
 import { localePath, siteOrigin, type Locale } from "./site";
 
 const DAYS = [
@@ -75,6 +75,30 @@ export function breadcrumbJsonLd(
       position: i + 1,
       name: item.name,
       item: `${origin}${localePath(locale, item.path)}`,
+    })),
+  };
+}
+
+/** schema.org Menu with sections and items (prices in EGP). */
+export function menuJsonLd(brand: Brand, menu: MenuCategory[], locale: Locale): Thing {
+  const origin = siteOrigin(brand);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "@id": `${origin}/#menu`,
+    name: `${brand.name[locale]} · ${locale === "ar" ? "المنيو" : "Menu"}`,
+    inLanguage: locale,
+    hasMenuSection: menu.map((c) => ({
+      "@type": "MenuSection",
+      name: c.name[locale],
+      description: c.intro[locale],
+      hasMenuItem: c.items.map((i) => ({
+        "@type": "MenuItem",
+        name: i.name[locale],
+        description: i.description[locale],
+        offers: { "@type": "Offer", price: i.priceEGP, priceCurrency: "EGP" },
+        ...(i.tags.includes("veg") ? { suitableForDiet: "https://schema.org/VegetarianDiet" } : {}),
+      })),
     })),
   };
 }

@@ -171,7 +171,11 @@ export function SequencePlayer({
     };
   }, [animated, lib, manifestUrl, fit, tier, poster.avif]);
 
-  const style = { "--scroll-vh": scrollVh } as CSSProperties;
+  // Static layouts show the poster with the overlay in its final state (e.g. the logo already in place).
+  const style = {
+    "--scroll-vh": scrollVh,
+    ...(staticLayout ? { "--seq-progress": 1 } : {}),
+  } as CSSProperties;
 
   return (
     <section
@@ -181,7 +185,9 @@ export function SequencePlayer({
       style={style}
       className={[
         "relative",
-        staticLayout ? "h-auto" : "h-[calc(var(--scroll-vh)*1svh)] motion-reduce:h-auto",
+        staticLayout
+          ? "h-auto"
+          : "h-[calc(var(--scroll-vh)*1svh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
         className ?? "",
       ].join(" ")}
     >

@@ -1,0 +1,135 @@
+"use client";
+
+import { Button } from "@mas/ui";
+import { LanguageSwitcher } from "@mas/ui/language-switcher";
+import { useRef } from "react";
+import { CovyWordmark } from "@/components/logo";
+
+const SECTIONS = ["story", "menu", "spaces", "events", "visit"] as const;
+
+export type HeaderLabels = Record<
+  (typeof SECTIONS)[number] | "label" | "book" | "open" | "close",
+  string
+> & {
+  switchTo: string;
+  switchToLabel: string;
+};
+
+/**
+ * Fixed, translucent sand bar so it reads over every hero frame. Phones get a full-screen menu in a
+ * native <dialog> (showModal gives focus containment, an inert page behind, Escape and focus return
+ * without a dialog library).
+ */
+/** Labels come from the server, so this client component ships no message formatter. */
+export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" | "ar" }) {
+  const t = (key: keyof HeaderLabels) => labels[key];
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const close = () => dialogRef.current?.close();
+
+  return (
+    <header className="bg-bg/80 border-line/60 fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-8">
+        <a href="#top" className="text-fg shrink-0" aria-label="COVY">
+          <CovyWordmark className="h-8 w-auto" />
+        </a>
+
+        <nav aria-label={t("label")} className="hidden lg:block">
+          <ul className="flex items-center gap-8 text-sm">
+            {SECTIONS.map((id) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className="text-fg/80 hover:text-fg underline-offset-8 hover:underline"
+                >
+                  {t(id)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher
+            className="hidden sm:inline-flex"
+            locale={locale}
+            label={labels.switchTo}
+            ariaLabel={labels.switchToLabel}
+          />
+          <Button asChild size="sm" className="hidden sm:inline-flex">
+            <a href="#reserve">{t("book")}</a>
+          </Button>
+          <button
+            type="button"
+            onClick={() => dialogRef.current?.showModal()}
+            className="text-fg rounded-control inline-flex size-10 items-center justify-center lg:hidden"
+            aria-label={t("open")}
+            aria-haspopup="dialog"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="size-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.6}
+            >
+              <path d="M4 8h16M4 16h16" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <dialog
+        ref={dialogRef}
+        aria-label={t("label")}
+        className="bg-bg text-fg m-0 h-dvh max-h-none w-screen max-w-none p-0 backdrop:bg-transparent"
+      >
+        <div className="flex h-full flex-col px-6 pt-5 pb-10">
+          <div className="flex items-center justify-between">
+            <CovyWordmark className="h-8 w-auto" />
+            <button
+              type="button"
+              onClick={close}
+              className="rounded-control inline-flex size-10 items-center justify-center"
+              aria-label={t("close")}
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="size-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+              >
+                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+          <nav aria-label={t("label")} className="mt-12 flex-1">
+            <ul className="flex flex-col gap-6">
+              {SECTIONS.map((id) => (
+                <li key={id}>
+                  <a href={`#${id}`} onClick={close} className="font-editorial text-4xl">
+                    {t(id)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="flex items-center justify-between gap-4">
+            <LanguageSwitcher
+              locale={locale}
+              label={labels.switchTo}
+              ariaLabel={labels.switchToLabel}
+            />
+            <Button asChild>
+              <a href="#reserve" onClick={close}>
+                {t("book")}
+              </a>
+            </Button>
+          </div>
+        </div>
+      </dialog>
+    </header>
+  );
+}

@@ -1,7 +1,7 @@
 "use client";
 
+import type { ConsentLabels } from "../consent-labels";
 import { Button, Checkbox } from "@mas/ui";
-import { useTranslations } from "next-intl";
 import {
   createContext,
   use,
@@ -112,6 +112,7 @@ type ConsentContextValue = {
   consent: Consent | null | undefined;
   save: (consent: Consent) => void;
   openPreferences: () => void;
+  labels: ConsentLabels;
 };
 
 const ConsentContext = createContext<ConsentContextValue | null>(null);
@@ -126,11 +127,19 @@ type ConsentProviderProps = {
   ga4Id?: string | undefined;
   clarityId?: string | undefined;
   privacyHref: string;
+  /** From getConsentLabels() on the server. */
+  labels: ConsentLabels;
   children: ReactNode;
 };
 
 /** Holds the cookie choice, loads GA4/Clarity only when allowed, and renders the banner. */
-export function ConsentProvider({ ga4Id, clarityId, privacyHref, children }: ConsentProviderProps) {
+export function ConsentProvider({
+  ga4Id,
+  clarityId,
+  privacyHref,
+  labels,
+  children,
+}: ConsentProviderProps) {
   const consent = fromSnapshot(useSyncExternalStore(subscribe, snapshot, () => SERVER));
   const [panel, setPanel] = useState<"closed" | "preferences">("closed");
 
@@ -165,10 +174,12 @@ export function ConsentProvider({ ga4Id, clarityId, privacyHref, children }: Con
   );
 
   const openPreferences = useCallback(() => setPanel("preferences"), []);
-  const showBanner = consent === null || panel === "preferences";
+  // Server render (consent undefined) includes the banner so it paints with the page; the boot
+  // script in <head> hides it before first paint when a choice is already stored.
+  const showBanner = consent === null || consent === undefined || panel === "preferences";
 
   return (
-    <ConsentContext value={{ consent, save, openPreferences }}>
+    <ConsentContext value={{ consent, save, openPreferences, labels }}>
       {children}
       {showBanner ? (
         <CookieBanner
@@ -179,6 +190,8 @@ export function ConsentProvider({ ga4Id, clarityId, privacyHref, children }: Con
           onSave={save}
           onClose={consent ? () => setPanel("closed") : undefined}
           showRecordings={Boolean(clarityId) || !ga4Id}
+          pending={consent === undefined}
+          labels={labels}
         />
       ) : null}
     </ConsentContext>
@@ -194,6 +207,9 @@ type CookieBannerProps = {
   onSave: (consent: Consent) => void;
   onClose: (() => void) | undefined;
   showRecordings: boolean;
+  /** Rendered before the cookie could be read (server HTML); CSS hides it if a choice exists. */
+  pending: boolean;
+  labels: ConsentLabels;
 };
 
 function CookieBanner({
@@ -203,9 +219,9 @@ function CookieBanner({
   onSave,
   onClose,
   showRecordings,
+  pending,
+  labels: t,
 }: CookieBannerProps) {
-  const t = useTranslations("consent");
-  const tc = useTranslations("common");
   const [view, setView] = useState(initialView);
   const [draft, setDraft] = useState<Consent>(current);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -225,6 +241,7 @@ function CookieBanner({
   return (
     <section
       aria-labelledby="consent-title"
+      {...(pending ? { "data-consent-pending": "" } : {})}
       className="rounded-card border-line bg-surface text-fg fixed inset-x-3 bottom-3 z-[90] mx-auto max-w-xl border p-5 shadow-2xl sm:inset-x-6 sm:bottom-6 sm:p-6"
     >
       <div className="flex items-start justify-between gap-4">
@@ -234,14 +251,14 @@ function CookieBanner({
           tabIndex={-1}
           className="text-lg font-semibold outline-none"
         >
-          {t("title")}
+          {t.title}
         </h2>
         {onClose ? (
           <button
             type="button"
             onClick={onClose}
             className="rounded-control text-muted hover:text-fg -m-2 p-2"
-            aria-label={tc("close")}
+            aria-label={t.close}
           >
             <svg
               aria-hidden="true"
@@ -257,9 +274,9 @@ function CookieBanner({
         ) : null}
       </div>
       <p className="text-muted mt-2 text-sm leading-relaxed">
-        {t("body")}{" "}
+        {t.body}{" "}
         <a href={privacyHref} className="text-fg hover:text-accent underline underline-offset-2">
-          {t("readPolicy")}
+          {t.readPolicy}
         </a>
       </p>
 
@@ -267,23 +284,23 @@ function CookieBanner({
         <div className="mt-4 flex flex-col gap-3">
           <Toggle
             id="consent-necessary"
-            label={t("necessary")}
-            hint={t("necessaryHint")}
+            label={t.necessary}
+            hint={t.necessaryHint}
             checked
             disabled
           />
           <Toggle
             id="consent-analytics"
-            label={t("analytics")}
-            hint={t("analyticsHint")}
+            label={t.analytics}
+            hint={t.analyticsHint}
             checked={draft.analytics}
             onChange={(analytics) => setDraft((d) => ({ ...d, analytics }))}
           />
           {showRecordings ? (
             <Toggle
               id="consent-recordings"
-              label={t("recordings")}
-              hint={t("recordingsHint")}
+              label={t.recordings}
+              hint={t.recordingsHint}
               checked={draft.recordings}
               onChange={(recordings) => setDraft((d) => ({ ...d, recordings }))}
             />
@@ -300,7 +317,7 @@ function CookieBanner({
             className="col-span-2 sm:order-first"
             onClick={() => onSave(draft)}
           >
-            {t("save")}
+            {t.save}
           </Button>
         ) : (
           <Button
@@ -309,14 +326,14 @@ function CookieBanner({
             className="col-span-2 sm:order-first sm:me-auto"
             onClick={() => setView("preferences")}
           >
-            {t("preferences")}
+            {t.preferences}
           </Button>
         )}
         <Button size="sm" variant="secondary" onClick={() => onSave(NONE)}>
-          {t("rejectAll")}
+          {t.rejectAll}
         </Button>
         <Button size="sm" variant="secondary" onClick={() => onSave(ALL)}>
-          {t("acceptAll")}
+          {t.acceptAll}
         </Button>
       </div>
     </section>
@@ -361,15 +378,14 @@ function Toggle({
 
 /** Footer link that reopens the preferences panel. */
 export function CookieSettingsButton({ className }: { className?: string }) {
-  const t = useTranslations("common");
-  const { openPreferences } = useConsent();
+  const { openPreferences, labels } = useConsent();
   return (
     <button
       type="button"
       onClick={openPreferences}
       className={className ?? "hover:text-fg underline-offset-2 hover:underline"}
     >
-      {t("cookieSettings")}
+      {labels.cookieSettings}
     </button>
   );
 }

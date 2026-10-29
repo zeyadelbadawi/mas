@@ -1,0 +1,96 @@
+// Sample events. All placeholders (CLAUDE.md rule 5) until the client sends the real calendar.
+// Type-only imports: the asset-manifest script loads this file with Node's type stripping.
+import type { BrandEvent } from "./types";
+
+export const events: BrandEvent[] = [
+  {
+    id: "covy-brunch-club",
+    brandId: "covy",
+    locationId: "covy-main",
+    title: { en: "Friday brunch club", ar: "برانش الجمعة" },
+    summary: {
+      en: "A long table, a set brunch menu from five kitchens and bottomless filter coffee.",
+      ar: "طاولة طويلة ومنيو برانش من خمس مطابخ وقهوة مفلترة بلا حدود.",
+    },
+    startsAt: "2026-11-13T11:00:00+02:00",
+    endsAt: "2026-11-13T15:00:00+02:00",
+    imageSlotId: "covy.events.brunch-club",
+    reservable: true,
+    placeholder: true,
+  },
+  {
+    id: "covy-oud-evening",
+    brandId: "covy",
+    locationId: "covy-main",
+    title: { en: "Oud and coffee evening", ar: "أمسية عود وقهوة" },
+    summary: {
+      en: "Live oud under the blue tree, with a tasting of three single-origin coffees.",
+      ar: "عود حي تحت الشجرة الزرقاء، مع تذوق ثلاثة أنواع بن من مصدر واحد.",
+    },
+    startsAt: "2026-11-20T20:00:00+02:00",
+    endsAt: "2026-11-20T23:00:00+02:00",
+    imageSlotId: "covy.events.oud-evening",
+    reservable: true,
+    placeholder: true,
+  },
+  {
+    id: "covy-japan-week",
+    brandId: "covy",
+    locationId: "covy-main",
+    title: { en: "World kitchen week: Japan", ar: "أسبوع المطابخ: اليابان" },
+    summary: {
+      en: "A week-long Japanese menu: ramen, gyoza and matcha desserts.",
+      ar: "منيو ياباني لمدة أسبوع: رامن وجيوزا وحلويات بالماتشا.",
+    },
+    startsAt: "2026-12-04T12:00:00+02:00",
+    endsAt: "2026-12-10T23:00:00+02:00",
+    imageSlotId: "covy.events.japan-week",
+    reservable: false,
+    placeholder: true,
+  },
+  {
+    id: "aroma-paella-night",
+    brandId: "aroma",
+    locationId: "aroma-city-stars",
+    title: { en: "Paella night", ar: "ليلة الباييلا" },
+    summary: {
+      en: "Paella cooked on the terrace in a pan big enough for the whole table.",
+      ar: "باييلا تُطهى على التراس في طاسة تكفي الطاولة كلها.",
+    },
+    startsAt: "2026-11-19T19:30:00+02:00",
+    endsAt: "2026-11-19T23:30:00+02:00",
+    imageSlotId: "aroma.events.paella-night",
+    reservable: true,
+    placeholder: true,
+  },
+  {
+    id: "aroma-terrace-jazz",
+    brandId: "aroma",
+    locationId: "aroma-city-stars",
+    title: { en: "Jazz on the terrace", ar: "جاز على التراس" },
+    summary: {
+      en: "A live trio under the lights, from sunset until late.",
+      ar: "ثلاثي حي تحت الأضواء، من الغروب حتى آخر الليل.",
+    },
+    startsAt: "2026-11-26T20:30:00+02:00",
+    endsAt: "2026-11-26T23:59:00+02:00",
+    imageSlotId: "aroma.events.terrace-jazz",
+    reservable: true,
+    placeholder: true,
+  },
+  {
+    id: "aroma-new-year",
+    brandId: "aroma",
+    locationId: "aroma-city-stars",
+    title: { en: "New Year's Eve dinner", ar: "عشاء ليلة رأس السنة" },
+    summary: {
+      en: "A set dinner menu and a countdown on the terrace.",
+      ar: "عشاء بمنيو خاص وعدّ تنازلي على التراس.",
+    },
+    startsAt: "2026-12-31T20:00:00+02:00",
+    endsAt: "2027-01-01T01:00:00+02:00",
+    imageSlotId: "aroma.events.new-year",
+    reservable: true,
+    placeholder: true,
+  },
+];

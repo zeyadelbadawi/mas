@@ -2,16 +2,16 @@ import { imageSlot } from "@mas/content";
 import { isLocale, type Locale } from "@mas/i18n";
 import { SequencePlayer } from "@mas/motion/sequence-player";
 import { ImageSlot, PlaceholderBadge } from "@mas/ui";
-import { LanguageSwitcher } from "@mas/ui/language-switcher";
+import { LanguageSwitch } from "@mas/ui/language-switch";
 import type { Metadata } from "next";
 import { internalPagesEnabled } from "@mas/seo";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import type { CSSProperties, ReactNode } from "react";
-import { ArchGallery } from "@/components/board/arch-gallery";
-import { Cuisines } from "@/components/board/cuisines";
-import { Drift } from "@/components/board/drift";
-import { CaladiumLeaf, Star, Terrazzo } from "@/components/board/motifs";
+import { ArchGallery } from "@/components/sections/arch-gallery";
+import { Cuisines } from "@/components/sections/cuisines";
+import { Drift } from "@/components/sections/drift";
+import { CaladiumLeaf, Star, Terrazzo } from "@/components/sections/motifs";
 
 // P2 art-direction board: how the COVY landing will look and move, scene by scene (docs/03 §4.2).
 // Internal review page; switches off at launch (SITE_INDEXABLE=true).
@@ -98,7 +98,7 @@ export default async function ArtDirection({ params }: PageProps<"/[locale]/art-
     <main id="main" className="bg-bg relative overflow-x-clip">
       <div className="absolute inset-x-0 top-0 z-10 mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-8">
         <PlaceholderBadge label="Internal · P2 art direction" />
-        <LanguageSwitcher />
+        <LanguageSwitch />
       </div>
 
       {/* C1 */}

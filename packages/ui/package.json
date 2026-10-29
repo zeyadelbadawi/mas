@@ -6,7 +6,8 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
-    "./language-switcher": "./src/client/language-switcher.tsx"
+    "./language-switcher": "./src/client/language-switcher.tsx",
+    "./language-switch": "./src/language-switch.tsx"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
