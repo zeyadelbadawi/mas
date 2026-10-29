@@ -9,4 +9,6 @@
 | [04-asset-pipeline.md](04-asset-pipeline.md) | MAG sequence production, credit budget, 3D models, designer handoff |
 | [05-master-plan.md](05-master-plan.md) | Phases, gates, client inputs, risks |
 
+Arabic translation for reading: [`ar/`](ar/) (same file names). The English files above are canonical; update both when a doc changes.
+
 Project rules for AI-assisted work: [`../CLAUDE.md`](../CLAUDE.md). Installed skills: [`../.claude/skills/SOURCES.md`](../.claude/skills/SOURCES.md).

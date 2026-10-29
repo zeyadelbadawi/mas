@@ -28,11 +28,11 @@ Decisions made with the project owner. Newest at the bottom. Change a decision o
 | D22 | 2026-10-29 | Skills | 28 vetted skills installed in `.claude/skills` (see `SOURCES.md`) | |
 | D23 | 2026-10-29 | Docs | Repo `docs/` is the source of truth; a published page mirrors it for review | |
 | D24 | 2026-10-29 | Phase 1 goal | Build MAS **home page** + COVY landing + Aroma landing → client demo → approval → rest of MAS | |
+| D25 | 2026-10-29 | Sequence media hosting | **Cloudflare R2** public bucket behind `media.mas.com` (Cloudflare cache in front) | Free tier: 10 GB storage, no egress fees. Activating R2 asks for a card/PayPal as verification; no charge inside the free tier. All 5 sequences ≈ 150 MB. |
+| D26 | 2026-10-29 | Digits in Arabic | **Western digits (0-9)** for prices, phones, dates, times | |
+| D27 | 2026-10-29 | Default locale | **English at `/`**, Arabic at `/ar` (`localePrefix: 'as-needed'`) | |
+| D28 | 2026-10-29 | Arabic docs | Arabic translation of the planning pack in `docs/ar/`; **English docs stay canonical** | Owner reads the Arabic version. |
 
 ## Open items (need the owner)
 
-| # | Question | Default if no answer |
-|---|---|---|
-| O1 | Host heavy scroll-sequence frames on **Cloudflare R2** (free, zero egress) instead of Vercel static files? Vercel Hobby bandwidth is limited (100 GB/month, see `02-architecture.md` §8). | R2 at `media.mas.com` |
-| O2 | Arabic: Western digits (0-9) or Arabic-Indic digits (٠-٩) for prices/phones/dates? | Western digits |
-| O3 | Default language at `/` — English or Arabic? | English at `/`, Arabic at `/ar` |
+None. Next gate: owner approval of the plan to start P1.

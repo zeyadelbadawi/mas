@@ -20,7 +20,7 @@ flowchart LR
 ## P0 — Discovery & planning ✅ (awaiting approval)
 
 Deliverables: decision log, PRD, architecture & system design (diagrams), experience design & storyboards, asset pipeline & credit budget, this plan, `CLAUDE.md`, 28 vetted skills.
-**Gate:** owner approves the docs and answers open items O1–O3.
+**Gate:** owner approves the docs (open items O1–O3 answered: D25–D27).
 
 ## P1 — Foundations
 
@@ -74,7 +74,7 @@ SEO (`seo-audit`, `ai-seo`, `schema`): metadata, OG images, sitemaps, robots, hr
 
 ## P9 — Launch & handover
 
-Client creates or upgrades to Vercel Pro and we transfer the projects. DNS cutover (apex, `www`, `covy`, `aroma`, Resend records, optional `media`). Production env vars, Search Console verification, smoke tests, 48-hour monitoring. Handover pack: runbook (how to edit menu/events data, add an article, rotate keys), credentials checklist, asset sources.
+Client creates or upgrades to Vercel Pro and we transfer the projects. DNS cutover (apex, `www`, `covy`, `aroma`, Resend records, `media` for R2). Production env vars, Search Console verification, smoke tests, 48-hour monitoring. Handover pack: runbook (how to edit menu/events data, add an article, rotate keys), credentials checklist, asset sources.
 
 ## Inputs needed from the client (collected in P7, not blocking earlier phases)
 
@@ -85,7 +85,7 @@ Real menus + prices · opening hours per location · addresses + map pins · pho
 | Risk | Impact | Mitigation |
 |---|---|---|
 | Resend free cap: 100 emails/day (≈ 50 reservations/day with auto-replies) | Lost emails on busy days | Turnstile + honeypot; monitor usage; client can upgrade Resend at handover if volume needs it |
-| Vercel Hobby is non-commercial and has bandwidth limits | Can't launch publicly on Hobby | Previews only on Hobby; production on the client's Pro; sequence frames on R2 (O1) |
+| Vercel Hobby is non-commercial and has bandwidth limits | Can't launch publicly on Hobby | Previews only on Hobby; production on the client's Pro; sequence frames on R2 (D25) |
 | AI video artifacts or off-brand details | Weak "wow", looks AI | Client renders as start frames, short controlled shots, no text in frames, owner review at drafts, `audit-ai-design-slop` |
 | Mobile performance with sequences + WebGL | Poor CWV, battery drain | Device tiers, mobile crops at half frame rate, lazy 3D chunk, posters for LCP |
 | Font substitutes drift from brand | Brand mismatch | Visual comparison in P2; owner approval |

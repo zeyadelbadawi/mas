@@ -27,7 +27,8 @@ Three websites in one monorepo:
 ## Stack
 
 Next.js (App Router, TypeScript strict) · pnpm + Turborepo · Tailwind CSS + shadcn/ui · GSAP (ScrollTrigger, SplitText) + Lenis · React Three Fiber · next-intl · react-hook-form + zod · Resend + React Email · Cloudflare Turnstile · Vitest + Playwright.
-Hosting: Vercel Hobby for testing → client's Vercel Pro for production.
+Hosting: Vercel Hobby for testing → client's Vercel Pro for production. Scroll-sequence frames: Cloudflare R2 behind `media.mas.com`.
+Locales: English at `/`, Arabic at `/ar`; Western digits (0-9) in both.
 
 ## Skills to use (installed in `.claude/skills`)
 

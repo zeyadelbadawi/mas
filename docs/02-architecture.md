@@ -15,7 +15,7 @@ flowchart LR
     AROMA[apps/aroma<br/>aroma.mas.com]
     FR["/api/forms/* route handlers<br/>(Node runtime)"]
   end
-  subgraph Media["Media CDN (O1: Cloudflare R2)"]
+  subgraph Media["Media CDN (Cloudflare R2 · media.mas.com)"]
     SEQ[(Scroll-sequence frames<br/>AVIF / WebP)]
   end
   subgraph Third["Free third-party services"]
@@ -410,14 +410,14 @@ Reviewed with the `security-and-hardening` skill before Milestone A and again be
 | LOW | `saveData`, 2G/3G effective type, or WebGL failure | Posters + light CSS/GSAP motion; no WebGL, no frames |
 | STATIC | `prefers-reduced-motion: reduce` | Final states, no pinning/scrubbing, normal document flow |
 
-**Where the frames live (open item O1):** each sequence is ~5–8 MB per full desktop view. Vercel Hobby includes about 100 GB/month of fast data transfer, roughly 12–20k full sequence views, which is enough for testing. For production we recommend Cloudflare R2 (free: 10 GB storage, no egress fees) behind `media.mas.com`. It isn't a backend, only static file hosting, and it keeps Vercel bandwidth for HTML/JS.
+**Where the frames live (D25):** each sequence is ~5–8 MB per full desktop view, so frames don't go through Vercel. Vercel Hobby includes about 100 GB/month of fast data transfer, roughly 12–20k full sequence views. Frames live in a Cloudflare R2 public bucket behind `media.mas.com` (free: 10 GB storage, no egress fees; all five sequences ≈ 150 MB). A Cloudflare cache rule serves repeat requests from the edge, so they don't count against R2's free monthly operations. It's static file hosting, not a backend. Activating R2 requires a card or PayPal for verification; there is no charge inside the free tier.
 
 ## 9. Internationalisation
 
-- next-intl with `[locale]` segment; `localePrefix: 'as-needed'` → English at `/`, Arabic at `/ar` (open item O3).
+- next-intl with `[locale]` segment; `localePrefix: 'as-needed'` → English at `/`, Arabic at `/ar` (D27).
 - `<html lang dir>` set per locale; Tailwind logical utilities (`ms-*`, `pe-*`, `start-*`) only; horizontal scroll sections and directional motion read `dir` and mirror.
 - Fonts per brand and locale (see `03-experience-design.md` §2).
-- Numbers/dates via `Intl` with Western digits by default (open item O2); prices `EGP`/`ج.م`.
+- Numbers/dates via `Intl` with Western digits (0-9) in both languages (D26), e.g. `ar-EG-u-nu-latn`; prices `EGP`/`ج.م`.
 - All content records use `LocalizedText`; CI fails if a key is missing in either language.
 
 ## 10. Analytics & consent
@@ -448,7 +448,7 @@ Consent stored in a first-party cookie for 6 months, editable from the footer li
 
 Env vars per app: `RESEND_API_KEY`, `MAIL_FROM`, `MAIL_TO`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_MEDIA_URL`.
 
-**DNS at launch (owner):** CNAMEs for `covy` and `aroma` (and `www`) to Vercel, apex A/ALIAS for `mas.com`, Resend SPF/DKIM records for the sending subdomain, DMARC TXT, optional `media` CNAME to R2.
+**DNS at launch (owner):** CNAMEs for `covy` and `aroma` (and `www`) to Vercel, apex A/ALIAS for `mas.com`, Resend SPF/DKIM records for the sending subdomain, DMARC TXT, `media` custom domain for the R2 bucket.
 
 **CI (GitHub Actions):** install → lint → typecheck → unit tests → build all apps (Turbo cache) → Playwright e2e + axe on preview → Lighthouse CI budgets → placeholder report.
 
