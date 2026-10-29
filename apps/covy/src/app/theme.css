@@ -1,0 +1,35 @@
+/* COVY — colours sampled from the brand guide (confirm with the brand designer). */
+:root {
+  --covy-navy: #262d3f;
+  --covy-slate: #7e98ae;
+  --covy-cocoa: #765f4d;
+  --covy-sand: #dcd4cf;
+  --covy-bronze: #b08d57;
+
+  --brand-bg: #e6e0dc;
+  --brand-fg: var(--covy-navy);
+  --brand-muted: #4a5368;
+  --brand-surface: #efebe8;
+  --brand-surface-2: #f6f3f1;
+  --brand-line: #c5bbb4;
+  --brand-accent: var(--covy-cocoa);
+  --brand-accent-fg: #fbf8f6;
+  --brand-focus: var(--covy-navy);
+  --brand-danger: #a32828;
+  --brand-success: #2f6b4a;
+  --brand-slot: #d6cdc7;
+  --brand-slot-fg: #4f4036;
+
+  --brand-font-display: var(--font-tenor), "Tenor Sans", Georgia, serif;
+  --brand-font-editorial: var(--font-marcellus), "Marcellus", Georgia, serif;
+  --brand-font-body: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --brand-radius-control: 0.25rem;
+  --brand-radius-card: 0.5rem;
+  --brand-ease: cubic-bezier(0.37, 0, 0.63, 1);
+}
+
+:root:lang(ar) {
+  --brand-font-display: var(--font-el-messiri), "El Messiri", "Segoe UI", sans-serif;
+  --brand-font-editorial: var(--font-el-messiri), "El Messiri", "Segoe UI", sans-serif;
+  --brand-font-body: var(--font-readex), "Readex Pro", "Segoe UI", sans-serif;
+}

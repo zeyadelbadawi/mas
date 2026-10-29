@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "@mas/config/styles/base.css";
+@import "./theme.css";
+
+@source "../../../../packages/ui/src";
+@source "../../../../packages/motion/src";
+@source "../../../../packages/forms/src";
+@source "../../../../packages/analytics/src";
+@source "../../../../packages/three/src";
+
+@theme inline {
+  --font-editorial: var(--brand-font-editorial);
+}

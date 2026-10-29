@@ -1,0 +1,38 @@
+/* Aroma Lounge — palette from the brand guide (p.15–16). */
+:root {
+  --aroma-grey: #aba6a6;
+  --aroma-charcoal: #202722;
+  --aroma-green: #8eb57a;
+  --aroma-beige: #e6e3d8;
+  --aroma-copper: #a5673f;
+  --aroma-rust: #5c2e1f;
+  --aroma-forest: #355e3b;
+  --aroma-butter: #f5e6b8;
+
+  --brand-bg: var(--aroma-beige);
+  --brand-fg: var(--aroma-charcoal);
+  --brand-muted: #4f5650;
+  --brand-surface: #eeece4;
+  --brand-surface-2: #f6f5f0;
+  --brand-line: #c9c5b8;
+  --brand-accent: var(--aroma-forest);
+  --brand-accent-fg: #f6f5f0;
+  --brand-focus: var(--aroma-forest);
+  --brand-danger: #9b2c1f;
+  --brand-success: var(--aroma-forest);
+  --brand-slot: #dcd8cb;
+  --brand-slot-fg: #3d4a3f;
+
+  --brand-font-display: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+  --brand-font-editorial: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+  --brand-font-body: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
+  --brand-radius-control: 0.375rem;
+  --brand-radius-card: 0.75rem;
+  --brand-ease: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+:root:lang(ar) {
+  --brand-font-display: var(--font-alexandria), "Alexandria", "Segoe UI", sans-serif;
+  --brand-font-editorial: var(--font-alexandria), "Alexandria", "Segoe UI", sans-serif;
+  --brand-font-body: var(--font-alexandria), "Alexandria", "Segoe UI", sans-serif;
+}

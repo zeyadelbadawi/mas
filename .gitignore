@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+.turbo/
+*.tsbuildinfo
+.env
+.env*.local
+.vercel/
+playwright-report/
+test-results/
+.DS_Store
+# generated sequence frames live on R2, not in git (except the small test sequence)
+public/sequences/*
+!public/sequences/test/
+next-env.d.ts

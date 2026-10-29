@@ -1,0 +1,99 @@
+/*
+ * Shared design-token layer for all three sites (Tailwind v4).
+ * Each app's theme.css defines the --brand-* values; components only use the semantic tokens below.
+ * Import order in an app: @import "tailwindcss"; @import "@mas/config/styles/base.css"; @import "./theme.css";
+ */
+
+@custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
+@custom-variant ltr (&:where([dir="ltr"], [dir="ltr"] *));
+@custom-variant motion-ok (@media (prefers-reduced-motion: no-preference));
+
+@theme inline {
+  --color-bg: var(--brand-bg);
+  --color-fg: var(--brand-fg);
+  --color-muted: var(--brand-muted);
+  --color-surface: var(--brand-surface);
+  --color-surface-2: var(--brand-surface-2);
+  --color-line: var(--brand-line);
+  --color-accent: var(--brand-accent);
+  --color-accent-fg: var(--brand-accent-fg);
+  --color-focus: var(--brand-focus);
+  --color-danger: var(--brand-danger);
+  --color-success: var(--brand-success);
+  --color-slot: var(--brand-slot);
+  --color-slot-fg: var(--brand-slot-fg);
+
+  --font-display: var(--brand-font-display);
+  --font-sans: var(--brand-font-body);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-control: var(--brand-radius-control, 0.375rem);
+  --radius-card: var(--brand-radius-card, 0.75rem);
+
+  --ease-brand: var(--brand-ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  /* Western digits everywhere (D26); tabular figures where numbers align. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Lenis smooth-scroll recommended styles. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}

@@ -1,0 +1,35 @@
+/* MAS — Proposal A (D2): Obsidian Black, Deep Crimson, Warm Ivory, Graphite. Dark-first, single theme. */
+:root {
+  color-scheme: dark;
+  --mas-obsidian: #0b0b0c;
+  --mas-crimson: #c21f30;
+  --mas-ivory: #f3efe7;
+  --mas-graphite: #28282a;
+
+  --brand-bg: var(--mas-obsidian);
+  --brand-fg: var(--mas-ivory);
+  --brand-muted: #a8a49c;
+  --brand-surface: #151517;
+  --brand-surface-2: #1d1d20;
+  --brand-line: #34343a;
+  --brand-accent: var(--mas-crimson);
+  --brand-accent-fg: #ffffff;
+  --brand-focus: #ff5a6a;
+  --brand-danger: #ff6b6b;
+  --brand-success: #4cc38a;
+  --brand-slot: #18181b;
+  --brand-slot-fg: #b9b3a8;
+
+  --brand-font-display: var(--font-bebas), "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  --brand-font-editorial: var(--font-inter), "Inter", system-ui, sans-serif;
+  --brand-font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --brand-radius-control: 0.125rem;
+  --brand-radius-card: 0.25rem;
+  --brand-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root:lang(ar) {
+  --brand-font-display: var(--font-cairo), "Cairo", "Segoe UI", sans-serif;
+  --brand-font-editorial: var(--font-plex-arabic), "IBM Plex Sans Arabic", "Segoe UI", sans-serif;
+  --brand-font-body: var(--font-plex-arabic), "IBM Plex Sans Arabic", "Segoe UI", sans-serif;
+}
