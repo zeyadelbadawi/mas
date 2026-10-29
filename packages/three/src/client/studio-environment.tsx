@@ -14,7 +14,8 @@ export function StudioEnvironment() {
   const texture = useMemo(() => {
     const pmrem = new PMREMGenerator(gl);
     const room = new RoomEnvironment();
-    const target = pmrem.fromScene(room, 0.04);
+    // 64 px is plenty for dark stone reflections and keeps the one-off build cheap on phones.
+    const target = pmrem.fromScene(room, 0, 0.1, 100, { size: 64 });
     room.dispose();
     pmrem.dispose();
     return target.texture;
