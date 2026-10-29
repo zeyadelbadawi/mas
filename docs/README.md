@@ -13,6 +13,7 @@
 | [runbooks/r2-setup.md](runbooks/r2-setup.md) | Cloudflare R2 bucket for full-size sequence frames, CORS, upload key |
 | [assets/sequence-log.md](assets/sequence-log.md) | Every MAG generation: keyframes, credits, review verdicts |
 | [reports/p2-performance.md](reports/p2-performance.md) | P2 performance check of the prototypes and the JS budget decision |
+| [reports/p3-covy.md](reports/p3-covy.md) | P3: COVY landing results, reviews and open items |
 
 Arabic translation for reading: [`ar/`](ar/) (same file names). The English files above are canonical; update both when a doc changes.
 

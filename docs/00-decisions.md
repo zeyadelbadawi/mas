@@ -34,6 +34,7 @@ Decisions made with the project owner. Newest at the bottom. Change a decision o
 | D28 | 2026-10-29 | Arabic docs | Arabic translation of the planning pack in `docs/ar/`; **English docs stay canonical** | Owner reads the Arabic version. |
 | D29 | 2026-10-29 | JS budget | **Keep ≤ 180 KB** initial JS per route; GSAP, ScrollTrigger, SplitText and Lenis load after first paint through `loadMotionLib()` | Measured: 166 KB initial + 53 KB deferred on every route. Animation code uses `useMotionEffect`; no direct `gsap` imports in apps. |
 | D30 | 2026-10-29 | `covy.hero` | Redo as **two 5-second shots** joined at the doorway (facade → doors → blue tree) | 965 credits. v1 flew through the terrace tree. |
+| D31 | 2026-10-29 | COVY logo | Interim logo traced from the vector artwork in the client's COVY Brand Identity Guide | Replace with the brand designer's official SVG files before launch. |
 
 ## Open items (need the owner)
 
