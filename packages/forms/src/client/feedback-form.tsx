@@ -178,7 +178,7 @@ export function FeedbackForm({ privacyHref, turnstileSiteKey, turnstileTheme }: 
   );
 }
 
-/** Five native radios rendered as stars: arrow keys move between them, screen readers read "4 stars". */
+/** Five native radios rendered as stars (filling from the start side, so right-to-left in Arabic). */
 function StarRating({
   name,
   legend,
@@ -209,7 +209,7 @@ function StarRating({
           <span className="text-muted ms-1.5 font-normal">({optionalLabel})</span>
         ) : null}
       </legend>
-      <div className="flex gap-1" dir="ltr">
+      <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((n) => (
           <label
             key={n}

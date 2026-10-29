@@ -15,3 +15,4 @@ test-results/
 public/sequences/*
 !public/sequences/test/
 next-env.d.ts
+test-results/

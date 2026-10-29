@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ConsentProvider } from "@mas/analytics/consent";
 import { directions, routing } from "@mas/i18n";
+import { MotionProvider } from "@mas/motion/provider";
 import { pageMetadata } from "@mas/seo";
 import { SkipLink } from "@mas/ui";
 import { Footer } from "@/components/footer";
@@ -39,9 +40,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
             clarityId={process.env.NEXT_PUBLIC_CLARITY_ID}
             privacyHref={privacyHref(locale)}
           >
-            <SkipLink label={t("skipToContent")} />
-            {children}
-            <Footer locale={locale} />
+            <MotionProvider>
+              <SkipLink label={t("skipToContent")} />
+              {children}
+              <Footer locale={locale} />
+            </MotionProvider>
           </ConsentProvider>
         </NextIntlClientProvider>
       </body>

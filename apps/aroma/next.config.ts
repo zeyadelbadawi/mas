@@ -8,6 +8,8 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Project rules live in the root CLAUDE.md; don't let `next dev` write AGENTS.md files.
+  agentRules: false,
   transpilePackages: [
     "@mas/analytics",
     "@mas/content",
