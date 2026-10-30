@@ -26,8 +26,8 @@ export type SequencePlayerProps = {
   priority?: boolean;
   /**
    * Continue the previous sequence without a cut: its last frame must be this one's first. The section is
-   * pulled up one screen so it pins exactly where the previous stage unpins, and its stage stays hidden until
-   * then, so the previous one shows through.
+   * pulled up one screen so it pins exactly where the previous stage unpins, and its stage stays invisible
+   * until then, so the previous one shows through.
    */
   overlapPrevious?: boolean;
   /**
@@ -53,18 +53,15 @@ async function canDecodeAvif(url: string): Promise<boolean> {
   }
 }
 
-function chooseVariant(
-  manifest: SequenceManifest,
-  tierMid: boolean,
-  dprCap: number,
-): SequenceVariant | undefined {
+function chooseVariant(manifest: SequenceManifest, tierMid: boolean): SequenceVariant | undefined {
   const find = (name: SequenceVariant["name"]) => manifest.variants.find((v) => v.name === name);
   const portrait = window.innerWidth / window.innerHeight < 0.9;
   if (tierMid || portrait) return find("mobile") ?? manifest.variants[0];
   const desktop = find("desktop");
-  // The large variant only when the canvas has more device pixels than the standard desktop frames.
-  const canvasWidth = window.innerWidth * Math.min(window.devicePixelRatio || 1, dprCap);
-  const xl = desktop && canvasWidth > desktop.width ? find("desktop-xl") : undefined;
+  // The large variant only for screens wider than the standard frames in CSS pixels (big monitors). A
+  // high-density laptop gets the standard frames: the larger ones decode about 1.8x slower, which a scrub
+  // shows as frames trailing the scroll, while the sharpness gain on a moving image is slight.
+  const xl = desktop && window.innerWidth > desktop.width ? find("desktop-xl") : undefined;
   return xl ?? desktop ?? manifest.variants[0];
 }
 
@@ -130,6 +127,9 @@ export function SequencePlayer({
     let lastDrawn: ImageBitmap | undefined;
     let raf = 0;
     let near = false;
+    let onScreen = false;
+    let nearNow = false;
+    const update = (): void => cache?.setMode(onScreen ? "playing" : nearNow ? "ready" : "standby");
     const dprCap = tier === "MID" ? 1.5 : 2;
 
     const resize = () => {
@@ -181,7 +181,7 @@ export function SequencePlayer({
       const [res, avif] = await Promise.all([fetch(manifestUrl), canDecodeAvif(poster.avif)]);
       if (!res.ok || cancelled) return;
       manifest = (await res.json()) as SequenceManifest;
-      variant = chooseVariant(manifest, tier === "MID", dprCap);
+      variant = chooseVariant(manifest, tier === "MID");
       if (!variant || cancelled) return;
       format = avif ? "avif" : "webp";
       const template = variant[format];
@@ -194,16 +194,21 @@ export function SequencePlayer({
         },
         {
           ...cacheWindow(variant, tier === "MID"),
+          // Decoding runs off the main thread; more cores keep up with a faster scroll.
+          maxDecodes: Math.min(
+            4,
+            Math.max(2, Math.floor((navigator.hardwareConcurrency || 4) / 2)),
+          ),
           // Any new frame may be closer to the scroll position than the one on screen.
           onReady: schedule,
         },
       );
       if (near) cache.preloadAll();
       resize();
-      // Hidden only before it pins (the previous stage shows through); after its end it scrolls away as usual.
-      // Checked on every update too: a jump from below the section to above it never toggles it.
+      // Without a scroll-driven timeline, hide the stage from a script; it can trail the scroll by a frame.
       const reveal = (self: { scroll(): number; start: number }) => {
-        if (overlapPrevious) stage.style.visibility = self.scroll() < self.start ? "hidden" : "";
+        if (overlapPrevious && !reveals)
+          stage.style.visibility = self.scroll() < self.start ? "hidden" : "";
       };
       trigger = ScrollTrigger.create({
         trigger: section,
@@ -214,12 +219,33 @@ export function SequencePlayer({
           reveal(self);
           onProgress(self.progress, self.direction);
         },
+        // Fires at the boundaries even when onUpdate doesn't (e.g. scrolling back to exactly the start).
         onToggle: reveal,
         onRefresh: reveal,
       });
       reveal(trigger);
+      update();
       onProgress(trigger.progress, 1);
     })();
+
+    // Overlapping sections: the stage stays invisible until its section reaches the top of the screen, where
+    // it pins over the previous stage's identical last frame. A ViewTimeline animation does this inside the
+    // browser's own scrolling, so it is exact even when the compositor scrolls ahead of JavaScript (a fast
+    // flick back up, the scrollbar); "entry" ends as the section's top reaches the top of the viewport.
+    let reveals: Animation | null = null;
+    if (overlapPrevious && typeof window.ViewTimeline === "function") {
+      // Opacity runs on the compositor (no lag); visibility keeps the hidden stage from taking clicks.
+      const hidden = { opacity: 0, visibility: "hidden" };
+      reveals = stage.animate(
+        [hidden, { ...hidden, offset: 0.999 }, { opacity: 1, visibility: "visible" }],
+        {
+          timeline: new window.ViewTimeline({ subject: section }),
+          rangeStart: "entry 0%",
+          rangeEnd: "entry 100%",
+          fill: "both",
+        } as KeyframeAnimationOptions,
+      );
+    }
 
     const ro = new ResizeObserver(resize);
     ro.observe(stage);
@@ -237,12 +263,32 @@ export function SequencePlayer({
     );
     io.observe(section);
 
+    // On screen it plays; within a screen and a half it gets ready without slowing the one playing; further
+    // away it frees its decoded frames. A section that overlaps the previous one is on screen (under it) a
+    // screen before it pins.
+    const seen = new IntersectionObserver(([entry]) => {
+      onScreen = Boolean(entry?.isIntersecting);
+      update();
+    });
+    const around = new IntersectionObserver(
+      ([entry]) => {
+        nearNow = Boolean(entry?.isIntersecting);
+        update();
+      },
+      { rootMargin: "150% 0px" },
+    );
+    seen.observe(section);
+    around.observe(section);
+
     return () => {
       cancelled = true;
-      stage.style.visibility = "";
       if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
+      seen.disconnect();
+      reveals?.cancel();
+      stage.style.visibility = "";
+      around.disconnect();
       trigger?.kill();
       cache?.destroy();
     };
@@ -265,7 +311,7 @@ export function SequencePlayer({
         staticLayout
           ? "h-auto"
           : "h-[calc(var(--scroll-vh)*1svh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
-        // The pulled-up box would sit over the end of the previous section; only the stage takes pointer events.
+        // The pulled-up box sits over the end of the previous section; only the stage takes pointer events.
         overlapPrevious && !staticLayout
           ? "pointer-events-none -mt-[100svh] motion-reduce:pointer-events-auto motion-reduce:mt-0"
           : "",

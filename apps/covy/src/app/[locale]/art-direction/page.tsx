@@ -77,7 +77,7 @@ const CUISINES = [
 const SPACES = [
   { id: "indoor", en: "Indoor", ar: "الصالة الداخلية" },
   { id: "terrace", en: "Terrace", ar: "التراس" },
-  { id: "shisha", en: "Shisha area", ar: "منطقة الشيشة" },
+  { id: "bar", en: "The bar", ar: "البار" },
   { id: "corner", en: "Photo corner", ar: "ركن التصوير" },
 ] as const;
 
@@ -253,7 +253,7 @@ export default async function ArtDirection({ params }: PageProps<"/[locale]/art-
             label: s[locale],
             image: (
               <ImageSlot
-                {...imageSlot(`covy.spaces.${s.id}`)}
+                {...imageSlot(`covy.spaces.${s.id}.1`)}
                 locale={locale}
                 sizes="(min-width: 1024px) 25vw, 50vw"
               />

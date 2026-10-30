@@ -110,7 +110,7 @@ export default async function KitchenSink({ params }: PageProps<"/[locale]/kitch
         <Section title="Image slots">
           <div className="grid gap-4 md:grid-cols-3">
             <ImageSlot
-              {...imageSlot("covy.spaces.indoor")}
+              {...imageSlot("covy.spaces.indoor.1")}
               locale={locale}
               sizes="(min-width: 768px) 33vw, 100vw"
             />

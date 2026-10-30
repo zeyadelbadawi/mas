@@ -149,6 +149,7 @@ classDiagram
     -bitmaps: Map~number, ImageBitmap~
     +preloadAll()
     +prioritise(index, direction)
+    +setMode(playing|ready|standby)
     +get(index) ImageBitmap?
     +nearest(index) ImageBitmap?
   }

@@ -77,8 +77,19 @@
     "intro": "Arched windows, terrazzo floors and a blue tree at the centre. Pick your corner.",
     "indoor": "Indoor",
     "terrace": "Terrace",
-    "shisha": "Shisha area",
-    "corner": "Photo corner"
+    "bar": "The bar",
+    "corner": "Photo corner",
+    "indoorLine": "The blue tree, curved banquettes and terrazzo underfoot.",
+    "terraceLine": "Long tables facing the arches, best in the late sun.",
+    "barLine": "Black arches, the copper espresso machine and the pastry case.",
+    "cornerLine": "Sculpted blue flowers over a white booth, made for photos.",
+    "open": "View photo: {alt}",
+    "viewer": "Photo viewer",
+    "close": "Close",
+    "next": "Next photo",
+    "previous": "Previous photo",
+    "count": "{n} of {total}",
+    "index": "Spaces"
   },
   "events": {
     "title": "Events at COVY",

@@ -3,6 +3,15 @@ import { downloadOrder, evictable, framePriority } from "./frame-math";
 type Fetcher = (index: number, signal: AbortSignal) => Promise<Blob>;
 type Decoder<T> = (blob: Blob) => Promise<T>;
 
+export type CacheMode = "playing" | "ready" | "standby";
+
+/**
+ * Frames kept decoded ahead of / behind the current one on standby: enough to open on. The rest is freed, so
+ * three sequences don't hold ~250 MB of decoded frames each; a sequence gets its full window back ("ready")
+ * a screen and a half before it plays.
+ */
+const STANDBY: [number, number] = [6, 2];
+
 /** Tries per frame before a failed download is given up on. */
 const MAX_ATTEMPTS = 3;
 
@@ -22,6 +31,7 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
   private current = 0;
   private direction: 1 | -1 = 1;
   private preloading = false;
+  private mode: CacheMode = "playing";
   private destroyed = false;
   private readonly decode: Decoder<T>;
   private readonly maxDownloads: number;
@@ -74,22 +84,45 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
   prioritise(current: number, direction: 1 | -1): void {
     this.current = current;
     this.direction = direction;
-    const shown = nearestKey(this.bitmaps, current, this.frameCount);
-    for (const i of evictable(this.bitmaps.keys(), current, ...this.keepWindow())) {
+    this.evict();
+    this.pumpDownloads();
+    this.pumpDecodes();
+  }
+
+  /**
+   * "playing": on screen, full window at full decode speed. "ready": next up, full window but one decode at
+   * a time, so it doesn't slow the sequence playing. "standby": far away, a smaller window (one decode at a
+   * time) and the rest of the memory freed. Downloads carry on in every mode.
+   */
+  setMode(mode: CacheMode): void {
+    if (mode === this.mode) return;
+    this.mode = mode;
+    this.evict();
+    this.pumpDecodes();
+  }
+
+  private evict(): void {
+    const shown = nearestKey(this.bitmaps, this.current, this.frameCount);
+    for (const i of evictable(this.bitmaps.keys(), this.current, ...this.keepWindow())) {
       // Keep the frame on screen until a closer one is decoded.
       if (i === shown) continue;
       this.bitmaps.get(i)?.close();
       this.bitmaps.delete(i);
     }
-    this.pumpDownloads();
-    this.pumpDecodes();
+  }
+
+  /** Frames to decode ahead of / behind the current one: the full window unless on standby. */
+  private window(): [number, number] {
+    if (this.mode !== "standby") return [this.ahead, this.behind];
+    return [Math.min(STANDBY[0], this.ahead), Math.min(STANDBY[1], this.behind)];
   }
 
   /** [keepAhead, keepBehind] in index terms, with a little slack so small back-and-forth scrolls don't re-decode. */
   private keepWindow(): [number, number] {
-    const slack = Math.ceil((this.ahead + this.behind) / 4);
-    const forward = this.ahead + slack;
-    const backward = this.behind + slack;
+    const [ahead, behind] = this.window();
+    const slack = this.mode === "standby" ? 0 : Math.ceil((ahead + behind) / 4);
+    const forward = ahead + slack;
+    const backward = behind + slack;
     return this.direction === 1 ? [forward, backward] : [backward, forward];
   }
 
@@ -134,16 +167,21 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
   }
 
   private pumpDecodes(): void {
-    const free = this.maxDecodes - this.decoding.size;
+    const free = (this.mode === "playing" ? this.maxDecodes : 1) - this.decoding.size;
     if (this.destroyed || free <= 0) return;
     const { current, frameCount } = this;
-    const wanted = framePriority(
+    // Coarse to fine inside the window: the frames right at the scroll position, then every 16th, 8th, ...
+    // A fast scroll moves on before consecutive frames would be ready, so this keeps a decoded frame within
+    // a few frames of wherever it lands, instead of a run of frames it has already passed.
+    const wanted = downloadOrder(
+      framePriority(current, frameCount, ...this.window(), this.direction).filter(
+        (i) => this.blobs.has(i) && !this.bitmaps.has(i) && !this.decoding.has(i),
+      ),
       current,
       frameCount,
-      this.ahead,
-      this.behind,
       this.direction,
-    ).filter((i) => this.blobs.has(i) && !this.bitmaps.has(i) && !this.decoding.has(i));
+      2,
+    );
     // While the current frame is still downloading, decode the closest one that has arrived.
     if (!this.blobs.has(current)) {
       const arrived = nearestKey(this.blobs, current, frameCount);
