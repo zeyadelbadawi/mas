@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, type CanvasProps } from "@react-three/fiber";
+import { Canvas, useThree, type CanvasProps } from "@react-three/fiber";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useMotion } from "@mas/motion/provider";
 
@@ -62,8 +62,22 @@ export function SceneCanvas({ poster, children, label, className, camera }: Scen
           }}
         >
           {children}
+          <Prewarm />
         </Canvas>
       ) : null}
     </div>
   );
+}
+
+/**
+ * Compiles the shaders and uploads the buffers once on mount, even while off screen (frameloop "never"),
+ * so the first visible frame is cheap. Mounted after the scene's children, so they are in place.
+ */
+function Prewarm() {
+  const { gl, scene, camera } = useThree();
+  useEffect(() => {
+    gl.compile(scene, camera);
+    gl.render(scene, camera);
+  }, [gl, scene, camera]);
+  return null;
 }

@@ -132,6 +132,8 @@ classDiagram
   class SequencePlayer {
     +manifest: SequenceManifest
     +scrollVh: number
+    +holdVh: number
+    +frameOverlay?: ReactNode
     +fit: contain|cover
     +focal: Point
     +posterFrame: number

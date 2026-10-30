@@ -3,7 +3,10 @@ import { SequencePlayer } from "@mas/motion/sequence-player";
 import { getTranslations } from "next-intl/server";
 import { CovyWordmark } from "@/components/logo";
 
-/** C1: scroll walks from the facade, through the doors, to the blue tree; the logo settles in at the end. */
+/**
+ * C1: scroll walks from the facade, through the doors, to the blue tree; the logo settles in at the end,
+ * then rises toward the centre and grows a little over a short hold on the last frame.
+ */
 export async function Hero() {
   const t = await getTranslations("hero");
   const home = await getTranslations("home");
@@ -11,7 +14,14 @@ export async function Hero() {
   return (
     <div id="top">
       <h1 className="sr-only">{t("title")}</h1>
-      <SequencePlayer id="covy.hero" {...src} label={t("title")} scrollVh={300} priority>
+      <SequencePlayer
+        id="covy.hero"
+        {...src}
+        label={t("title")}
+        scrollVh={300}
+        holdVh={50}
+        priority
+      >
         <div className="relative h-full">
           {/* Opening frames: a quiet line in the sky area and a cue, gone after the first steps. */}
           <div
@@ -26,10 +36,23 @@ export async function Hero() {
             className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-t from-[#262d3f]/75 via-[#262d3f]/10 to-transparent pb-[12vh] text-center text-[var(--covy-sand)]"
             style={{ opacity: "clamp(0, calc((var(--seq-progress, 0) - 0.8) * 8), 1)" }}
           >
-            <CovyWordmark className="h-auto w-[min(72vw,30rem)]" />
-            <p className="font-display mt-6 text-sm tracking-[0.35em] uppercase sm:text-base">
-              {home("tagline")}
-            </p>
+            {/* The centre of the last frame is the pale mural; a soft shade keeps the risen logo legible. */}
+            <div
+              className="absolute inset-0 bg-[radial-gradient(60%_45%_at_50%_50%,#262d3fb3_0%,transparent_100%)]"
+              style={{ opacity: "var(--seq-hold, 0)" }}
+            />
+            <div
+              className="relative flex flex-col items-center"
+              style={{
+                transform:
+                  "translateY(calc(var(--seq-hold, 0) * -25svh)) scale(calc(1 + var(--seq-hold, 0) * 0.1))",
+              }}
+            >
+              <CovyWordmark className="h-auto w-[min(72vw,30rem)]" />
+              <p className="font-display mt-6 text-sm tracking-[0.35em] uppercase sm:text-base">
+                {home("tagline")}
+              </p>
+            </div>
           </div>
         </div>
       </SequencePlayer>

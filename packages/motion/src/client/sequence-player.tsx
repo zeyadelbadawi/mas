@@ -17,8 +17,18 @@ export type SequencePlayerProps = {
   label: string;
   /** Scroll length of the section in viewport heights. */
   scrollVh?: number;
+  /**
+   * Extra scroll (viewport heights) after the last frame, for overlay motion on the held final frame.
+   * Overlays read it as `--seq-hold` (0..1); `--seq-progress` still reaches 1 on the last frame.
+   */
+  holdVh?: number;
   fit?: "cover" | "contain";
   priority?: boolean;
+  /**
+   * Layer sized and placed exactly like the frame (cropped like it on any screen), for marks that must
+   * stay on an object in the footage: position children in % of the frame. Assumes the centred focal point.
+   */
+  frameOverlay?: ReactNode;
   /** HTML copy layered over the stage. Reads `--seq-progress` (0..1) from CSS if it needs to. */
   children?: ReactNode;
   className?: string;
@@ -76,8 +86,10 @@ export function SequencePlayer({
   poster,
   label,
   scrollVh = 280,
+  holdVh = 0,
   fit = "cover",
   priority = false,
+  frameOverlay,
   children,
   className,
 }: SequencePlayerProps) {
@@ -144,10 +156,16 @@ export function SequencePlayer({
       if (!raf) raf = requestAnimationFrame(draw);
     };
 
+    // Share of the section's scroll distance (its height minus one screen) that scrubs the frames.
+    const framesEnd = holdVh > 0 ? (scrollVh - 100) / (scrollVh + holdVh - 100) : 1;
+
     const onProgress = (progress: number, direction: number) => {
-      section.style.setProperty("--seq-progress", progress.toFixed(4));
+      const frames = Math.min(1, progress / framesEnd);
+      const hold = framesEnd < 1 ? Math.max(0, (progress - framesEnd) / (1 - framesEnd)) : 0;
+      section.style.setProperty("--seq-progress", frames.toFixed(4));
+      section.style.setProperty("--seq-hold", Math.min(1, hold).toFixed(4));
       if (!variant || !cache) return;
-      current = progressToFrame(progress, variant.frameCount);
+      current = progressToFrame(frames, variant.frameCount);
       cache.prioritise(current, direction < 0 ? -1 : 1);
       schedule();
     };
@@ -209,11 +227,11 @@ export function SequencePlayer({
       trigger?.kill();
       cache?.destroy();
     };
-  }, [animated, lib, manifestUrl, fit, tier, poster.avif]);
+  }, [animated, lib, manifestUrl, fit, tier, poster.avif, scrollVh, holdVh]);
 
   // Static layouts show the poster with the overlay in its final state (e.g. the logo already in place).
   const style = {
-    "--scroll-vh": scrollVh,
+    "--scroll-vh": scrollVh + holdVh,
     ...(staticLayout ? { "--seq-progress": 1 } : {}),
   } as CSSProperties;
 
@@ -233,11 +251,13 @@ export function SequencePlayer({
     >
       <div
         ref={stageRef}
-        className={
+        className={[
+          // A size container, so the frame overlay can match the frame with cqw/cqh alone.
+          "[container-type:size]",
           staticLayout
             ? "relative aspect-(--poster-ratio) w-full overflow-hidden"
-            : "sticky top-0 h-svh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto"
-        }
+            : "sticky top-0 h-svh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto",
+        ].join(" ")}
         style={{ "--poster-ratio": `${poster.width} / ${poster.height}` } as CSSProperties}
       >
         <picture>
@@ -263,6 +283,18 @@ export function SequencePlayer({
             className="absolute inset-0 h-full w-full transition-opacity duration-300"
             style={{ opacity: painted ? 1 : 0 }}
           />
+        ) : null}
+        {frameOverlay ? (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/2 left-1/2 aspect-(--poster-ratio) -translate-x-1/2 -translate-y-1/2"
+            // object-fit for a box: as wide as the frame is drawn, cropped or letterboxed like it.
+            style={{
+              width: `${fit === "cover" ? "max" : "min"}(100cqw, 100cqh * ${poster.width} / ${poster.height})`,
+            }}
+          >
+            {frameOverlay}
+          </div>
         ) : null}
         {children ? <div className="absolute inset-0">{children}</div> : null}
       </div>
