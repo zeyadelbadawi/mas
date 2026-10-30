@@ -38,3 +38,25 @@ Spent: **965 credits** (1 keyframe × 65 + 2 Kling 3.0 shots × 450). Quoted at 
 | Shot A | Facade → doorway, passing to the right of the tree (5 s) | Good |
 | Shot B | Doorway → blue tree and mural (5 s) | Good |
 | Joined clip | `ffmpeg` concat, no visible seam; shot B moves about 40% slower, so the camera settles at the door | **Approved for the board.** For the final, sample shot A more densely to even the pace |
+
+## Full-size finals (P3)
+
+The approved 1080p drafts are promoted to finals (no Seedance re-render). Every source clip is in the MAG project "MAS Websites — P2 sequences". Downloading them costs no credits.
+
+| Sequence | MAG creation | Source |
+|---|---|---|
+| `covy.hero` | `s7poaEFl8e` (`covy-hero-final.mp4`) | Shots A + B joined, shot B sped up 1.4× so the walk keeps one pace (uploaded, not generated) |
+| `covy.signature` | `MBsx3d8DCm` | Kling 3.0 draft as is |
+| `aroma.hero` | `3zufgGCREY` | Kling 3.0 draft as is |
+| `aroma.terrace` | `kscnh8t16B` | Kling 3.0 draft as is |
+| `mas.portal` | `nVKqyVZYQD` | Kling 3.0 draft as is |
+
+Build and upload, with default settings (150 frames, 1920×1080 desktop, 1080×1350 mobile, focal 0.5,0.5):
+
+```bash
+pnpm sequence:build --input covy-hero-final.mp4 --id covy.hero --out out/sequences
+pnpm sequence:build --input covy-signature.mp4 --id covy.signature --out out/sequences
+pnpm sequence:upload --dir out/sequences
+```
+
+The upload needs the `R2_*` variables from `docs/runbooks/r2-setup.md`. After it finishes, set `NEXT_PUBLIC_MEDIA_URL` on the Vercel project and redeploy.
