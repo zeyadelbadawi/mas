@@ -2,6 +2,7 @@ import { sequenceSource } from "@mas/motion";
 import { SequencePlayer } from "@mas/motion/sequence-player";
 import { getTranslations } from "next-intl/server";
 import type { CSSProperties } from "react";
+import { CovyWordmark } from "@/components/logo";
 import { Star } from "@/components/sections/motifs";
 
 /** Fades a label in once the pour passes `at` (0..1). */
@@ -23,7 +24,28 @@ export async function Signature() {
   const src = sequenceSource("covy.signature");
   return (
     <section aria-labelledby="signature-title">
-      <SequencePlayer id="covy.signature" {...src} label={t("body")} scrollVh={280}>
+      <SequencePlayer
+        id="covy.signature"
+        {...src}
+        label={t("body")}
+        scrollVh={280}
+        frameOverlay={
+          // COVY's mark printed on the glass, layered over the footage (never baked into the frames).
+          // White with a fine navy edge, so it reads over the ice, the milk and the coffee alike; set low on
+          // the glass, clear of the ingredient labels.
+          <div className="absolute top-[69%] left-1/2 w-[10%] -translate-x-1/2 opacity-90">
+            <CovyWordmark
+              className="h-auto w-full text-white"
+              style={{
+                stroke: "#262d3f",
+                strokeWidth: 3,
+                paintOrder: "stroke",
+                strokeLinejoin: "round",
+              }}
+            />
+          </div>
+        }
+      >
         <div className="relative mx-auto h-full max-w-6xl px-4 text-[var(--covy-sand)] sm:px-8">
           {/* On phones the copy sits over the glass, so it gets a soft navy backing. */}
           <div className="absolute inset-x-0 top-0 h-[55vh] bg-gradient-to-b from-[#262d3f]/90 from-40% to-transparent sm:hidden" />
