@@ -4,6 +4,7 @@ import { JsonLd, menuJsonLd, restaurantJsonLd } from "@mas/seo";
 import { notFound } from "next/navigation";
 import type { AbstractIntlMessages } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { Connector } from "@/components/landing/connector";
 import { Events } from "@/components/landing/events";
 import { Header } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
@@ -12,7 +13,6 @@ import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { Reviews } from "@/components/landing/reviews";
 import { Signature } from "@/components/landing/signature";
 import { Spaces } from "@/components/landing/spaces";
-import { Story } from "@/components/landing/story";
 import { Taste } from "@/components/landing/taste";
 import { Visit } from "@/components/landing/visit";
 import { brand, privacyHref } from "@/site";
@@ -79,7 +79,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           ]}
         />
         <Hero />
-        <Story />
+        <Connector />
         <Signature />
         <Taste locale={locale} />
         <Menu locale={locale} />
