@@ -113,3 +113,5 @@ pnpm sequence:upload --dir out/sequences --only covy.connector,covy.signature.r2
 ```
 
 The signature goes to a new path because frames are cached for a week under the same names; the site asks for it with `sequenceSource("covy.signature", { rev: 2 })`. The 960×540 drafts in `apps/covy/public/sequences/drafts` were rebuilt from the same clips (96 frames).
+
+**Built and uploaded on 2026-10-30.** `covy.connector`: 180 desktop + 180 desktop-xl + 90 mobile frames (903 files); `covy.signature.r2`: 150 + 150 + 75 (753 files), both AVIF and WebP with poster and manifest. Every file loads from the public bucket URL with the right content type and `Access-Control-Allow-Origin: *`.
