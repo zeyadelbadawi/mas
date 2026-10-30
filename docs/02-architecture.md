@@ -133,11 +133,12 @@ classDiagram
     +destroy()
   }
   class FrameCache {
+    -blobs: Map~number, Blob~
     -bitmaps: Map~number, ImageBitmap~
-    -inflight: Map~number, AbortController~
-    +prioritise(index, window)
+    +preloadAll()
+    +prioritise(index, direction)
     +get(index) ImageBitmap?
-    +evict(keepRange)
+    +nearest(index) ImageBitmap?
   }
   class SequenceManifest {
     +id: string
@@ -399,7 +400,7 @@ Reviewed with the `security-and-hardening` skill before Milestone A and again be
 | 3D chunk (three + R3F + scene) | ≤ 250 KB gzip, loaded after first paint on HIGH/MID tiers only |
 | Fonts | ≤ 2 preloaded files per locale, subset woff2 |
 | Sequence poster | ≤ 120 KB AVIF |
-| Sequence frames | Desktop 1920w AVIF ≈ 40–70 KB × ≤ 150 frames; mobile 1080×1350 portrait crop, every 2nd frame ≈ 25–35 KB; streamed around the current scroll position, never blocking first paint |
+| Sequence frames | Desktop 1920w AVIF ≈ 40–70 KB × ≤ 150 frames; mobile 1080×1350 portrait crop, every 2nd frame ≈ 25–35 KB; downloaded in full once the section is within about 1.5 viewports, frames near the scroll position first, never blocking first paint |
 
 **Device tiers** (decided once on load in `MotionProvider`):
 

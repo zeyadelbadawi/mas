@@ -103,7 +103,7 @@ flowchart TB
 
 - **ImageSlot**: بيعرض بوكس الـ placeholder لحد ما الصورة تيجي.
 - **SequenceSlot**: بيعرض placeholder للمشهد، ولما الـ manifest يجهز بيتحول لـ **SequencePlayer**.
-- **SequencePlayer**: بيرسم الفريم المناسب لمكان السكرول، ومعاه **FrameCache** اللي بيحمّل الفريمات القريبة الأول.
+- **SequencePlayer**: بيرسم الفريم المناسب لمكان السكرول، ومعاه **FrameCache** اللي بيحمّل كل الفريمات مضغوطة (من غير ما يلغي أي تحميل وقت السكرول) ويفك بس الفريمات القريبة من مكان السكرول.
 - **MotionProvider**: بيشغّل Lenis وScrollTrigger، ويحدد **DeviceTier** (مستوى الجهاز).
 - **ReservationForm**: بيبعت لـ **FormHandler** على السيرفر.
 - **ConsentProvider** و**AnalyticsLoader**: الأناليتكس ما بيتحملش غير بعد الموافقة.
@@ -142,11 +142,12 @@ classDiagram
     +destroy()
   }
   class FrameCache {
+    -blobs: Map~number, Blob~
     -bitmaps: Map~number, ImageBitmap~
-    -inflight: Map~number, AbortController~
-    +prioritise(index, window)
+    +preloadAll()
+    +prioritise(index, direction)
     +get(index) ImageBitmap?
-    +evict(keepRange)
+    +nearest(index) ImageBitmap?
   }
   class SequenceManifest {
     +id: string
@@ -418,7 +419,7 @@ sequenceDiagram
 | chunk الـ 3D (three + R3F + المشهد) | ≤ 250 KB مضغوط، وبيتحمل بعد أول رسم على أجهزة HIGH وMID بس |
 | الخطوط | ≤ ملفين preload لكل لغة، woff2 متقطع على الحروف المستخدمة |
 | صورة الـ poster للمشهد | ≤ 120 KB AVIF |
-| فريمات المشهد | ديسكتوب: عرض 1920 AVIF ≈ 40–70 KB × ≤ 150 فريم. موبايل: 1080×1350 مقصوص طولي، فريم كل اتنين ≈ 25–35 KB. بتتحمل حوالين مكان السكرول الحالي، وعمرها ما توقف أول رسم للصفحة |
+| فريمات المشهد | ديسكتوب: عرض 1920 AVIF ≈ 40–70 KB × ≤ 150 فريم. موبايل: 1080×1350 مقصوص طولي، فريم كل اتنين ≈ 25–35 KB. بتتحمل كلها أول ما القسم يقرب لحد حوالي 1.5 شاشة، والأولوية للفريمات اللي حوالين مكان السكرول، وعمرها ما توقف أول رسم للصفحة |
 
 **مستويات الأجهزة** (بتتحدد مرة واحدة أول ما الصفحة تفتح جوه `MotionProvider`):
 

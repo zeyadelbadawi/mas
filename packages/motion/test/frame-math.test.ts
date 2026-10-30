@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { decideTier } from "../src/device-tier";
-import { evictable, fitRect, framePriority, progressToFrame } from "../src/frame-math";
+import {
+  downloadOrder,
+  evictable,
+  fitRect,
+  framePriority,
+  progressToFrame,
+  strideLevel,
+} from "../src/frame-math";
 import { frameUrl } from "../src/manifest";
 
 describe("progressToFrame", () => {
@@ -26,6 +33,33 @@ describe("framePriority", () => {
   });
   it("never requests frames outside the range", () => {
     expect(framePriority(0, 3, 5, 5)).toEqual([0, 1, 2]);
+  });
+});
+
+describe("strideLevel", () => {
+  it("ranks every 16th frame and the last frame coarsest, odd frames finest", () => {
+    expect([0, 16, 8, 4, 2, 1].map((i) => strideLevel(i, 150))).toEqual([0, 0, 1, 2, 3, 4]);
+    expect(strideLevel(149, 150)).toBe(0);
+  });
+});
+
+describe("downloadOrder", () => {
+  const all = Array.from({ length: 150 }, (_, i) => i);
+  it("starts right around the current frame, then covers the whole sequence coarsely", () => {
+    const order = downloadOrder(all, 40, 150, 1);
+    expect(order.slice(0, 3)).toEqual([40, 41, 42]);
+    // After the 13 frames within 6 of the current one comes the coarse pass: 11 frames, both ends included.
+    const coarse = order.slice(13, 24);
+    expect(coarse).toContain(0);
+    expect(coarse).toContain(149);
+    expect(coarse.every((i) => strideLevel(i, 150) === 0)).toBe(true);
+  });
+  it("favours the scroll direction", () => {
+    expect(downloadOrder([38, 42], 40, 150, 1)).toEqual([42, 38]);
+    expect(downloadOrder([38, 42], 40, 150, -1)).toEqual([38, 42]);
+  });
+  it("orders every frame exactly once", () => {
+    expect([...downloadOrder(all, 75, 150)].sort((a, b) => a - b)).toEqual(all);
   });
 });
 
