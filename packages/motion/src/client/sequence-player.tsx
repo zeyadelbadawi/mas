@@ -219,6 +219,8 @@ export function SequencePlayer({
           reveal(self);
           onProgress(self.progress, self.direction);
         },
+        // Fires at the boundaries even when onUpdate doesn't (e.g. scrolling back to exactly the start).
+        onToggle: reveal,
         onRefresh: reveal,
       });
       reveal(trigger);

@@ -38,6 +38,7 @@ export function SpacesGallery({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
   const swipeRef = useRef<number | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState<number | null>(null);
   const { getLenis } = useMotion();
@@ -100,18 +101,33 @@ export function SpacesGallery({
     { scope: rootRef },
   );
 
+  const isOpen = open !== null;
+  // Open the dialog once its photo and controls have rendered, so focus can land on Close. showModal()
+  // makes the page behind inert; the page doesn't scroll while the viewer is up. The cleanup also runs if
+  // the gallery unmounts with the viewer open (a client-side navigation), so the page never stays locked.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!isOpen || !dialog) return;
+    if (!dialog.open) dialog.showModal();
+    closeRef.current?.focus();
+    const lenis = getLenis();
+    lenis?.stop();
+    const root = document.documentElement;
+    const overflow = root.style.getPropertyValue("overflow");
+    root.style.setProperty("overflow", "hidden");
+    return () => {
+      lenis?.start();
+      if (overflow) root.style.setProperty("overflow", overflow);
+      else root.style.removeProperty("overflow");
+    };
+  }, [isOpen, getLenis]);
+
   const show = (i: number, from: HTMLElement) => {
     openerRef.current = from;
     setOpen(i);
-    // showModal() makes the page behind inert and moves focus to the first control (Close).
-    dialogRef.current?.showModal();
-    getLenis()?.stop();
-    document.documentElement.style.setProperty("overflow", "hidden");
   };
   const onClose = () => {
     setOpen(null);
-    getLenis()?.start();
-    document.documentElement.style.removeProperty("overflow");
     openerRef.current?.focus();
   };
   const step = (by: number) =>
@@ -265,6 +281,7 @@ export function SpacesGallery({
                 </span>
               </p>
               <button
+                ref={closeRef}
                 type="button"
                 onClick={() => dialogRef.current?.close()}
                 aria-label={labels.close}
