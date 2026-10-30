@@ -88,6 +88,28 @@ describe("FrameCache", () => {
     expect(closed).toContain(onScreen);
   });
 
+  it("on standby keeps a smaller window and frees the rest", async () => {
+    const { cache, release, pending, ready, closed } = setup(40);
+    cache.prioritise(20, 1);
+    cache.preloadAll();
+    while (pending.size) await release();
+    const playing = new Set(ready);
+    expect(playing.size).toBeGreaterThan(7);
+    cache.setMode("standby");
+    // Only the frames around the current one that it would open on stay decoded.
+    expect([...playing].filter((i) => !closed.includes(i)).every((i) => i >= 18 && i <= 26)).toBe(
+      true,
+    );
+    // A far jump frees everything outside the new window, and only that window is decoded.
+    ready.length = 0;
+    cache.prioritise(0, 1);
+    await release();
+    expect(ready.every((i) => i <= 6)).toBe(true);
+    // The frame that was on screen stays until a closer one is decoded; the next update frees it too.
+    cache.prioritise(0, 1);
+    expect([...playing].filter((i) => i > 6).every((i) => closed.includes(i))).toBe(true);
+  });
+
   it("tries an undecodable frame once, without looping", async () => {
     const fetchFrame = (i: number) => Promise.resolve(new Blob([String(i)]));
     const decode = vi.fn(async (blob: Blob) => {
