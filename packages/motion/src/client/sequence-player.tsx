@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { FrameCache } from "../frame-cache";
-import { fitRect, progressToFrame } from "../frame-math";
+import { fitRect, progressToPosition } from "../frame-math";
 import { frameUrl, type SequenceManifest, type SequenceVariant } from "../manifest";
 import { useMotion } from "./motion-provider";
 
@@ -124,7 +124,10 @@ export function SequencePlayer({
     let variant: SequenceVariant | undefined;
     let format: "avif" | "webp" = "webp";
     let current = 0;
-    let lastDrawn: ImageBitmap | undefined;
+    /** Where the scroll sits between frames (fractional); `current` is the nearest frame. */
+    let position = 0;
+    /** What's on the canvas: a bitmap, or "base+mix" for a blend of two. */
+    let lastDrawn: ImageBitmap | string | undefined;
     let raf = 0;
     let near = false;
     let onScreen = false;
@@ -141,21 +144,34 @@ export function SequencePlayer({
       draw();
     };
 
+    const paint = (bitmap: ImageBitmap, focal: SequenceManifest["focal"]) => {
+      const r = fitRect(bitmap.width, bitmap.height, canvas.width, canvas.height, fit, focal);
+      ctx.drawImage(bitmap, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh);
+    };
+
     const draw = () => {
       raf = 0;
       if (!cache || !manifest) return;
-      const bitmap = cache.get(current) ?? cache.nearest(current);
-      if (!bitmap || bitmap === lastDrawn) return;
-      const r = fitRect(
-        bitmap.width,
-        bitmap.height,
-        canvas.width,
-        canvas.height,
-        fit,
-        manifest.focal,
-      );
-      ctx.drawImage(bitmap, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh);
-      lastDrawn = bitmap;
+      // Between two frames, blend them by how far the scroll is from one to the other, so the picture moves
+      // continuously instead of stepping from frame to frame. If either isn't decoded yet, show the nearest.
+      const base = Math.floor(position);
+      const mix = Math.round((position - base) * 16) / 16;
+      const a = cache.get(base);
+      const b = mix > 0 && mix < 1 ? cache.get(base + 1) : undefined;
+      if (a && b) {
+        const key = `${base}+${mix}`;
+        if (key === lastDrawn) return;
+        paint(a, manifest.focal);
+        ctx.globalAlpha = mix;
+        paint(b, manifest.focal);
+        ctx.globalAlpha = 1;
+        lastDrawn = key;
+      } else {
+        const bitmap = cache.get(current) ?? cache.nearest(current);
+        if (!bitmap || bitmap === lastDrawn) return;
+        paint(bitmap, manifest.focal);
+        lastDrawn = bitmap;
+      }
       setPainted(true);
     };
 
@@ -172,7 +188,8 @@ export function SequencePlayer({
       section.style.setProperty("--seq-progress", frames.toFixed(4));
       section.style.setProperty("--seq-hold", Math.min(1, hold).toFixed(4));
       if (!variant || !cache) return;
-      current = progressToFrame(frames, variant.frameCount);
+      position = progressToPosition(frames, variant.frameCount, variant.timing);
+      current = Math.round(position);
       cache.prioritise(current, direction < 0 ? -1 : 1);
       schedule();
     };

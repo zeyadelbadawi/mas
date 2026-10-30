@@ -12,6 +12,11 @@ export type SequenceVariant = {
   /** Path template relative to the manifest, e.g. "desktop/avif/{index}.avif" with zero-padded 4-digit index. */
   avif: string;
   webp: string;
+  /**
+   * Each frame's place along the camera move (0..1, rising), when frames were picked by image change rather
+   * than evenly in time. The player scrubs along it so the move keeps an even speed per scroll.
+   */
+  timing?: number[];
 };
 
 export type SequenceManifest = {

@@ -6,9 +6,33 @@ import {
   fitRect,
   framePriority,
   progressToFrame,
+  progressToPosition,
   strideLevel,
 } from "../src/frame-math";
 import { frameUrl } from "../src/manifest";
+
+describe("progressToPosition", () => {
+  it("spreads frames evenly without a timing curve", () => {
+    expect(progressToPosition(0, 11)).toBe(0);
+    expect(progressToPosition(0.25, 11)).toBeCloseTo(2.5);
+    expect(progressToPosition(1, 11)).toBe(10);
+    expect(progressToPosition(Number.NaN, 11)).toBe(0);
+  });
+
+  it("follows the timing curve between frames", () => {
+    // Frame 1 sits a tenth of the way along, frame 2 at the end: most of the scroll goes between 1 and 2.
+    const timing = [0, 0.1, 1];
+    expect(progressToPosition(0.05, 3, timing)).toBeCloseTo(0.5);
+    expect(progressToPosition(0.1, 3, timing)).toBeCloseTo(1);
+    expect(progressToPosition(0.55, 3, timing)).toBeCloseTo(1.5);
+    expect(progressToPosition(1, 3, timing)).toBe(2);
+    expect(progressToPosition(-1, 3, timing)).toBe(0);
+  });
+
+  it("ignores a timing curve of the wrong length", () => {
+    expect(progressToPosition(0.5, 5, [0, 1])).toBe(2);
+  });
+});
 
 describe("progressToFrame", () => {
   it("maps the ends of the scroll range to the first and last frame", () => {

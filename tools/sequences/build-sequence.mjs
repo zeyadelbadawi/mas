@@ -5,6 +5,16 @@
 //   pnpm sequence:build --input clip.mp4 --id covy.hero --out out/sequences [--max-frames 150] [--fps 24]
 //                       [--focal 0.5,0.5] [--poster 0] [--avif-quality 50] [--webp-quality 72]
 //                       [--xl-width 2560 --xl-height 1440]  (0 skips the large desktop variant)
+//                       [--motion-step 8 --motion-floor 3]
+//
+// By default frames are sampled evenly in time. With --motion-step, frames are picked by how much the image
+// changes instead: about one frame per `motion-step` units of change (mean absolute difference of small
+// greyscale copies, 0..255), so fast parts of the clip keep every frame and slow parts fewer. The manifest
+// then carries a `timing` curve per variant (where each frame sits along the move, 0..1) and the player
+// scrubs along it, so the camera moves at an even speed per scroll and a clip with uneven frame pacing plays
+// evenly. `motion-floor` is the least change a source frame counts for, so near-still stretches still take
+// some scroll. The first and last frames are always kept, in every variant, so sequences that meet at a
+// shared frame still match.
 //
 // Output: <out>/<id>/manifest.json, poster.{avif,webp}, {desktop,desktop-xl,mobile}/{avif,webp}/0000.*
 // Desktop is 1920×1080 (16:9), desktop-xl 2560×1440 for large or high-density screens (only when the source
@@ -34,6 +44,8 @@ const { values } = parseArgs({
     "xl-height": { type: "string", default: "1440" },
     "mobile-width": { type: "string", default: "1080" },
     "mobile-height": { type: "string", default: "1350" },
+    "motion-step": { type: "string", default: "0" },
+    "motion-floor": { type: "string", default: "3" },
   },
 });
 
@@ -58,6 +70,47 @@ const desktop = {
 };
 const xlRequested = { width: Number(values["xl-width"]), height: Number(values["xl-height"]) };
 const mobile = { width: Number(values["mobile-width"]), height: Number(values["mobile-height"]) };
+const motionStep = Number(values["motion-step"]);
+const motionFloor = Number(values["motion-floor"]);
+
+/** Image change between consecutive frames: mean absolute difference of 192×108 greyscale copies. */
+async function motionProfile(files) {
+  const change = [];
+  let prev;
+  for (const file of files) {
+    const px = await sharp(file).resize(192, 108, { fit: "fill" }).greyscale().raw().toBuffer();
+    if (prev) {
+      let sum = 0;
+      for (let i = 0; i < px.length; i++) sum += Math.abs(px[i] - prev[i]);
+      change.push(sum / px.length);
+    }
+    prev = px;
+  }
+  return change;
+}
+
+/**
+ * Pick about one frame per `step` units of change, always keeping the first and last. Returns the picked
+ * source indices and, for each, its position along the move (0..1).
+ */
+function pickByMotion(change, step, floor) {
+  const at = [0];
+  for (const c of change) at.push(at[at.length - 1] + Math.max(c, floor));
+  const total = at[at.length - 1];
+  const picked = [0];
+  for (let i = 1; i < at.length; i++)
+    if (at[i] - at[picked[picked.length - 1]] >= step || i === at.length - 1) picked.push(i);
+  return { picked, timing: picked.map((i) => at[i] / total) };
+}
+
+/** Every second index, plus the last one so the final frame is always there. */
+const halve = (n) => {
+  const out = [];
+  for (let i = 0; i < n; i += 2) out.push(i);
+  if (out[out.length - 1] !== n - 1) out.push(n - 1);
+  return out;
+};
+const round5 = (x) => Math.round(x * 1e5) / 1e5;
 
 const outDir = path.resolve(values.out, values.id);
 const tmp = mkdtempSync(path.join(tmpdir(), "seq-"));
@@ -87,12 +140,22 @@ try {
     .sort();
   if (all.length === 0) throw new Error("ffmpeg produced no frames");
 
-  // 2. Evenly sample down to maxFrames.
-  const count = Math.min(maxFrames, all.length);
-  const picked = Array.from(
-    { length: count },
-    (_, i) => all[Math.round((i * (all.length - 1)) / Math.max(1, count - 1))],
-  );
+  // 2. Pick the frames: by image change, or evenly in time down to maxFrames.
+  let picked;
+  let timing;
+  if (motionStep > 0) {
+    const change = await motionProfile(all.map((f) => path.join(tmp, f)));
+    const byMotion = pickByMotion(change, motionStep, motionFloor);
+    picked = byMotion.picked.map((i) => all[i]);
+    timing = byMotion.timing;
+  } else {
+    const count = Math.min(maxFrames, all.length);
+    picked = Array.from(
+      { length: count },
+      (_, i) => all[Math.round((i * (all.length - 1)) / Math.max(1, count - 1))],
+    );
+  }
+  const mobilePicked = halve(picked.length);
 
   const meta = await sharp(path.join(tmp, picked[0])).metadata();
   const srcW = meta.width;
@@ -137,7 +200,7 @@ try {
         .webp({ quality: webpQ })
         .toFile(path.join(outDir, "desktop-xl/webp", `${pad(i)}.webp`));
     }
-    if (i % 2 === 0) {
+    if (mobilePicked.includes(i)) {
       const m = sharp(src)
         .extract({ left: cropLeft, top: cropTop, width: cropW, height: cropH })
         .resize(mobile.width, mobile.height, { fit: "cover" });
@@ -186,6 +249,7 @@ try {
         frameCount: picked.length,
         avif: "desktop/avif/{index}.avif",
         webp: "desktop/webp/{index}.webp",
+        ...(timing ? { timing: timing.map(round5) } : {}),
       },
       ...(xl
         ? [
@@ -196,6 +260,7 @@ try {
               frameCount: picked.length,
               avif: "desktop-xl/avif/{index}.avif",
               webp: "desktop-xl/webp/{index}.webp",
+              ...(timing ? { timing: timing.map(round5) } : {}),
             },
           ]
         : []),
@@ -206,6 +271,7 @@ try {
         frameCount: mobileCount,
         avif: "mobile/avif/{index}.avif",
         webp: "mobile/webp/{index}.webp",
+        ...(timing ? { timing: mobilePicked.map((i) => round5(timing[i])) } : {}),
       },
     ],
   };
