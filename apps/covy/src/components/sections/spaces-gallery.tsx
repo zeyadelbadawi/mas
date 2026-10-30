@@ -184,7 +184,7 @@ export function SpacesGallery({
                 <span className="text-muted me-3 hidden text-xs tabular-nums lg:inline">
                   {pad(k + 1)}
                 </span>
-                <span className="lg:font-editorial lg:text-3xl lg:opacity-40 lg:transition-opacity lg:group-hover:opacity-80 lg:group-aria-[current=location]:opacity-100">
+                <span className="lg:font-editorial lg:text-muted lg:group-hover:text-fg lg:group-aria-[current=location]:text-fg lg:text-3xl lg:transition-colors">
                   {s.name}
                 </span>
                 <span className="text-muted mt-2 hidden max-w-xs text-sm leading-relaxed lg:group-aria-[current=location]:block">
