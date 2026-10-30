@@ -201,6 +201,7 @@ export function SequencePlayer({
       if (near) cache.preloadAll();
       resize();
       // Hidden only before it pins (the previous stage shows through); after its end it scrolls away as usual.
+      // Checked on every update too: a jump from below the section to above it never toggles it.
       const reveal = (self: { scroll(): number; start: number }) => {
         if (overlapPrevious) stage.style.visibility = self.scroll() < self.start ? "hidden" : "";
       };
@@ -209,7 +210,10 @@ export function SequencePlayer({
         start: "top top",
         end: "bottom bottom",
         invalidateOnRefresh: true,
-        onUpdate: (self) => onProgress(self.progress, self.direction),
+        onUpdate: (self) => {
+          reveal(self);
+          onProgress(self.progress, self.direction);
+        },
         onToggle: reveal,
         onRefresh: reveal,
       });
@@ -261,7 +265,10 @@ export function SequencePlayer({
         staticLayout
           ? "h-auto"
           : "h-[calc(var(--scroll-vh)*1svh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
-        overlapPrevious && !staticLayout ? "-mt-[100svh] motion-reduce:mt-0" : "",
+        // The pulled-up box would sit over the end of the previous section; only the stage takes pointer events.
+        overlapPrevious && !staticLayout
+          ? "pointer-events-none -mt-[100svh] motion-reduce:pointer-events-auto motion-reduce:mt-0"
+          : "",
         className ?? "",
       ].join(" ")}
     >
@@ -269,7 +276,7 @@ export function SequencePlayer({
         ref={stageRef}
         className={[
           // A size container, so the frame overlay can match the frame with cqw/cqh alone.
-          "[container-type:size]",
+          "[container-type:size] pointer-events-auto",
           staticLayout
             ? "relative aspect-(--poster-ratio) w-full overflow-hidden"
             : "sticky top-0 h-svh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto",
