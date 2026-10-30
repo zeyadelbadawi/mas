@@ -30,18 +30,20 @@ export async function Signature() {
         label={t("body")}
         scrollVh={280}
         frameOverlay={
-          // COVY's mark printed on the glass, layered over the footage (never baked into the frames).
-          // White with a fine navy edge, so it reads over the ice, the milk and the coffee alike; set low on
-          // the glass, clear of the ingredient labels.
-          <div className="absolute top-[69%] left-1/2 w-[10%] -translate-x-1/2 opacity-90">
+          // COVY's mark printed on the glass in white enamel, layered over the footage (never baked into the
+          // frames). A fine grain makes it read as a print rather than a flat overlay, and a soft navy edge keeps
+          // it legible over the ice, the milk and the coffee alike; set low on the glass, clear of the labels.
+          <div className="absolute top-[69%] left-1/2 w-[10%] -translate-x-1/2 [filter:drop-shadow(0_0_0.6px_#262d3fcc)_drop-shadow(0_0.6px_1.2px_#262d3f73)]">
+            <svg aria-hidden="true" className="absolute size-0">
+              <filter id="covy-glass-print" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves={2} seed={7} />
+                <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -0.8 1.25" result="grain" />
+                <feComposite in="SourceGraphic" in2="grain" operator="in" />
+              </filter>
+            </svg>
             <CovyWordmark
               className="h-auto w-full text-white"
-              style={{
-                stroke: "#262d3f",
-                strokeWidth: 3,
-                paintOrder: "stroke",
-                strokeLinejoin: "round",
-              }}
+              style={{ fillOpacity: 0.9, filter: "url(#covy-glass-print)" }}
             />
           </div>
         }
