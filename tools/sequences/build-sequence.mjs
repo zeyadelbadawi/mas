@@ -22,7 +22,7 @@
 
 import { execFileSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { availableParallelism, tmpdir } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import sharp from "sharp";
@@ -174,8 +174,8 @@ try {
   const cropLeft = Math.min(srcW - cropW, Math.max(0, Math.round(fx * srcW - cropW / 2)));
   const cropTop = 0;
 
-  let mobileCount = 0;
-  for (let i = 0; i < picked.length; i++) {
+  const mobileCount = mobilePicked.length;
+  const encodeFrame = async (i) => {
     const src = path.join(tmp, picked[i]);
     const d = sharp(src).resize(desktop.width, desktop.height, {
       fit: "cover",
@@ -200,22 +200,34 @@ try {
         .webp({ quality: webpQ })
         .toFile(path.join(outDir, "desktop-xl/webp", `${pad(i)}.webp`));
     }
-    if (mobilePicked.includes(i)) {
+    const mi = mobilePicked.indexOf(i);
+    if (mi >= 0) {
       const m = sharp(src)
         .extract({ left: cropLeft, top: cropTop, width: cropW, height: cropH })
         .resize(mobile.width, mobile.height, { fit: "cover" });
       await m
         .clone()
         .avif({ quality: avifQ, effort: 4 })
-        .toFile(path.join(outDir, "mobile/avif", `${pad(mobileCount)}.avif`));
+        .toFile(path.join(outDir, "mobile/avif", `${pad(mi)}.avif`));
       await m
         .clone()
         .webp({ quality: webpQ })
-        .toFile(path.join(outDir, "mobile/webp", `${pad(mobileCount)}.webp`));
-      mobileCount++;
+        .toFile(path.join(outDir, "mobile/webp", `${pad(mi)}.webp`));
     }
-    if (process.stdout.isTTY) process.stdout.write(`\rframes ${i + 1}/${picked.length}`);
-  }
+  };
+  // The AVIF encoder uses about one core per image, so encode a frame per core at once.
+  let next = 0;
+  let done = 0;
+  const worker = async () => {
+    while (next < picked.length) {
+      await encodeFrame(next++);
+      done++;
+      if (process.stdout.isTTY) process.stdout.write(`\rframes ${done}/${picked.length}`);
+    }
+  };
+  await Promise.all(
+    Array.from({ length: Math.min(availableParallelism(), picked.length) }, worker),
+  );
   if (process.stdout.isTTY) process.stdout.write("\n");
 
   // 3. Poster (the LCP candidate): desktop size, a little higher quality.
