@@ -230,6 +230,9 @@ export function SequencePlayer({
             width={poster.width}
             height={poster.height}
             alt={label}
+            // canDecodeAvif() fetches the same poster with CORS; a no-cors copy in the HTTP cache
+            // (R2 sends no Vary: Origin) would fail that check and force WebP frames.
+            crossOrigin="anonymous"
             fetchPriority={priority ? "high" : "auto"}
             loading={priority ? "eager" : "lazy"}
             decoding="async"

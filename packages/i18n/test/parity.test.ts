@@ -11,8 +11,13 @@ const sets = [
   "apps/aroma/messages",
 ];
 
+// Plural forms differ by language (Arabic uses six, English three), so a plural map counts as one key.
+const PLURAL = new Set(["zero", "one", "two", "few", "many", "other"]);
+
 function keys(value: unknown, prefix = ""): string[] {
   if (typeof value !== "object" || value === null) return [prefix];
+  const forms = Object.keys(value);
+  if (forms.includes("other") && forms.every((k) => PLURAL.has(k))) return [prefix];
   return Object.entries(value).flatMap(([k, v]) => keys(v, prefix ? `${prefix}.${k}` : k));
 }
 
