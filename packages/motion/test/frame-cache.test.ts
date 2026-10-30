@@ -88,6 +88,44 @@ describe("FrameCache", () => {
     expect(closed).toContain(onScreen);
   });
 
+  it("tries an undecodable frame once, without looping", async () => {
+    const fetchFrame = (i: number) => Promise.resolve(new Blob([String(i)]));
+    const decode = vi.fn(async (blob: Blob) => {
+      const index = Number(await blob.text());
+      if (index === 0) throw new Error("corrupt");
+      return { index, close: () => {} };
+    });
+    const cache = new FrameCache(10, fetchFrame, {
+      decode,
+      ahead: 2,
+      behind: 0,
+      onReady: () => {},
+    });
+    cache.prioritise(0, 1);
+    for (let k = 0; k < 20; k++) await new Promise((r) => setTimeout(r, 0));
+    const decodesOfZero = await Promise.all(decode.mock.calls.map(async ([b]) => b.text()));
+    expect(decodesOfZero.filter((t) => t === "0")).toHaveLength(1);
+    expect(cache.nearest(0)?.index).toBe(1);
+    cache.destroy();
+  });
+
+  it("retries a failed download a few times, then gives up", async () => {
+    let calls = 0;
+    const fetchFrame = vi.fn(() => {
+      calls++;
+      return Promise.reject(new Error("network"));
+    });
+    const cache = new FrameCache(1, fetchFrame, {
+      decode: async () => ({ close: () => {} }),
+      retryDelayMs: 1,
+      onReady: () => {},
+    });
+    cache.prioritise(0, 1);
+    for (let k = 0; k < 20; k++) await new Promise((r) => setTimeout(r, 5));
+    expect(calls).toBe(3);
+    cache.destroy();
+  });
+
   it("stops everything on destroy", async () => {
     const { cache, aborted, pending } = setup();
     cache.prioritise(0, 1);

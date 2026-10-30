@@ -3,6 +3,9 @@ import { downloadOrder, evictable, framePriority } from "./frame-math";
 type Fetcher = (index: number, signal: AbortSignal) => Promise<Blob>;
 type Decoder<T> = (blob: Blob) => Promise<T>;
 
+/** Tries per frame before a failed download is given up on. */
+const MAX_ATTEMPTS = 3;
+
 /**
  * Two layers: the compressed bytes of every frame (small, a few MB per sequence), and decoded frames
  * near the current scroll position (large: width × height × 4 bytes each, so kept to a window).
@@ -13,6 +16,7 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
   private blobs = new Map<number, Blob>();
   private downloading = new Map<number, AbortController>();
   private failed = new Set<number>();
+  private attempts = new Map<number, number>();
   private bitmaps = new Map<number, T>();
   private decoding = new Set<number>();
   private current = 0;
@@ -24,6 +28,7 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
   private readonly maxDecodes: number;
   private readonly ahead: number;
   private readonly behind: number;
+  private readonly retryDelayMs: number;
   private onReady: (index: number) => void;
 
   constructor(
@@ -36,6 +41,8 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
       /** Decoded frames to keep ahead of / behind the current one. Size these to a memory budget (decoded RGBA). */
       ahead?: number;
       behind?: number;
+      /** Pause before retrying a failed download; grows with each attempt. */
+      retryDelayMs?: number;
       onReady: (index: number) => void;
     },
   ) {
@@ -44,6 +51,7 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
     this.maxDecodes = options.maxDecodes ?? 2;
     this.ahead = options.ahead ?? 24;
     this.behind = options.behind ?? 8;
+    this.retryDelayMs = options.retryDelayMs ?? 1000;
     this.onReady = options.onReady;
   }
 
@@ -105,8 +113,18 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
           this.pumpDecodes();
         })
         .catch(() => {
-          // Don't retry in a loop; the nearest frame that did arrive is shown instead.
+          if (this.destroyed) return;
+          // Retry a dropped connection or 5xx after a pause, a few times at most; meanwhile the
+          // nearest frame that did arrive is shown instead.
+          const attempts = (this.attempts.get(index) ?? 0) + 1;
+          this.attempts.set(index, attempts);
           this.failed.add(index);
+          if (attempts < MAX_ATTEMPTS) {
+            setTimeout(() => {
+              this.failed.delete(index);
+              this.pumpDownloads();
+            }, this.retryDelayMs * attempts);
+          }
         })
         .finally(() => {
           this.downloading.delete(index);
@@ -155,7 +173,10 @@ export class FrameCache<T extends { close(): void } = ImageBitmap> {
           this.onReady(index);
         })
         .catch(() => {
-          /* undecodable frame: the nearest decoded frame keeps showing */
+          // Undecodable bytes won't decode on a second try: drop them and don't fetch the frame
+          // again. The nearest decoded frame keeps showing.
+          this.blobs.delete(index);
+          this.failed.add(index);
         })
         .finally(() => {
           this.decoding.delete(index);
