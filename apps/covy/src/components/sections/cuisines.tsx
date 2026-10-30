@@ -1,6 +1,6 @@
 "use client";
 
-import { useNearViewport } from "@mas/motion/near-viewport";
+import { useIdleWarmup, useNearViewport } from "@mas/motion/near-viewport";
 import { useScrollProgress } from "@mas/motion/scroll-progress";
 import dynamic from "next/dynamic";
 import { useRef, useState, useSyncExternalStore, type ReactNode } from "react";
@@ -23,8 +23,11 @@ type Stop = { id: string; name: string; line: string; image: ReactNode };
 export function Cuisines({ heading, stops }: { heading?: string; stops: Stop[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  // three.js (~240 KB) loads only on tablet/desktop widths, and only when this section is about a screen away.
+  // three.js (~240 KB) loads only on tablet/desktop widths: during the first quiet moment after the page
+  // loads, or when this section is about a screen away if the visitor scrolls straight here. Starting it
+  // mid-scroll stalled the page for a frame or two as the signature sequence handed over to this section.
   const near = useNearViewport(sectionRef);
+  const warm = useIdleWarmup();
   const wide = useSyncExternalStore(
     subscribeWide,
     () => window.matchMedia(WIDE).matches,
@@ -44,7 +47,7 @@ export function Cuisines({ heading, stops }: { heading?: string; stops: Stop[] }
       <div className="sticky top-0 h-svh overflow-hidden motion-reduce:static motion-reduce:h-auto">
         {/* Fades the ring out before it reaches the heading and the stop card. */}
         <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_36%_44%_at_46%_58%,black_45%,transparent_100%)] motion-reduce:hidden max-md:hidden">
-          {near && wide ? <LeafStage progress={progress} /> : null}
+          {(near || warm) && wide ? <LeafStage progress={progress} /> : null}
         </div>
         <div className="relative mx-auto grid h-full max-w-7xl content-center gap-10 px-4 motion-reduce:py-24 sm:px-8 md:grid-cols-[1fr_minmax(0,22rem)]">
           {heading ? (
