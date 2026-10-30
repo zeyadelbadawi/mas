@@ -1,14 +1,25 @@
 import { imageSlot } from "@mas/content";
 import type { Locale } from "@mas/i18n";
-import { ImageSlot } from "@mas/ui";
 import { getTranslations } from "next-intl/server";
-import { ArchGallery } from "@/components/sections/arch-gallery";
+import { SpacesGallery, type GallerySpace } from "@/components/sections/spaces-gallery";
 
-const SPACES = ["indoor", "terrace", "shisha", "corner"] as const;
+const SPACES = ["indoor", "terrace", "bar", "corner"] as const;
+const PHOTOS = [1, 2, 3] as const;
 
-/** C6: every photo in the facade's arch, opening from a slit as it arrives. */
+/** C6: the rooms behind the arches, three photos each (D39). */
 export async function Spaces({ locale }: { locale: Locale }) {
   const t = await getTranslations("spaces");
+  const spaces: GallerySpace[] = SPACES.map((id) => ({
+    id,
+    name: t(id),
+    line: t(`${id}Line`),
+    photos: PHOTOS.flatMap((n) => {
+      const slot = imageSlot(`covy.spaces.${id}.${n}`);
+      return slot.src
+        ? [{ src: slot.src, alt: slot.alt[locale], width: slot.width, height: slot.height }]
+        : [];
+    }),
+  }));
   return (
     <section
       id="spaces"
@@ -23,18 +34,19 @@ export async function Spaces({ locale }: { locale: Locale }) {
           {t("intro")}
         </p>
       </div>
-      <ArchGallery
-        items={SPACES.map((id) => ({
-          id,
-          label: t(id),
-          image: (
-            <ImageSlot
-              {...imageSlot(`covy.spaces.${id}`)}
-              locale={locale}
-              sizes="(min-width: 1024px) 25vw, 50vw"
-            />
-          ),
-        }))}
+      <SpacesGallery
+        spaces={spaces}
+        dir={locale === "ar" ? "rtl" : "ltr"}
+        labels={{
+          index: t("index"),
+          viewer: t("viewer"),
+          close: t("close"),
+          next: t("next"),
+          previous: t("previous"),
+          // Placeholders are filled in the browser, per photo.
+          open: t("open", { alt: "{alt}" }),
+          count: t("count", { n: "{n}", total: "{total}" }),
+        }}
       />
     </section>
   );

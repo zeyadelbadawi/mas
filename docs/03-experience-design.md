@@ -118,7 +118,7 @@ Scene IDs match the asset manifest. "Seq" = Layer A, "RT3D" = Layer B, "Motion" 
 | C3 | **The signature cup** | Seq `covy.signature` | The signature iced latte builds in the glass on the pastry case, the real bar softly blurred behind (D38): milk, double espresso, cold foam, cocoa. Hotspot labels (HTML) appear at their stops; the COVY wordmark is printed on the glass (HTML, D35/D38) | 280vh |
 | C4 | **The Taste of Everywhere** | RT3D + Motion | A slow ring of caladium leaves (instanced, shader-tinted blue/cocoa) turns as the visitor moves through cuisines: Mediterranean → Asian → Latin American → Middle-Eastern → Italian. Each stop shows a dish still (ImageSlot) and a one-line story | 300vh |
 | C5 | **Menu** | Motion (+RT3D leaves on HIGH tier) | See §5 | flow |
-| C6 | Spaces | Motion | Indoor · Outdoor terrace · Shisha · "Instagrammable corner": gallery with arch masks that open on scroll | 150vh |
+| C6 | **The rooms behind the arches** (spaces) | Motion | Indoor · Terrace · The bar · Photo corner, three photos each (D39). A sticky index on the left numbers the spaces and lights the one in view (a row of tabs on phones); each space is a large photo in the facade's arch shape, opening from a slit on scroll, with two smaller photos drifting at a second depth. Any photo opens a full-screen viewer for all 12 (arrows, swipe, Esc) | flow |
 | C7 | Events at COVY | Motion | From shared events data | — |
 | C8 | Testimonials | Motion | Placeholder quotes marked "Sample" until Google Reviews arrive | — |
 | C9 | Reserve / Feedback | UI | Tabs: "Book a table or event" / "Share your feedback" | — |
