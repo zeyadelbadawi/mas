@@ -36,6 +36,7 @@ Decisions made with the project owner. Newest at the bottom. Change a decision o
 | D30 | 2026-10-29 | `covy.hero` | Redo as **two 5-second shots** joined at the doorway (facade → doors → blue tree) | 965 credits. v1 flew through the terrace tree. |
 | D31 | 2026-10-29 | COVY logo | Interim logo traced from the vector artwork in the client's COVY Brand Identity Guide | Replace with the brand designer's official SVG files before launch. |
 | D32 | 2026-10-30 | Sequence quality | Upscale the approved clips to **4K with MAG (Magnific Precision)**, then build frames at 1920×1080 plus a **2560×1440 `desktop-xl` variant** for large or high-density screens. MAG stays the generation tool. | COVY: 8,194 credits for a first pass that came back at 2588×1440, then 13,260 for true 4K (3860×2146) at the owner's request; frames are built from the 4K clips. Aroma and MAS clips get the same treatment in their phases (~4,300 credits per 10 s clip). The frame cache is sized by memory, so the larger frames don't raise RAM use. |
+| D33 | 2026-10-30 | Sequence frame format | Serve scroll-sequence frames as **AVIF**, with WebP only as the fallback for browsers that can't decode AVIF. | Measured on the live COVY site after the fast-scroll fix: AVIF frames are about 30% smaller; WebP decodes 1.6–2× faster and scrubbed slightly smoother at 1× desktop, but was about equal at 2× DPR and on slow connections. The owner chose the smaller downloads. |
 
 ## Open items (need the owner)
 
