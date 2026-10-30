@@ -41,7 +41,7 @@ Spent: **965 credits** (1 keyframe × 65 + 2 Kling 3.0 shots × 450). Quoted at 
 
 ## Full-size finals (P3)
 
-The approved 1080p drafts are promoted to finals (no Seedance re-render). Every source clip is in the MAG project "MAS Websites — P2 sequences". Downloading them costs no credits.
+Until higher-quality renders are approved, the 1080p drafts serve as the finals. Every source clip is in the MAG project "MAS Websites — P2 sequences". Downloading them costs no credits.
 
 | Sequence | MAG creation | Source |
 |---|---|---|
