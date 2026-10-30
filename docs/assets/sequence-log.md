@@ -60,11 +60,22 @@ Spent: **8,194 credits** (Magnific Precision: hero 3,897 + signature 4,297). The
 | `covy.hero` | `jUMXfUALD0` (upscaled from `s7poaEFl8e`) | 2588×1440, 8.6 s, 24 fps |
 | `covy.signature` | `s7poEPPl8e` (upscaled from `MBsx3d8DCm`) | 2588×1440, 10 s, 24 fps |
 
-Build from the upscaled clips and upload, with default settings (150 frames; 1920×1080 desktop, 2560×1440 desktop-xl, 1080×1350 mobile; focal 0.5,0.5):
+The 1440p clips stay in MAG as a backup; the site is built from the true-4K clips below.
+
+### Batch 4: COVY true 4K (approved by the owner, ~13,300 credits)
+
+Spent: **13,260 credits** (Magnific Precision with the 4K preset: hero 6,297 + signature 6,963), upscaled from the original 1080p clips. Output is **3860×2146** (the source's 1.8:1 ratio doubled). The site still shows at most 2560×1440 frames (owner's choice): building them from 4K masters gives the crispest result at the same download size.
+
+| Sequence | Build from (MAG creation) | Size |
+|---|---|---|
+| `covy.hero` | `Bh79tUdoQR` (upscaled from `s7poaEFl8e`) | 3860×2146, 8.6 s, 24 fps, 63 MB |
+| `covy.signature` | `Bh79tO8oQR` (upscaled from `MBsx3d8DCm`) | 3860×2146, 10 s, 24 fps, 17 MB |
+
+Build and upload with default settings (150 frames; 1920×1080 desktop, 2560×1440 desktop-xl, 1080×1350 mobile; focal 0.5,0.5):
 
 ```bash
-pnpm sequence:build --input covy-hero-2k.mp4 --id covy.hero --out out/sequences
-pnpm sequence:build --input covy-signature-2k.mp4 --id covy.signature --out out/sequences
+pnpm sequence:build --input covy-hero-4k.mp4 --id covy.hero --out out/sequences
+pnpm sequence:build --input covy-signature-4k.mp4 --id covy.signature --out out/sequences
 pnpm sequence:upload --dir out/sequences
 ```
 
