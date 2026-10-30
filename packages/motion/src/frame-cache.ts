@@ -10,15 +10,25 @@ export class FrameCache {
   private bitmaps = new Map<number, ImageBitmap>();
   private inflight = new Map<number, AbortController>();
   private readonly maxConcurrent: number;
+  private readonly ahead: number;
+  private readonly behind: number;
   private queue: number[] = [];
   private onReady: (index: number) => void;
 
   constructor(
     private readonly frameCount: number,
     private readonly load: Loader,
-    options: { maxConcurrent?: number; onReady: (index: number) => void },
+    options: {
+      maxConcurrent?: number;
+      /** Frames to fetch ahead of / behind the current one. Size these to a memory budget (decoded RGBA). */
+      ahead?: number;
+      behind?: number;
+      onReady: (index: number) => void;
+    },
   ) {
     this.maxConcurrent = options.maxConcurrent ?? 6;
+    this.ahead = options.ahead ?? 24;
+    this.behind = options.behind ?? 8;
     this.onReady = options.onReady;
   }
 
@@ -37,7 +47,8 @@ export class FrameCache {
     return undefined;
   }
 
-  prioritise(current: number, direction: 1 | -1, ahead = 24, behind = 8): void {
+  prioritise(current: number, direction: 1 | -1): void {
+    const { ahead, behind } = this;
     const wanted = framePriority(current, this.frameCount, ahead, behind, direction);
     const wantedSet = new Set(wanted);
     for (const [i, ctrl] of this.inflight) {
@@ -46,7 +57,9 @@ export class FrameCache {
         this.inflight.delete(i);
       }
     }
-    for (const i of evictable(this.bitmaps.keys(), current, ahead * 2, behind * 2)) {
+    // A little slack past the window so small back-and-forth scrolls don't re-decode frames.
+    const slack = Math.ceil((ahead + behind) / 4);
+    for (const i of evictable(this.bitmaps.keys(), current, ahead + slack, behind + slack)) {
       this.bitmaps.get(i)?.close();
       this.bitmaps.delete(i);
     }

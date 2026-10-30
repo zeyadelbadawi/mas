@@ -1,5 +1,5 @@
 /** Shape of `manifest.json` produced by tools/sequences/build-sequence.mjs. */
-export type SequenceVariantName = "desktop" | "mobile";
+export type SequenceVariantName = "desktop" | "desktop-xl" | "mobile";
 
 export type SequenceVariant = {
   name: SequenceVariantName;

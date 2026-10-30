@@ -37,13 +37,33 @@ async function canDecodeAvif(url: string): Promise<boolean> {
   }
 }
 
-function chooseVariant(manifest: SequenceManifest, tierMid: boolean): SequenceVariant | undefined {
+function chooseVariant(
+  manifest: SequenceManifest,
+  tierMid: boolean,
+  dprCap: number,
+): SequenceVariant | undefined {
+  const find = (name: SequenceVariant["name"]) => manifest.variants.find((v) => v.name === name);
   const portrait = window.innerWidth / window.innerHeight < 0.9;
-  const wantMobile = tierMid || portrait;
-  return (
-    manifest.variants.find((v) => v.name === (wantMobile ? "mobile" : "desktop")) ??
-    manifest.variants[0]
+  if (tierMid || portrait) return find("mobile") ?? manifest.variants[0];
+  const desktop = find("desktop");
+  // The large variant only when the canvas has more device pixels than the standard desktop frames.
+  const canvasWidth = window.innerWidth * Math.min(window.devicePixelRatio || 1, dprCap);
+  const xl = desktop && canvasWidth > desktop.width ? find("desktop-xl") : undefined;
+  return xl ?? desktop ?? manifest.variants[0];
+}
+
+/** Decoded frames are width × height × 4 bytes each; keep the cache window inside a memory budget. */
+function cacheWindow(
+  variant: SequenceVariant,
+  tierMid: boolean,
+): { ahead: number; behind: number } {
+  const budget = (tierMid ? 160 : 256) * 1024 * 1024;
+  const frames = Math.max(
+    12,
+    Math.min(32, Math.floor(budget / (variant.width * variant.height * 4))),
   );
+  const ahead = Math.round(frames * 0.75);
+  return { ahead, behind: frames - ahead };
 }
 
 /**
@@ -135,7 +155,7 @@ export function SequencePlayer({
       const [res, avif] = await Promise.all([fetch(manifestUrl), canDecodeAvif(poster.avif)]);
       if (!res.ok || cancelled) return;
       manifest = (await res.json()) as SequenceManifest;
-      variant = chooseVariant(manifest, tier === "MID");
+      variant = chooseVariant(manifest, tier === "MID", dprCap);
       if (!variant || cancelled) return;
       format = avif ? "avif" : "webp";
       const template = variant[format];
@@ -146,7 +166,10 @@ export function SequencePlayer({
           if (!r.ok) throw new Error(`frame ${index}: ${r.status}`);
           return createImageBitmap(await r.blob());
         },
-        { onReady: (index) => index === current && schedule() },
+        {
+          ...cacheWindow(variant, tier === "MID"),
+          onReady: (index) => index === current && schedule(),
+        },
       );
       resize();
       trigger = ScrollTrigger.create({

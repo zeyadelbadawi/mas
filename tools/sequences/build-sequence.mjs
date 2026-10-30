@@ -4,9 +4,11 @@
 // Usage:
 //   pnpm sequence:build --input clip.mp4 --id covy.hero --out out/sequences [--max-frames 150] [--fps 24]
 //                       [--focal 0.5,0.5] [--poster 0] [--avif-quality 50] [--webp-quality 72]
+//                       [--xl-width 2560 --xl-height 1440]  (0 skips the large desktop variant)
 //
-// Output: <out>/<id>/manifest.json, poster.{avif,webp}, desktop/{avif,webp}/0000.*, mobile/{avif,webp}/0000.*
-// Desktop is 1920×1080 (16:9), mobile is a 4:5 crop (1080×1350) around the focal point at half the frame rate.
+// Output: <out>/<id>/manifest.json, poster.{avif,webp}, {desktop,desktop-xl,mobile}/{avif,webp}/0000.*
+// Desktop is 1920×1080 (16:9), desktop-xl 2560×1440 for large or high-density screens (only when the source
+// is at least that wide), mobile a 4:5 crop (1080×1350) around the focal point at half the frame rate.
 
 import { execFileSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -28,6 +30,8 @@ const { values } = parseArgs({
     "webp-quality": { type: "string", default: "72" },
     "desktop-width": { type: "string", default: "1920" },
     "desktop-height": { type: "string", default: "1080" },
+    "xl-width": { type: "string", default: "2560" },
+    "xl-height": { type: "string", default: "1440" },
     "mobile-width": { type: "string", default: "1080" },
     "mobile-height": { type: "string", default: "1350" },
   },
@@ -52,6 +56,7 @@ const desktop = {
   width: Number(values["desktop-width"]),
   height: Number(values["desktop-height"]),
 };
+const xlRequested = { width: Number(values["xl-width"]), height: Number(values["xl-height"]) };
 const mobile = { width: Number(values["mobile-width"]), height: Number(values["mobile-height"]) };
 
 const outDir = path.resolve(values.out, values.id);
@@ -89,13 +94,16 @@ try {
     (_, i) => all[Math.round((i * (all.length - 1)) / Math.max(1, count - 1))],
   );
 
-  rmSync(outDir, { recursive: true, force: true });
-  for (const dir of ["desktop/avif", "desktop/webp", "mobile/avif", "mobile/webp"])
-    mkdirSync(path.join(outDir, dir), { recursive: true });
-
   const meta = await sharp(path.join(tmp, picked[0])).metadata();
   const srcW = meta.width;
   const srcH = meta.height;
+  // Never upscale into the large variant: it only exists when the source has the pixels for it.
+  const xl = xlRequested.width > 0 && srcW >= xlRequested.width ? xlRequested : null;
+
+  rmSync(outDir, { recursive: true, force: true });
+  const variantDirs = ["desktop", ...(xl ? ["desktop-xl"] : []), "mobile"];
+  for (const v of variantDirs)
+    for (const f of ["avif", "webp"]) mkdirSync(path.join(outDir, v, f), { recursive: true });
 
   // Mobile crop rectangle in source pixels (4:5 around the focal point, full height).
   const cropH = srcH;
@@ -118,6 +126,17 @@ try {
       .clone()
       .webp({ quality: webpQ })
       .toFile(path.join(outDir, "desktop/webp", `${pad(i)}.webp`));
+    if (xl) {
+      const x = sharp(src).resize(xl.width, xl.height, { fit: "cover", position: "centre" });
+      await x
+        .clone()
+        .avif({ quality: avifQ, effort: 4 })
+        .toFile(path.join(outDir, "desktop-xl/avif", `${pad(i)}.avif`));
+      await x
+        .clone()
+        .webp({ quality: webpQ })
+        .toFile(path.join(outDir, "desktop-xl/webp", `${pad(i)}.webp`));
+    }
     if (i % 2 === 0) {
       const m = sharp(src)
         .extract({ left: cropLeft, top: cropTop, width: cropW, height: cropH })
@@ -168,6 +187,18 @@ try {
         avif: "desktop/avif/{index}.avif",
         webp: "desktop/webp/{index}.webp",
       },
+      ...(xl
+        ? [
+            {
+              name: "desktop-xl",
+              ...xl,
+              step: 1,
+              frameCount: picked.length,
+              avif: "desktop-xl/avif/{index}.avif",
+              webp: "desktop-xl/webp/{index}.webp",
+            },
+          ]
+        : []),
       {
         name: "mobile",
         ...mobile,
@@ -179,7 +210,9 @@ try {
     ],
   };
   writeFileSync(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
-  console.log(`Wrote ${outDir} (${picked.length} desktop + ${mobileCount} mobile frames)`);
+  console.log(
+    `Wrote ${outDir} (${picked.length} desktop${xl ? ` + ${picked.length} desktop-xl` : ""} + ${mobileCount} mobile frames)`,
+  );
 } finally {
   rmSync(tmp, { recursive: true, force: true });
 }
