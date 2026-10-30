@@ -19,9 +19,9 @@
     "format:check": "prettier --check .",
     "assets:manifest": "pnpm --filter @mas/tools assets:manifest",
     "placeholders:report": "pnpm --filter @mas/tools placeholders:report",
-    "sequence:build": "pnpm --filter @mas/tools sequence:build --",
+    "sequence:build": "pnpm --filter @mas/tools sequence:build",
     "sequence:test": "pnpm --filter @mas/tools sequence:test",
-    "sequence:upload": "pnpm --filter @mas/tools sequence:upload --"
+    "sequence:upload": "pnpm --filter @mas/tools sequence:upload"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
