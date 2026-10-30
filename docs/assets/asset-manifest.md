@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 46 | 12 | 34 |
+| Images | 46 | 13 | 33 |
 | Sequences (generated) | 6 | 0 | 6 |
 
 ## MAS (mas.com)
@@ -34,11 +34,11 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `covy.cuisines.mediterranean` | Landing · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Mediterranean dish | طبق من مطبخ البحر المتوسط | ⬜ placeholder |  |
-| `covy.cuisines.asian` | Landing · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Asian dish | طبق آسيوي | ⬜ placeholder |  |
-| `covy.cuisines.latin` | Landing · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Latin American dish | طبق من أمريكا اللاتينية | ⬜ placeholder |  |
-| `covy.cuisines.middle-eastern` | Landing · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Middle-Eastern dish | طبق شرقي | ⬜ placeholder |  |
-| `covy.cuisines.italian` | Landing · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Italian dish | طبق إيطالي | ⬜ placeholder |  |
+| `covy.cuisines.mediterranean` | Off the page (D42) · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Mediterranean dish | طبق من مطبخ البحر المتوسط | ⬜ placeholder | Not needed now: the section left the COVY page (D42) and will be reworked for Aroma Lounge in its identity |
+| `covy.cuisines.asian` | Off the page (D42) · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Asian dish | طبق آسيوي | ⬜ placeholder | Not needed now: the section left the COVY page (D42) and will be reworked for Aroma Lounge in its identity |
+| `covy.cuisines.latin` | Off the page (D42) · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Latin American dish | طبق من أمريكا اللاتينية | ⬜ placeholder | Not needed now: the section left the COVY page (D42) and will be reworked for Aroma Lounge in its identity |
+| `covy.cuisines.middle-eastern` | Off the page (D42) · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Middle-Eastern dish | طبق شرقي | ⬜ placeholder | Not needed now: the section left the COVY page (D42) and will be reworked for Aroma Lounge in its identity |
+| `covy.cuisines.italian` | Off the page (D42) · C4 The Taste of Everywhere | 1600 × 2000 px | 4:5 | Italian dish | طبق إيطالي | ⬜ placeholder | Not needed now: the section left the COVY page (D42) and will be reworked for Aroma Lounge in its identity |
 | `covy.spaces.indoor.1` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | The blue tree at the centre of COVY's dining room, ringed by a curved banquette | الشجرة الزرقاء في قلب صالة COVY تحيط بها أريكة منحنية | ✅ delivered | Generated with Higgsfield from the client's interior renders (D39) |
 | `covy.spaces.indoor.2` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | Curved banquettes back to back around the blue tree | أرائك منحنية متقابلة حول الشجرة الزرقاء | ✅ delivered | Generated with Higgsfield from the client's interior renders (D39) |
 | `covy.spaces.indoor.3` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | A glass pendant lamp glowing in the crown of the blue tree | مصباح زجاجي يضيء بين أوراق الشجرة الزرقاء | ✅ delivered | Generated with Higgsfield from the client's interior renders (D39) |
@@ -51,7 +51,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | `covy.spaces.corner.1` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | The photo corner: giant blue flowers over a white booth | ركن التصوير: زهور زرقاء ضخمة فوق أريكة بيضاء | ✅ delivered | Generated with Higgsfield from the client's interior renders (D39) |
 | `covy.spaces.corner.2` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | A table for two beside the sculpted flower wall | طاولة لشخصين بجانب جدار الزهور المنحوتة | ✅ delivered | Generated with Higgsfield from the client's interior renders (D39) |
 | `covy.spaces.corner.3` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | Close-up of the sculpted blue lilies and monstera leaves | لقطة قريبة لزهور الزنبق الزرقاء وأوراق المونستيرا المنحوتة | ✅ delivered | Generated with Higgsfield from the client's interior renders (D39) |
-| `covy.visit.facade` | Landing · C10 Find us | 1200 × 1500 px | 4:5 | COVY's arched entrance | مدخل COVY المقوّس | ⬜ placeholder |  |
+| `covy.visit.facade` | Landing · C10 Find us | 1200 × 1500 px | 4:5 | COVY's arched glass doors seen from the terrace, the blue tree in front, in late-afternoon sun | أبواب COVY الزجاجية المقوّسة من التراس، والشجرة الزرقاء أمامها، في شمس العصر | ✅ delivered | One of our Spaces photos (terrace 2), cropped to 4:5 (D42) |
 | `covy.og` | All · Social share image | 1200 × 630 px | 40:21 | COVY | COVY | ⬜ placeholder |  |
 | `covy.menu.breakfast.hero` | Landing · Menu · Breakfast | 1600 × 1000 px | 8:5 | Breakfast at COVY | الفطار | ⬜ placeholder |  |
 | `covy.menu.covy-benedict` | Landing · Menu · Breakfast · COVY Benedict | 800 × 800 px | 1:1 | COVY Benedict | بينيديكت COVY | ⬜ placeholder |  |

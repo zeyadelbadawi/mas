@@ -141,11 +141,13 @@ export const slots: SlotSpec[] = [
       kind: "image",
       id: `covy.cuisines.${key}`,
       app: "covy",
-      page: "Landing",
+      page: "Off the page (D42)",
       section: "C4 The Taste of Everywhere",
       width: 1600,
       height: 2000,
       alt: { en, ar },
+      notes:
+        "Not needed now: the section left the COVY page (D42) and will be reworked for Aroma Lounge in its identity",
     }),
   ),
   // C6: three photos per space, generated with Higgsfield from the client's interior renders (D39).
@@ -246,7 +248,12 @@ export const slots: SlotSpec[] = [
     section: "C10 Find us",
     width: 1200,
     height: 1500,
-    alt: { en: "COVY's arched entrance", ar: "مدخل COVY المقوّس" },
+    alt: {
+      en: "COVY's arched glass doors seen from the terrace, the blue tree in front, in late-afternoon sun",
+      ar: "أبواب COVY الزجاجية المقوّسة من التراس، والشجرة الزرقاء أمامها، في شمس العصر",
+    },
+    src: "/images/visit/entrance.jpg",
+    notes: "One of our Spaces photos (terrace 2), cropped to 4:5 (D42)",
   },
   {
     kind: "image",

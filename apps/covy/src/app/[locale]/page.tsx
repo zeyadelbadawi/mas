@@ -13,7 +13,6 @@ import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { Reviews } from "@/components/landing/reviews";
 import { Signature } from "@/components/landing/signature";
 import { Spaces } from "@/components/landing/spaces";
-import { Taste } from "@/components/landing/taste";
 import { Visit } from "@/components/landing/visit";
 import { brand, privacyHref } from "@/site";
 
@@ -29,8 +28,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const formMessages = { forms: all.forms, reserve: all.reserve } as AbstractIntlMessages;
   const sections = [
     "story",
-    "menu",
     "spaces",
+    "menu",
     "events",
     "visit",
     "label",
@@ -81,9 +80,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         <Hero />
         <Connector />
         <Signature />
-        <Taste locale={locale} />
-        <Menu locale={locale} />
         <Spaces locale={locale} />
+        <Menu locale={locale} />
         <Events locale={locale} />
         <Reviews locale={locale} />
         <section

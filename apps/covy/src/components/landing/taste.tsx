@@ -6,7 +6,11 @@ import { Cuisines } from "@/components/sections/cuisines";
 
 const KITCHENS = ["mediterranean", "asian", "latin", "middle-eastern", "italian"] as const;
 
-/** C4: the leaf ring turns through five kitchens; each stop swaps a dish still and one line. */
+/**
+ * C4: the leaf ring turns through five kitchens; each stop swaps a dish still and one line.
+ * Off the COVY page since D42. Kept, with the leaf ring in @mas/three, to rework for Aroma Lounge in its
+ * own identity.
+ */
 export async function Taste({ locale }: { locale: Locale }) {
   const t = await getTranslations("taste");
   return (

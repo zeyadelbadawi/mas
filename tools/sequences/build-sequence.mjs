@@ -5,7 +5,7 @@
 //   pnpm sequence:build --input clip.mp4 --id covy.hero --out out/sequences [--max-frames 150] [--fps 24]
 //                       [--focal 0.5,0.5] [--poster 0] [--avif-quality 50] [--webp-quality 72]
 //                       [--xl-width 2560 --xl-height 1440]  (0 skips the large desktop variant)
-//                       [--motion-step 8 --motion-floor 3]
+//                       [--motion-step 8 --motion-floor 3] [--resume]
 //
 // By default frames are sampled evenly in time. With --motion-step, frames are picked by how much the image
 // changes instead: about one frame per `motion-step` units of change (mean absolute difference of small
@@ -21,7 +21,7 @@
 // is at least that wide), mobile a 4:5 crop (1080×1350) around the focal point at half the frame rate.
 
 import { execFileSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { availableParallelism, tmpdir } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
@@ -46,6 +46,8 @@ const { values } = parseArgs({
     "mobile-height": { type: "string", default: "1350" },
     "motion-step": { type: "string", default: "0" },
     "motion-floor": { type: "string", default: "3" },
+    // Keep frames already written by an interrupted run with the same settings, and encode only the rest.
+    resume: { type: "boolean", default: false },
   },
 });
 
@@ -163,7 +165,7 @@ try {
   // Never upscale into the large variant: it only exists when the source has the pixels for it.
   const xl = xlRequested.width > 0 && srcW >= xlRequested.width ? xlRequested : null;
 
-  rmSync(outDir, { recursive: true, force: true });
+  if (!values.resume) rmSync(outDir, { recursive: true, force: true });
   const variantDirs = ["desktop", ...(xl ? ["desktop-xl"] : []), "mobile"];
   for (const v of variantDirs)
     for (const f of ["avif", "webp"]) mkdirSync(path.join(outDir, v, f), { recursive: true });
@@ -176,6 +178,17 @@ try {
 
   const mobileCount = mobilePicked.length;
   const encodeFrame = async (i) => {
+    const mi = mobilePicked.indexOf(i);
+    const outputs = [
+      ...["avif", "webp"].map((f) => path.join(outDir, `desktop/${f}`, `${pad(i)}.${f}`)),
+      ...(xl
+        ? ["avif", "webp"].map((f) => path.join(outDir, `desktop-xl/${f}`, `${pad(i)}.${f}`))
+        : []),
+      ...(mi >= 0
+        ? ["avif", "webp"].map((f) => path.join(outDir, `mobile/${f}`, `${pad(mi)}.${f}`))
+        : []),
+    ];
+    if (values.resume && outputs.every((f) => existsSync(f))) return;
     const src = path.join(tmp, picked[i]);
     const d = sharp(src).resize(desktop.width, desktop.height, {
       fit: "cover",
@@ -200,7 +213,6 @@ try {
         .webp({ quality: webpQ })
         .toFile(path.join(outDir, "desktop-xl/webp", `${pad(i)}.webp`));
     }
-    const mi = mobilePicked.indexOf(i);
     if (mi >= 0) {
       const m = sharp(src)
         .extract({ left: cropLeft, top: cropTop, width: cropW, height: cropH })
