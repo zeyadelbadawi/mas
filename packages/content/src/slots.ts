@@ -101,16 +101,32 @@ export const slots: SlotSpec[] = [
   },
   {
     kind: "sequence",
+    id: "covy.connector",
+    app: "covy",
+    page: "Landing",
+    section: "C2 To the bar",
+    ...SEQ,
+    frameCount: 180,
+    label: {
+      en: "From the blue tree, along the mural to the bar, where a glass of ice waits on the pastry case",
+      ar: "من الشجرة الزرقاء، بمحاذاة الجدارية حتى البار، حيث ينتظر كوب من الثلج فوق فاترينة المخبوزات",
+    },
+    notes:
+      "Generated with Higgsfield (D37, D38), following the floor plan in the client's interior presentation",
+  },
+  {
+    kind: "sequence",
     id: "covy.signature",
     app: "covy",
     page: "Landing",
     section: "C3 The signature cup",
     ...SEQ,
     label: {
-      en: "COVY's signature iced coffee being built in a glass",
-      ar: "تحضير قهوة COVY المثلجة المميزة في الكوب",
+      en: "COVY's signature iced coffee being built in a glass on the pastry case at the bar",
+      ar: "تحضير قهوة COVY المثلجة المميزة في الكوب فوق فاترينة المخبوزات عند البار",
     },
-    notes: "Generated with MAG",
+    notes:
+      "Generated with MAG; counter and backdrop re-edited with Higgsfield to the real bar (D38)",
   },
   ...(
     [

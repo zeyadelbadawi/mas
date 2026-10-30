@@ -125,6 +125,7 @@ classDiagram
     +scrollVh: number
     +holdVh: number
     +frameOverlay?: ReactNode
+    +overlapPrevious: boolean
     +fit: contain|cover
     +focal: Point
     +posterFrame: number

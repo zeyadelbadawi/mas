@@ -25,6 +25,12 @@ export type SequencePlayerProps = {
   fit?: "cover" | "contain";
   priority?: boolean;
   /**
+   * Continue the previous sequence without a cut: its last frame must be this one's first. The section is
+   * pulled up one screen so it pins exactly where the previous stage unpins, and its stage stays hidden until
+   * then, so the previous one shows through.
+   */
+  overlapPrevious?: boolean;
+  /**
    * Layer sized and placed exactly like the frame (cropped like it on any screen), for marks that must
    * stay on an object in the footage: position children in % of the frame. Assumes the centred focal point.
    */
@@ -89,6 +95,7 @@ export function SequencePlayer({
   holdVh = 0,
   fit = "cover",
   priority = false,
+  overlapPrevious = false,
   frameOverlay,
   children,
   className,
@@ -193,13 +200,20 @@ export function SequencePlayer({
       );
       if (near) cache.preloadAll();
       resize();
+      // Hidden only before it pins (the previous stage shows through); after its end it scrolls away as usual.
+      const reveal = (self: { scroll(): number; start: number }) => {
+        if (overlapPrevious) stage.style.visibility = self.scroll() < self.start ? "hidden" : "";
+      };
       trigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
         end: "bottom bottom",
         invalidateOnRefresh: true,
         onUpdate: (self) => onProgress(self.progress, self.direction),
+        onToggle: reveal,
+        onRefresh: reveal,
       });
+      reveal(trigger);
       onProgress(trigger.progress, 1);
     })();
 
@@ -221,13 +235,14 @@ export function SequencePlayer({
 
     return () => {
       cancelled = true;
+      stage.style.visibility = "";
       if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
       trigger?.kill();
       cache?.destroy();
     };
-  }, [animated, lib, manifestUrl, fit, tier, poster.avif, scrollVh, holdVh]);
+  }, [animated, lib, manifestUrl, fit, tier, poster.avif, scrollVh, holdVh, overlapPrevious]);
 
   // Static layouts show the poster with the overlay in its final state (e.g. the logo already in place).
   const style = {
@@ -246,6 +261,7 @@ export function SequencePlayer({
         staticLayout
           ? "h-auto"
           : "h-[calc(var(--scroll-vh)*1svh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
+        overlapPrevious && !staticLayout ? "-mt-[100svh] motion-reduce:mt-0" : "",
         className ?? "",
       ].join(" ")}
     >

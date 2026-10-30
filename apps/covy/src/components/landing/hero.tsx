@@ -5,7 +5,8 @@ import { CovyWordmark } from "@/components/logo";
 
 /**
  * C1: scroll walks from the facade, through the doors, to the blue tree; the logo settles in at the end,
- * then rises toward the centre and grows a little over a short hold on the last frame.
+ * then rises toward the centre and grows a little over a short hold on the last frame, and fades out before
+ * the connector (C2) takes over from the same frame.
  */
 export async function Hero() {
   const t = await getTranslations("hero");
@@ -34,7 +35,10 @@ export async function Hero() {
           {/* Final frames: the logo and the line from the guide. */}
           <div
             className="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-t from-[#262d3f]/75 via-[#262d3f]/10 to-transparent pb-[12vh] text-center text-[var(--covy-sand)]"
-            style={{ opacity: "clamp(0, calc((var(--seq-progress, 0) - 0.8) * 8), 1)" }}
+            style={{
+              opacity:
+                "min(clamp(0, calc((var(--seq-progress, 0) - 0.8) * 8), 1), clamp(0, calc((1 - var(--seq-hold, 0)) * 4), 1))",
+            }}
           >
             {/* The centre of the last frame is the pale mural; a soft shade keeps the risen logo legible. */}
             <div

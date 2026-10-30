@@ -82,3 +82,34 @@ pnpm sequence:upload --dir out/sequences
 The upload needs the `R2_*` variables from `docs/runbooks/r2-setup.md`. After it finishes, set `NEXT_PUBLIC_MEDIA_URL` on the Vercel project and redeploy.
 
 **Built and uploaded on 2026-10-30.** Each sequence is 150 desktop + 150 desktop-xl + 75 mobile frames in AVIF and WebP, plus a poster and manifest (753 files; hero 91 MB, signature 35 MB). Building from the 4K clips takes about an hour per sequence. Every file in both manifests loads from the bucket's public development URL `https://pub-c0d0df16ce96450a88b8e96c3b0bc44d.r2.dev` with the right content type and `Access-Control-Allow-Origin: *`; manifests are cached for 5 minutes, frames and posters for one week. The custom domain `media.mas.com` is not connected yet (see the R2 runbook).
+
+### Batch 5: COVY connector and the signature at the real bar (Higgsfield, approved by the owner, 387 credits)
+
+From here sequences are made with Higgsfield (D37). The connector replaces the static Story section and follows the floor plan in the client's 3D interior presentation (D38): from the hero's last frame the camera turns left along the mural to the barista bar, then pushes in on a glass of ice on the pastry case. The signature clip was re-edited so the glass stands on that pastry case with the real bar blurred behind it. No text, signage or logos in any frame.
+
+| Step | Higgsfield job | Tool | Credits |
+|---|---|---|---|
+| Signature: studio backdrop and terrazzo → blurred bar, black marble | `ec9f0fe5` | Kling 3.0 Omni Edit, 4K | 60 |
+| Bar keyframe (4 options) and nameplate cleanup | `e3944896`, `b5973850` | Nano Banana 2.1, 4K | 15 |
+| Connector shots 1 and 2, first version | `eff267f0`, `1f7481c8` | Kling 3.0 Omni Frames, 4K, 10 s | 120 |
+| Final bar keyframe: glass on the pastry case, croissants fixed (4 options, used `82d091d9`) | `82d091d9` | Nano Banana 2.1, 4K | 12 |
+| Signature: glass moved onto the pastry case top | `26622a85` | Kling 3.0 Omni Edit, 4K | 60 |
+| Connector shot 1: hero's last frame → bar | `200b2a3f` | Kling 3.0 Omni Frames, 4K, 10 s | 60 |
+| Connector shot 2: push-in to the signature's first frame | `e7af79e9` | Kling 3.0 Omni Frames, 4K, 10 s | 60 |
+
+The first version (195 credits) was dropped: the glass stood on the marble counter and moved onto the pastry case in shot 2, and the case showed grey pastries copied from the renders. Two edit jobs failed on input checks (a clip 0.04 s over 10 s and a reference image wider than 2.5:1) and were refunded.
+
+Both connector shots start and end on exact frames: shot 1 starts on the hero clip's last frame (cropped to 16:9 like the build) and shot 2 starts on shot 1's last frame and ends on the edited signature's first frame. Seam differences, mean of 255: 0.8 between the shots, 3.1 into the signature (less than one frame of camera motion).
+
+| Sequence | Build from | Size |
+|---|---|---|
+| `covy.connector` | shots `200b2a3f` + `e7af79e9` joined (shot 2's first frame dropped) | 3840×2160, 20 s, 24 fps |
+| `covy.signature` (uploaded as `covy.signature.r2`) | `26622a85` | 3840×2160, 10 s, 24 fps |
+
+```bash
+pnpm sequence:build --input covy-connector-4k.mp4 --id covy.connector --out out/sequences --max-frames 180
+pnpm sequence:build --input covy-signature-bar-4k.mp4 --id covy.signature.r2 --out out/sequences
+pnpm sequence:upload --dir out/sequences --only covy.connector,covy.signature.r2
+```
+
+The signature goes to a new path because frames are cached for a week under the same names; the site asks for it with `sequenceSource("covy.signature", { rev: 2 })`. The 960×540 drafts in `apps/covy/public/sequences/drafts` were rebuilt from the same clips (96 frames).
