@@ -51,11 +51,20 @@ Until higher-quality renders are approved, the 1080p drafts serve as the finals.
 | `aroma.terrace` | `kscnh8t16B` | Kling 3.0 draft as is |
 | `mas.portal` | `nVKqyVZYQD` | Kling 3.0 draft as is |
 
-Build and upload, with default settings (150 frames, 1920×1080 desktop, 1080×1350 mobile, focal 0.5,0.5):
+### Batch 3: COVY upscale (approved by the owner, ~8,000 credits)
+
+Spent: **8,194 credits** (Magnific Precision: hero 3,897 + signature 4,297). The request asked for 3840 px, but MAG's default resolution preset capped the output at **2588×1440**. That covers the 2560×1440 `desktop-xl` frames; a true 4K pass would cost about the same again for a small gain after downscaling. Detail is clearly sharper than the 1080p clips (mural veins, tree leaves, condensation on the glass).
+
+| Sequence | Build from (MAG creation) | Size |
+|---|---|---|
+| `covy.hero` | `jUMXfUALD0` (upscaled from `s7poaEFl8e`) | 2588×1440, 8.6 s, 24 fps |
+| `covy.signature` | `s7poEPPl8e` (upscaled from `MBsx3d8DCm`) | 2588×1440, 10 s, 24 fps |
+
+Build from the upscaled clips and upload, with default settings (150 frames; 1920×1080 desktop, 2560×1440 desktop-xl, 1080×1350 mobile; focal 0.5,0.5):
 
 ```bash
-pnpm sequence:build --input covy-hero-final.mp4 --id covy.hero --out out/sequences
-pnpm sequence:build --input covy-signature.mp4 --id covy.signature --out out/sequences
+pnpm sequence:build --input covy-hero-2k.mp4 --id covy.hero --out out/sequences
+pnpm sequence:build --input covy-signature-2k.mp4 --id covy.signature --out out/sequences
 pnpm sequence:upload --dir out/sequences
 ```
 
