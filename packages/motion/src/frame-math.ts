@@ -33,6 +33,40 @@ export function framePriority(
   return out;
 }
 
+/**
+ * How coarse a frame is for progressive loading: 0 for every `maxStride`-th frame (and the last frame),
+ * 1 for the frames that halve that gap, and so on up to log2(maxStride) for odd frames.
+ */
+export function strideLevel(index: number, frameCount: number, maxStride = 16): number {
+  if (index === frameCount - 1) return 0;
+  let level = 0;
+  for (let s = maxStride; s > 1; s /= 2, level++) if (index % s === 0) return level;
+  return level;
+}
+
+/**
+ * Order in which to download frames: the few right around the current one first, then a coarse pass
+ * across the sequence (every 16th frame), then finer passes. Within a pass, nearest first, favouring the
+ * scroll direction. A fast scroll then always lands near a frame that has already arrived.
+ */
+export function downloadOrder(
+  missing: Iterable<number>,
+  current: number,
+  frameCount: number,
+  direction: 1 | -1 = 1,
+  near = 6,
+): number[] {
+  return [...missing]
+    .map((i) => {
+      const d = (i - current) * direction;
+      const level = Math.abs(i - current) <= near ? -1 : strideLevel(i, frameCount);
+      // Behind the scroll direction counts double, and loses ties.
+      return { i, level, dist: d >= 0 ? d : -d * 2 + 0.5 };
+    })
+    .sort((a, b) => a.level - b.level || a.dist - b.dist)
+    .map((x) => x.i);
+}
+
 /** Frames outside [current - keepBehind, current + keepAhead] can be evicted from memory. */
 export function evictable(
   cached: Iterable<number>,

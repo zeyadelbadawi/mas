@@ -103,7 +103,7 @@ flowchart TB
 
 - **ImageSlot**: بيعرض بوكس الـ placeholder لحد ما الصورة تيجي.
 - **SequenceSlot**: بيعرض placeholder للمشهد، ولما الـ manifest يجهز بيتحول لـ **SequencePlayer**.
-- **SequencePlayer**: بيرسم الفريم المناسب لمكان السكرول، ومعاه **FrameCache** اللي بيحمّل الفريمات القريبة الأول.
+- **SequencePlayer**: بيرسم الفريم المناسب لمكان السكرول، ومعاه **FrameCache** اللي بيحمّل كل الفريمات مضغوطة (من غير ما يلغي أي تحميل وقت السكرول) ويفك بس الفريمات القريبة من مكان السكرول.
 - **MotionProvider**: بيشغّل Lenis وScrollTrigger، ويحدد **DeviceTier** (مستوى الجهاز).
 - **ReservationForm**: بيبعت لـ **FormHandler** على السيرفر.
 - **ConsentProvider** و**AnalyticsLoader**: الأناليتكس ما بيتحملش غير بعد الموافقة.
@@ -142,11 +142,12 @@ classDiagram
     +destroy()
   }
   class FrameCache {
+    -blobs: Map~number, Blob~
     -bitmaps: Map~number, ImageBitmap~
-    -inflight: Map~number, AbortController~
-    +prioritise(index, window)
+    +preloadAll()
+    +prioritise(index, direction)
     +get(index) ImageBitmap?
-    +evict(keepRange)
+    +nearest(index) ImageBitmap?
   }
   class SequenceManifest {
     +id: string

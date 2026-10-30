@@ -110,6 +110,7 @@ export function SequencePlayer({
     let current = 0;
     let lastDrawn: ImageBitmap | undefined;
     let raf = 0;
+    let near = false;
     const dprCap = tier === "MID" ? 1.5 : 2;
 
     const resize = () => {
@@ -164,13 +165,15 @@ export function SequencePlayer({
         async (index, signal) => {
           const r = await fetch(frameUrl(manifestUrl, template, index), { signal });
           if (!r.ok) throw new Error(`frame ${index}: ${r.status}`);
-          return createImageBitmap(await r.blob());
+          return r.blob();
         },
         {
           ...cacheWindow(variant, tier === "MID"),
-          onReady: (index) => index === current && schedule(),
+          // Any new frame may be closer to the scroll position than the one on screen.
+          onReady: schedule,
         },
       );
+      if (near) cache.preloadAll();
       resize();
       trigger = ScrollTrigger.create({
         trigger: section,
@@ -185,10 +188,24 @@ export function SequencePlayer({
     const ro = new ResizeObserver(resize);
     ro.observe(stage);
 
+    // Download the whole sequence once the section is about to be reached, so a fast scroll
+    // through it finds frames already in memory.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        near = true;
+        cache?.preloadAll();
+        io.disconnect();
+      },
+      { rootMargin: "150% 0px" },
+    );
+    io.observe(section);
+
     return () => {
       cancelled = true;
       if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
+      io.disconnect();
       trigger?.kill();
       cache?.destroy();
     };

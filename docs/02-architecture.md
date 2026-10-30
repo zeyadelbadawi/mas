@@ -133,11 +133,12 @@ classDiagram
     +destroy()
   }
   class FrameCache {
+    -blobs: Map~number, Blob~
     -bitmaps: Map~number, ImageBitmap~
-    -inflight: Map~number, AbortController~
-    +prioritise(index, window)
+    +preloadAll()
+    +prioritise(index, direction)
     +get(index) ImageBitmap?
-    +evict(keepRange)
+    +nearest(index) ImageBitmap?
   }
   class SequenceManifest {
     +id: string
