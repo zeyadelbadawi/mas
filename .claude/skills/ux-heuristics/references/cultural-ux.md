@@ -39,7 +39,7 @@ Designing for global audiences: RTL languages, color meanings, form conventions,
 
 | Element | Reason |
 |---------|--------|
-| Numbers | Always LTR (123, not ٣٢١) |
+| Numbers | Digits keep their left-to-right order inside RTL text; the locale (or the product spec) picks the digit glyphs, Latin or Arabic-Indic |
 | Phone numbers | Universal format |
 | Clocks | Universal format |
 | Video player controls | Universal convention |

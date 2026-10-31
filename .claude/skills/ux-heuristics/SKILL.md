@@ -17,7 +17,7 @@ Practical usability principles for evaluating and improving user interfaces. Use
 
 ## Scoring
 
-**Goal: 10/10.** Audit the interface, rate every issue on the severity scale below, then score the interface from its Quick Diagnostic results: start at 10 and subtract per failed diagnostic row, weighted by the worst severity it triggers (catastrophic/major rows cost ~2, minor/cosmetic ~1). Bands: **9-10** = no severity-3+ issues and ≤1 failed diagnostic row; **6-8** = some major issues or several failed rows; **3-5** = a catastrophic issue or many failed rows; **≤2** = core tasks blocked. Always state the current score, the highest-severity issues, and the specific fixes needed to reach 10/10.
+**Goal: 10/10.** Audit the interface, rate every issue on the severity scale below, then score the interface from its Quick Diagnostic results: start at 10 and subtract per failed diagnostic row, weighted by the worst severity it triggers (catastrophic/major rows cost ~2, minor/cosmetic ~1), then cap it by the worst issue: any catastrophic issue caps the score at 5, any major issue at 8. Bands: **9-10** = no severity-3+ issues and ≤1 failed diagnostic row; **6-8** = some major issues or several failed rows; **3-5** = a catastrophic issue or many failed rows; **≤2** = core tasks blocked. Always state the current score, the highest-severity issues, and the specific fixes needed to reach 10/10.
 
 ## Krug's Usability Principles
 
@@ -193,12 +193,12 @@ See: [references/wcag-checklist.md](references/wcag-checklist.md) when auditing 
 | Can I tell what site/page this is immediately? | Users are lost | Add clear logo, page title, breadcrumbs |
 | Is the main action obvious? | Users don't know what to do | Visual hierarchy, single primary CTA |
 | Is the navigation clear? | Users can't find their way | Apply the Trunk Test, add "you are here" indicators |
-| Can I find the search? | Goal-driven users are blocked | Visible search box in header |
+| Can I find the search? (when the content needs it; mark N/A when navigation alone gets users to everything) | Goal-driven users are blocked | Visible search box in header |
 | Does the system show what's happening? | Users lose trust and re-click | Loading states, confirmations, progress |
 | Are error messages helpful? | Users get stuck | Plain language with a specific fix |
 | Can users undo or go back? | Users are afraid to act | Undo, cancel, and back options everywhere |
 | Does it work without hover? | Mobile/keyboard users excluded | Visible alternatives to hover interactions |
-| Are all interactive elements labeled? | Users guess at icons | Text labels or descriptive tooltips |
+| Are all interactive elements labeled? | Users guess at icons | Visible text or a programmatic accessible name (`aria-label`) on every control; tooltips only add to it |
 | Does anything make me stop and think "huh?" | Cognitive load too high | Simplify — if it needs explanation, redesign it |
 
 ## Heuristic Conflicts

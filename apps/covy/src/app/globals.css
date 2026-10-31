@@ -43,19 +43,48 @@ html[data-splash="hold"] {
     color 0.45s var(--ease-brand),
     border-color 0.45s var(--ease-brand);
 }
+/* Over the scenes there is no bar: the footage runs up to the top edge, under a soft wash of the tone colour
+   that fades out below the header, and the type carries a halo of the same colour. */
+.covy-header {
+  --walk-tint: var(--covy-sand);
+}
+.covy-header::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 160%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--walk-tint) 70%, transparent),
+    color-mix(in srgb, var(--walk-tint) 40%, transparent) 45%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-brand);
+}
 .covy-header[data-mode="walk"] {
-  background-color: color-mix(in srgb, var(--covy-sand) 55%, transparent);
+  background-color: transparent;
   border-color: transparent;
   color: var(--covy-navy);
-  -webkit-backdrop-filter: blur(14px) saturate(1.25);
-  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--walk-tint) 70%, transparent);
 }
-/* Full-strength type on the glass (the bar's links are softened to 80%). */
+.covy-header[data-mode="walk"]::before {
+  opacity: 1;
+}
+.covy-header[data-mode="walk"] > div > a:first-child svg {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--walk-tint) 60%, transparent));
+}
+/* Full-strength type over the footage (the bar's links are softened to 80%). */
 .covy-header[data-mode="walk"] nav a {
   opacity: 1;
 }
 .covy-header[data-mode="walk"][data-tone="dark"] {
-  background-color: color-mix(in srgb, var(--covy-navy) 65%, transparent);
+  --walk-tint: var(--covy-navy);
   color: var(--covy-sand);
   --color-focus: var(--covy-sand);
 }

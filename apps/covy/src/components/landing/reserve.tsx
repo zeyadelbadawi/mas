@@ -76,7 +76,7 @@ export function Reserve({ location, privacyHref, turnstileSiteKey, events }: Res
         aria-label={t("title")}
         className="border-line mb-10 flex flex-wrap gap-8 border-b"
       >
-        <Tabs.Trigger value="book" className={tabClass}>
+        <Tabs.Trigger value="book" data-book-tab className={tabClass}>
           {t("book")}
         </Tabs.Trigger>
         <Tabs.Trigger value="feedback" className={tabClass}>

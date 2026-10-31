@@ -58,7 +58,7 @@ Dark patterns are user interface designs that trick users into doing things they
 **Why it's harmful:**
 - Traps users against their will
 - Violates user autonomy
-- Often illegal under GDPR and similar regulations
+- May breach specific obligations, e.g. GDPR Art. 7(3) (withdrawing consent as easy as giving it), Art. 17 (erasure) and Art. 20 (portability), where they apply
 
 **Ethical alternative:**
 - Symmetric design: if X is easy, reversing X should be easy
@@ -241,7 +241,7 @@ Dark patterns are user interface designs that trick users into doing things they
 
 ### GDPR (Europe)
 
-Dark patterns affecting consent are illegal:
+Where consent is the legal basis (Art. 4(11), Art. 7), dark patterns that undermine it can make the consent invalid:
 - Consent must be freely given
 - Rejecting must be as easy as accepting
 - Pre-ticked boxes invalid for consent

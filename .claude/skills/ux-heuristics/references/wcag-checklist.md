@@ -38,6 +38,7 @@ Content must be presentable in ways users can perceive.
 | 1.2.1 Audio/Video (prerecorded) | Captions and/or transcripts | Check video player for captions |
 | 1.2.2 Captions | Synchronized captions for video | Watch with captions on |
 | 1.2.3 Audio Description | Description of visual content | Check for AD track |
+| 1.2.4 Captions (Live) (AA) | Synchronized captions for live audio in video | Check live streams for captions |
 | 1.2.5 Audio Description (AA) | Audio description for all video | Verify AD available |
 
 **Pass criteria:**
@@ -100,7 +101,7 @@ Users must be able to operate the interface.
 |-----------|-------------|-------------|
 | 2.1.1 Keyboard | All functionality works with keyboard | Navigate with Tab, Enter, Space |
 | 2.1.2 No Keyboard Trap | Focus can always move away | Tab through everything |
-| 2.1.4 Character Key Shortcuts (AA) | Single-key shortcuts can be disabled | Check for shortcut conflicts |
+| 2.1.4 Character Key Shortcuts (A) | Single-key shortcuts can be disabled | Check for shortcut conflicts |
 
 **Pass criteria:**
 - [ ] All interactive elements are focusable
@@ -157,10 +158,10 @@ Users must be able to operate the interface.
 
 | Criterion | Requirement | How to Test |
 |-----------|-------------|-------------|
-| 2.5.1 Pointer Gestures (AA) | Complex gestures have simple alternatives | Check for alternatives |
-| 2.5.2 Pointer Cancellation (AA) | Actions on up-event, cancelable | Test click/drag behavior |
-| 2.5.3 Label in Name (AA) | Accessible name contains visible label | Compare visible/accessible names |
-| 2.5.4 Motion Actuation (AA) | Motion-based actions have alternatives | Check for non-motion options |
+| 2.5.1 Pointer Gestures (A) | Complex gestures have simple alternatives | Check for alternatives |
+| 2.5.2 Pointer Cancellation (A) | Actions on up-event, cancelable | Test click/drag behavior |
+| 2.5.3 Label in Name (A) | Accessible name contains visible label | Compare visible/accessible names |
+| 2.5.4 Motion Actuation (A) | Motion-based actions have alternatives | Check for non-motion options |
 
 **Pass criteria:**
 - [ ] Pinch, swipe have tap alternatives
@@ -281,7 +282,7 @@ Content must work with assistive technologies.
 | Missing alt text | 1.1.1 | Add descriptive alt or `alt=""` |
 | Low contrast | 1.4.3 | Increase to 4.5:1 (text) or 3:1 (large/UI) |
 | No focus indicator | 2.4.7 | Add visible :focus-visible styles |
-| Keyboard inaccessible | 2.1.1 | Make interactive, add tabindex=0 |
+| Keyboard inaccessible | 2.1.1 | Use a native `<button>` or `<a>`; a custom control needs its role, `tabindex="0"` and Enter/Space handling |
 | Missing form labels | 1.3.1, 3.3.2 | Add `<label>` with `for` attribute |
 | No skip link | 2.4.1 | Add "Skip to content" link |
 | Missing page title | 2.4.2 | Add descriptive `<title>` |
@@ -297,7 +298,7 @@ Before launch, verify:
 
 **Automated scan:**
 - [ ] axe DevTools shows 0 issues
-- [ ] Lighthouse accessibility score >90
+- [ ] Lighthouse accessibility score >90 (a supplementary signal only: automated tools cannot show WCAG conformance; every A and AA criterion still needs a manual check)
 
 **Keyboard:**
 - [ ] All functionality works with keyboard

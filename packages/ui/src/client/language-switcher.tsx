@@ -25,14 +25,16 @@ export function otherLocalePath(pathname: string, locale: "en" | "ar"): string {
 }
 
 /**
- * Where the visitor is on the page: the link target in the URL, or else the last section with an id whose
- * top has passed the upper third of the screen. Empty at the very top.
+ * Where the visitor is on the page now: the last shown section with an id whose top has passed the upper
+ * third of the screen. Read from the scroll position, not the URL hash, which goes stale once the visitor
+ * scrolls on from a link target. Empty at the very top.
  */
 function currentPlace(): string {
-  if (window.location.hash) return window.location.hash;
   if (window.scrollY < 1) return "";
   let id = "";
   for (const el of document.querySelectorAll<HTMLElement>("main section[id]")) {
+    // A hidden section (an emptied menu category) has no box, and its zero top would always match.
+    if (el.getClientRects().length === 0) continue;
     if (el.getBoundingClientRect().top <= window.innerHeight / 3) id = el.id;
   }
   return id ? `#${id}` : "";
@@ -49,10 +51,11 @@ export function LanguageSwitcher({ className, locale, label, ariaLabel }: Props)
   const href = otherLocalePath(pathname, locale);
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    const place = currentPlace();
-    if (!place) return;
+    // Keep the query too: "Book this event" puts ?event=<id> in it, and the form reads it from there.
+    const rest = window.location.search + currentPlace();
+    if (!rest) return;
     e.preventDefault();
-    router.push(href + place);
+    router.push(href + rest);
   };
   return (
     <Link

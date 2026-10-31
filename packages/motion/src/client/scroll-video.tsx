@@ -343,8 +343,6 @@ export function ScrollVideo({
             muted
             playsInline
             preload="auto"
-            // CORS-clean frames, also when streamed from the media host, so the page can read them (D47).
-            crossOrigin="anonymous"
             disablePictureInPicture
             disableRemotePlayback
             tabIndex={-1}

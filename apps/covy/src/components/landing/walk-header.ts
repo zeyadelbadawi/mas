@@ -2,11 +2,14 @@
 
 import { useEffect, type RefObject } from "react";
 
-/** The glass tints in globals.css (.covy-header): sand over bright frames, navy over dark ones. */
+/**
+ * The wash in globals.css (.covy-header::before): sand over bright frames, navy over dark ones. It fades from
+ * 70% at the top edge, so behind the type (mid-header) it is about this strong.
+ */
 const NAVY: Rgb = [38, 45, 63];
 const SAND: Rgb = [220, 212, 207];
-const LIGHT_TINT = 0.55;
-const DARK_TINT = 0.65;
+const LIGHT_TINT = 0.5;
+const DARK_TINT = 0.5;
 /** The other tone must read this much better before the header switches... */
 const SWITCH_MARGIN = 1.15;
 /** ...and keep reading better for this long, so a passing frame or a cut never makes it flicker. */
@@ -34,8 +37,8 @@ function over(tint: Rgb, amount: number, frame: Rgb): Rgb {
 }
 
 /**
- * The tone whose type reads better on the blurred strip: navy on the sand glass, or sand on the navy glass,
- * by their WCAG contrast. With these tints the better of the two stays above 5:1 for any even colour.
+ * The tone whose type reads better on the strip: navy over the sand wash, or sand over the navy wash, by
+ * their WCAG contrast. The type's halo of the wash colour adds to it.
  */
 function pickTone(frame: Rgb, current: "light" | "dark"): "light" | "dark" {
   const light = contrast(NAVY, over(SAND, LIGHT_TINT, frame));
@@ -69,9 +72,10 @@ function shownOpacity(el: HTMLElement, stop: HTMLElement): number {
 }
 
 /**
- * D47: while the header sits over the scroll scenes (`[data-walk]`), it turns to frosted glass and reads the
- * strip of footage under it and takes whichever tone reads better there by WCAG contrast: navy type on a
- * sand tint over bright frames (sky, the white mural), sand type on a navy tint over dark ones. An overlay that darkens that strip
+ * D47: while the header sits over the scroll scenes (`[data-walk]`), its bar gives way to a soft wash that
+ * fades into the footage. It reads the strip of footage under it and takes whichever tone reads better
+ * there by WCAG contrast: navy type on a sand wash over bright frames (sky, the white mural), sand type on a
+ * navy wash over dark ones. An overlay that darkens that strip
  * says so with `data-header-tone`. The bottom hairline fills with the walk's progress. Outside the scenes,
  * and without motion (no videos), the header keeps its sand bar.
  */

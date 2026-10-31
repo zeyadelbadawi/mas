@@ -353,8 +353,8 @@ Users click through "Are you sure?" without reading. Undo lets them act confiden
 
 ### Types of Help
 
-| Type | When to Use |
-|------|-------------|
+| Type | Form | When to Use |
+|------|------|-------------|
 | **Inline help** | Tooltips, hints | Next to complex fields |
 | **Contextual help** | "?" icons | For non-obvious features |
 | **Searchable docs** | Knowledge base | For detailed questions |

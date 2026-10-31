@@ -34,7 +34,7 @@ Usability heuristics are guidelines, not laws. In real design, they often pull i
 |--------|-------------|---------------|
 | User expertise | Novice | Expert |
 | Task frequency | Occasional | Daily |
-| Consequences of error | Low | High |
+| Consequences of error | High (favour the simple, error-preventing path) | Low |
 | Time pressure | High | Low |
 
 **Design patterns:**

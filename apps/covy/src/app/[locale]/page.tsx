@@ -99,7 +99,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         >
           <h2
             id="reserve-title"
-            className="font-editorial text-fg mx-auto mb-12 max-w-3xl text-5xl sm:text-6xl"
+            // Takes focus after "Book this event" while the forms are still loading.
+            tabIndex={-1}
+            className="font-editorial outline-none text-fg mx-auto mb-12 max-w-3xl text-5xl sm:text-6xl"
           >
             {t("title")}
           </h2>
