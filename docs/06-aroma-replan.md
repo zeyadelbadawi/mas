@@ -163,7 +163,7 @@ One orchestrated moment per section, never a fade-up on every card. The three sc
 
 Aroma's English on social is warm, short and second person, and it ends with an invitation. We write the site the same way, reusing their own lines where they fit (A1–A3 use three of them verbatim). We avoid agency phrases like "culinary journey" and "elevate your senses", and we run every page through the `humanizer` and `copywriting` skills.
 
-**Arabic** is written for Egyptian guests in light, warm Modern Standard Arabic with an Egyptian ear. It is not a word-for-word translation: each English line gets an Arabic line that does the same job.
+**Arabic** is written the way Aroma's guests talk: everyday Egyptian Arabic, with the same food words Aroma's own Arabic menu uses (فراخ، جمبري، بطاطس محمرة). It is not a word-for-word translation: each English line gets an Arabic line that does the same job. (Changed in P2 from "light Modern Standard Arabic": the menu and the nights read more like Aroma in Egyptian.)
 
 Draft lines (for review in P3):
 - Hero: "We believe in quality ingredients. We believe in quality times." / «بنآمن بجودة المكوّنات… وبجودة الوقت.»

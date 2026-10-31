@@ -417,17 +417,18 @@ export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
       },
     },
     ...c.items
-      .filter((item) => item.imageSlotId)
+      .filter((item) => item.imageSlotId || item.photo)
       .map(
         (item): ImageSlotSpec => ({
           kind: "image",
-          id: item.imageSlotId!,
+          id: item.imageSlotId ?? `${c.brandId}.menu.${item.id.split(".").pop()}`,
           app: c.brandId,
           page: "Landing",
           section: `Menu · ${c.name.en} · ${item.name.en}`,
           width: 800,
           height: 800,
           alt: item.name,
+          ...(item.photo ? { src: item.photo, notes: "The client's digital-menu photo (D53)" } : {}),
         }),
       ),
   ]);

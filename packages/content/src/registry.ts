@@ -1,4 +1,5 @@
 import { events } from "./events";
+import { aromaMenu } from "./menus/aroma";
 import { covyMenu } from "./menus/covy";
 import {
   eventSlots,
@@ -10,7 +11,12 @@ import {
 } from "./slots";
 
 /** Every slot: the hand-listed ones plus those derived from menus and events. tools/assets builds the same list. */
-export const allSlots: SlotSpec[] = [...slots, ...menuSlots(covyMenu), ...eventSlots(events)];
+export const allSlots: SlotSpec[] = [
+  ...slots,
+  ...menuSlots(covyMenu),
+  ...menuSlots(aromaMenu),
+  ...eventSlots(events),
+];
 
 /** Image slot props for <ImageSlot {...imageSlot("covy.spaces.indoor")} locale={locale} />. */
 export function imageSlot(

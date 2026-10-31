@@ -68,6 +68,8 @@ export type MenuItem = {
   tags: MenuTag[];
   /** Thumbnail slot (signature items only); registered in the asset manifest. */
   imageSlotId?: string;
+  /** The client's own photo of the dish, under the app's public folder (Aroma's digital menu, D53). */
+  photo?: string;
   placeholder: boolean;
 };
 
@@ -79,6 +81,8 @@ export type MenuCategory = {
   /** COVY's world tour: which kitchen the category comes from. */
   cuisine?: "mediterranean" | "asian" | "latin" | "middle-eastern" | "italian";
   kind: "food" | "drinks" | "shisha";
+  /** Which of the client's menus the category belongs to (Aroma's tabs). */
+  group?: "breakfast" | "food" | "drinks" | "dessert" | "kids";
   items: MenuItem[];
 };
 
