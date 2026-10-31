@@ -163,3 +163,5 @@ Balance before: 568.75 credits. References are Aroma's own posts and frames from
 | Keyframe | Job(s) | Credits | Verdict |
 |---|---|---|---|
 | K1 empty table from above, morning sun (2 options) | `fb6c0831`, `1da4a41a` | 6 | **`1da4a41a`**: the table runs down the centre like Aroma's own plates reel, and it crops well for phones |
+| K2 the same table with breakfast; cappuccino in the centre with plain foam (2 options) | `9af63408`, `229f3046` | 6 | **`229f3046`**: keeps K1's herb, glasses and placemats in place, so S1 has nothing jumping |
+| K3 eye level at golden hour: a hand raises the sunset drink against the lake and fountain (2 options) | `ac1a56cf`, `80151650` | 6 | **`80151650`**: the camera looks down the length of K2's table (shakshuka, feteer, herb, placemats in the same order), so S2's move from overhead to eye level makes sense; it also shows the restaurant frontage |
