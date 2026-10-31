@@ -18,6 +18,7 @@ export async function Connector() {
         label={t("walk")}
         scrollVh={560}
         leadVh={15}
+        holdVh={15}
         overlapPrevious
       >
         {/* Fades in once the turn starts and out before the bar; always shown without scroll motion. */}
