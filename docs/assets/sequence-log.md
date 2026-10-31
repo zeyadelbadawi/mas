@@ -168,3 +168,13 @@ Balance before: 568.75 credits. References are Aroma's own posts and frames from
 | K4 the same view at blue hour: lamps and string lights on, the fountain lit, a guitarist on the deck seen from behind (2 options) | `6a36824c`, `32f2cb4e` | 6 | **`6a36824c`**: closest framing to K3, so S3 is night falling on a still camera; the guitarist's face isn't visible |
 
 Keyframes spent: **24 credits**. The owner approves K1–K4 before any shot.
+
+### Shots (Kling 3.0, 4K, 10 s, start and end frame, no audio, 60 credits each; approved by the owner)
+
+| Shot | From → to | Job | Credits | Verdict |
+|---|---|---|---|---|
+| S1 `aroma.morning`: hands set the breakfast down, the cappuccino last | K1 → K2 | `ed907a92` | 60 | pending |
+| S2 `aroma.lake`: overhead → eye level toward the lake, morning → golden hour, the sunset drink raised | K2 → K3 | `78e9912f` | 60 | pending |
+| S3 `aroma.night`: dusk falls, lamps on, the guitarist starts | K3 → K4 | `d42ef40e` | 60 | pending |
+
+Two of the three were first held back by the tool's preset suggestion ("IN THE DARK"); it was declined and they were resubmitted unchanged, no credits spent on the held ones.
