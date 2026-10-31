@@ -5,22 +5,14 @@ import { getTranslations } from "next-intl/server";
 /**
  * C2: from the hero's last frame the camera turns left along the mural, as the real room runs, to the
  * barista bar and the glass of ice waiting on the pastry case: the first frame of C3. The brand guide's
- * belief rides over the turn. A short hold on the last frame lets the picture settle on the glass before
- * the pour (C3) takes over, so the cut never lands while the video is still catching up with a fast scroll.
+ * belief rides over the turn.
  */
 export async function Connector() {
   const t = await getTranslations("story");
   const src = videoSource("covy.connector");
   return (
     <section id="story" aria-labelledby="story-title">
-      <ScrollVideo
-        id="covy.connector"
-        {...src}
-        label={t("walk")}
-        scrollVh={560}
-        holdVh={30}
-        overlapPrevious
-      >
+      <ScrollVideo id="covy.connector" {...src} label={t("walk")} scrollVh={560} overlapPrevious>
         {/* Fades in once the turn starts and out before the bar; always shown without scroll motion. */}
         <div className="relative flex h-full items-center justify-center px-4 text-center text-[var(--covy-sand)] sm:px-8">
           {/* The room behind the copy is busy and bright in places; a soft navy pool keeps it legible. It is
