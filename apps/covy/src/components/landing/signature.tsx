@@ -32,6 +32,7 @@ export async function Signature() {
         {...src}
         label={t("body")}
         scrollVh={280}
+        leadVh={15}
         overlapPrevious
         frameOverlay={
           // COVY's mark printed on the glass in white enamel, layered over the footage (never baked into the

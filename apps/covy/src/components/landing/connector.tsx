@@ -12,7 +12,14 @@ export async function Connector() {
   const src = videoSource("covy.connector");
   return (
     <section id="story" aria-labelledby="story-title">
-      <ScrollVideo id="covy.connector" {...src} label={t("walk")} scrollVh={560} overlapPrevious>
+      <ScrollVideo
+        id="covy.connector"
+        {...src}
+        label={t("walk")}
+        scrollVh={560}
+        leadVh={15}
+        overlapPrevious
+      >
         {/* Fades in once the turn starts and out before the bar; always shown without scroll motion. */}
         <div className="relative flex h-full items-center justify-center px-4 text-center text-[var(--covy-sand)] sm:px-8">
           {/* The room behind the copy is busy and bright in places; a soft navy pool keeps it legible. It is
