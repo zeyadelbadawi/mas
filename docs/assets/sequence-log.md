@@ -153,3 +153,13 @@ pnpm sequence:upload --dir out/videos --prefix videos
 ```
 
 Seams, mean difference of 255: hero's last frame to the connector's first 5.0, connector's last to the signature's first 3.1 (the same as the image frames). **Uploaded on 2026-10-31** under `videos/`, 5 files each, `video/mp4` with range requests and `Access-Control-Allow-Origin: *`.
+
+## Aroma Lounge: "A day at Aroma" (Higgsfield, D52/D53, ceiling 300 credits)
+
+Balance before: 568.75 credits. References are Aroma's own posts and frames from their reels (owner's Drive folder): overhead marble tables, leaf placemats, the shakshuka pan, sunset drinks, the lake and fountain, the deck railing, the night terrace. Flyer frames with text over them were cropped or left out.
+
+### Keyframes (Nano Banana 2.1, 4K, 16:9, 3 credits each)
+
+| Keyframe | Job(s) | Credits | Verdict |
+|---|---|---|---|
+| K1 empty table from above, morning sun (2 options) | `fb6c0831`, `1da4a41a` | 6 | **`1da4a41a`**: the table runs down the centre like Aroma's own plates reel, and it crops well for phones |
