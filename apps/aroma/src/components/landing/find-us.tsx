@@ -57,14 +57,13 @@ export async function FindUs({ locale }: { locale: Locale }) {
           })}
           {aroma.orderUrl ? (
             <li>
-              {/* talabat's own orange, so the order link reads at a glance. */}
               <a
                 href={aroma.orderUrl}
                 target="_blank"
                 rel="noopener"
                 aria-label={t("order")}
                 title={t("order")}
-                className={`${icon} bg-[#ff5a00] text-white`}
+                className={`${icon} bg-fg text-bg`}
               >
                 <ShoppingBag aria-hidden="true" className="size-5" strokeWidth={2.2} />
               </a>

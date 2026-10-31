@@ -108,6 +108,16 @@ export function ScrollVideo({
       return;
     }
     const src = siblingUrl(manifestUrl, variant.src);
+    // The frame overlay is laid out as the full 16:9 frame. The phone cut is a full-height centre crop of
+    // that frame, so while it plays the overlay is sized from the crop's own shape: on screens it doesn't
+    // fill by height (between 4:5 and the portrait limit) the crop then scales by width, and marks on the
+    // footage would otherwise drift.
+    const overlay = overlaysRef.current[0];
+    if (overlay && fit === "cover") {
+      const frame = poster.width / poster.height;
+      const crop = variant.width / variant.height;
+      overlay.style.width = `max(${(100 * frame) / crop}cqw, ${100 * frame}cqh)`;
+    }
     const { fps, frameCount, timing } = manifest;
     const focalY = manifest.focal.y;
     const progress = progressRef.current;
@@ -238,7 +248,20 @@ export function ScrollVideo({
       video.removeEventListener("seeked", onSeeked);
       video.removeEventListener("loadeddata", onLoaded);
     };
-  }, [animated, manifest, manifestUrl, id, scrollVh, holdVh, leadVh, panFrom, panTo]);
+  }, [
+    animated,
+    manifest,
+    manifestUrl,
+    id,
+    scrollVh,
+    holdVh,
+    leadVh,
+    panFrom,
+    panTo,
+    fit,
+    poster.width,
+    poster.height,
+  ]);
 
   // Scroll: the motion library (loaded after first paint) drives the progress, and the reveal of a section
   // that continues the previous one. Kept apart from the video so its late arrival never reloads the file.
