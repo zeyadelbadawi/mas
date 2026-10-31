@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { brands, locations } from "@mas/content";
+import { branches, brands, locations } from "@mas/content";
 import {
   internalPagesEnabled,
   pageMetadata,
@@ -46,7 +46,7 @@ describe("pageMetadata", () => {
 
 describe("JSON-LD", () => {
   it("maps opening hours and escapes markup", () => {
-    const ld = restaurantJsonLd(brands.aroma, locations.aroma, "en") as {
+    const ld = restaurantJsonLd(brands.covy, locations.covy, "en") as {
       openingHoursSpecification: { dayOfWeek: string }[];
     };
     expect(ld.openingHoursSpecification).toHaveLength(7);
@@ -54,5 +54,17 @@ describe("JSON-LD", () => {
     expect(serializeJsonLd({ name: "</script><script>alert(1)</script>" })).not.toContain(
       "</script>",
     );
+  });
+
+  it("gives each branch its own entry and leaves out fields still to confirm", () => {
+    const [mivida, madinaty] = branches.aroma;
+    const a = restaurantJsonLd(brands.aroma, mivida, "en", { anchor: "mivida" });
+    const b = madinaty ? restaurantJsonLd(brands.aroma, madinaty, "en") : {};
+    expect(a["@id"]).not.toBe(b["@id"]);
+    expect(a.url).toMatch(/#mivida$/);
+    // Mivida's phone is confirmed, its hours are not; Madinaty has neither yet.
+    expect(a.telephone).toBe(mivida.phone);
+    expect(a).not.toHaveProperty("openingHoursSpecification");
+    expect(b).not.toHaveProperty("telephone");
   });
 });

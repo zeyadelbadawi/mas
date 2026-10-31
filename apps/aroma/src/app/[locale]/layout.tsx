@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ConsentBootScript, getConsentLabels } from "@mas/analytics";
 import { ConsentProvider } from "@mas/analytics/consent";
+import { imageSlot } from "@mas/content";
 import { directions, routing } from "@mas/i18n";
 import { MotionProvider } from "@mas/motion/provider";
 import { pageMetadata } from "@mas/seo";
@@ -21,9 +22,17 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "home" });
-  const title = `${t("title")} · ${t("tagline")}`;
+  const title = t("seoTitle");
   const base = pageMetadata({ brand, locale, path: "/", title, description: t("description") });
-  return { ...base, title: { default: title, template: `%s · ${brand.name[locale]}` } };
+  // The share card: the sunset drink raised over the lake, cropped from the lake scene (D53).
+  const og = imageSlot("aroma.og");
+  const image = { url: og.src ?? "", width: og.width, height: og.height, alt: og.alt[locale] };
+  return {
+    ...base,
+    title: { default: title, template: `%s · ${brand.name[locale]}` },
+    openGraph: { ...base.openGraph, images: [image] },
+    twitter: { ...base.twitter, images: [image] },
+  };
 }
 
 export default async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
@@ -44,7 +53,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           privacyHref={privacyHref(locale)}
           labels={await getConsentLabels(locale)}
         >
-          <MotionProvider>
+          <MotionProvider ease="sine.inOut">
             <SkipLink label={t("skipToContent")} />
             {children}
             <Footer locale={locale} />

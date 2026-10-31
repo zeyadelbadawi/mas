@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 222 | 160 | 62 |
+| Images | 222 | 172 | 50 |
 | Sequences (generated) | 7 | 0 | 7 |
 
 ## MAS (mas.com)
@@ -89,21 +89,21 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `aroma.branch.mivida` | Landing · A4 Branches · Mivida | 1200 × 1500 px | 4:5 | Aroma Lounge's terrace on the lake at Mivida | تراس أروما لاونج على البحيرة في ميفيدا | ⬜ placeholder | From Aroma's own posts (D53) |
+| `aroma.branch.mivida` | Landing · A4 Branches · Mivida | 1080 × 1350 px | 4:5 | Two iced drinks raised in a toast on Aroma Lounge's terrace, the lake at Mivida behind them | كوبايتين مشروب ساقع مرفوعين في خبطة كاسات على تراس أروما لاونج، وبحيرة ميفيدا وراهم | ✅ delivered | From Aroma's own posts (D53) |
 | `aroma.branch.madinaty` | Landing · A4 Branches · Madinaty | 1200 × 1500 px | 4:5 | Aroma Lounge at The Strip Mall, Madinaty | أروما لاونج في ذا ستريب مول، مدينتي | ⬜ placeholder | From Aroma's own posts (D53) |
-| `aroma.nights.live-music` | Landing · A6 What's on · Live music | 1200 × 900 px | 4:3 | Live guitar on the terrace at night | جيتار لايف على التراس بالليل | ⬜ placeholder |  |
+| `aroma.nights.live-music` | Landing · A6 What's on · Live music | 1200 × 900 px | 4:3 | A guitarist playing on the deck at dusk, the lit fountain on the lake behind him | عازف جيتار على الممشى وقت المغرب، والنافورة منوّرة على البحيرة وراه | ✅ delivered | Cropped from the night scene's last keyframe, made with Higgsfield from Aroma's photos (D53) |
 | `aroma.nights.match` | Landing · A6 What's on · Match nights | 1200 × 900 px | 4:3 | A match on the big screen at Aroma Lounge | ماتش على الشاشة الكبيرة في أروما لاونج | ⬜ placeholder |  |
 | `aroma.nights.aroma-nights` | Landing · A6 What's on · Aroma Nights | 1200 × 900 px | 4:3 | Dinner and a DJ on an Aroma Night | عشا وDJ في ليلة من Aroma Nights | ⬜ placeholder |  |
-| `aroma.story` | Landing · A7 Our story | 1200 × 1500 px | 4:5 | Friends sharing plates at Aroma Lounge | صحاب بيتشاركوا الأكل في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53) |
-| `aroma.guests.1` | Landing · A8 By guests · photo 1 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.guests.2` | Landing · A8 By guests · photo 2 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.guests.3` | Landing · A8 By guests · photo 3 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.guests.4` | Landing · A8 By guests · photo 4 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.guests.5` | Landing · A8 By guests · photo 5 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.guests.6` | Landing · A8 By guests · photo 6 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.guests.7` | Landing · A8 By guests · photo 7 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.guests.8` | Landing · A8 By guests · photo 8 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
-| `aroma.og` | All · Social share image | 1200 × 630 px | 40:21 | Aroma Lounge | أروما لاونج | ⬜ placeholder |  |
+| `aroma.story` | Landing · A7 Our story | 1080 × 1350 px | 4:5 | A guest laughing with friends over plates and juice at a table by the lake | ضيفة بتضحك مع صحابها على ترابيزة عليها أكل وعصير جنب البحيرة | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.1` | Landing · A8 By guests · photo 1 | 1080 × 1350 px | 4:5 | A guest holds a layered red and orange iced tea up to the camera | ضيفة رافعة آيس تي بطبقات أحمر وبرتقالي قدام الكاميرا | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.2` | Landing · A8 By guests · photo 2 | 1080 × 1350 px | 4:5 | Hands reaching for onion rings, fettuccine and feteer on a shared table | إيدين بتمد على أونيون رينجز وفيتوتشيني وفطير على ترابيزة واحدة | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.3` | Landing · A8 By guests · photo 3 | 1080 × 1350 px | 4:5 | Two friends at a terrace table set with plates, seen from above | صاحبين على ترابيزة في التراس عليها أطباق، من فوق | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.4` | Landing · A8 By guests · photo 4 | 1080 × 1350 px | 4:5 | A waiter in an Aroma Lounge apron carries a club sandwich | جرسون بمريلة أروما لاونج شايل كلوب ساندوتش | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.5` | Landing · A8 By guests · photo 5 | 1080 × 1350 px | 4:5 | A full table from above: pasta, salad, soup, juices and flatbreads | ترابيزة مليانة من فوق: باستا وسلطة وشوربة وعصاير وعيش | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.6` | Landing · A8 By guests · photo 6 | 1080 × 1350 px | 4:5 | A burger held over a plate of fries on the terrace, a juice beside it | برجر في الإيد فوق طبق بطاطس محمرة في التراس، وجنبه عصير | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.7` | Landing · A8 By guests · photo 7 | 1080 × 1350 px | 4:5 | A forkful of chocolate cake lifted from the plate | شوكة شايلة حتة كيك شوكولاتة من الطبق | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.8` | Landing · A8 By guests · photo 8 | 1080 × 1350 px | 4:5 | Two sunset iced drinks glowing in the afternoon sun | مشروبين sunset منوّرين في شمس العصر | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.og` | All · Social share image | 1200 × 630 px | 40:21 | A sunset iced tea raised over a breakfast table by the lake at Mivida | آيس تي sunset مرفوع فوق ترابيزة فطار جنب البحيرة في ميفيدا | ✅ delivered | Cropped from the lake scene's last keyframe, made with Higgsfield from Aroma's photos (D53) |
 | `aroma.menu.breakfast.hero` | Landing · Menu · Breakfast | 1600 × 1000 px | 8:5 | Breakfast at Aroma Lounge | الفطار | ⬜ placeholder |  |
 | `aroma.menu.breakfast.full-oriental-breakfast-tray` | Landing · Menu · Breakfast · Full Oriental Breakfast Tray | 800 × 800 px | 1:1 | Full Oriental Breakfast Tray | صينية فطار شرقي كاملة | ✅ delivered | The client's digital-menu photo (D53) |
 | `aroma.menu.breakfast.oriental-breakfast-tray` | Landing · Menu · Breakfast · Oriental Breakfast Tray | 800 × 800 px | 1:1 | Oriental Breakfast Tray | صينية فطار شرقي | ✅ delivered | The client's digital-menu photo (D53) |

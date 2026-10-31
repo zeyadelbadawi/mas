@@ -44,6 +44,42 @@ const SEQ = {
   mobile: { width: 1080, height: 1350 },
 };
 
+/** "By guests" (A8): moments from Aroma's own posts, in the order the wall shows them. */
+const GUEST_PHOTOS: LocalizedText[] = [
+  {
+    en: "A guest holds a layered red and orange iced tea up to the camera",
+    ar: "ضيفة رافعة آيس تي بطبقات أحمر وبرتقالي قدام الكاميرا",
+  },
+  {
+    en: "Hands reaching for onion rings, fettuccine and feteer on a shared table",
+    ar: "إيدين بتمد على أونيون رينجز وفيتوتشيني وفطير على ترابيزة واحدة",
+  },
+  {
+    en: "Two friends at a terrace table set with plates, seen from above",
+    ar: "صاحبين على ترابيزة في التراس عليها أطباق، من فوق",
+  },
+  {
+    en: "A waiter in an Aroma Lounge apron carries a club sandwich",
+    ar: "جرسون بمريلة أروما لاونج شايل كلوب ساندوتش",
+  },
+  {
+    en: "A full table from above: pasta, salad, soup, juices and flatbreads",
+    ar: "ترابيزة مليانة من فوق: باستا وسلطة وشوربة وعصاير وعيش",
+  },
+  {
+    en: "A burger held over a plate of fries on the terrace, a juice beside it",
+    ar: "برجر في الإيد فوق طبق بطاطس محمرة في التراس، وجنبه عصير",
+  },
+  {
+    en: "A forkful of chocolate cake lifted from the plate",
+    ar: "شوكة شايلة حتة كيك شوكولاتة من الطبق",
+  },
+  {
+    en: "Two sunset iced drinks glowing in the afternoon sun",
+    ar: "مشروبين sunset منوّرين في شمس العصر",
+  },
+];
+
 export const slots: SlotSpec[] = [
   /* ------------------------------------------------------------ MAS */
   {
@@ -318,9 +354,13 @@ export const slots: SlotSpec[] = [
     app: "aroma",
     page: "Landing",
     section: "A4 Branches · Mivida",
-    width: 1200,
-    height: 1500,
-    alt: { en: "Aroma Lounge's terrace on the lake at Mivida", ar: "تراس أروما لاونج على البحيرة في ميفيدا" },
+    width: 1080,
+    height: 1350,
+    alt: {
+      en: "Two iced drinks raised in a toast on Aroma Lounge's terrace, the lake at Mivida behind them",
+      ar: "كوبايتين مشروب ساقع مرفوعين في خبطة كاسات على تراس أروما لاونج، وبحيرة ميفيدا وراهم",
+    },
+    src: "/images/branches/mivida.webp",
     notes: "From Aroma's own posts (D53)",
   },
   {
@@ -331,7 +371,10 @@ export const slots: SlotSpec[] = [
     section: "A4 Branches · Madinaty",
     width: 1200,
     height: 1500,
-    alt: { en: "Aroma Lounge at The Strip Mall, Madinaty", ar: "أروما لاونج في ذا ستريب مول، مدينتي" },
+    alt: {
+      en: "Aroma Lounge at The Strip Mall, Madinaty",
+      ar: "أروما لاونج في ذا ستريب مول، مدينتي",
+    },
     notes: "From Aroma's own posts (D53)",
   },
   {
@@ -342,7 +385,13 @@ export const slots: SlotSpec[] = [
     section: "A6 What's on · Live music",
     width: 1200,
     height: 900,
-    alt: { en: "Live guitar on the terrace at night", ar: "جيتار لايف على التراس بالليل" },
+    alt: {
+      en: "A guitarist playing on the deck at dusk, the lit fountain on the lake behind him",
+      ar: "عازف جيتار على الممشى وقت المغرب، والنافورة منوّرة على البحيرة وراه",
+    },
+    src: "/images/nights/live-music.webp",
+    notes:
+      "Cropped from the night scene's last keyframe, made with Higgsfield from Aroma's photos (D53)",
   },
   {
     kind: "image",
@@ -352,7 +401,10 @@ export const slots: SlotSpec[] = [
     section: "A6 What's on · Match nights",
     width: 1200,
     height: 900,
-    alt: { en: "A match on the big screen at Aroma Lounge", ar: "ماتش على الشاشة الكبيرة في أروما لاونج" },
+    alt: {
+      en: "A match on the big screen at Aroma Lounge",
+      ar: "ماتش على الشاشة الكبيرة في أروما لاونج",
+    },
   },
   {
     kind: "image",
@@ -370,22 +422,27 @@ export const slots: SlotSpec[] = [
     app: "aroma",
     page: "Landing",
     section: "A7 Our story",
-    width: 1200,
-    height: 1500,
-    alt: { en: "Friends sharing plates at Aroma Lounge", ar: "صحاب بيتشاركوا الأكل في أروما لاونج" },
+    width: 1080,
+    height: 1350,
+    alt: {
+      en: "A guest laughing with friends over plates and juice at a table by the lake",
+      ar: "ضيفة بتضحك مع صحابها على ترابيزة عليها أكل وعصير جنب البحيرة",
+    },
+    src: "/images/story/friends.webp",
     notes: "From Aroma's own posts (D53)",
   },
-  ...([1, 2, 3, 4, 5, 6, 7, 8] as const).map(
-    (n): ImageSlotSpec => ({
+  ...GUEST_PHOTOS.map(
+    (alt, n): ImageSlotSpec => ({
       kind: "image",
-      id: `aroma.guests.${n}`,
+      id: `aroma.guests.${n + 1}`,
       app: "aroma",
       page: "Landing",
-      section: `A8 By guests · photo ${n}`,
+      section: `A8 By guests · photo ${n + 1}`,
       width: 1080,
       height: 1350,
-      alt: { en: "A moment at Aroma Lounge", ar: "لحظة في أروما لاونج" },
-      notes: "From Aroma's own posts (D53); alt is written per photo when it's placed",
+      alt,
+      src: `/images/guests/${n + 1}.webp`,
+      notes: "From Aroma's own posts (D53)",
     }),
   ),
   {
@@ -396,7 +453,13 @@ export const slots: SlotSpec[] = [
     section: "Social share image",
     width: 1200,
     height: 630,
-    alt: { en: "Aroma Lounge", ar: "أروما لاونج" },
+    alt: {
+      en: "A sunset iced tea raised over a breakfast table by the lake at Mivida",
+      ar: "آيس تي sunset مرفوع فوق ترابيزة فطار جنب البحيرة في ميفيدا",
+    },
+    src: "/images/share/aroma-og.jpg",
+    notes:
+      "Cropped from the lake scene's last keyframe, made with Higgsfield from Aroma's photos (D53)",
   },
 ];
 
@@ -428,7 +491,9 @@ export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
           width: 800,
           height: 800,
           alt: item.name,
-          ...(item.photo ? { src: item.photo, notes: "The client's digital-menu photo (D53)" } : {}),
+          ...(item.photo
+            ? { src: item.photo, notes: "The client's digital-menu photo (D53)" }
+            : {}),
         }),
       ),
   ]);

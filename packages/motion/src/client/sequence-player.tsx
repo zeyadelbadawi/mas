@@ -33,6 +33,7 @@ export type SequencePlayerProps = {
   /**
    * Layer sized and placed exactly like the frame (cropped like it on any screen), for marks that must
    * stay on an object in the footage: position children in % of the frame. Assumes the centred focal point.
+   * In ScrollVideo it reads `--seq-progress` and `--seq-hold` like the copy layer, so a mark can settle in.
    */
   frameOverlay?: ReactNode;
   /** HTML copy layered over the stage. Reads `--seq-progress` (0..1) from CSS if it needs to. */

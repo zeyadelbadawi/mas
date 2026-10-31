@@ -39,40 +39,4 @@ export const testimonials: Testimonial[] = [
     source: "placeholder",
     placeholder: true,
   },
-  {
-    id: "aroma-sample-1",
-    brandId: "aroma",
-    quote: {
-      en: "Sample review: a short quote from a guest about the food and the terrace will sit here.",
-      ar: "رأي تجريبي: هنا سيظهر اقتباس قصير من ضيف عن الأكل والتراس.",
-    },
-    author: { en: "Sample guest", ar: "ضيف تجريبي" },
-    rating: 5,
-    source: "placeholder",
-    placeholder: true,
-  },
-  {
-    id: "aroma-sample-2",
-    brandId: "aroma",
-    quote: {
-      en: "Sample review: a second guest quote, for example about the welcome or the shisha.",
-      ar: "رأي تجريبي: اقتباس ثانٍ من ضيف، مثلًا عن الاستقبال أو الشيشة.",
-    },
-    author: { en: "Sample guest", ar: "ضيف تجريبي" },
-    rating: 5,
-    source: "placeholder",
-    placeholder: true,
-  },
-  {
-    id: "aroma-sample-3",
-    brandId: "aroma",
-    quote: {
-      en: "Sample review: a third quote, taken from Google reviews once the client approves which to show.",
-      ar: "رأي تجريبي: اقتباس ثالث من تقييمات جوجل بعد موافقة العميل على المعروض.",
-    },
-    author: { en: "Sample guest", ar: "ضيف تجريبي" },
-    rating: 4,
-    source: "placeholder",
-    placeholder: true,
-  },
 ];

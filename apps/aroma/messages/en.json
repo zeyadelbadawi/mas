@@ -2,6 +2,105 @@
   "home": {
     "title": "Aroma Lounge",
     "tagline": "Good food comes from good hearts, we aspire for both.",
-    "description": "Aroma Lounge at City Stars, Cairo: food, coffee and shisha in a warm lounge. Browse the menu and book a table."
+    "seoTitle": "Aroma Lounge: Mivida Lake District & Madinaty | Breakfast, Dinner, Live Music",
+    "description": "Aroma Lounge by the lake in Mivida's Lake District and at The Strip, Madinaty. Breakfast, dinner, coffee and live music every week. See the full menu and book a table."
+  },
+  "nav": {
+    "label": "Main",
+    "menu": "Menu",
+    "branches": "Branches",
+    "nights": "What's on",
+    "story": "Our story",
+    "book": "Book a table",
+    "open": "Open menu",
+    "close": "Close menu"
+  },
+  "morning": {
+    "title": "Aroma Lounge: breakfast, lunch and dinner by the lake at Mivida and at The Strip, Madinaty",
+    "line": "We believe in quality ingredients. We believe in quality times.",
+    "scroll": "Scroll and pull up a chair"
+  },
+  "lake": {
+    "quote": "It's the moments around the table that turn a meal into a memory.",
+    "place": "By the lake at Mivida",
+    "label": "The camera rises from the breakfast table to the lake at Mivida, where a hand raises a sunset iced tea at golden hour, the fountain behind"
+  },
+  "night": {
+    "title": "Come for dinner. Stay for the atmosphere.",
+    "body": "Live music every week, by the lake and at The Strip.",
+    "slot": "{day}s at {branch}",
+    "time": "{from} – {to}",
+    "book": "Book a table",
+    "more": "What's on",
+    "label": "Dusk falls over the lake, the terrace lights come on and a guitarist plays on the deck"
+  },
+  "branches": {
+    "title": "Two places to find us",
+    "intro": "By the lake at Mivida, and at The Strip in Madinaty. One menu, the same welcome.",
+    "mivida": "On the water in The Lake District, with the fountain in view.",
+    "madinaty": "Our newest home, at The Strip Mall since June 2026.",
+    "hours": "Open every day",
+    "hoursSample": "Hours to be confirmed",
+    "phoneSample": "Number to be confirmed",
+    "call": "Call",
+    "directions": "Directions",
+    "book": "Book at {branch}"
+  },
+  "menu": {
+    "title": "Menu",
+    "intro": "Breakfast till late, plates made for sharing, and the drinks you know us for.",
+    "search": "Search the menu",
+    "searchPlaceholder": "Try feteer, matcha or burger",
+    "categories": "Menu sections",
+    "clear": "Clear",
+    "order": "Order on talabat",
+    "allergens": "Tell us about any allergy before you order. Prices in Egyptian pounds; one menu at both branches.",
+    "groups": {
+      "breakfast": "Breakfast",
+      "food": "Food",
+      "drinks": "Drinks",
+      "dessert": "Dessert",
+      "kids": "Kids"
+    },
+    "resultsForms": {
+      "zero": "Nothing matches. Try another word.",
+      "one": "# item matches",
+      "other": "# items match"
+    }
+  },
+  "nights": {
+    "title": "What's on",
+    "intro": "Your night plans are set.",
+    "weekly": "Every week",
+    "book": "Book a table",
+    "bookAt": "Book {day} at {branch}",
+    "instagram": "See the dates on Instagram"
+  },
+  "story": {
+    "title": "Our story",
+    "body": "Aroma Lounge started as a rooftop lounge at City Stars. Today you'll find us by the lake at Mivida and at The Strip in Madinaty, cooking with the same idea we started with."
+  },
+  "guests": {
+    "title": "Around our tables",
+    "intro": "Friends, full tables and a lot of sunset drinks, from our own posts.",
+    "follow": "Follow us on Instagram"
+  },
+  "reserve": {
+    "title": "Book a table",
+    "intro": "Save your table and we'll call you to confirm.",
+    "book": "Book a table or event",
+    "feedback": "Share your feedback",
+    "pickFirst": "Pick a branch to see its times."
+  },
+  "findUs": {
+    "title": "Find us",
+    "follow": "Follow us",
+    "order": "Order on talabat",
+    "directions": "Directions"
+  },
+  "splash": {
+    "loading": "Setting your table",
+    "skip": "Continue without waiting",
+    "slow": "This is taking longer than usual."
   }
 }

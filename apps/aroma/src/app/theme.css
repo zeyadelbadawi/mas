@@ -1,34 +1,46 @@
-/* Aroma Lounge — palette from the brand guide (p.15–16). */
+/* Aroma Lounge — colours from the client's logo file and its photos (06-aroma-replan §7.1, D52).
+   Contrast: leaf on marble 5.6:1, white on leaf 6.1:1, ink on marble 14:1, logo green on night 7.8:1.
+   The logo green is for the petal, highlights and fills only: on marble it is 1.85:1, never text. */
 :root {
-  --aroma-grey: #aba6a6;
-  --aroma-charcoal: #202722;
-  --aroma-green: #8eb57a;
-  --aroma-beige: #e6e3d8;
-  --aroma-copper: #a5673f;
-  --aroma-rust: #5c2e1f;
-  --aroma-forest: #355e3b;
-  --aroma-butter: #f5e6b8;
+  --aroma-green: #8fc741;
+  --aroma-leaf: #3d6e21;
+  --aroma-night: #16261c;
+  --aroma-marble: #f7f5f0;
+  --aroma-sunset: #f2a33a;
+  --aroma-ember: #c8401f;
+  --aroma-gold: #f6c453;
+  --aroma-ink: #202722;
+  --aroma-stone: #959595;
 
-  --brand-bg: var(--aroma-beige);
-  --brand-fg: var(--aroma-charcoal);
-  --brand-muted: #4f5650;
-  --brand-surface: #eeece4;
-  --brand-surface-2: #f6f5f0;
-  --brand-line: #c9c5b8;
-  --brand-accent: var(--aroma-forest);
-  --brand-accent-fg: #f6f5f0;
-  --brand-focus: var(--aroma-forest);
+  --brand-bg: var(--aroma-marble);
+  --brand-fg: var(--aroma-ink);
+  --brand-muted: #535b54;
+  --brand-surface: #eeebe2;
+  --brand-surface-2: #fbfaf7;
+  --brand-line: #d8d3c6;
+  --brand-accent: var(--aroma-leaf);
+  --brand-accent-fg: #ffffff;
+  --brand-focus: var(--aroma-leaf);
   --brand-danger: #9b2c1f;
-  --brand-success: var(--aroma-forest);
-  --brand-slot: #dcd8cb;
+  --brand-success: var(--aroma-leaf);
+  --brand-slot: #e4e0d4;
   --brand-slot-fg: #3d4a3f;
 
+  /* Hanken Grotesk (Telegraf substitute) and Alexandria for Arabic stay (D4); the warmth is in the words. */
   --brand-font-display: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
   --brand-font-editorial: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
   --brand-font-body: var(--font-hanken), "Hanken Grotesk", system-ui, sans-serif;
-  --brand-radius-control: 0.375rem;
-  --brand-radius-card: 0.75rem;
-  --brand-ease: cubic-bezier(0.45, 0, 0.55, 1);
+  --brand-radius-control: 999px;
+  --brand-radius-card: 1rem;
+  --brand-ease: cubic-bezier(0.37, 0, 0.63, 1);
+
+  /* The one signature effect: the layered sunset drink, ember to sunset to gold. */
+  --aroma-sunset-gradient: linear-gradient(
+    to top,
+    var(--aroma-ember),
+    var(--aroma-sunset) 55%,
+    var(--aroma-gold)
+  );
 }
 
 :root:lang(ar) {
