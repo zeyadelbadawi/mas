@@ -5,7 +5,7 @@
 //   pnpm sequence:build --input clip.mp4 --id covy.hero --out out/sequences [--max-frames 150] [--fps 24]
 //                       [--focal 0.5,0.5] [--poster 0] [--avif-quality 50] [--webp-quality 72]
 //                       [--xl-width 2560 --xl-height 1440]  (0 skips the large desktop variant)
-//                       [--motion-step 8 --motion-floor 3] [--resume]
+//                       [--motion-step 8 --motion-floor 3] [--ease-in 0.06 --ease-out 0.12] [--resume]
 //
 // By default frames are sampled evenly in time. With --motion-step, frames are picked by how much the image
 // changes instead: about one frame per `motion-step` units of change (mean absolute difference of small
@@ -15,6 +15,10 @@
 // evenly. `motion-floor` is the least change a source frame counts for, so near-still stretches still take
 // some scroll. The first and last frames are always kept, in every variant, so sequences that meet at a
 // shared frame still match.
+//
+// `ease-in` / `ease-out` (shares of the move, with --motion-step) slow the camera gently at the start and
+// end of the timing curve instead of starting or stopping at full speed: use them where a sequence starts
+// from a still frame or lands on one (a hold, or the next sequence's static first frame).
 //
 // Output: <out>/<id>/manifest.json, poster.{avif,webp}, {desktop,desktop-xl,mobile}/{avif,webp}/0000.*
 // Desktop is 1920×1080 (16:9), desktop-xl 2560×1440 for large or high-density screens (only when the source
@@ -48,6 +52,8 @@ const { values } = parseArgs({
     "motion-floor": { type: "string", default: "3" },
     // Keep frames already written by an interrupted run with the same settings, and encode only the rest.
     resume: { type: "boolean", default: false },
+    "ease-in": { type: "string", default: "0" },
+    "ease-out": { type: "string", default: "0" },
   },
 });
 
@@ -74,6 +80,8 @@ const xlRequested = { width: Number(values["xl-width"]), height: Number(values["
 const mobile = { width: Number(values["mobile-width"]), height: Number(values["mobile-height"]) };
 const motionStep = Number(values["motion-step"]);
 const motionFloor = Number(values["motion-floor"]);
+const easeIn = Number(values["ease-in"]);
+const easeOut = Number(values["ease-out"]);
 
 /** Image change between consecutive frames: mean absolute difference of 192×108 greyscale copies. */
 async function motionProfile(files) {
@@ -103,6 +111,34 @@ function pickByMotion(change, step, floor) {
   for (let i = 1; i < at.length; i++)
     if (at[i] - at[picked[picked.length - 1]] >= step || i === at.length - 1) picked.push(i);
   return { picked, timing: picked.map((i) => at[i] / total) };
+}
+
+/**
+ * Re-time a curve (0..1) so the camera eases in over the first `easeIn` of the move and out over the last
+ * `easeOut`: there it moves at down to 30% of its speed, which takes proportionally more of the scroll.
+ */
+function ease(timing, easeIn, easeOut) {
+  if (!(easeIn > 0) && !(easeOut > 0)) return timing;
+  const floor = 0.3;
+  const smooth = (x) => x * x * (3 - 2 * x);
+  const speed = (u) => {
+    let s = 1;
+    if (easeIn > 0 && u < easeIn) s = Math.min(s, floor + (1 - floor) * smooth(u / easeIn));
+    if (easeOut > 0 && u > 1 - easeOut)
+      s = Math.min(s, floor + (1 - floor) * smooth((1 - u) / easeOut));
+    return s;
+  };
+  // Scroll needed to reach each point of the move: the integral of 1 / speed, normalised to 0..1.
+  const n = 4000;
+  const scroll = [0];
+  for (let i = 1; i <= n; i++)
+    scroll.push(scroll[i - 1] + 2 / (speed((i - 1) / n) + speed(i / n)) / n);
+  const total = scroll[n];
+  return timing.map((t) => {
+    const x = t * n;
+    const i = Math.min(n - 1, Math.floor(x));
+    return (scroll[i] + (scroll[i + 1] - scroll[i]) * (x - i)) / total;
+  });
 }
 
 /** Every second index, plus the last one so the final frame is always there. */
@@ -149,7 +185,7 @@ try {
     const change = await motionProfile(all.map((f) => path.join(tmp, f)));
     const byMotion = pickByMotion(change, motionStep, motionFloor);
     picked = byMotion.picked.map((i) => all[i]);
-    timing = byMotion.timing;
+    timing = ease(byMotion.timing, easeIn, easeOut);
   } else {
     const count = Math.min(maxFrames, all.length);
     picked = Array.from(

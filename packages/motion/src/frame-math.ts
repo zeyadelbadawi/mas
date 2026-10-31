@@ -10,7 +10,11 @@ export function progressToFrame(progress: number, frameCount: number): number {
  * `timing` curve (each frame's place along the move, 0..1, rising), equal scroll moves the camera equally
  * even where the frames are unevenly spaced; without one the frames are spread evenly.
  */
-export function progressToPosition(progress: number, frameCount: number, timing?: readonly number[]): number {
+export function progressToPosition(
+  progress: number,
+  frameCount: number,
+  timing?: readonly number[],
+): number {
   if (frameCount <= 1) return 0;
   const p = Number.isFinite(progress) ? Math.min(1, Math.max(0, progress)) : 0;
   if (!timing || timing.length !== frameCount) return p * (frameCount - 1);

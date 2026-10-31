@@ -12,7 +12,7 @@ export async function Connector() {
   const src = sequenceSource("covy.connector", { rev: 2 });
   return (
     <section id="story" aria-labelledby="story-title">
-      <SequencePlayer id="covy.connector" {...src} label={t("walk")} scrollVh={545} overlapPrevious>
+      <SequencePlayer id="covy.connector" {...src} label={t("walk")} scrollVh={560} overlapPrevious>
         {/* Fades in once the turn starts and out before the bar; always shown without scroll motion. */}
         <div
           className="relative flex h-full items-center justify-center px-4 text-center text-[var(--covy-sand)] in-data-[animated=false]:opacity-100! motion-reduce:opacity-100! sm:px-8"

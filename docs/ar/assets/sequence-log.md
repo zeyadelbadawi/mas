@@ -56,11 +56,11 @@
 | `covy.connector.r2` | 180 ← 329 (mobile 165) | 8 | `covy-connector-4k.mp4` (481 فريم أصلي) |
 
 ```bash
-pnpm sequence:build --input covy-hero-4k.mp4 --id covy.hero.r2 --out out/sequences --motion-step 6
-pnpm sequence:build --input covy-connector-4k.mp4 --id covy.connector.r2 --out out/sequences --motion-step 8
+pnpm sequence:build --input covy-hero-4k.mp4 --id covy.hero.r2 --out out/sequences --motion-step 6 --ease-out 0.06
+pnpm sequence:build --input covy-connector-4k.mp4 --id covy.connector.r2 --out out/sequences --motion-step 8 --ease-in 0.06 --ease-out 0.12
 pnpm sequence:upload --dir out/sequences --only covy.hero.r2,covy.connector.r2
 ```
 
-سكشن الـ connector بقى 545vh بدل 400vh عشان الكاميرا فيه تمشي بنفس سرعة الـ hero مع السكرول. `covy.signature.r2` زي ما هو (الكاميرا ثابتة؛ والـ player بقى بيدمج فريماته هو كمان).
+سكشن الـ connector بقى 560vh بدل 400vh عشان الكاميرا فيه تمشي بسرعة الـ hero تقريبًا مع السكرول. والـ easing بيحافظ على الوصول الهادي: الـ hero بيهدى في آخر 6% من حركته قبل الوقفة، والـ connector بيبدأ هادي في أول 6% ويهدى في آخر 12% وهو داخل على الكوباية. `covy.signature.r2` زي ما هو (الكاميرا ثابتة؛ والـ player بقى بيدمج فريماته هو كمان).
 
 **اتبنت واترفعت على R2 يوم 2026-10-31.** `covy.hero.r2`: ‏1,005 ملف؛ و`covy.connector.r2`: ‏1,649 ملف (AVIF وWebP، والـ poster والـ manifest).

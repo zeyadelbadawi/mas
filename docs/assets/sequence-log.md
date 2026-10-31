@@ -126,11 +126,11 @@ No new footage. The same 4K clips were rebuilt with `--motion-step`, which keeps
 | `covy.connector.r2` | 180 → 329 (mobile 165) | 8 | `covy-connector-4k.mp4` (481 source frames) |
 
 ```bash
-pnpm sequence:build --input covy-hero-4k.mp4 --id covy.hero.r2 --out out/sequences --motion-step 6
-pnpm sequence:build --input covy-connector-4k.mp4 --id covy.connector.r2 --out out/sequences --motion-step 8
+pnpm sequence:build --input covy-hero-4k.mp4 --id covy.hero.r2 --out out/sequences --motion-step 6 --ease-out 0.06
+pnpm sequence:build --input covy-connector-4k.mp4 --id covy.connector.r2 --out out/sequences --motion-step 8 --ease-in 0.06 --ease-out 0.12
 pnpm sequence:upload --dir out/sequences --only covy.hero.r2,covy.connector.r2
 ```
 
-The connector's section grows from 400vh to 545vh so its camera moves at the hero's speed per scroll. `covy.signature.r2` is unchanged (static camera; the player now blends its frames too).
+The connector's section grows from 400vh to 560vh so its camera moves at about the hero's speed per scroll. Easing keeps the old slow landings: the hero eases out over the last 6% of its move into the hold, and the connector eases in over its first 6% and out over its last 12% onto the glass. `covy.signature.r2` is unchanged (static camera; the player now blends its frames too).
 
 **Built and uploaded on 2026-10-31.** `covy.hero.r2`: 1,005 files; `covy.connector.r2`: 1,649 files (AVIF and WebP, poster and manifest).
