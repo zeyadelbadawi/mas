@@ -30,7 +30,8 @@ export async function Signature() {
       <ScrollVideo
         id="covy.signature"
         {...src}
-        label={t("body")}
+        // Empty alt: the same words are the section copy, on screen.
+        label=""
         scrollVh={280}
         leadVh={15}
         overlapPrevious
@@ -74,7 +75,7 @@ export async function Signature() {
             <h2 id="signature-title" className="font-editorial text-4xl sm:text-5xl">
               {t("title")}
             </h2>
-            <p className="mt-4 leading-relaxed opacity-85">{t("body")}</p>
+            <p className="mt-4 leading-relaxed">{t("body")}</p>
             <a href="#menu-iced" className="mt-4 inline-block text-sm underline underline-offset-4">
               {t("link")}
             </a>

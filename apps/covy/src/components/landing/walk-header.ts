@@ -2,21 +2,57 @@
 
 import { useEffect, type RefObject } from "react";
 
-/**
- * Above LIGHT the strip under the header counts as a bright frame, below DARK as a dark one; in between the
- * tone holds. With the glass tints in globals.css (sand 50%, navy 55%) the type keeps at least 4.5:1 across
- * that whole band, worked out on sRGB luma, which is what brightness() measures.
- */
-const LIGHT = 0.5;
-const DARK = 0.36;
+/** The glass tints in globals.css (.covy-header): sand over bright frames, navy over dark ones. */
+const NAVY: Rgb = [38, 45, 63];
+const SAND: Rgb = [220, 212, 207];
+const LIGHT_TINT = 0.55;
+const DARK_TINT = 0.65;
+/** The other tone must read this much better before the header switches, so it never flickers. */
+const SWITCH_MARGIN = 1.15;
 
-/** Relative brightness (0..1) of the pixels drawn into the probe canvas. */
-function brightness(ctx: CanvasRenderingContext2D, w: number, h: number): number {
+type Rgb = [number, number, number];
+
+/** WCAG relative luminance of an sRGB colour. */
+function luminance([r, g, b]: Rgb): number {
+  const lin = (c: number) => {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
+
+function contrast(a: Rgb, b: Rgb): number {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x) as [number, number];
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+/** A tint laid over the frame, as color-mix() in sRGB composites it. */
+function over(tint: Rgb, amount: number, frame: Rgb): Rgb {
+  return frame.map((c, i) => tint[i]! * amount + c * (1 - amount)) as Rgb;
+}
+
+/**
+ * The tone whose type reads better on the blurred strip: navy on the sand glass, or sand on the navy glass,
+ * by their WCAG contrast. With these tints the better of the two stays above 5:1 for any even colour.
+ */
+function pickTone(frame: Rgb, current: "light" | "dark"): "light" | "dark" {
+  const light = contrast(NAVY, over(SAND, LIGHT_TINT, frame));
+  const dark = contrast(SAND, over(NAVY, DARK_TINT, frame));
+  if (current === "light") return dark > light * SWITCH_MARGIN ? "dark" : "light";
+  return light > dark * SWITCH_MARGIN ? "light" : "dark";
+}
+
+/** Average colour of the pixels drawn into the probe canvas. */
+function average(ctx: CanvasRenderingContext2D, w: number, h: number): Rgb {
   const d = ctx.getImageData(0, 0, w, h).data;
-  let sum = 0;
-  for (let i = 0; i < d.length; i += 4)
-    sum += 0.2126 * d[i]! + 0.7152 * d[i + 1]! + 0.0722 * d[i + 2]!;
-  return sum / (d.length / 4) / 255;
+  const sum: Rgb = [0, 0, 0];
+  for (let i = 0; i < d.length; i += 4) {
+    sum[0] += d[i]!;
+    sum[1] += d[i + 1]!;
+    sum[2] += d[i + 2]!;
+  }
+  const n = d.length / 4;
+  return [sum[0] / n, sum[1] / n, sum[2] / n];
 }
 
 /** How visible an element really is: its own opacity times every ancestor's, up to `stop`. */
@@ -32,8 +68,8 @@ function shownOpacity(el: HTMLElement, stop: HTMLElement): number {
 
 /**
  * D47: while the header sits over the scroll scenes (`[data-walk]`), it turns to frosted glass and reads the
- * strip of footage under it: navy type on a sand tint over bright frames (sky, the white mural), sand type
- * on a navy tint over dark ones (the bar, the studio behind the glass). An overlay that darkens that strip
+ * strip of footage under it and takes whichever tone reads better there by WCAG contrast: navy type on a
+ * sand tint over bright frames (sky, the white mural), sand type on a navy tint over dark ones. An overlay that darkens that strip
  * says so with `data-header-tone`. The bottom hairline fills with the walk's progress. Outside the scenes,
  * and without motion (no videos), the header keeps its sand bar.
  */
@@ -84,10 +120,7 @@ export function useWalkHeader(headerRef: RefObject<HTMLElement | null>) {
       const oy = (r.height - v.videoHeight * s) / 2;
       try {
         ctx.drawImage(v, -ox / s, (-r.top - oy) / s, r.width / s, h / s, 0, 0, 24, 3);
-        const b = brightness(ctx, 24, 3);
-        if (b > LIGHT) return "light";
-        if (b < DARK) return "dark";
-        return tone;
+        return pickTone(average(ctx, 24, 3), tone);
       } catch {
         // A frame that can't be read (streamed from another origin): keep the last tone.
         return null;

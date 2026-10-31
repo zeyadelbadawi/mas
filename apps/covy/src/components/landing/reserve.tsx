@@ -3,7 +3,12 @@
 import type { Location } from "@mas/content";
 import { FeedbackForm } from "@mas/forms/feedback-form";
 import { ReservationForm } from "@mas/forms/reservation-form";
-import { NextIntlClientProvider, useTranslations, type AbstractIntlMessages } from "next-intl";
+import {
+  NextIntlClientProvider,
+  useLocale,
+  useTranslations,
+  type AbstractIntlMessages,
+} from "next-intl";
 import { Tabs } from "radix-ui";
 import { useState, useSyncExternalStore } from "react";
 
@@ -39,6 +44,7 @@ function subscribeToUrl(onChange: () => void) {
 /** C9: booking and feedback side by side as tabs. */
 export function Reserve({ location, privacyHref, turnstileSiteKey, events }: ReserveProps) {
   const t = useTranslations("reserve");
+  const locale = useLocale();
   const [tab, setTab] = useState("book");
   // "Book this event" sets ?event=<id> in the URL (BookEventLink, or a shared link), the only source.
   const search = useSyncExternalStore(
@@ -59,7 +65,13 @@ export function Reserve({ location, privacyHref, turnstileSiteKey, events }: Res
     "font-editorial text-fg/60 data-[state=active]:text-fg data-[state=active]:border-fg border-b-2 border-transparent pb-3 text-2xl transition-colors hover:text-fg sm:text-3xl";
 
   return (
-    <Tabs.Root value={tab} onValueChange={setTab} className="mx-auto max-w-3xl">
+    <Tabs.Root
+      value={tab}
+      onValueChange={setTab}
+      // Radix defaults to ltr, which would lay the whole form out left to right in Arabic.
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      className="mx-auto max-w-3xl"
+    >
       <Tabs.List
         aria-label={t("title")}
         className="border-line mb-10 flex flex-wrap gap-8 border-b"
@@ -71,7 +83,10 @@ export function Reserve({ location, privacyHref, turnstileSiteKey, events }: Res
           {t("feedback")}
         </Tabs.Trigger>
       </Tabs.List>
-      <Tabs.Content value="book" className="focus-visible:outline-none">
+      <Tabs.Content
+        value="book"
+        className="focus-visible:outline-focus rounded-card focus-visible:outline-2 focus-visible:outline-offset-8"
+      >
         {event ? (
           <div className="bg-surface text-fg rounded-card mb-6 flex items-center justify-between gap-4 px-4 py-2 text-sm">
             <p>{t("eventFor", { title: event.title })}</p>
@@ -99,7 +114,10 @@ export function Reserve({ location, privacyHref, turnstileSiteKey, events }: Res
             : {})}
         />
       </Tabs.Content>
-      <Tabs.Content value="feedback" className="focus-visible:outline-none">
+      <Tabs.Content
+        value="feedback"
+        className="focus-visible:outline-focus rounded-card focus-visible:outline-2 focus-visible:outline-offset-8"
+      >
         <FeedbackForm
           privacyHref={privacyHref}
           turnstileSiteKey={turnstileSiteKey}

@@ -39,14 +39,18 @@
     border-color 0.45s var(--ease-brand);
 }
 .covy-header[data-mode="walk"] {
-  background-color: color-mix(in srgb, var(--covy-sand) 50%, transparent);
+  background-color: color-mix(in srgb, var(--covy-sand) 55%, transparent);
   border-color: transparent;
   color: var(--covy-navy);
   -webkit-backdrop-filter: blur(14px) saturate(1.25);
   backdrop-filter: blur(14px) saturate(1.25);
 }
+/* Full-strength type on the glass (the bar's links are softened to 80%). */
+.covy-header[data-mode="walk"] nav a {
+  opacity: 1;
+}
 .covy-header[data-mode="walk"][data-tone="dark"] {
-  background-color: color-mix(in srgb, var(--covy-navy) 55%, transparent);
+  background-color: color-mix(in srgb, var(--covy-navy) 65%, transparent);
   color: var(--covy-sand);
   --color-focus: var(--covy-sand);
 }

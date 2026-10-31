@@ -49,6 +49,7 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
   const [phase, setPhase] = useState<"loading" | "leaving" | "gone">("loading");
   const [canSkip, setCanSkip] = useState(false);
   const leaveRef = useRef<() => void>(() => {});
+  const skipRef = useRef<HTMLButtonElement>(null);
   const { getLenis, tier } = useMotion();
   const lenisRef = useRef(getLenis);
   useEffect(() => {
@@ -119,8 +120,21 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
     const keys = (e: KeyboardEvent) => {
       if (scrollKeys.includes(e.key)) e.preventDefault();
     };
+    // While the panel is up the page behind it is inert: nothing there takes keyboard focus or clicks.
+    const inerted: HTMLElement[] = [];
+    const isolate = () => {
+      for (let n: HTMLElement | null = el; n && n !== document.body; n = n.parentElement) {
+        for (const sib of n.parentElement?.children ?? []) {
+          if (sib === n || !(sib instanceof HTMLElement) || sib.inert || sib.tagName === "SCRIPT")
+            continue;
+          sib.inert = true;
+          inerted.push(sib);
+        }
+      }
+    };
     const hold = (minMs: number) => {
       holding = true;
+      isolate();
       window.addEventListener("wheel", block, { passive: false, capture: true });
       window.addEventListener("touchmove", block, { passive: false, capture: true });
       window.addEventListener("keydown", keys, { capture: true });
@@ -135,6 +149,8 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
       }, 1000);
     };
     function release() {
+      inerted.forEach((n) => (n.inert = false));
+      inerted.length = 0;
       window.clearInterval(pause);
       window.clearInterval(stallWatch);
       window.removeEventListener("wheel", block, { capture: true });
@@ -223,6 +239,11 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
     };
   }, []);
 
+  // The way out appears only when something is wrong; keyboard and screen-reader users land on it.
+  useEffect(() => {
+    if (canSkip) skipRef.current?.focus();
+  }, [canSkip]);
+
   // The LOW and reduced-motion tiers show still posters, so there is nothing to wait for.
   useEffect(() => {
     if (tier !== null && tier !== "HIGH" && tier !== "MID") leaveRef.current();
@@ -256,6 +277,7 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
               {slow}
             </p>
             <button
+              ref={skipRef}
               type="button"
               onClick={() => leaveRef.current()}
               className="py-2 font-medium text-[var(--covy-navy)] underline underline-offset-4"

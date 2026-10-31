@@ -258,7 +258,7 @@ export function ReservationForm({
             <Field
               id="time"
               label={t("reservation.time")}
-              error={err("time")}
+              error={date ? err("time") : undefined}
               hint={date && slots.length === 0 ? t("reservation.noTimes") : undefined}
               required
             >

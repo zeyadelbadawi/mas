@@ -15,7 +15,8 @@ export async function Hero() {
   return (
     <div id="top">
       <h1 className="sr-only">{t("title")}</h1>
-      <ScrollVideo id="covy.hero" {...src} label={t("title")} scrollVh={300} holdVh={90} priority>
+      {/* The poster's alt is empty: the heading above already names the scene. */}
+      <ScrollVideo id="covy.hero" {...src} label="" scrollVh={300} holdVh={90} priority>
         <div className="relative h-full">
           {/* Opening frames: a quiet line in the sky area and a cue, gone after the first steps. */}
           <div
@@ -46,7 +47,7 @@ export async function Hero() {
               {/* The centre of the frame is the pale mural; this shade travels with the logo to keep it legible. */}
               <div
                 aria-hidden="true"
-                className="absolute top-1/2 left-1/2 h-[200%] w-[min(120vw,60rem)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,#262d3fcc_0%,#262d3f8c_50%,transparent_100%)]"
+                className="absolute top-1/2 left-1/2 h-[200%] w-[min(120vw,60rem)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,#262d3fcc_0%,#262d3f8c_50%,transparent_100%)] in-data-[animated=false]:opacity-100! motion-reduce:opacity-100!"
                 style={{
                   // Fades back out over the last fifth of the hold: on short screens the shade is still
                   // partly in view when the logo has gone, and the connector starts with no overlay.
@@ -55,7 +56,7 @@ export async function Hero() {
                 }}
               />
               <CovyWordmark className="relative h-auto w-[min(72vw,30rem)]" />
-              <p className="font-display relative mt-6 text-sm tracking-[0.35em] uppercase sm:text-base rtl:tracking-normal">
+              <p className="font-display relative mt-6 text-sm tracking-[0.35em] uppercase [text-shadow:0_1px_10px_rgb(38_45_63/0.6)] sm:text-base rtl:tracking-normal">
                 {home("tagline")}
               </p>
             </div>
