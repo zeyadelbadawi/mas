@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import type { MouseEvent } from "react";
+import { useSyncExternalStore, type MouseEvent } from "react";
 import { cn } from "../cn";
 
 type Props = {
@@ -40,6 +40,12 @@ function currentPlace(): string {
   return id ? `#${id}` : "";
 }
 
+/** URL query changes made in place (pushState/replaceState) announce themselves with a popstate event. */
+function subscribeToUrl(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+}
+
 /**
  * Keeps the visitor on the same page in the other language, at the same section. Plain Next.js routing,
  * no i18n runtime.
@@ -48,6 +54,12 @@ export function LanguageSwitcher({ className, locale, label, ariaLabel }: Props)
   const pathname = usePathname();
   const router = useRouter();
   const target = locale === "ar" ? "en" : "ar";
+  // The query rides along in the link itself too, so a new tab keeps it ("Book this event" sets ?event=).
+  const search = useSyncExternalStore(
+    subscribeToUrl,
+    () => window.location.search,
+    () => "",
+  );
   const href = otherLocalePath(pathname, locale);
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -59,7 +71,7 @@ export function LanguageSwitcher({ className, locale, label, ariaLabel }: Props)
   };
   return (
     <Link
-      href={href}
+      href={href + search}
       hrefLang={target}
       onClick={onClick}
       className={cn(
