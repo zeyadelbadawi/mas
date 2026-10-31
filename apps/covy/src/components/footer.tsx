@@ -53,7 +53,7 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
               href={DESIGNER_URL}
               target="_blank"
               rel="noopener"
-              className="text-[var(--covy-sand)] underline-offset-4 hover:underline"
+              className="text-[var(--covy-sand)] underline decoration-[var(--covy-sand)]/40 underline-offset-4 transition-colors hover:decoration-[var(--covy-sand)]"
             >
               {t("designer")}
             </a>
