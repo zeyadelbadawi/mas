@@ -104,7 +104,7 @@
     "stars": "{count} out of 5 stars"
   },
   "reserve": {
-    "title": "Book a table, or tell us how it went",
+    "title": "Reservations",
     "book": "Book a table or event",
     "feedback": "Share your feedback",
     "eventFor": "Booking for: {title}",

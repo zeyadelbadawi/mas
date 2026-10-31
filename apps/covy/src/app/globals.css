@@ -61,7 +61,8 @@
   height: 1px;
   background: currentColor;
   opacity: 0;
-  transform: scaleX(var(--walk-progress, 0));
+  /* Set on the element itself as the walk scrolls (useWalkHeader). */
+  transform: scaleX(0);
   transform-origin: left;
   transition: opacity 0.45s var(--ease-brand);
 }

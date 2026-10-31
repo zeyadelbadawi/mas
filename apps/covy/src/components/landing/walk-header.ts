@@ -7,8 +7,10 @@ const NAVY: Rgb = [38, 45, 63];
 const SAND: Rgb = [220, 212, 207];
 const LIGHT_TINT = 0.55;
 const DARK_TINT = 0.65;
-/** The other tone must read this much better before the header switches, so it never flickers. */
+/** The other tone must read this much better before the header switches... */
 const SWITCH_MARGIN = 1.15;
+/** ...and keep reading better for this long, so a passing frame or a cut never makes it flicker. */
+const SWITCH_HOLD_MS = 300;
 
 type Rgb = [number, number, number];
 
@@ -83,24 +85,31 @@ export function useWalkHeader(headerRef: RefObject<HTMLElement | null>) {
     canvas.height = 3;
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     let tone: "light" | "dark" = "light";
+    let pending: { tone: "light" | "dark"; since: number } | null = null;
     let raf = 0;
+    const progress = header.querySelector<HTMLElement>(".covy-header-progress");
 
     const set = (name: string, value: string) => {
       if (header.dataset[name] !== value) header.dataset[name] = value;
     };
 
-    /** The scene stage on screen under the header: the last pinned, revealed one paints on top. */
+    /**
+     * The scene on screen under the header: the topmost pinned, revealed stage (later stages paint over
+     * earlier ones). Its video only if it has a frame; a stage without one is never swapped for the
+     * covered one beneath it, which may show a different picture.
+     */
     const activeVideo = (h: number) => {
-      let pick: HTMLVideoElement | null = null;
-      for (const v of walk.querySelectorAll<HTMLVideoElement>("[data-sequence-id] video")) {
-        const stage = v.parentElement;
-        if (!stage || v.readyState < 2 || !v.videoWidth) continue;
+      let top: HTMLElement | null = null;
+      for (const stage of walk.querySelectorAll<HTMLElement>("[data-sequence-id] > div")) {
         const r = stage.getBoundingClientRect();
         if (r.top > 1 || r.bottom < h) continue;
-        if (shownOpacity(v, stage) < 0.5) continue;
-        pick = v;
+        if (shownOpacity(stage, walk) < 0.5) continue;
+        top = stage;
       }
-      return pick;
+      const v = top?.querySelector("video");
+      // While it seeks, the video still shows its last frame, which is the one on screen: read that.
+      if (!v || v.readyState < 2 || !v.videoWidth) return null;
+      return shownOpacity(v, top!) < 0.5 ? null : v;
     };
 
     const readTone = (h: number): "light" | "dark" | null => {
@@ -137,19 +146,33 @@ export function useWalkHeader(headerRef: RefObject<HTMLElement | null>) {
       if (!over) return;
       const travel = r.height - window.innerHeight;
       const p = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
-      header.style.setProperty("--walk-progress", p.toFixed(4));
-      tone = readTone(h) ?? tone;
+      progress?.style.setProperty("transform", `scaleX(${p.toFixed(4)})`);
+      const read = readTone(h);
+      const now = performance.now();
+      if (!read) {
+        // No reading this time: keep the tone and any switch already under way.
+      } else if (read === tone) {
+        pending = null;
+      } else if (pending?.tone !== read) {
+        pending = { tone: read, since: now };
+      } else if (now - pending.since >= SWITCH_HOLD_MS) {
+        tone = read;
+        pending = null;
+      }
       set("tone", tone);
     };
     const schedule = () => {
       if (!raf) raf = requestAnimationFrame(update);
     };
-    // Scrolling moves the strip; seeks land after the scroll stops, so the frame is read again a moment later.
-    const tick = window.setInterval(schedule, 250);
+    // Scrolling moves the strip, and each seek that lands changes the frame: read again on both. The tick
+    // completes a pending switch once it has held.
+    const tick = window.setInterval(schedule, 150);
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    walk.addEventListener("seeked", schedule, true);
     schedule();
     return () => {
+      walk.removeEventListener("seeked", schedule, true);
       window.clearInterval(tick);
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", schedule);
