@@ -2,6 +2,7 @@
 
 import { Canvas, useThree, type CanvasProps } from "@react-three/fiber";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { hasWebgl } from "@mas/motion";
 import { useMotion } from "@mas/motion/provider";
 
 type SceneCanvasProps = {
@@ -24,7 +25,9 @@ export function SceneCanvas({ poster, children, label, className, camera }: Scen
   const wrapRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [failed, setFailed] = useState(false);
-  const enabled = (tier === "HIGH" || tier === "MID") && !failed;
+  // The tier no longer accounts for WebGL (scroll videos don't need it), so the scene checks it here; the
+  // tier is null on the server, so this never runs there.
+  const enabled = (tier === "HIGH" || tier === "MID") && hasWebgl() && !failed;
 
   useEffect(() => {
     const el = wrapRef.current;

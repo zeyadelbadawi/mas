@@ -1,4 +1,4 @@
-export { decideTier, type DeviceTier, type TierSignals } from "./device-tier";
+export { decideTier, hasWebgl, type DeviceTier, type TierSignals } from "./device-tier";
 export {
   progressToFrame,
   progressToPosition,
