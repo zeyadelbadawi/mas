@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { progressToPosition } from "../frame-math";
-import { siblingUrl, type VideoManifest } from "../manifest";
+import { siblingUrl, videoVariantFor, type VideoManifest } from "../manifest";
 import { useMotion } from "./motion-provider";
 import type { SequencePlayerProps } from "./sequence-player";
 import {
@@ -90,11 +90,10 @@ export function ScrollVideo({
     const video = videoRef.current;
     if (!animated || !manifest || !section || !video) return;
 
-    // By the screen's shape: the 4:5 crop for portrait screens, the 16:9 frames otherwise.
-    const portrait = window.innerWidth / window.innerHeight < 0.9;
-    const variant =
-      manifest.variants.find((v) => v.name === (portrait ? "mobile" : "desktop")) ??
-      manifest.variants[0];
+    // By the screen's shape when the page opens: the 4:5 crop for portrait screens, the 16:9 frames
+    // otherwise. It stays for the visit, so a resize never sends the visitor back to a download.
+    const shape = videoVariantFor(window.innerWidth, window.innerHeight);
+    const variant = manifest.variants.find((v) => v.name === shape) ?? manifest.variants[0];
     if (!variant) {
       abandonPreload(id);
       return;

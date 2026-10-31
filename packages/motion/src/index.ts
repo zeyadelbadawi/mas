@@ -12,6 +12,8 @@ export {
 export {
   frameUrl,
   siblingUrl,
+  PORTRAIT_BELOW,
+  videoVariantFor,
   type SequenceManifest,
   type SequenceVariant,
   type VideoManifest,
