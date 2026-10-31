@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from "react";
 import { videoVariantFor } from "../manifest";
+import { loadMotionLib } from "./motion-lib";
 import { fallBackToStills, useMotion } from "./motion-provider";
-import { sceneStatus, scenesReady, subscribeScenes } from "./scene-status";
+import { markGate, sceneStatus, scenesReady, subscribeScenes } from "./scene-status";
 import {
   abandonAllPreloads,
   preloadBytes,
@@ -34,7 +35,11 @@ const noSubscribe = () => () => {};
 /** Every scene of this screen's video variant was loaded earlier in this session (the browser has the files). */
 function loadedThisSession(sessionKey: string): boolean {
   try {
-    return sessionStorage.getItem(sessionKey + videoVariantFor(window.innerWidth, window.innerHeight)) === "1";
+    return (
+      sessionStorage.getItem(
+        sessionKey + videoVariantFor(window.innerWidth, window.innerHeight),
+      ) === "1"
+    );
   } catch {
     // No storage (private mode): every load gets the full panel.
     return false;
@@ -46,7 +51,8 @@ function isolate(panel: HTMLElement): HTMLElement[] {
   const inerted: HTMLElement[] = [];
   for (let n: HTMLElement | null = panel; n && n !== document.body; n = n.parentElement) {
     for (const sib of n.parentElement?.children ?? []) {
-      if (sib === n || !(sib instanceof HTMLElement) || sib.inert || sib.tagName === "SCRIPT") continue;
+      if (sib === n || !(sib instanceof HTMLElement) || sib.inert || sib.tagName === "SCRIPT")
+        continue;
       sib.inert = true;
       inerted.push(sib);
     }
@@ -99,9 +105,13 @@ export function useSplashGate({
   const [phase, setPhase] = useState<SplashGate["phase"]>("loading");
   const [progress, setProgress] = useState(0);
   // Read on the client only (the server can't know), so the short panel shows from hydration on.
-  const quick = useSyncExternalStore(noSubscribe, () => loadedThisSession(sessionKey), () => false);
+  const quick = useSyncExternalStore(
+    noSubscribe,
+    () => loadedThisSession(sessionKey),
+    () => false,
+  );
   const [canSkip, setCanSkip] = useState(false);
-  const leaveRef = useRef<() => void>(() => {});
+  const leaveRef = useRef<(how: "ready" | "skipped" | "stills") => void>(() => {});
   const { getLenis, tier } = useMotion();
   const lenisRef = useRef(getLenis);
   const animateRef = useRef(animateOut);
@@ -111,6 +121,9 @@ export function useSplashGate({
   });
 
   useEffect(() => {
+    // The `?debug=scrub` meter for checks on real devices (scrub-meter.tsx), loaded only when asked for.
+    if (location.search.includes("debug=scrub"))
+      void loadMotionLib().then((m) => m.mountScrubMeter());
     const el = panelRef.current;
     if (!el) return;
     // The script is running: it decides when to leave, not the no-JS failsafe, and it owns the page lock.
@@ -140,7 +153,12 @@ export function useSplashGate({
 
     // Hold the page still while the panel is up (wheel, touch and keys; smooth scrolling included).
     const scrollKeys = [" ", "PageDown", "PageUp", "ArrowDown", "ArrowUp", "Home", "End"];
-    const block = (e: Event) => e.preventDefault();
+    // Cancelled, and kept from every other listener too: smooth scrolling would otherwise still add the
+    // wheel to its target and scroll there the moment the page opens.
+    const block = (e: Event) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    };
     const keys = (e: KeyboardEvent) => {
       if (scrollKeys.includes(e.key)) e.preventDefault();
     };
@@ -167,18 +185,22 @@ export function useSplashGate({
       window.removeEventListener("touchmove", block, { capture: true });
       window.removeEventListener("keydown", keys, { capture: true });
       delete root.dataset.splash;
-      lenisRef.current()?.start();
       // A link to a section lands there now that the page can scroll; otherwise the walk starts at the top.
-      const target = location.hash.length > 1 ? document.getElementById(location.hash.slice(1)) : null;
-      if (target) {
-        const pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
-        window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY - pad);
-      } else if (window.scrollY !== 0) window.scrollTo(0, 0);
+      // Smooth scrolling is moved there at once too, so nothing it picked up meanwhile carries the page on.
+      const target =
+        location.hash.length > 1 ? document.getElementById(location.hash.slice(1)) : null;
+      const pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+      const y = target ? target.getBoundingClientRect().top + window.scrollY - pad : 0;
+      const lenis = lenisRef.current();
+      lenis?.start();
+      window.scrollTo(0, y);
+      lenis?.scrollTo(y, { immediate: true, force: true });
     };
 
-    const leave = () => {
+    const leave = (how: "ready" | "skipped" | "stills") => {
       if (left) return;
       left = true;
+      markGate(how);
       setPhase("leaving");
       // The cover under the panel goes, so the panel's own fade reveals the page; the lock stays until the end.
       root.dataset.splash = "leaving";
@@ -231,7 +253,7 @@ export function useSplashGate({
       // Timers can fire a millisecond early against performance.now(): if the minimum isn't quite up, look
       // again when it is.
       const wait = minimum - (performance.now() - shownAt);
-      if (wait <= 0) leave();
+      if (wait <= 0) leave("ready");
       else {
         window.clearTimeout(minTimer);
         minTimer = window.setTimeout(check, wait + 20);
@@ -257,8 +279,8 @@ export function useSplashGate({
 
   // The LOW and reduced-motion tiers show still posters, so there is nothing to wait for.
   useEffect(() => {
-    if (tier !== null && tier !== "HIGH" && tier !== "MID") leaveRef.current();
+    if (tier !== null && tier !== "HIGH" && tier !== "MID") leaveRef.current("stills");
   }, [tier]);
 
-  return { phase, progress, quick, canSkip, skip: () => leaveRef.current() };
+  return { phase, progress, quick, canSkip, skip: () => leaveRef.current("skipped") };
 }

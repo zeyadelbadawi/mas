@@ -29,6 +29,9 @@ export type FrameEngineStats = {
   /** Times the decoder had to be flushed or reopened. */
   flushes: number;
   errors: number;
+  /** Main-thread time spent drawing and copying frames out of the decoder (ms, totals). */
+  drawMs: number;
+  copyMs: number;
 };
 
 type Kept = VideoFrame | ImageBitmap;
@@ -51,6 +54,8 @@ export class FrameEngine {
     keptBytes: 0,
     flushes: 0,
     errors: 0,
+    drawMs: 0,
+    copyMs: 0,
   };
   /** Frame on screen (-1: nothing drawn yet). */
   shown = -1;
@@ -122,7 +127,8 @@ export class FrameEngine {
     const t = Math.min(this.count - 1, Math.max(0, Math.round(frame)));
     if (t !== this.target) this.dir = t > this.target ? 1 : -1;
     this.target = t;
-    this.scheduleDraw();
+    // Called from the page's animation frame: what is already decoded is drawn in this same frame.
+    this.drawBest();
     this.pump();
   }
 
@@ -226,8 +232,10 @@ export class FrameEngine {
       !this.inflight.includes(f) &&
       f !== this.shownUncached();
     if (need(this.target)) return this.target;
-    for (let k = 1; k <= ahead; k++) if (need(this.target + k * this.dir)) return this.target + k * this.dir;
-    for (let k = 1; k <= behind; k++) if (need(this.target - k * this.dir)) return this.target - k * this.dir;
+    for (let k = 1; k <= ahead; k++)
+      if (need(this.target + k * this.dir)) return this.target + k * this.dir;
+    for (let k = 1; k <= behind; k++)
+      if (need(this.target - k * this.dir)) return this.target - k * this.dir;
     return -1;
   }
 
@@ -244,7 +252,8 @@ export class FrameEngine {
       if (want < 0) break;
       const key = this.keyBefore(want);
       // Continue from where the decoder is when that is no more work than starting at the keyframe.
-      const from = this.feedPos >= 0 && this.feedPos <= want && this.feedPos >= key ? this.feedPos : key;
+      const from =
+        this.feedPos >= 0 && this.feedPos <= want && this.feedPos >= key ? this.feedPos : key;
       this.feed(decoder, from);
     }
     this.watchStall();
@@ -302,7 +311,8 @@ export class FrameEngine {
       this.fresh = { frame, f: f.clone() };
       this.scheduleDraw();
     }
-    if (this.inWindow(frame) && !this.kept.has(frame) && !this.copying.has(frame)) this.keep(frame, f, epoch);
+    if (this.inWindow(frame) && !this.kept.has(frame) && !this.copying.has(frame))
+      this.keep(frame, f, epoch);
     else f.close();
     this.pump();
   }
@@ -335,7 +345,10 @@ export class FrameEngine {
           return undefined;
         }
       })();
-      f.copyTo(buffer)
+      const t = performance.now();
+      const copying = f.copyTo(buffer);
+      this.stats.copyMs += performance.now() - t;
+      copying
         .then((layout) => {
           const copy = new VideoFrame(buffer, {
             format,
@@ -377,7 +390,8 @@ export class FrameEngine {
       if (this.kept.size <= this.ring) break;
       const f = this.kept.get(frame);
       if (!f) continue;
-      this.stats.keptBytes -= f instanceof VideoFrame ? f.allocationSize() : this.width * this.height * 4;
+      this.stats.keptBytes -=
+        f instanceof VideoFrame ? f.allocationSize() : this.width * this.height * 4;
       f.close();
       this.kept.delete(frame);
     }
@@ -427,7 +441,9 @@ export class FrameEngine {
   }
 
   private draw(source: CanvasImageSource, frame: number): void {
+    const t = performance.now();
     this.ctx.drawImage(source, 0, 0, this.width, this.height);
+    this.stats.drawMs += performance.now() - t;
     this.shown = frame;
     this.stats.drawn++;
     this.onDraw?.(frame);

@@ -28,7 +28,9 @@ for (const id of readdirSync(root)) {
     if (statSync(mp4).size !== v.bytes) throw new Error(`${mp4}: size differs from the manifest`);
     v.decode = sampleIndex(mp4, manifest.fps);
     if (v.decode.samples.length !== manifest.frameCount)
-      throw new Error(`${mp4}: ${v.decode.samples.length} frames, the manifest says ${manifest.frameCount}`);
+      throw new Error(
+        `${mp4}: ${v.decode.samples.length} frames, the manifest says ${manifest.frameCount}`,
+      );
     console.log(`${id} ${v.name}: ${v.decode.codec}, ${v.decode.keys.length} keyframes`);
   }
   writeFileSync(file, JSON.stringify(manifest) + "\n");

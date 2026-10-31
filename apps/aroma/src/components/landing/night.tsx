@@ -49,7 +49,7 @@ export async function Night({ locale }: { locale: Locale }) {
               {slots.map((s) => (
                 <li
                   key={s.branchId}
-                  className="rounded-full border border-[var(--aroma-marble)]/30 bg-[#16261c]/75 px-4 py-2 backdrop-blur-sm"
+                  className="rounded-full border border-[var(--aroma-marble)]/30 bg-[#16261c]/[0.88] px-4 py-2"
                 >
                   {t("slot", { day: s.day, branch: s.branch })} ·{" "}
                   <bdi>{t("time", { from: s.from, to: s.to })}</bdi>

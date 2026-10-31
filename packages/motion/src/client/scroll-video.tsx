@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { progressToPosition } from "../frame-math";
 import { siblingUrl, videoVariantFor, type VideoManifest } from "../manifest";
-import { FrameEngine } from "./frame-engine";
+import { loadMotionLib } from "./motion-lib";
 import { useMotion } from "./motion-provider";
-import { updateScene, type SceneMode } from "./scene-status";
+import type { SceneDriver } from "./scene-driver";
+import { updateScene } from "./scene-status";
 import type { SequencePlayerProps } from "./sequence-player";
 import {
   abandonPreload,
@@ -14,13 +15,6 @@ import {
   startPreload,
   subscribePreload,
 } from "./video-preload";
-
-/** How long the walk takes to close most of the gap to the scroll position (ms, exponential). */
-const WALK_MS = 55;
-/** Closer than this (frames) and the walk lands on the scroll position. */
-const WALK_SNAP = 0.35;
-/** The engine must draw its first frame within this long, or the scene uses the video element. */
-const WARM_TIMEOUT_MS = 6000;
 
 /**
  * Frames the engine keeps around the scroll position. Phones get fewer (their frames are 1080 × 1350 and
@@ -151,192 +145,65 @@ export function ScrollVideo({
     startPreload(id, src, variant.bytes);
 
     let cancelled = false;
-    let mode: SceneMode = "pending";
-    let engine: FrameEngine | null = null;
-    let ready = false;
-    let paintedBy: "none" | "engine" | "video" = "none";
-    const paint = (by: "engine" | "video") => {
-      if (paintedBy === by) return;
-      paintedBy = by;
-      setPainted(by);
-    };
-    const markReady = () => {
-      if (ready || cancelled) return;
-      ready = true;
-      updateScene(id, { ready: true });
-    };
-
-    // The walk. `want` is where the scroll is (a fractional frame), `walk` follows it with a short ease, and
-    // the frame drawn is `walk` rounded. A fast flick then runs through the frames like footage played fast
-    // instead of skipping, and settles on the exact frame for the scroll position a moment after it stops.
+    /** Within a screen of the viewport (set by the observer below). */
+    let near = false;
+    /** Where the scroll is, as a fractional frame (the driver walks to it). */
     let want = 0;
-    let walk = 0;
-    let started = false;
-    let raf = 0;
-    let lastT = 0;
-    let lastShown = -1;
-    let presentedCount = 0;
-    let maxStep = 0;
-    const presented = (frame: number) => {
-      if (lastShown >= 0) maxStep = Math.max(maxStep, Math.abs(frame - lastShown));
-      lastShown = frame;
-      presentedCount++;
-      updateScene(id, { shown: frame, presented: presentedCount, maxStep }, true);
-    };
+    let paintedBy: "none" | "engine" | "video" = "none";
 
-    // Fallback: seeking the video element, one seek in flight, the next one once the frame is on screen.
-    let loaded = false;
-    let vShown = -1;
-    let vPending = -1;
-    let guard = 0;
-    let settle = 0;
-    const hasFrameCallback = "requestVideoFrameCallback" in HTMLVideoElement.prototype;
-    const onVideoFrame = () => {
-      window.clearTimeout(guard);
-      window.clearTimeout(settle);
-      if (vPending < 0) return;
-      vShown = vPending;
-      vPending = -1;
-      paint("video");
-      presented(vShown);
-      markReady();
-      seek(Math.round(walk));
-    };
-    const seek = (frame: number) => {
-      if (mode !== "video" || !loaded || vPending !== -1 || frame === vShown) return;
-      vPending = frame;
-      // Safari can report a seek done before its frame is painted: wait for the frame itself where the
-      // browser can say so (requestVideoFrameCallback), with 'seeked' as the backstop.
-      if (hasFrameCallback) video.requestVideoFrameCallback(onVideoFrame);
-      // Mid-frame, so rounding never lands on the neighbour.
-      video.currentTime = (frame + 0.5) / fps;
-      // A seek that never reports back must not block the next one.
-      window.clearTimeout(guard);
-      guard = window.setTimeout(() => {
-        vPending = -1;
-        seek(Math.round(walk));
-      }, 700);
-    };
-    const onSeeked = () => {
-      if (!hasFrameCallback) onVideoFrame();
-      else {
-        window.clearTimeout(settle);
-        settle = window.setTimeout(onVideoFrame, 120);
-      }
-    };
-    const onLoaded = () => {
-      loaded = true;
-      seek(Math.round(walk));
-    };
-    video.addEventListener("seeked", onSeeked);
-    video.addEventListener("loadeddata", onLoaded);
-
-    // iOS Safari only paints seeks after the video has played once: play and pause on the first touch
-    // after the file is attached (retried on the next touch if it fails). The canvas needs none of this.
-    const unlock = () => {
-      video
-        .play()
-        .then(() => {
-          video.pause();
-          vShown = -1;
-          seek(Math.round(walk));
-        })
-        .catch(() => window.addEventListener("touchstart", unlock, { once: true, passive: true }));
-    };
-    const switchToVideo = (reason: string, stream = false) => {
-      if (cancelled || mode === "video") return;
-      mode = "video";
-      updateScene(id, { mode: "video", reason });
-      const s = preloadState(id);
-      if (stream && !s?.done) abandonPreload(id);
-      video.src = s?.url ?? src;
-      video.load();
-      window.addEventListener("touchstart", unlock, { once: true, passive: true });
-    };
-
-    const render = () => {
-      const frame = Math.round(walk);
-      updateScene(id, { want, walk }, true);
-      if (mode === "engine") engine?.show(frame);
-      else if (mode === "video") seek(frame);
-    };
-    const step = (now: number) => {
-      raf = 0;
-      const dt = Math.min(64, Math.max(0, now - lastT));
-      lastT = now;
-      const gap = want - walk;
-      walk = Math.abs(gap) < WALK_SNAP ? want : walk + gap * (1 - Math.exp(-dt / WALK_MS));
-      render();
-      if (walk !== want) raf = requestAnimationFrame(step);
-    };
-    const kick = () => {
-      if (raf) return;
-      lastT = performance.now();
-      raf = requestAnimationFrame(step);
-    };
-
-    // Choose the engine once the file is in memory: WebCodecs into the canvas where the browser can decode
-    // it, the video element otherwise. Ready means the frame for the current scroll position is drawn.
-    const choose = async () => {
-      const s = preloadState(id);
-      if (cancelled || mode !== "pending" || !s?.done) return;
-      if (s.error || !s.blob) {
-        switchToVideo("download failed", true);
-        return;
-      }
-      const index = variant.decode;
-      if (!index || !(await FrameEngine.supports(index, variant.width, variant.height))) {
-        switchToVideo(index ? "no WebCodecs H.264 decoder" : "no frame index");
-        return;
-      }
-      if (cancelled || mode !== "pending") return;
+    // What draws the frames (scene-driver: the WebCodecs engine, or the video element) loads with the motion
+    // library, after the page; it starts once the file is in, or once the visitor reaches the scene before
+    // it is (streaming).
+    let driver: SceneDriver | null = null;
+    let starting = false;
+    const startDrawing = async (stream: boolean) => {
+      if (driver || starting || cancelled) return;
+      starting = true;
       try {
-        const data = new Uint8Array(await s.blob.arrayBuffer());
-        if (cancelled || mode !== "pending") return;
-        const e = new FrameEngine(data, index, variant.width, variant.height, canvas, ringSize(shape));
-        engine = e;
-        mode = "engine";
-        updateScene(id, { mode: "engine", engine: e.stats });
-        e.onDraw = (frame) => {
-          paint("engine");
-          presented(frame);
-        };
-        e.onFail = () => {
-          if (engine !== e) return;
-          engine = null;
-          mode = "pending";
-          switchToVideo("decoder failed");
-        };
-        render();
-        const started = performance.now();
-        await new Promise<void>((resolve, reject) => {
-          const check = () => {
-            if (cancelled || engine !== e) reject(new Error("replaced"));
-            else if (e.shown === Math.round(walk)) resolve();
-            else if (performance.now() - started > WARM_TIMEOUT_MS) reject(new Error("too slow"));
-            else requestAnimationFrame(check);
-          };
-          check();
-        });
-        markReady();
-      } catch (err) {
-        if (cancelled || mode !== "engine") return;
-        engine?.close();
-        engine = null;
-        mode = "pending";
-        switchToVideo(`decoder ${err instanceof Error ? err.message : "failed"}`);
+        const { startDriver } = await loadMotionLib();
+        if (cancelled) return;
+        driver = startDriver(
+          {
+            id,
+            src,
+            variant,
+            fps,
+            canvas,
+            video,
+            ring: ringSize(shape),
+            want: () => want,
+            updateScene,
+            preloadState,
+            abandonPreload,
+            near: () => near,
+            cancelled: () => cancelled,
+            paint: (by) => {
+              if (paintedBy === by) return;
+              paintedBy = by;
+              setPainted(by);
+            },
+          },
+          stream,
+        );
+        driver.nearChanged(near);
+      } catch {
+        // The code didn't load (offline): the poster stays, and the gate must not wait for this scene.
+        updateScene(id, { mode: "poster", ready: true, reason: "driver did not load" });
       }
     };
-    const unsubscribe = subscribePreload(() => void choose());
-    void choose();
+
+    const onPreload = () => {
+      if (preloadState(id)?.done) void startDrawing(false);
+    };
+    const unsubscribe = subscribePreload(onPreload);
+    onPreload();
 
     // Streaming is the fallback for a visitor who reaches the section before its download is done (only
     // possible after "Continue without waiting"); the first section is on screen from the start, so for it
     // that only counts once the page has scrolled. Far from the screen, the decoder and its ring are freed.
-    let near = false;
     let scrolled = window.scrollY > 0;
     const maybeStream = () => {
-      if (near && scrolled && mode === "pending" && !preloadState(id)?.done) switchToVideo("streaming", true);
+      if (near && scrolled && !preloadState(id)?.done) void startDrawing(true);
     };
     const onScroll = () => {
       scrolled = true;
@@ -346,15 +213,15 @@ export function ScrollVideo({
     const nearby = new IntersectionObserver(
       ([entry]) => {
         near = Boolean(entry?.isIntersecting);
-        if (!near) engine?.release();
-        else render();
+        updateScene(id, { near }, true);
+        driver?.nearChanged(near);
         maybeStream();
       },
       { rootMargin: "100% 0px" },
     );
     nearby.observe(section);
     const onVisible = () => {
-      if (!document.hidden) render();
+      if (!document.hidden) driver?.moved();
     };
     document.addEventListener("visibilitychange", onVisible);
 
@@ -384,30 +251,19 @@ export function ScrollVideo({
         canvas.style.objectPosition = position;
       }
       want = Math.min(frameCount - 1, Math.max(0, progressToPosition(frames, frameCount, timing)));
-      if (!started) {
-        // The first position is taken as is (a reload lands straight on its frame, no walk from frame 0).
-        started = true;
-        walk = want;
-        render();
-      } else kick();
+      driver?.moved();
     };
     progress.apply(progress.value);
 
     return () => {
       cancelled = true;
       progress.apply = () => {};
-      cancelAnimationFrame(raf);
-      window.clearTimeout(guard);
-      window.clearTimeout(settle);
-      engine?.close();
-      engine = null;
+      driver?.close();
+      driver = null;
       unsubscribe();
       nearby.disconnect();
       document.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("touchstart", unlock);
-      video.removeEventListener("seeked", onSeeked);
-      video.removeEventListener("loadeddata", onLoaded);
     };
   }, [
     animated,

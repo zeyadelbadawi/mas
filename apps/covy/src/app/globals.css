@@ -44,7 +44,11 @@ html[data-splash="hold"]::after {
 /* Opaque: the panel never relies on backdrop-filter to hide the page (it is applied late, D62). */
 .covy-splash-veil {
   background:
-    radial-gradient(110% 80% at 50% 0%, color-mix(in srgb, #ffffff 35%, transparent) 0%, transparent 65%),
+    radial-gradient(
+      110% 80% at 50% 0%,
+      color-mix(in srgb, #ffffff 35%, transparent) 0%,
+      transparent 65%
+    ),
     var(--covy-sand);
 }
 

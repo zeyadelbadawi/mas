@@ -1,6 +1,6 @@
 # 07 — Scroll scenes: smoothness and splash, final pass
 
-**Status:** proposal, waiting for the owner's approval (CLAUDE.md rule 1). Covers both landing pages: Aroma Lounge (`apps/aroma`) and COVY (`apps/covy`). Nothing below is implemented yet.
+**Status:** implemented (D62). Results in §6.
 
 **Owner's brief (2026-10-31):**
 - The walk has to be smooth from the first frame of the splash to the end of the last scene, in Chrome, Safari and Firefox, on desktop and on phones.
@@ -49,7 +49,7 @@
 **Why it happens:**
 - Every scroll step goes through the browser's **seek pipeline**: set `currentTime`, flush the decoder, go back to the keyframe, decode forward, fire `seeked`. Only one seek can run at a time.
 - This container decodes in software, so these are worst-case numbers, close to a mid-range phone.
-- Published measurements (research summary in §6):
+- Published measurements (research summary in §7):
 
 | Browser | Per seek |
 |---|---|
@@ -218,7 +218,30 @@ Each phase is a separate commit on one branch, measured before moving on. COVY a
 | Firefox for Android has no WebCodecs | Fallback `<video>` path with the eased walk. Measured on a real device through the meter. If that is still not good enough, a shorter keyframe interval for the phone files only (a re-encode, no credits). |
 | Keeping the gate on reloads feels slower | Cached files pass the gate in well under a second, and the short panel is designed for exactly that. |
 
-## 6. Sources
+
+## 6. Results (2026-10-31)
+
+Measured on local production builds playing the real R2 files, in a container with no GPU: decoding and drawing run on the CPU, so these are worst-case numbers. On a device with a GPU, drawing is nearly free.
+
+| # | Result | Status |
+|---|---|---|
+| V1 | 0 frames of the page shown before the panel. Checked in recordings of both sites and on every frame in `scenes.spec.ts`: first visit, reload in the middle of the walk, `#menu`, without WebCodecs. | Pass |
+| V2 | 0 px scrolled while held. Nothing tried while the panel was up moves the page after it opens (wheel, keys, touch; checked under load). | Pass |
+| V3 | In this container the picture updates about 35 times a second (about 11–15 with the old seeking, same container). The container can't reach 55, because every draw costs about 10 ms on the CPU. | To confirm on devices (runbook) |
+| V4 | Largest step, p95: 4 slow, 6–7 normal, 4–5 touch, 11–14 fast touch, 24 fast wheel (old: 6–8 slow, 21–31 normal, 47–94 fast). | Pass for slow, normal and touch. On fast flicks the walk runs through the frames at the decoder's pace, as designed. |
+| V5 | Exact frame after the scroll stops: 0–33 ms after the last movement in every scenario. A scrollbar jump to another part of the walk takes about 0.5 s. | Pass |
+| V6 | Every scene has a drawn frame at its cut (`scenes.spec.ts`). | Pass |
+| V7 | Same frame forward and back at four stops on both sites, desktop and phone. | Pass |
+| V8 | Decoded frames kept: at most about 75 MB per scene near the screen on desktop (two at a cut), about 40 MB on phones. | Pass |
+| V9 | Without WebCodecs: video element, same gate, same frames, steps p95 4 / 12 / 34 (old 6 / 21 / 47). | Pass |
+| V10 | Lighthouse, mobile, local, two runs each. Aroma: 83 / 88 before, 87 / 85 after. COVY: 79 before, 80 after. Initial JS: COVY 179.6 KB, Aroma 178.4 KB (budget 180). | Pass |
+
+**Changes from the plan:**
+- The boot script is in `<head>` of the layout, and it only acts on the landing pages (`/`, `/ar`).
+- The drawing code (engine, video fallback, meter) loads with the motion library after the page, to stay inside the 180 KB budget.
+- The meter is plain DOM.
+
+## 7. Sources
 
 - Mozilla bug 2049301, seek latency in Firefox vs Chrome, desktop and Android: https://bugzilla.mozilla.org/show_bug.cgi?id=2049301
 - WebKit bugs 236755, 236604 and 194986, stale frames after `seeked`: https://bugs.webkit.org/show_bug.cgi?id=236755

@@ -44,8 +44,7 @@ html[data-splash="hold"]::after {
 /* Opaque: the panel never relies on backdrop-filter to hide the page (it is applied late, D62). */
 .aroma-splash-veil {
   background:
-    radial-gradient(120% 80% at 70% 10%, #fff8e8 0%, transparent 60%),
-    var(--aroma-marble);
+    radial-gradient(120% 80% at 70% 10%, #fff8e8 0%, transparent 60%), var(--aroma-marble);
 }
 
 /* The splash is a cappuccino seen from above: each petal of the logo settles on the foam as cocoa dust as

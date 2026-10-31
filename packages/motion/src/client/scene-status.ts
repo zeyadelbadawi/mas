@@ -22,6 +22,8 @@ export type SceneStatus = {
   want: number;
   walk: number;
   shown: number;
+  /** Within a screen of the viewport: only then does the scene follow the scroll (far away it rests). */
+  near: boolean;
   /** Frames on screen so far, and the largest step between two consecutive ones. */
   presented: number;
   maxStep: number;
@@ -32,10 +34,19 @@ export type SceneStatus = {
 const scenes: Record<string, SceneStatus> = {};
 const listeners = new Set<() => void>();
 
+/** When the splash gate opened (ms from navigation start) and how: every scene ready, skipped, or stills. */
+export type GateStatus = { openedAt: number; how: "ready" | "skipped" | "stills" };
+
 declare global {
   interface Window {
     __masScenes?: Record<string, SceneStatus>;
+    __masGate?: GateStatus;
   }
+}
+
+export function markGate(how: GateStatus["how"]): void {
+  if (typeof window !== "undefined" && !window.__masGate)
+    window.__masGate = { openedAt: Math.round(performance.now()), how };
 }
 
 export function sceneStatus(id: string): SceneStatus | undefined {
@@ -46,7 +57,16 @@ export function sceneStatus(id: string): SceneStatus | undefined {
 export function updateScene(id: string, patch: Partial<SceneStatus>, quiet = false): void {
   let s = scenes[id];
   if (!s) {
-    s = { mode: "pending", ready: false, want: 0, walk: 0, shown: -1, presented: 0, maxStep: 0 };
+    s = {
+      mode: "pending",
+      ready: false,
+      want: 0,
+      walk: 0,
+      shown: -1,
+      near: false,
+      presented: 0,
+      maxStep: 0,
+    };
     scenes[id] = s;
     if (typeof window !== "undefined") window.__masScenes = scenes;
   }

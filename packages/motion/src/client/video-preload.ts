@@ -123,7 +123,13 @@ async function download(job: Job & { src: string }, signal: AbortSignal): Promis
       const blob = new Blob(pre.chunks as BlobPart[], { type: "video/mp4" });
       pre.chunks = [];
       const total = pre.total || pre.loaded;
-      states.set(job.id, { loaded: total, total, done: true, url: URL.createObjectURL(blob), blob });
+      states.set(job.id, {
+        loaded: total,
+        total,
+        done: true,
+        url: URL.createObjectURL(blob),
+        blob,
+      });
       emit();
       return;
     }
