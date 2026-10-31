@@ -1,5 +1,5 @@
-import { sequenceSource } from "@mas/motion";
-import { SequencePlayer } from "@mas/motion/sequence-player";
+import { videoSource } from "@mas/motion";
+import { ScrollVideo } from "@mas/motion/scroll-video";
 import { getTranslations } from "next-intl/server";
 import { CovyWordmark } from "@/components/logo";
 
@@ -11,18 +11,11 @@ import { CovyWordmark } from "@/components/logo";
 export async function Hero() {
   const t = await getTranslations("hero");
   const home = await getTranslations("home");
-  const src = sequenceSource("covy.hero", { rev: 2 });
+  const src = videoSource("covy.hero");
   return (
     <div id="top">
       <h1 className="sr-only">{t("title")}</h1>
-      <SequencePlayer
-        id="covy.hero"
-        {...src}
-        label={t("title")}
-        scrollVh={300}
-        holdVh={50}
-        priority
-      >
+      <ScrollVideo id="covy.hero" {...src} label={t("title")} scrollVh={300} holdVh={50} priority>
         <div className="relative h-full">
           {/* Opening frames: a quiet line in the sky area and a cue, gone after the first steps. */}
           <div
@@ -59,7 +52,7 @@ export async function Hero() {
             </div>
           </div>
         </div>
-      </SequencePlayer>
+      </ScrollVideo>
     </div>
   );
 }

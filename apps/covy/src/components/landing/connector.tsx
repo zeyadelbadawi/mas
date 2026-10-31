@@ -1,5 +1,5 @@
-import { sequenceSource } from "@mas/motion";
-import { SequencePlayer } from "@mas/motion/sequence-player";
+import { videoSource } from "@mas/motion";
+import { ScrollVideo } from "@mas/motion/scroll-video";
 import { getTranslations } from "next-intl/server";
 
 /**
@@ -9,10 +9,10 @@ import { getTranslations } from "next-intl/server";
  */
 export async function Connector() {
   const t = await getTranslations("story");
-  const src = sequenceSource("covy.connector", { rev: 2 });
+  const src = videoSource("covy.connector");
   return (
     <section id="story" aria-labelledby="story-title">
-      <SequencePlayer id="covy.connector" {...src} label={t("walk")} scrollVh={560} overlapPrevious>
+      <ScrollVideo id="covy.connector" {...src} label={t("walk")} scrollVh={560} overlapPrevious>
         {/* Fades in once the turn starts and out before the bar; always shown without scroll motion. */}
         <div
           className="relative flex h-full items-center justify-center px-4 text-center text-[var(--covy-sand)] in-data-[animated=false]:opacity-100! motion-reduce:opacity-100! sm:px-8"
@@ -30,7 +30,7 @@ export async function Connector() {
             <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed opacity-90">{t("body")}</p>
           </div>
         </div>
-      </SequencePlayer>
+      </ScrollVideo>
     </section>
   );
 }

@@ -54,7 +54,8 @@ export function contentSecurityPolicy({ mediaOrigin, dev = false, preview = fals
       ...live,
       ...(dev ? ["ws:"] : []),
     ],
-    "media-src": ["'self'", ...media],
+    // blob: lets the scroll videos play from a fully downloaded copy, so seeks never wait on the network.
+    "media-src": ["'self'", "blob:", ...media],
     "frame-src": [TURNSTILE, ...live],
     "worker-src": ["'self'", "blob:"],
     "object-src": ["'none'"],

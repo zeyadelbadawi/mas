@@ -1,5 +1,5 @@
-import { sequenceSource } from "@mas/motion";
-import { SequencePlayer } from "@mas/motion/sequence-player";
+import { videoSource } from "@mas/motion";
+import { ScrollVideo } from "@mas/motion/scroll-video";
 import { getTranslations } from "next-intl/server";
 import type { CSSProperties } from "react";
 import { CovyWordmark } from "@/components/logo";
@@ -24,10 +24,10 @@ const STOPS = [
  */
 export async function Signature() {
   const t = await getTranslations("signature");
-  const src = sequenceSource("covy.signature", { rev: 2 });
+  const src = videoSource("covy.signature");
   return (
     <section aria-labelledby="signature-title">
-      <SequencePlayer
+      <ScrollVideo
         id="covy.signature"
         {...src}
         label={t("body")}
@@ -91,7 +91,7 @@ export async function Signature() {
             ))}
           </ul>
         </div>
-      </SequencePlayer>
+      </ScrollVideo>
     </section>
   );
 }

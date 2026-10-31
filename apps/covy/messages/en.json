@@ -116,5 +116,9 @@
     "whatsapp": "WhatsApp",
     "directions": "Get directions",
     "sample": "Address, phone and hours are samples until confirmed"
+  },
+  "splash": {
+    "loading": "Preparing COVY",
+    "skip": "Skip"
   }
 }

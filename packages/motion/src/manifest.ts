@@ -33,3 +33,28 @@ export function frameUrl(manifestUrl: string, template: string, index: number): 
   const base = manifestUrl.slice(0, manifestUrl.lastIndexOf("/") + 1);
   return base + template.replace("{index}", String(index).padStart(4, "0"));
 }
+
+/** Shape of `manifest.json` produced by tools/sequences/build-video.mjs. */
+export type VideoManifest = {
+  id: string;
+  kind: "video";
+  fps: number;
+  /** Frames in the video; frame i is shown at i / fps. */
+  frameCount: number;
+  focal: { x: number; y: number };
+  poster: { avif: string; webp: string; width: number; height: number };
+  variants: {
+    name: "desktop" | "mobile";
+    width: number;
+    height: number;
+    src: string;
+    bytes: number;
+  }[];
+  /** Each frame's place along the move (0..1, rising): the player scrubs along it. */
+  timing: number[];
+};
+
+/** URL of a file next to the manifest. */
+export function siblingUrl(manifestUrl: string, file: string): string {
+  return manifestUrl.slice(0, manifestUrl.lastIndexOf("/") + 1) + file;
+}

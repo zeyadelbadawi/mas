@@ -41,6 +41,7 @@ flowchart LR
    - بنعمل encode بـ `avifenc` أو ffmpeg AV1 بجودة متظبطة لكل مشهد، ومعاه WebP كبديل.
    - بنطلّع فريم الـ poster.
    - بنكتب `manifest.json` (`id`، و`frameCount`، والنسخ، والمقاسات، والـ poster، ونقطة التركيز، و`copyStops`).
+   - مشاهد COVY بقت بتتبني فيديوهات بدل كده (D43): `pnpm sequence:video` بيعمل ملفات H.264 MP4 (‏1920×1080 وقصّة 1080×1350) فيها keyframe كل 6 فريمات ومنحنى `timing` لكل فريم، وبتترفع تحت `videos/` بـ `pnpm sequence:upload --prefix videos`؛ و`--draft` بيعمل النسخ الصغيرة اللي في `public/videos/drafts`.
 
 ## 3. ميزانية الكريديت (MAG، خطة مدفوعة أصلًا)
 

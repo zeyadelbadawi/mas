@@ -9,5 +9,11 @@ export {
   evictable,
   fitRect,
 } from "./frame-math";
-export { frameUrl, type SequenceManifest, type SequenceVariant } from "./manifest";
-export { sequenceSource } from "./media";
+export {
+  frameUrl,
+  siblingUrl,
+  type SequenceManifest,
+  type SequenceVariant,
+  type VideoManifest,
+} from "./manifest";
+export { sequenceSource, videoSource } from "./media";

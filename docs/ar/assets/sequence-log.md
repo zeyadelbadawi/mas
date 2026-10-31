@@ -64,3 +64,22 @@ pnpm sequence:upload --dir out/sequences --only covy.hero.r2,covy.connector.r2
 سكشن الـ connector بقى 560vh بدل 400vh عشان الكاميرا فيه تمشي بسرعة الـ hero تقريبًا مع السكرول. والـ easing بيحافظ على الوصول الهادي: الـ hero بيهدى في آخر 6% من حركته قبل الوقفة، والـ connector بيبدأ هادي في أول 6% ويهدى في آخر 12% وهو داخل على الكوباية. `covy.signature.r2` زي ما هو (الكاميرا ثابتة؛ والـ player بقى بيدمج فريماته هو كمان).
 
 **اتبنت واترفعت على R2 يوم 2026-10-31.** `covy.hero.r2`: ‏1,005 ملف؛ و`covy.connector.r2`: ‏1,649 ملف (AVIF وWebP، والـ poster والـ manifest).
+
+### COVY كفيديوهات سكرول (من غير كريديت، D43)
+
+نفس التلات كليبات، اتعملوا H.264 MP4 عشان يتفكوا بكارت الشاشة مع السكرول: كل فريم في الأصل، وkeyframe كل 6 فريمات، ومن غير B-frames، و`+faststart`، ومن غير صوت. التوقيت زي D41 (على حسب الحركة ومع easing) للـ hero والـ connector؛ ومتساوي للكوباية (الكاميرا ثابتة).
+
+| الفيديو | الفريمات | ديسكتوب 1920×1080 | موبايل 1080×1350 |
+|---|---|---|---|
+| `covy.hero` | 207 | 10.4 ميجا | 6.0 ميجا |
+| `covy.connector` | 481 | 14.3 ميجا | 7.5 ميجا |
+| `covy.signature` | 241 | 3.5 ميجا | 2.5 ميجا |
+
+```bash
+pnpm sequence:video --input covy-hero-4k.mp4 --id covy.hero --out out/videos --motion --ease-out 0.06
+pnpm sequence:video --input covy-connector-4k.mp4 --id covy.connector --out out/videos --motion --ease-in 0.06 --ease-out 0.12
+pnpm sequence:video --input covy-signature-bar-4k.mp4 --id covy.signature --out out/videos
+pnpm sequence:upload --dir out/videos --prefix videos
+```
+
+الفرق عند نقط الانتقال (من 255): آخر فريم في الـ hero وأول فريم في الـ connector ‏5.0، وآخر فريم في الـ connector وأول فريم في الكوباية 3.1 (زي فريمات الصور بالظبط). **اترفعوا يوم 2026-10-31** تحت `videos/`، 5 ملفات لكل واحد، `video/mp4` مع دعم الـ range وهيدر `Access-Control-Allow-Origin: *`.
