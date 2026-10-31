@@ -84,6 +84,37 @@ describe("video preload queue", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it("reports bytes for the speed check and gives up on everything at once", async () => {
+    const started: string[] = [];
+    const { fetch } = fakeFetch(started);
+    vi.stubGlobal("fetch", fetch);
+    const early: VideoPrefetch = {
+      loaded: 30,
+      total: 100,
+      done: false,
+      chunks: [new Uint8Array(30)],
+      on: null,
+      abort: vi.fn(),
+    };
+    vi.stubGlobal("__masVideoPrefetch", { "/lake.mp4": early });
+    const q = await import("../src/client/video-preload");
+
+    q.reservePreload("hero", true);
+    q.reservePreload("lake");
+    // Sizes unknown until every video has one.
+    expect(q.preloadBytes(["hero", "lake"]).total).toBe(0);
+    q.startPreload("hero", "/hero.mp4", 100);
+    q.startPreload("lake", "/lake.mp4", 100);
+    await flush();
+    // The lake was already downloading: it is followed at once, alongside the hero in the queue.
+    expect(q.preloadBytes(["hero", "lake"])).toEqual({ loaded: 30, total: 200 });
+
+    q.abandonAllPreloads();
+    expect(early.abort).toHaveBeenCalled();
+    expect(q.preloadProgress(["hero", "lake"]).done).toBe(true);
+    expect(q.preloadState("hero")?.error).toBe(true);
+  });
+
   it("reports unknown videos as not done", async () => {
     const q = await import("../src/client/video-preload");
     expect(q.preloadProgress(["nope"])).toEqual({ progress: 0, done: false });

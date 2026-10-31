@@ -19,6 +19,8 @@ const states = new Map<string, PreloadState>();
 const listeners = new Set<() => void>();
 const queue: Job[] = [];
 let active: { id: string; abort: AbortController } | null = null;
+/** Downloads adopted from the page's inline script, followed in parallel with the queue. */
+const following = new Map<string, AbortController>();
 
 const emit = () => listeners.forEach((fn) => fn());
 
@@ -50,6 +52,23 @@ export function preloadProgress(ids: readonly string[]): { progress: number; don
   return { progress: total > 0 ? Math.min(1, loaded / total) : 0, done };
 }
 
+/**
+ * Bytes downloaded so far for these videos, and their combined size; `total` is 0 until every one of them
+ * knows its size. Lets a splash measure the line's real speed (navigator.connection only estimates it).
+ */
+export function preloadBytes(ids: readonly string[]): { loaded: number; total: number } {
+  let loaded = 0;
+  let total = 0;
+  let known = ids.length > 0;
+  for (const id of ids) {
+    const s = states.get(id);
+    if (!s?.total) known = false;
+    loaded += s?.loaded ?? 0;
+    total += s?.total ?? 0;
+  }
+  return { loaded, total: known ? total : 0 };
+}
+
 /** Takes over a download the page's inline script already started (videoPrefetchScript), if there is one. */
 function adoptPrefetch(src: string): VideoPrefetch | undefined {
   const map = (globalThis as { __masVideoPrefetch?: VideoPrefetchMap }).__masVideoPrefetch;
@@ -78,7 +97,15 @@ function followPrefetch(
       states.set(job.id, { loaded: pre.loaded, total: pre.total || fallback, done: false });
       emit();
     };
-    signal.addEventListener("abort", () => finish(false), { once: true });
+    signal.addEventListener(
+      "abort",
+      () => {
+        // Stop the network transfer too, not just the progress reports.
+        pre.abort?.();
+        finish(false);
+      },
+      { once: true },
+    );
     pre.on = tick;
     tick();
   });
@@ -154,6 +181,26 @@ export function startPreload(id: string, src: string, bytes: number): void {
   job.src = src;
   job.bytes = bytes;
   states.set(id, { loaded: 0, total: bytes || 1, done: false });
+  // Already downloading since the page was parsed: follow it now, alongside the queue, so its progress (and
+  // the line's speed) shows from the start instead of when its turn in the queue comes.
+  const pre = adoptPrefetch(src);
+  if (pre) {
+    queue.splice(queue.indexOf(job), 1);
+    const abort = new AbortController();
+    following.set(id, abort);
+    void followPrefetch(job as Job & { src: string }, pre, abort.signal).then((ok) => {
+      following.delete(id);
+      if (abort.signal.aborted) return;
+      if (ok) {
+        const url = URL.createObjectURL(new Blob(pre.chunks as BlobPart[], { type: "video/mp4" }));
+        const total = pre.total || pre.loaded;
+        states.set(id, { loaded: total, total, done: true, url });
+      } else {
+        states.set(id, { loaded: bytes || 1, total: bytes || 1, done: true, error: true });
+      }
+      emit();
+    });
+  }
   emit();
   void pump();
 }
@@ -166,9 +213,28 @@ export function abandonPreload(id: string): void {
   const i = queue.findIndex((j) => j.id === id);
   if (i >= 0) queue.splice(i, 1);
   if (active?.id === id) active.abort.abort();
+  following.get(id)?.abort();
   const s = states.get(id);
   if (!s?.done)
     states.set(id, { loaded: s?.total || 1, total: s?.total || 1, done: true, error: true });
   emit();
   void pump();
+}
+
+/**
+ * Give up on every video (the line is too slow to load them in reasonable time): cancel all downloads,
+ * including the ones the page's inline script started, and mark them finished without a file.
+ */
+export function abandonAllPreloads(): void {
+  queue.length = 0;
+  active?.abort.abort();
+  following.forEach((abort) => abort.abort());
+  following.clear();
+  const map = (globalThis as { __masVideoPrefetch?: VideoPrefetchMap }).__masVideoPrefetch;
+  if (map) for (const key of Object.keys(map)) map[key]?.abort?.();
+  states.forEach((s, id) => {
+    if (!s.done)
+      states.set(id, { loaded: s.total || 1, total: s.total || 1, done: true, error: true });
+  });
+  emit();
 }

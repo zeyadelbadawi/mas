@@ -15,13 +15,11 @@ export type TierSignals = {
 /** Decide once per page load how rich the motion and media should be (docs/02-architecture.md §8). */
 export function decideTier(s: TierSignals): DeviceTier {
   if (s.reducedMotion) return "STATIC";
-  if (
-    s.saveData ||
-    s.effectiveType === "slow-2g" ||
-    s.effectiveType === "2g" ||
-    s.effectiveType === "3g"
-  )
-    return "LOW";
+  // Save-Data is the visitor's own choice. A "3g" estimate is not: Chrome reports it from recent round
+  // trips, and it often says 3g on good Wi-Fi (an owner on Wi-Fi saw rtt 700 ms, 1.3 Mbps, "3g"), which
+  // sent capable devices to still posters. Only a 2G estimate is too slow to load the scenes at all; on a
+  // slow 3G line the splash offers its way out instead.
+  if (s.saveData || s.effectiveType === "slow-2g" || s.effectiveType === "2g") return "LOW";
   // WebGL is not a reason to drop the scroll videos: they only need the video decoder. Chrome also turns
   // WebGL off by itself after GPU errors (many tabs, a crashed GPU process), which used to send a capable
   // desktop to still posters. 3D scenes check WebGL themselves (hasWebgl).

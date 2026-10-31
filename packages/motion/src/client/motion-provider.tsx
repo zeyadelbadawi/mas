@@ -17,12 +17,27 @@ import { loadMotionLib, type MotionLib } from "./motion-lib";
 
 /** Measured once per page load; the server snapshot is null so SSR renders the static-safe markup. */
 let cachedTier: DeviceTier | undefined;
-const noopSubscribe = () => () => {};
+const tierListeners = new Set<() => void>();
+const subscribeTier = (fn: () => void) => {
+  tierListeners.add(fn);
+  return () => tierListeners.delete(fn);
+};
 const getTier = (): DeviceTier => (cachedTier ??= decideTier(readTierSignals()));
+
+/**
+ * Switch this visit to the still version (posters, no scroll videos) after the page has loaded: a splash calls
+ * it when the line's measured speed can't bring the scenes in reasonable time. It only ever steps down.
+ */
+export function fallBackToStills(): void {
+  const tier = getTier();
+  if (tier !== "HIGH" && tier !== "MID") return;
+  cachedTier = "LOW";
+  tierListeners.forEach((fn) => fn());
+}
 const getServerTier = (): null => null;
 
 export function useDeviceTier(): DeviceTier | null {
-  return useSyncExternalStore(noopSubscribe, getTier, getServerTier);
+  return useSyncExternalStore(subscribeTier, getTier, getServerTier);
 }
 
 type MotionContextValue = {

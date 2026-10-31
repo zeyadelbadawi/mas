@@ -1,8 +1,14 @@
 "use client";
 
 import { PORTRAIT_BELOW, videoVariantFor } from "@mas/motion";
-import { useMotion } from "@mas/motion/provider";
-import { preloadProgress, preloadState, subscribePreload } from "@mas/motion/video-preload";
+import { fallBackToStills, useMotion } from "@mas/motion/provider";
+import {
+  abandonAllPreloads,
+  preloadBytes,
+  preloadProgress,
+  preloadState,
+  subscribePreload,
+} from "@mas/motion/video-preload";
 import { useEffect, useId, useRef, useState } from "react";
 import { WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/logo";
 
@@ -22,6 +28,13 @@ const GATE_MIN_MS = 500;
  */
 const STALL_MS = 8000;
 const SLOW_MS = 30000;
+/**
+ * The line's real speed is measured over the first SPEED_WINDOW_MS of the download (Chrome's own estimate is
+ * often wrong both ways). If the rest would take longer than SLOW_ETA_MS, the visit switches to the still
+ * version (posters, no scroll videos) at once instead of keeping the visitor waiting.
+ */
+const SPEED_WINDOW_MS = 2500;
+const SLOW_ETA_MS = 30000;
 /**
  * Set for the session once every scene of one video variant (the 16:9 or the 4:5) has downloaded; the browser
  * keeps the files cached, so a later page load at the same screen shape starts without waiting.
@@ -88,6 +101,9 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
     let stallWatch = 0;
     let lastProgress = -1;
     let lastProgressAt = performance.now();
+    let speedFrom: { at: number; loaded: number } | null = null;
+    let speedChecked = false;
+    let speedTimer = 0;
 
     const leave = () => {
       if (left) return;
@@ -180,6 +196,26 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
         lastProgress = p;
         lastProgressAt = performance.now();
       }
+      if (!done && !speedChecked) {
+        const bytes = preloadBytes(READY);
+        const now = performance.now();
+        if (bytes.total > 0 && !speedFrom) {
+          speedFrom = { at: now, loaded: bytes.loaded };
+          // Look again when the window is up, even if no progress comes in meanwhile.
+          speedTimer = window.setTimeout(check, SPEED_WINDOW_MS + 50);
+        } else if (speedFrom && now - speedFrom.at >= SPEED_WINDOW_MS) {
+          speedChecked = true;
+          const rate = (bytes.loaded - speedFrom.loaded) / (now - speedFrom.at);
+          const eta = rate > 0 ? (bytes.total - bytes.loaded) / rate : Infinity;
+          if (eta > SLOW_ETA_MS) {
+            // Too slow for the scenes: stop the downloads and show the still version; the panel leaves
+            // when the tier changes (see the tier effect below).
+            abandonAllPreloads();
+            fallBackToStills();
+            return;
+          }
+        }
+      }
       if (!done) return;
       // Remember this shape as loaded only when every file arrived (a failed one streams instead).
       if (READY.every((id) => !preloadState(id)?.error)) {
@@ -253,6 +289,7 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
       release();
       window.clearTimeout(minTimer);
       window.clearTimeout(slowTimer);
+      window.clearTimeout(speedTimer);
       window.clearInterval(stallWatch);
       window.removeEventListener("wheel", intent, { capture: true });
       window.removeEventListener("touchmove", intent, { capture: true });
