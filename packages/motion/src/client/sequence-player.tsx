@@ -279,7 +279,13 @@ export function SequencePlayer({
       reveals = stage.animate(
         [hidden, { ...hidden, offset: 0.999 }, { opacity: 1, visibility: "visible" }],
         {
-          timeline: new window.ViewTimeline({ subject: section }),
+          // Inset 0: by default the range is measured inside the page's scroll-padding (the 72 px kept clear
+          // for the fixed header), which revealed the stage 72 px early, still sliding up, so the picture
+          // jumped at the cut.
+          timeline: new window.ViewTimeline({
+            subject: section,
+            inset: "0px",
+          } as ViewTimelineOptions),
           rangeStart: "entry 0%",
           rangeEnd: "entry 100%",
           fill: "both",

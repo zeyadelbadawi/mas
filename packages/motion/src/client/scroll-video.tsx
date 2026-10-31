@@ -13,7 +13,14 @@ import {
   subscribePreload,
 } from "./video-preload";
 
-export type ScrollVideoProps = SequencePlayerProps;
+export type ScrollVideoProps = SequencePlayerProps & {
+  /**
+   * Scroll (viewport heights) at the start that stays on the first frame. For a scene that continues the
+   * previous one: scrolling back up, the video has time to land on its first frame (the previous scene's
+   * last) before the cut, instead of still trailing a few frames behind on a fast scroll.
+   */
+  leadVh?: number;
+};
 
 /**
  * Scroll-scrubbed video on a sticky stage (D43). The video is downloaded whole first (in page order, see
@@ -30,6 +37,7 @@ export function ScrollVideo({
   label,
   scrollVh = 280,
   holdVh = 0,
+  leadVh = 0,
   fit = "cover",
   priority = false,
   overlapPrevious = false,
@@ -180,10 +188,13 @@ export function ScrollVideo({
     );
     nearby.observe(section);
 
-    // Share of the section's scroll distance (its height minus one screen) that scrubs the frames.
-    const framesEnd = holdVh > 0 ? (scrollVh - 100) / (scrollVh + holdVh - 100) : 1;
+    // Shares of the section's scroll distance (its height minus one screen): the lead on the first frame,
+    // then the frames, then the hold on the last frame.
+    const travel = leadVh + scrollVh + holdVh - 100;
+    const framesStart = leadVh / travel;
+    const framesEnd = holdVh > 0 ? (leadVh + scrollVh - 100) / travel : 1;
     progress.apply = (p: number) => {
-      const frames = Math.min(1, p / framesEnd);
+      const frames = Math.min(1, Math.max(0, (p - framesStart) / (framesEnd - framesStart)));
       const hold = framesEnd < 1 ? Math.max(0, (p - framesEnd) / (1 - framesEnd)) : 0;
       // Only the copy layer reads these, so only it restyles on scroll, and only when they change.
       const next = `${frames.toFixed(4)} ${Math.min(1, hold).toFixed(4)}`;
@@ -212,7 +223,7 @@ export function ScrollVideo({
       video.removeEventListener("seeked", onSeeked);
       video.removeEventListener("loadeddata", onLoaded);
     };
-  }, [animated, manifest, manifestUrl, id, scrollVh, holdVh]);
+  }, [animated, manifest, manifestUrl, id, scrollVh, holdVh, leadVh]);
 
   // Scroll: the motion library (loaded after first paint) drives the progress, and the reveal of a section
   // that continues the previous one. Kept apart from the video so its late arrival never reloads the file.
@@ -229,7 +240,13 @@ export function ScrollVideo({
       reveals = stage.animate(
         [hidden, { ...hidden, offset: 0.999 }, { opacity: 1, visibility: "visible" }],
         {
-          timeline: new window.ViewTimeline({ subject: section }),
+          // Inset 0: by default the range is measured inside the page's scroll-padding (the 72 px kept clear
+          // for the fixed header), which revealed the stage 72 px early, still sliding up, so the picture
+          // jumped at the cut.
+          timeline: new window.ViewTimeline({
+            subject: section,
+            inset: "0px",
+          } as ViewTimelineOptions),
           rangeStart: "entry 0%",
           rangeEnd: "entry 100%",
           fill: "both",
@@ -272,7 +289,7 @@ export function ScrollVideo({
   }, [animated, lib, overlapPrevious]);
 
   const style = {
-    "--scroll-vh": scrollVh + holdVh,
+    "--scroll-vh": leadVh + scrollVh + holdVh,
     ...(staticLayout ? { "--seq-progress": 1 } : {}),
   } as CSSProperties;
   const focal = manifest?.focal ?? { x: 0.5, y: 0.5 };
