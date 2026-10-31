@@ -26,3 +26,44 @@
 [data-splash="seen"] .covy-splash {
   display: none;
 }
+
+/*
+ * D47: the header over the three scroll scenes. Frosted glass that lets the footage through, toned by the
+ * frame under it (useWalkHeader sets data-tone): navy type on a sand tint over bright frames, sand type on a
+ * navy tint over dark ones. Unlayered, so it wins over the bar's utility classes.
+ */
+.covy-header {
+  transition:
+    background-color 0.45s var(--ease-brand),
+    color 0.45s var(--ease-brand),
+    border-color 0.45s var(--ease-brand);
+}
+.covy-header[data-mode="walk"] {
+  background-color: color-mix(in srgb, var(--covy-sand) 50%, transparent);
+  border-color: transparent;
+  color: var(--covy-navy);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  backdrop-filter: blur(14px) saturate(1.25);
+}
+.covy-header[data-mode="walk"][data-tone="dark"] {
+  background-color: color-mix(in srgb, var(--covy-navy) 55%, transparent);
+  color: var(--covy-sand);
+  --color-focus: var(--covy-sand);
+}
+.covy-header-progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(var(--walk-progress, 0));
+  transform-origin: left;
+  transition: opacity 0.45s var(--ease-brand);
+}
+[dir="rtl"] .covy-header-progress {
+  transform-origin: right;
+}
+.covy-header[data-mode="walk"] .covy-header-progress {
+  opacity: 0.55;
+}

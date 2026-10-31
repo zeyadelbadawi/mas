@@ -340,15 +340,49 @@ export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
   ]);
 }
 
+/** Event photos we made with Higgsfield from our own COVY interior photos (D46); the rest stay placeholders. */
+const EVENT_PHOTOS: Record<string, { src: string; alt: { en: string; ar: string } }> = {
+  "covy.events.brunch-club": {
+    src: "/images/events/brunch-club.jpg",
+    alt: {
+      en: "COVY's terrace tables joined into one long table, set for brunch with shakshuka, croissants, fruit and orange juice",
+      ar: "طاولات تراس COVY مضمومة في طاولة واحدة طويلة ومجهزة للبرانش: شكشوكة وكرواسون وفاكهة وعصير برتقال",
+    },
+  },
+  "covy.events.oud-evening": {
+    src: "/images/events/oud-evening.jpg",
+    alt: {
+      en: "An oud resting on a chair under the blue tree in the evening, beside coffee cups, a brass dallah and dates",
+      ar: "عود مسنود على كرسي تحت الشجرة الزرقاء في المساء، بجانب فناجين قهوة ودلة نحاسية وتمر",
+    },
+  },
+  "covy.events.japan-week": {
+    src: "/images/events/japan-week.jpg",
+    alt: {
+      en: "Ramen, gyoza, matcha cake and matcha tea on a table by COVY's sculpted flower wall",
+      ar: "رامن وجيوزا وكيك ماتشا وشاي ماتشا على طاولة بجوار جدار الزهور المنحوتة في COVY",
+    },
+  },
+};
+
 export function eventSlots(events: BrandEvent[]): ImageSlotSpec[] {
-  return events.map((e) => ({
-    kind: "image",
-    id: e.imageSlotId,
-    app: e.brandId,
-    page: "Landing",
-    section: `Events · ${e.title.en}`,
-    width: 1200,
-    height: 900,
-    alt: e.title,
-  }));
+  return events.map((e) => {
+    const photo = EVENT_PHOTOS[e.imageSlotId];
+    return {
+      kind: "image",
+      id: e.imageSlotId,
+      app: e.brandId,
+      page: "Landing",
+      section: `Events · ${e.title.en}`,
+      width: 1200,
+      height: 900,
+      alt: photo?.alt ?? e.title,
+      ...(photo
+        ? {
+            src: photo.src,
+            notes: "Generated with Higgsfield from our COVY interior photos (D46)",
+          }
+        : {}),
+    };
+  });
 }

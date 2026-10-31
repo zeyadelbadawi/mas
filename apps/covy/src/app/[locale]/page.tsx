@@ -51,7 +51,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
-      <Splash label={splash("loading")} skip={splash("skip")} />
+      <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
       <Header
         locale={locale}
         labels={{
@@ -80,9 +80,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             menuJsonLd(brand, covyMenu, locale),
           ]}
         />
-        <Hero />
-        <Connector />
-        <Signature />
+        {/* The three scroll scenes: the header turns to glass over them (D47). */}
+        <div data-walk>
+          <Hero />
+          <Connector />
+          <Signature />
+        </div>
         <Spaces locale={locale} />
         <Menu locale={locale} />
         <Events locale={locale} />

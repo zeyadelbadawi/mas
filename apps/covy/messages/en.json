@@ -119,6 +119,7 @@
   },
   "splash": {
     "loading": "Preparing COVY",
-    "skip": "Skip"
+    "skip": "Continue without waiting",
+    "slow": "This is taking longer than usual."
   }
 }

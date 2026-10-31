@@ -14,8 +14,13 @@ const READY = ["covy.hero", "covy.connector", "covy.signature"] as const;
 const MIN_MS = 900;
 /** Once brought up by an early scroll on a later page load, the panel stays at least this long (no flicker). */
 const GATE_MIN_MS = 500;
-/** Safety net for a stalled connection; the skip link is there sooner. */
-const MAX_MS = 30000;
+/**
+ * The way out is hidden while things go normally: it appears only when the download has made no progress
+ * for STALL_MS (a dropped or stuck connection), or the whole wait passes SLOW_MS. The panel never gives up on
+ * its own, so a slow but working connection still gets the full walk.
+ */
+const STALL_MS = 8000;
+const SLOW_MS = 30000;
 /**
  * Set for the session once every scene of one video variant (the 16:9 or the 4:5) has downloaded; the browser
  * keeps the files cached, so a later page load at the same screen shape starts without waiting.
@@ -33,11 +38,12 @@ const BOOT = {
  * D43/D45: whenever the scene videos this screen plays are not known to be loaded, the page opens on the COVY
  * mark with a loading line until all three are in memory, so even a first scroll straight through plays frame
  * by frame; then the panel lifts off the facade. That is the first visit of a session, and a later page load at
- * a screen shape that needs the other variant. It can be skipped, gives up after 30 seconds, and never shows
+ * a screen shape that needs the other variant. A way out appears only if the download stalls or runs past 30
+ * seconds (it never gives up on its own), and it never shows
  * without motion or on a weak device (posters only). Resizing an open page needs nothing: the variant chosen
  * on load stays, and its frames are already in memory.
  */
-export function Splash({ label, skip }: { label: string; skip: string }) {
+export function Splash({ label, skip, slow }: { label: string; skip: string; slow: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState<"loading" | "leaving" | "gone">("loading");
@@ -72,8 +78,10 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
     let holding = false;
     let pause = 0;
     let minTimer = 0;
-    let capTimer = 0;
-    let skipTimer = 0;
+    let slowTimer = 0;
+    let stallWatch = 0;
+    let lastProgress = -1;
+    let lastProgressAt = performance.now();
 
     const leave = () => {
       if (left) return;
@@ -120,11 +128,15 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
       pause = window.setInterval(() => lenisRef.current()?.stop(), 100);
       lenisRef.current()?.stop();
       minTimer = window.setTimeout(check, minMs);
-      capTimer = window.setTimeout(leave, MAX_MS);
-      skipTimer = window.setTimeout(() => setCanSkip(true), 1500);
+      lastProgressAt = performance.now();
+      slowTimer = window.setTimeout(() => setCanSkip(true), SLOW_MS);
+      stallWatch = window.setInterval(() => {
+        if (performance.now() - lastProgressAt > STALL_MS) setCanSkip(true);
+      }, 1000);
     };
     function release() {
       window.clearInterval(pause);
+      window.clearInterval(stallWatch);
       window.removeEventListener("wheel", block, { capture: true });
       window.removeEventListener("touchmove", block, { capture: true });
       window.removeEventListener("keydown", keys, { capture: true });
@@ -135,6 +147,10 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
     const check = () => {
       const { progress: p, done } = preloadProgress(READY);
       setProgress(p);
+      if (p !== lastProgress) {
+        lastProgress = p;
+        lastProgressAt = performance.now();
+      }
       if (!done) return;
       // Remember this shape as loaded only when every file arrived (a failed one streams instead).
       if (READY.every((id) => !preloadState(id)?.error)) {
@@ -198,8 +214,8 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
       stopWatching();
       release();
       window.clearTimeout(minTimer);
-      window.clearTimeout(capTimer);
-      window.clearTimeout(skipTimer);
+      window.clearTimeout(slowTimer);
+      window.clearInterval(stallWatch);
       window.removeEventListener("wheel", intent, { capture: true });
       window.removeEventListener("touchmove", intent, { capture: true });
       window.removeEventListener("keydown", intentKeys, { capture: true });
@@ -235,13 +251,18 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
           </p>
         </div>
         {canSkip && phase === "loading" ? (
-          <button
-            type="button"
-            onClick={() => leaveRef.current()}
-            className="absolute bottom-8 text-sm text-[var(--covy-navy)]/70 underline-offset-4 hover:text-[var(--covy-navy)] hover:underline"
-          >
-            {skip}
-          </button>
+          <div className="absolute inset-x-4 bottom-8 flex flex-col items-center gap-1 text-center text-sm">
+            <p role="status" className="text-[var(--covy-navy)]/70">
+              {slow}
+            </p>
+            <button
+              type="button"
+              onClick={() => leaveRef.current()}
+              className="py-2 font-medium text-[var(--covy-navy)] underline underline-offset-4"
+            >
+              {skip}
+            </button>
+          </div>
         ) : null}
       </div>
     </>

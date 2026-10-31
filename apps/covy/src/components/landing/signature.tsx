@@ -61,7 +61,10 @@ export async function Signature() {
           style={{ opacity: "clamp(0, calc(var(--seq-progress, 0) * 20), 1)" }}
         >
           {/* On phones the copy sits over the glass, so it gets a soft navy backing. */}
-          <div className="absolute inset-x-0 top-0 h-[55vh] bg-gradient-to-b from-[#262d3f]/90 from-40% to-transparent sm:hidden" />
+          <div
+            data-header-tone="dark"
+            className="absolute inset-x-0 top-0 h-[55vh] bg-gradient-to-b from-[#262d3f]/90 from-40% to-transparent sm:hidden"
+          />
           <div className="absolute inset-x-4 top-[12vh] isolate max-w-sm sm:inset-x-8">
             {/* The bar behind is pale concrete; on wider screens a soft navy pool sits behind the copy. */}
             <div

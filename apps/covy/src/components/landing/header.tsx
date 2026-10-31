@@ -4,6 +4,7 @@ import { Button } from "@mas/ui";
 import { LanguageSwitcher } from "@mas/ui/language-switcher";
 import { useRef } from "react";
 import { CovyWordmark } from "@/components/logo";
+import { useWalkHeader } from "./walk-header";
 
 const SECTIONS = ["story", "spaces", "menu", "events", "visit"] as const;
 
@@ -16,20 +17,29 @@ export type HeaderLabels = Record<
 };
 
 /**
- * Fixed, translucent sand bar so it reads over every hero frame. Phones get a full-screen menu in a
- * native <dialog> (showModal gives focus containment, an inert page behind, Escape and focus return
- * without a dialog library).
+ * Fixed, translucent sand bar; over the three scroll scenes it turns to glass that follows the footage
+ * (D47, see useWalkHeader and .covy-header in globals.css). Phones get a full-screen menu in a native
+ * <dialog> (showModal gives focus containment, an inert page behind, Escape and focus return without a
+ * dialog library).
  */
 /** Labels come from the server, so this client component ships no message formatter. */
 export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" | "ar" }) {
   const t = (key: keyof HeaderLabels) => labels[key];
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const close = () => dialogRef.current?.close();
+  useWalkHeader(headerRef);
 
   return (
-    <header className="bg-bg/80 border-line/60 fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md">
+    <header
+      ref={headerRef}
+      data-mode="page"
+      className="covy-header bg-bg/80 border-line/60 text-fg fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md"
+    >
+      {/* Fills with the walk through the three scenes; only shown over them. */}
+      <span aria-hidden="true" className="covy-header-progress" />
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-8">
-        <a href="#top" className="text-fg shrink-0" aria-label="COVY">
+        <a href="#top" className="shrink-0" aria-label="COVY">
           <CovyWordmark className="h-8 w-auto" />
         </a>
 
@@ -39,7 +49,7 @@ export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" 
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  className="text-fg/80 hover:text-fg underline-offset-8 hover:underline"
+                  className="underline-offset-8 opacity-80 hover:underline hover:opacity-100"
                 >
                   {t(id)}
                 </a>
@@ -50,7 +60,7 @@ export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" 
 
         <div className="flex items-center gap-2">
           <LanguageSwitcher
-            className="hidden sm:inline-flex"
+            className="hidden text-current sm:inline-flex"
             locale={locale}
             label={labels.switchTo}
             ariaLabel={labels.switchToLabel}
@@ -61,7 +71,7 @@ export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" 
           <button
             type="button"
             onClick={() => dialogRef.current?.showModal()}
-            className="text-fg rounded-control inline-flex size-10 items-center justify-center lg:hidden"
+            className="rounded-control inline-flex size-10 items-center justify-center lg:hidden"
             aria-label={t("open")}
             aria-haspopup="dialog"
           >
