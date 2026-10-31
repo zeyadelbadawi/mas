@@ -372,10 +372,12 @@ export const slots: SlotSpec[] = [
     width: 1200,
     height: 1500,
     alt: {
-      en: "Aroma Lounge at The Strip Mall, Madinaty",
-      ar: "أروما لاونج في ذا ستريب مول، مدينتي",
+      en: "Two sunset iced teas and a board of feteer on a marble table along the palm-lined walkway at The Strip, Madinaty",
+      ar: "اتنين آيس تي sunset وطبق فطير على ترابيزة رخام على ممشى النخل في ذا ستريب، مدينتي",
     },
-    notes: "From Aroma's own posts (D53)",
+    src: "/images/branches/madinaty.webp",
+    notes:
+      "Made with Higgsfield from the lake scene's keyframe (Aroma's tables, chairs and drinks); no photos of the Madinaty branch exist yet (D53)",
   },
   {
     kind: "image",
@@ -402,9 +404,11 @@ export const slots: SlotSpec[] = [
     width: 1200,
     height: 900,
     alt: {
-      en: "A match on the big screen at Aroma Lounge",
-      ar: "ماتش على الشاشة الكبيرة في أروما لاونج",
+      en: "Fans in red cheering at a match on the big screen on the terrace at night, feteer and fries on the table",
+      ar: "مشجعين لابسين أحمر بيشجعوا ماتش على الشاشة الكبيرة في التراس بالليل، وعلى الترابيزة فطير وبطاطس",
     },
+    src: "/images/nights/match.webp",
+    notes: "Made with Higgsfield from the night scene's keyframe (D53)",
   },
   {
     kind: "image",
@@ -414,7 +418,13 @@ export const slots: SlotSpec[] = [
     section: "A6 What's on · Aroma Nights",
     width: 1200,
     height: 900,
-    alt: { en: "Dinner and a DJ on an Aroma Night", ar: "عشا وDJ في ليلة من Aroma Nights" },
+    alt: {
+      en: "Friends toasting with sunset iced teas over dinner on the terrace at night, a DJ playing behind them by the lake",
+      ar: "صحاب بيخبطوا كوبايات آيس تي sunset على العشا في التراس بالليل، وDJ بيلعب وراهم جنب البحيرة",
+    },
+    src: "/images/nights/aroma-nights.webp",
+    notes:
+      "Made with Higgsfield from the night scene's keyframe; wine glasses edited out, Aroma serves no alcohol (D53)",
   },
   {
     kind: "image",

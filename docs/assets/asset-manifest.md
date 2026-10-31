@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 222 | 172 | 50 |
+| Images | 222 | 175 | 47 |
 | Sequences (generated) | 7 | 0 | 7 |
 
 ## MAS (mas.com)
@@ -90,10 +90,10 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
 | `aroma.branch.mivida` | Landing · A4 Branches · Mivida | 1080 × 1350 px | 4:5 | Two iced drinks raised in a toast on Aroma Lounge's terrace, the lake at Mivida behind them | كوبايتين مشروب ساقع مرفوعين في خبطة كاسات على تراس أروما لاونج، وبحيرة ميفيدا وراهم | ✅ delivered | From Aroma's own posts (D53) |
-| `aroma.branch.madinaty` | Landing · A4 Branches · Madinaty | 1200 × 1500 px | 4:5 | Aroma Lounge at The Strip Mall, Madinaty | أروما لاونج في ذا ستريب مول، مدينتي | ⬜ placeholder | From Aroma's own posts (D53) |
+| `aroma.branch.madinaty` | Landing · A4 Branches · Madinaty | 1200 × 1500 px | 4:5 | Two sunset iced teas and a board of feteer on a marble table along the palm-lined walkway at The Strip, Madinaty | اتنين آيس تي sunset وطبق فطير على ترابيزة رخام على ممشى النخل في ذا ستريب، مدينتي | ✅ delivered | Made with Higgsfield from the lake scene's keyframe (Aroma's tables, chairs and drinks); no photos of the Madinaty branch exist yet (D53) |
 | `aroma.nights.live-music` | Landing · A6 What's on · Live music | 1200 × 900 px | 4:3 | A guitarist playing on the deck at dusk, the lit fountain on the lake behind him | عازف جيتار على الممشى وقت المغرب، والنافورة منوّرة على البحيرة وراه | ✅ delivered | Cropped from the night scene's last keyframe, made with Higgsfield from Aroma's photos (D53) |
-| `aroma.nights.match` | Landing · A6 What's on · Match nights | 1200 × 900 px | 4:3 | A match on the big screen at Aroma Lounge | ماتش على الشاشة الكبيرة في أروما لاونج | ⬜ placeholder |  |
-| `aroma.nights.aroma-nights` | Landing · A6 What's on · Aroma Nights | 1200 × 900 px | 4:3 | Dinner and a DJ on an Aroma Night | عشا وDJ في ليلة من Aroma Nights | ⬜ placeholder |  |
+| `aroma.nights.match` | Landing · A6 What's on · Match nights | 1200 × 900 px | 4:3 | Fans in red cheering at a match on the big screen on the terrace at night, feteer and fries on the table | مشجعين لابسين أحمر بيشجعوا ماتش على الشاشة الكبيرة في التراس بالليل، وعلى الترابيزة فطير وبطاطس | ✅ delivered | Made with Higgsfield from the night scene's keyframe (D53) |
+| `aroma.nights.aroma-nights` | Landing · A6 What's on · Aroma Nights | 1200 × 900 px | 4:3 | Friends toasting with sunset iced teas over dinner on the terrace at night, a DJ playing behind them by the lake | صحاب بيخبطوا كوبايات آيس تي sunset على العشا في التراس بالليل، وDJ بيلعب وراهم جنب البحيرة | ✅ delivered | Made with Higgsfield from the night scene's keyframe; wine glasses edited out, Aroma serves no alcohol (D53) |
 | `aroma.story` | Landing · A7 Our story | 1080 × 1350 px | 4:5 | A guest laughing with friends over plates and juice at a table by the lake | ضيفة بتضحك مع صحابها على ترابيزة عليها أكل وعصير جنب البحيرة | ✅ delivered | From Aroma's own posts (D53) |
 | `aroma.guests.1` | Landing · A8 By guests · photo 1 | 1080 × 1350 px | 4:5 | A guest holds a layered red and orange iced tea up to the camera | ضيفة رافعة آيس تي بطبقات أحمر وبرتقالي قدام الكاميرا | ✅ delivered | From Aroma's own posts (D53) |
 | `aroma.guests.2` | Landing · A8 By guests · photo 2 | 1080 × 1350 px | 4:5 | Hands reaching for onion rings, fettuccine and feteer on a shared table | إيدين بتمد على أونيون رينجز وفيتوتشيني وفطير على ترابيزة واحدة | ✅ delivered | From Aroma's own posts (D53) |

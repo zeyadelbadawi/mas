@@ -200,3 +200,17 @@ pnpm sequence:upload --dir out/videos --prefix videos --only aroma.morning,aroma
 ```
 
 **Uploaded on 2026-10-31** under `videos/`, 5 files each; the manifests answer 200 and the videos serve byte ranges (206). The 4K sources stay on Higgsfield (job ids above).
+
+### Aroma section photos (Nano Banana 2.1, 4K, 3 credits each; approved by the owner)
+
+Slots that had no usable photo in Aroma's posts. References are the approved keyframes (themselves made from Aroma's photos), so the tables, chairs, placemats and drinks match. No text, no logos, nobody recognisable.
+
+| Slot | Reference | Job | Credits | Verdict |
+|---|---|---|---|---|
+| `aroma.branch.madinaty` (4:5) | K3 `80151650` | `7220ce7a` | 3 | **Used**: sunset drinks and feteer on a marble table along a palm-lined walkway at The Strip; shopfronts out of focus |
+| `aroma.nights.match` (4:3) | K4 `6a36824c` | `acb2199b` | 3 | **Used**: fans in red cheering at the big screen on the night terrace; the screen's score bar is unreadable |
+| `aroma.nights.aroma-nights` (4:3) | K4 `6a36824c` | `864f2e25` | 3 | Rejected: wine glasses on the table, and Aroma's menu has no alcohol |
+| `aroma.nights.aroma-nights` (4:3), edit | `864f2e25` | `3552f0ff` | 3 | Rejected: one stemmed glass of red still on the table |
+| `aroma.nights.aroma-nights` (4:3), second edit | `3552f0ff` | `668396ed` | 3 | **Used**: dinner by the lake with a DJ behind; every glass is water, juice or a sunset iced tea |
+
+Spent: **15 credits** (balance before: 304.75). The two edits went past the 9-credit estimate the owner approved, to keep alcohol out of the picture.

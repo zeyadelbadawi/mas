@@ -97,7 +97,7 @@ function Category({ category: c, locale }: { category: MenuCategory; locale: Loc
       <ul className="mt-8 grid gap-x-12 md:grid-cols-2">
         {c.items.map((item) => {
           const description = pick(item.description, locale);
-          // About 20 dishes have an English description only; it shows as written.
+          // A dish whose menu entry has an English description only shows it as written.
           const fallback = !description && item.description.en ? item.description.en : "";
           return (
             <li

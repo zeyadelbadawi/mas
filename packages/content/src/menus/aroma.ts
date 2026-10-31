@@ -26,7 +26,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Feteer Meshaltet / Fou / Eggs / Tameyya / Gebna Beida / Labna / Salad / Molasses / /Gebna Adeema",
-          ar: "",
+          ar: "فطير مشلتت / فول / بيض / طعمية / جبنة بيضا / لبنة / سلطة / عسل أسود / جبنة قديمة",
         },
         priceEGP: 550,
         tags: [],
@@ -42,7 +42,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Foul / Eggs / Tameyya / Gebna Beida / Labna / Salad",
-          ar: "",
+          ar: "فول / بيض / طعمية / جبنة بيضا / لبنة / سلطة",
         },
         priceEGP: 450,
         tags: [],
@@ -58,7 +58,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Omelet with Cheddar Cheese, fresh mushroom, spinach, cherry tomatoes, served with our special herb potato cubs and mix green salad",
-          ar: "",
+          ar: "أومليت / جبنة شيدر / مشروم فريش / سبانخ / طماطم شيري / مكعبات بطاطس بالأعشاب / سلطة خضرا",
         },
         priceEGP: 295,
         tags: [],
@@ -74,7 +74,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Egg white omelet with feta cheese, black olives, fresh mushroom, and bell pepper. Served with our special Herb potato cubs and mix green salad",
-          ar: "",
+          ar: "أومليت بياض بيض / جبنة فيتا / زيتون أسود / مشروم فريش / فلفل ألوان / مكعبات بطاطس بالأعشاب / سلطة خضرا",
         },
         priceEGP: 275,
         tags: [],
@@ -90,7 +90,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Omelet with smoked salmon, avocado slices, capers, labna, onion, and sumac. Served with our special herb potato cubs and mix green salad",
-          ar: "",
+          ar: "أومليت / سلمون مدخن / أفوكادو / كابر / لبنة / بصل / سماق / مكعبات بطاطس بالأعشاب / سلطة خضرا",
         },
         priceEGP: 310,
         tags: [],
@@ -106,7 +106,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Sunny side up eggs with oriental Shakshooka mix",
-          ar: "",
+          ar: "بيض عيون / خلطة شكشوكة شرقي",
         },
         priceEGP: 275,
         tags: [],
@@ -122,7 +122,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Eggs with Feta Cheese, fries, broccoli, and tomatoes",
-          ar: "",
+          ar: "بيض / جبنة فيتا / بطاطس / بروكلي / طماطم",
         },
         priceEGP: 280,
         tags: [],
@@ -138,7 +138,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Sunni side up eggs with pastrami, tomatoes, and arugula",
-          ar: "",
+          ar: "بيض عيون / بسطرمة / طماطم / جرجير",
         },
         priceEGP: 295,
         tags: [],
@@ -170,7 +170,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "2 Pouched eggs, with smoked turkey slices, mayonnaise, arugula, sun-dried tomatoes, and Hollandaise sauce. Served on the side of mix green salad",
-          ar: "",
+          ar: "2 بيضة بوشيه / شرائح ديك رومي مدخن / مايونيز / جرجير / طماطم مجففة / صوص هولنديز / سلطة خضرا جنب",
         },
         priceEGP: 285,
         tags: [],
@@ -186,7 +186,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "2 Pouched eggs, with beef bacon, arugula, guacamole, and Hollandaise sauce. Served on the side of mix green salad",
-          ar: "",
+          ar: "2 بيضة بوشيه / بيف بيكون / جرجير / جواكامولي / صوص هولنديز / سلطة خضرا جنب",
         },
         priceEGP: 295,
         tags: [],
@@ -202,7 +202,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Flat Bread dough with herbed minced beef, eggs, and parsley",
-          ar: "",
+          ar: "عجينة فلات بريد / لحمة مفرومة بالأعشاب / بيض / بقدونس",
         },
         priceEGP: 255,
         tags: [],
@@ -218,7 +218,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Flat Bread dough with beef bacon, cherry tomatoes, and eggs",
-          ar: "",
+          ar: "عجينة فلات بريد / بيف بيكون / طماطم شيري / بيض",
         },
         priceEGP: 245,
         tags: [],
@@ -234,7 +234,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "2 Pouched eggs, with smoked salmon, arugula, avocado, spinach, and Hollandaise sauce. Served on the side of mix green salad",
-          ar: "",
+          ar: "2 بيضة بوشيه / سلمون مدخن / جرجير / أفوكادو / سبانخ / صوص هولنديز / سلطة خضرا جنب",
         },
         priceEGP: 310,
         tags: [],
@@ -250,7 +250,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Flat bread dough with cream cheese, smoked salmon slices and capers",
-          ar: "",
+          ar: "عجينة فلات بريد / كريم تشيز / شرائح سلمون مدخن / كابر",
         },
         priceEGP: 275,
         tags: [],
@@ -1288,7 +1288,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "A pot of meatballs in brown sauce with vegetables, served with Yellow Basmati rice.",
-          ar: "",
+          ar: "كفتة في صوص بني بالخضار / رز بسمتي أصفر",
         },
         priceEGP: 420,
         tags: [],
@@ -1334,7 +1334,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Premium Angus rib eye , served with Sun dried tomato mashed potato , mix Salad",
-          ar: "",
+          ar: "ريب آي أنجوس / بطاطس مهروسة بالطماطم المجففة / سلطة مشكلة",
         },
         priceEGP: 625,
         tags: [],
@@ -1382,7 +1382,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Premium Angus brisket Slow-cooked to perfection and served with creamy mashed potatoes",
-          ar: "",
+          ar: "بريسكت أنجوس مطبوخ على نار هادية / بطاطس مهروسة كريمي",
         },
         priceEGP: 625,
         tags: [],
@@ -1430,7 +1430,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "A Mix of seafood with white sauce, topped by cheese",
-          ar: "",
+          ar: "مشكل سي فود / صوص أبيض / جبنة",
         },
         priceEGP: 495,
         tags: [],
@@ -1734,7 +1734,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Non Alcoholic Beer",
-          ar: "",
+          ar: "بيرة من غير كحول",
         },
         priceEGP: 85,
         tags: [],
@@ -3212,7 +3212,7 @@ export const aromaMenu: MenuCategory[] = [
         },
         description: {
           en: "Choose Your flavor (Nuttela-Pistachio-Strawberry )",
-          ar: "",
+          ar: "اختار الطعم: نوتيلا / بستاشيو / فراولة",
         },
         priceEGP: 250,
         tags: [],

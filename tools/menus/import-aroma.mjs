@@ -295,7 +295,7 @@ for (const menuTitle of order) {
       items.push({
         id: `aroma.${def.id}.${slug}`,
         name: { en, ar: n.ar },
-        description: { en: plain(item.desc_en), ar: plain(item.desc_ar) },
+        description: { en: plain(item.desc_en), ar: plain(item.desc_ar) || (n.descAr ?? "") },
         priceEGP: price,
         tags: [],
         ...(photo ? { imageSlotId: `aroma.menu.${def.id}.${slug}`, photo } : {}),
