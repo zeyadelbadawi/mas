@@ -1,6 +1,6 @@
-import { videoSource } from "@mas/motion";
 import { ScrollVideo } from "@mas/motion/scroll-video";
 import { getTranslations } from "next-intl/server";
+import { SCENES } from "./scenes";
 
 /**
  * C2: from the hero's last frame the camera turns left along the mural, as the real room runs, to the
@@ -9,7 +9,7 @@ import { getTranslations } from "next-intl/server";
  */
 export async function Connector() {
   const t = await getTranslations("story");
-  const src = videoSource("covy.connector");
+  const src = SCENES.connector;
   return (
     <section id="story" aria-labelledby="story-title">
       <ScrollVideo

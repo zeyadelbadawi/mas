@@ -12,8 +12,11 @@
   --font-editorial: var(--brand-font-editorial);
 }
 
-/* Splash (same mechanism as COVY, D45/D48-D50): if a script never takes it away (no JS), it gets out of the
-   way by itself; once seen this session, a head script marks the page and it never shows. */
+/* Splash gate (D62, shared with COVY: useSplashGate). The head script (splashBootScript) marks a landing page
+   "hold" before the body is parsed: nothing scrolls, and an opaque cover in the panel's colour hides the page
+   until the panel is up, so nothing of the page can show first. "leaving": the panel's own fade reveals the
+   page, still locked. "seen": no panel (reduced motion, Save-Data, 2G). If no script ever takes the panel away,
+   it gets out of the way by itself (no JS), and the head script lets the lock go after 10 s. */
 @keyframes aroma-splash-failsafe {
   to {
     opacity: 0;
@@ -23,13 +26,26 @@
 .aroma-splash {
   animation: aroma-splash-failsafe 0.4s ease-out 6.5s forwards;
 }
-/* While the splash is up nothing scrolls: wheel, touch, keys and the scrollbar alike. */
-html[data-splash="hold"] {
+html[data-splash="hold"],
+html[data-splash="leaving"] {
   overflow: hidden;
   scrollbar-gutter: stable;
 }
+html[data-splash="hold"]::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--aroma-marble);
+}
 [data-splash="seen"] .aroma-splash {
   display: none;
+}
+/* Opaque: the panel never relies on backdrop-filter to hide the page (it is applied late, D62). */
+.aroma-splash-veil {
+  background:
+    radial-gradient(120% 80% at 70% 10%, #fff8e8 0%, transparent 60%),
+    var(--aroma-marble);
 }
 
 /* The splash is a cappuccino seen from above: each petal of the logo settles on the foam as cocoa dust as
@@ -63,6 +79,15 @@ html[data-splash="hold"] {
 }
 [data-written] .aroma-ink {
   opacity: 1;
+}
+/* The short panel later in a session: the cup is already dusted and the wordmark already inked. */
+[data-quick] .aroma-dust,
+[data-quick] .aroma-ink {
+  transition: none;
+}
+[data-quick] .aroma-write {
+  animation: none;
+  stroke-dashoffset: 0;
 }
 /* While the download is still running, the newest petal breathes, so a slow line still looks alive. */
 @keyframes aroma-breathe {

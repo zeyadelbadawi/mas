@@ -6,6 +6,7 @@ import { ConsentBootScript, getConsentLabels } from "@mas/analytics";
 import { ConsentProvider } from "@mas/analytics/consent";
 import { imageSlot } from "@mas/content";
 import { directions, routing } from "@mas/i18n";
+import { splashBootScript } from "@mas/motion";
 import { MotionProvider } from "@mas/motion/provider";
 import { pageMetadata } from "@mas/seo";
 import { SkipLink } from "@mas/ui";
@@ -18,6 +19,8 @@ import "../globals.css";
 const MEDIA_ORIGIN = process.env.NEXT_PUBLIC_MEDIA_URL
   ? new URL(process.env.NEXT_PUBLIC_MEDIA_URL).origin
   : undefined;
+
+const SPLASH_BOOT = { __html: splashBootScript() };
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -57,6 +60,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
             <link rel="preconnect" href={MEDIA_ORIGIN} crossOrigin="anonymous" />
           </>
         ) : null}
+        {/* Before the body: a landing page is covered and locked from its first paint (splash gate, D62). */}
+        {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see splashBootScript */}
+        <script dangerouslySetInnerHTML={SPLASH_BOOT} />
         <ConsentBootScript />
       </head>
       <body>

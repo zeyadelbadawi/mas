@@ -1,9 +1,9 @@
-import { videoSource } from "@mas/motion";
 import { ScrollVideo } from "@mas/motion/scroll-video";
 import { getTranslations } from "next-intl/server";
 import type { CSSProperties } from "react";
 import { CovyWordmark } from "@/components/logo";
 import { Star } from "@/components/sections/motifs";
+import { SCENES } from "./scenes";
 
 /** Fades a label in once the pour passes `at` (0..1). */
 const at = (stop: number): CSSProperties => ({
@@ -24,7 +24,7 @@ const STOPS = [
  */
 export async function Signature() {
   const t = await getTranslations("signature");
-  const src = videoSource("covy.signature");
+  const src = SCENES.signature;
   return (
     <section aria-labelledby="signature-title">
       <ScrollVideo

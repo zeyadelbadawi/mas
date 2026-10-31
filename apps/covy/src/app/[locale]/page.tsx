@@ -1,5 +1,6 @@
 import { covyMenu, events, locations } from "@mas/content";
 import { isLocale, pick } from "@mas/i18n";
+import { videoPrefetchScript } from "@mas/motion";
 import { JsonLd, menuJsonLd, restaurantJsonLd } from "@mas/seo";
 import { notFound } from "next/navigation";
 import type { AbstractIntlMessages } from "next-intl";
@@ -11,12 +12,18 @@ import { Hero } from "@/components/landing/hero";
 import { Menu } from "@/components/landing/menu";
 import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { Reviews } from "@/components/landing/reviews";
+import { SCENES } from "@/components/landing/scenes";
 import { Signature } from "@/components/landing/signature";
 import { BackToTop } from "@/components/back-to-top";
 import { Splash } from "@/components/splash";
 import { Spaces } from "@/components/landing/spaces";
 import { Visit } from "@/components/landing/visit";
 import { brand, privacyHref } from "@/site";
+
+/** The three scenes start downloading as the page is parsed (D55 on Aroma, D62): the splash waits on all of them. */
+const PREFETCH = {
+  __html: videoPrefetchScript(Object.values(SCENES).map((s) => s.manifestUrl)),
+};
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -52,6 +59,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see PREFETCH */}
+      <script dangerouslySetInnerHTML={PREFETCH} />
       <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
       <BackToTop label={common("backToTop")} />
       <Header

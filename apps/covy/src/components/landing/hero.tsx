@@ -1,7 +1,7 @@
-import { videoSource } from "@mas/motion";
 import { ScrollVideo } from "@mas/motion/scroll-video";
 import { getTranslations } from "next-intl/server";
 import { CovyWordmark } from "@/components/logo";
+import { SCENES } from "./scenes";
 
 /**
  * C1: scroll walks from the facade, through the doors, to the blue tree; the logo settles in at the end.
@@ -11,7 +11,7 @@ import { CovyWordmark } from "@/components/logo";
 export async function Hero() {
   const t = await getTranslations("hero");
   const home = await getTranslations("home");
-  const src = videoSource("covy.hero");
+  const src = SCENES.hero;
   return (
     <div id="top">
       <h1 className="sr-only">{t("title")}</h1>
