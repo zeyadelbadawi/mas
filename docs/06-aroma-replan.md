@@ -59,7 +59,7 @@ The first Aroma plan came from the brand guide and a client deck: dark wood, ste
 | A3 | **Nights** | Dusk falls on the same view: the terrace lamps come on and a guitarist plays on the deck. This week's nights appear: Thursday Madinaty, Friday Mivida, 9–11 PM | Seq `aroma.night` |
 | A4 | **Two places to find us** | Mivida (by the lake, enter from gates 6 or 7) and Madinaty (The Strip Mall, B11). Each has its own photos, hours, directions, call and WhatsApp | Motion |
 | A5 | **Menu** | Breakfast · Food · Drinks · Dessert · Kids: all 195 real items with prices and their photos; search; sticky categories; "Book a table" always in reach | Motion |
-| A6 | **What's on** | Recurring nights: live music (Sherif Elgesr), Aroma Nights with a DJ, match nights on big screens. Each says its branch, day and time and links to booking | Motion |
+| A6 | **What's on** | Live music weekly (Thursday Madinaty, Friday Mivida, 9–11 PM, with the performer named here and only here). Match nights "on Egypt's match days" on big screens, with no fixed date. Aroma Nights as occasional nights with a DJ, "dates on our Instagram". Each links to booking | Motion |
 | A7 | **Our story** | A short paragraph: the City Stars rooftop where it started, the two branches today, the motto "Good food comes from good hearts, we aspire for both." | Motion |
 | A8 | **By guests** | A wall of real moments from Aroma's posts: friends laughing, drinks raised, plates shared. These are photos, not reviews | Motion |
 | A9 | **Book / Feedback** | The COVY forms, with a **branch choice** first | UI |
@@ -80,7 +80,7 @@ The sequence is four keyframes (stills) and three 10-second shots between them. 
 | K1 | Overhead: an empty white marble table on Mivida's terrace in morning sun, with long shadows. Leaf-pattern placemats (no wording), cutlery and a small plant |
 | K2 | The same table, full: breakfast tray, shakshuka pan, feteer, a layered juice, and a cappuccino in the centre with plain foam (the petal is added in HTML, §6.2) |
 | K3 | Eye level by the same table at golden hour: a hand raises a layered sunset iced tea in front of the lake; the fountain behind; the table edge in the foreground |
-| K4 | The same view at blue hour: the glass now on the table, the terrace lamps on, the fountain lit, a guitarist on the deck at the side of the frame |
+| K4 | The same view at blue hour: the glass now on the table, the terrace lamps on, the fountain lit, and a guitarist on the deck, seen from behind and out of focus at the side of the frame. Nobody in the scenes is recognisable, and the scenes never name a performer (§12) |
 
 | Shot | From → to | Becomes |
 |---|---|---|
@@ -200,8 +200,8 @@ Flyers (posts with text baked in) are never used as photos. The rest of the imag
 | Change | Impact |
 |---|---|
 | **Branches:** `locations` becomes a list per brand; Aroma has `aroma-mivida` and `aroma-madinaty`, and COVY keeps one | Shared package. The reservation form shows a **branch choice** when a brand has more than one, and the email subject carries it (`[Aroma · Mivida] Table · Fri 6 Nov · 20:00 · 4 guests`). Events and schema follow. COVY behaviour is unchanged (covered by its tests) |
-| **Menu import:** a script turns the client's digital menu into `packages/content/src/menus/aroma.ts` (names, EN/AR descriptions, prices, photos); it can be re-run when the menu changes | **Arabic names are our translation** (the menu has none), flagged for the client to review. Zero prices are dropped |
-| **Recurring events:** events get an optional weekly rule (day, time, branch) | "What's on" always shows the next date; old dated sample events are removed |
+| **Menu import:** a script turns the client's digital menu into `packages/content/src/menus/aroma.ts` (names, EN/AR descriptions, prices, photos); it can be re-run when the menu changes. **One menu for both branches** (the digital menu is one venue); to confirm with the client | **Arabic names are our translation** (the menu has none), flagged for the client to review. Zero prices are dropped |
+| **Recurring events:** events get an optional weekly rule (day, time, branch); match nights and Aroma Nights have no date, just a line | "What's on" shows the next date for weekly nights; old dated sample events are removed |
 | **New slots** in the asset manifest for the scenes, branches and the share image; the MAG drafts `aroma.hero` and `aroma.terrace` are retired | Docs only |
 | The apps/aroma demo pages (art direction, kitchen sink, demo scene) | Removed when the landing lands; the COVY landing components are reused with Aroma styling |
 
@@ -232,8 +232,12 @@ Flyers (posts with text baked in) are never used as photos. The rest of the imag
 - Fonts unchanged (D4).
 - The 3D leaf ring is **not** used for Aroma, because it doesn't match the bright lakeside feel. It stays in the repo.
 - Colours as in §7.1, tuned for contrast in the build.
+- Hands are fine in the scenes, as in Aroma's reels. The guitarist in A3 is seen from behind and out of focus, and the scenes never name a performer: a generated figure next to a real musician's name would mislead.
+- Match nights and Aroma Nights have no fixed dates on the site; only the weekly live music does.
+- One menu for both branches until the client says otherwise.
 
 **Open for the owner**
-1. **Real photos:** may we use the client's social photos and digital-menu photos on the site (exception to rule 3)?
-2. **Arabic menu names:** OK for us to translate them, marked for the client to review?
-3. **Hours and contact:** we only have "Mivida closes 1:30 AM" and one phone number from a reel. Keep everything labelled placeholder until the client confirms?
+1. **Real photos:** may we use the client's social photos and digital-menu photos on the site (exception to rule 3)? Some show guests' faces. My suggestion: only photos Aroma posted on its own account, and the client confirms they're cleared to reuse.
+2. **The 3D leaf ring:** D42 kept it to rework for Aroma. I suggest leaving it out (it fights the bright lakeside feel and costs about 240 KB of 3D). Keep or drop?
+3. **Facts from Aroma's posts** (branches, gates 6/7, unit B11, the live music schedule, the City Stars start): treat them as client-provided data, marked for the client to confirm before launch, with no "Sample" badge on the page? Hours and phone stay placeholders until confirmed (we only have "Mivida closes 1:30 AM" and one number from a reel).
+4. **Arabic menu names:** OK for us to translate them, marked for the client to review?
