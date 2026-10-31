@@ -42,6 +42,9 @@ export type ReservationFormProps = {
   eventId?: string;
   /** That event's name, shown in the review step. */
   eventTitle?: string;
+  /** For brands with several branches: the chosen branch's id (sent) and name (shown in the review step). */
+  locationId?: string;
+  branchName?: string;
   /** Prefill from an event card: its date (YYYY-MM-DD) and start time (HH:MM). */
   defaults?: { date?: string; time?: string };
 };
@@ -66,6 +69,8 @@ export function ReservationForm({
   defaultType = "table",
   eventId,
   eventTitle,
+  locationId,
+  branchName,
   defaults,
 }: ReservationFormProps) {
   const t = useTranslations("forms");
@@ -91,6 +96,7 @@ export function ReservationForm({
       notes: "",
       locale,
       ...(eventId ? { eventId } : {}),
+      ...(locationId ? { locationId } : {}),
     },
   });
   const { register, control, trigger, getValues, setError, setValue, handleSubmit, formState } =
@@ -379,6 +385,9 @@ export function ReservationForm({
       {step === 2 ? (
         <div className="flex flex-col gap-6">
           <dl className="rounded-card border-line bg-surface grid gap-x-6 gap-y-3 border p-5 text-sm sm:grid-cols-[auto_1fr]">
+            {branchName ? (
+              <SummaryRow label={t("reservation.branch")} value={branchName} />
+            ) : null}
             {eventTitle ? <SummaryRow label={t("reservation.event")} value={eventTitle} /> : null}
             <SummaryRow
               label={t("reservation.type")}

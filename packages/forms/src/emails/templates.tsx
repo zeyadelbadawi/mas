@@ -1,5 +1,5 @@
 import { Heading, Link, Text } from "react-email";
-import { formatDate, formatTime, type Locale } from "@mas/i18n";
+import { formatDate, formatTime, type Locale, type LocalizedText } from "@mas/i18n";
 import type { Feedback, Inquiry, Reservation } from "../schemas";
 import { displayPhone } from "../phone";
 import { DetailsTable, EmailLayout, type EmailBrand } from "./layout";
@@ -33,11 +33,14 @@ export function ReservationStaffEmail({
   reference,
   r,
   afterMidnight,
+  branch,
 }: {
   brand: EmailBrand;
   reference: string;
   r: Reservation;
   afterMidnight: boolean;
+  /** For brands with several branches. */
+  branch?: LocalizedText | undefined;
 }) {
   const t = messages.en.forms.reservation;
   return (
@@ -53,6 +56,7 @@ export function ReservationStaffEmail({
       <DetailsTable
         rows={[
           ["Reference", reference],
+          ...(branch ? [["Branch", branch.en] as [string, string]] : []),
           ["Type", t.types[r.type]],
           ["Date", dateOf(r.date, "en")],
           ["Time", `${formatTime(r.time, "en")}${afterMidnight ? " (after midnight)" : ""}`],
@@ -77,11 +81,13 @@ export function ReservationGuestEmail({
   reference,
   r,
   contact,
+  branch,
 }: {
   brand: EmailBrand;
   reference: string;
   r: Reservation;
   contact: StaffContact;
+  branch?: LocalizedText | undefined;
 }) {
   const m = messages[r.locale];
   const t = m.forms.reservation;
@@ -100,6 +106,7 @@ export function ReservationGuestEmail({
       <DetailsTable
         dir={dir}
         rows={[
+          ...(branch ? [[t.branch, branch[r.locale]] as [string, string]] : []),
           [t.type, t.types[r.type]],
           [t.date, dateOf(r.date, r.locale)],
           [t.time, formatTime(r.time, r.locale)],

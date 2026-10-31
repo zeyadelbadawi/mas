@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { locations, masServices } from "@mas/content";
+import { branches, locations, masServices } from "@mas/content";
 import { createFormRoute } from "../src/server/handler";
 import { addDays, cairoNow } from "../src/time";
 
@@ -9,6 +9,11 @@ const covyRoute = createFormRoute({
   emailBrand: brand,
   reservation: { location: locations.covy },
   feedback: true,
+});
+const aromaRoute = createFormRoute({
+  brandId: "aroma",
+  emailBrand: { ...brand, name: "Aroma Lounge" },
+  reservation: { locations: branches.aroma },
 });
 const masRoute = createFormRoute({
   brandId: "mas",
@@ -187,5 +192,20 @@ describe("form route", () => {
     const body = await res.json();
     expect(body.reference).toMatch(/^MS-/);
     expect(String(info.mock.calls[0]?.[0])).toContain("Menu Engineering");
+  });
+
+  it("needs a branch when the brand has several, and names it in the subject", async () => {
+    const none = await post(aromaRoute, "reservation", envelope(reservation()));
+    expect(none.status).toBe(400);
+    expect(await none.json()).toMatchObject({ error: "validation", fields: { locationId: "required" } });
+    const wrong = await post(aromaRoute, "reservation", envelope({ ...reservation(), locationId: "aroma-city-stars" }));
+    expect(wrong.status).toBe(400);
+
+    info.mock.calls.length = 0;
+    const res = await post(aromaRoute, "reservation", envelope({ ...reservation(), locationId: "aroma-madinaty" }));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.reference).toMatch(/^AL-[A-Z2-9]{4}$/);
+    expect(String(info.mock.calls[0]?.[0])).toContain("[Aroma Lounge · Madinaty]");
   });
 });
