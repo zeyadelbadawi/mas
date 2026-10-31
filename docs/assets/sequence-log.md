@@ -181,3 +181,22 @@ Keyframes spent: **24 credits**. The owner approves K1–K4 before any shot.
 Two of the three were first held back by the tool's preset suggestion ("IN THE DARK"); it was declined and they were resubmitted unchanged, no credits spent on the held ones.
 
 Shots spent: **240 credits** (S2 twice). Total for the Aroma scenes: **264 of the 300-credit ceiling**. Seams, mean difference of 255: S1's last frame to S2's first 4.7, S2's last to S3's first 3.2 (COVY: 5.0 and 3.1). The owner approves the footage before the videos are built.
+
+### Aroma scroll videos (no credits, D43 method)
+
+Every source frame, a keyframe every 6 frames, no B-frames. The phone cut is a 4:5 crop around the centre (it keeps the table, the cup, the drink, the lake and the fountain; the guitarist at the far left of S3 is outside it).
+
+| Video | Source | Frames | Timing | Desktop 1920×1080 | Mobile 1080×1350 |
+|---|---|---|---|---|---|
+| `aroma.morning` | S1 `ed907a92` | 241 | even (static camera) | 8.7 MB | 4.0 MB |
+| `aroma.lake` | S2 `1cfcb8b8` | 241 | by motion, ease in 0.06, out 0.08 | 9.4 MB | 4.1 MB |
+| `aroma.night` | S3 `d42ef40e` | 241 | even (static camera) | 7.0 MB | 3.3 MB |
+
+```bash
+pnpm sequence:video --input aroma-morning-4k.mp4 --id aroma.morning --out out/videos
+pnpm sequence:video --input aroma-lake-4k.mp4 --id aroma.lake --out out/videos --motion --ease-in 0.06 --ease-out 0.08
+pnpm sequence:video --input aroma-night-4k.mp4 --id aroma.night --out out/videos
+pnpm sequence:upload --dir out/videos --prefix videos --only aroma.morning,aroma.lake,aroma.night
+```
+
+**Uploaded on 2026-10-31** under `videos/`, 5 files each; the manifests answer 200 and the videos serve byte ranges (206). The 4K sources stay on Higgsfield (job ids above).
