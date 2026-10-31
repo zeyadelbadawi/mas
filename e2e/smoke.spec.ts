@@ -14,6 +14,22 @@ test.describe("every site", () => {
     await expect(page.locator("h1")).toBeVisible();
   });
 
+  test("language links lead to the same page in the other language", async ({ page }) => {
+    for (const [path, target] of [
+      ["/", "/ar"],
+      ["/privacy", "/ar/privacy"],
+      ["/ar", "/"],
+      ["/ar/terms", "/terms"],
+    ] as const) {
+      await page.goto(path);
+      const links = page.locator(`a[hreflang="${path.startsWith("/ar") ? "en" : "ar"}"]`);
+      await expect(links.first()).toBeAttached();
+      for (const href of await links.evaluateAll((els) => els.map((e) => e.getAttribute("href"))))
+        expect(href, path).toBe(target);
+    }
+    expect((await page.request.get("/ar")).status()).toBe(200);
+  });
+
   test("sends security headers and stays out of search before launch", async ({ request }) => {
     const res = await request.get("/");
     const headers = res.headers();

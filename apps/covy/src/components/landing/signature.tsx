@@ -82,7 +82,7 @@ export async function Signature() {
                 className="absolute start-[56%] flex flex-row-reverse items-center gap-3 rounded-full bg-[#262d3f]/75 px-3 py-1.5 max-sm:hidden"
                 style={{ top: s.top, ...at(s.stop) }}
               >
-                <span className="font-display text-sm tracking-[0.2em] whitespace-nowrap uppercase">
+                <span className="font-display text-sm tracking-[0.2em] whitespace-nowrap uppercase rtl:tracking-normal">
                   {t(s.key)}
                 </span>
                 <span className="h-px w-16 bg-current opacity-70" />

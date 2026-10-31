@@ -1,5 +1,6 @@
 "use client";
 
+import { useMotion } from "@mas/motion/provider";
 import { preloadProgress, subscribePreload } from "@mas/motion/video-preload";
 import { useEffect, useRef, useState } from "react";
 import { CovyWordmark } from "@/components/logo";
@@ -25,10 +26,17 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
   const [phase, setPhase] = useState<"loading" | "leaving" | "gone">("loading");
   const [canSkip, setCanSkip] = useState(false);
   const leaveRef = useRef<() => void>(() => {});
+  const { getLenis } = useMotion();
+  const lenisRef = useRef(getLenis);
+  useEffect(() => {
+    lenisRef.current = getLenis;
+  });
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // The script is running: it decides when to leave, not the no-JS failsafe.
+    el.style.animation = "none";
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let seen = false;
     try {
@@ -50,7 +58,12 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
     window.addEventListener("wheel", block, { passive: false, capture: true });
     window.addEventListener("touchmove", block, { passive: false, capture: true });
     window.addEventListener("keydown", keys, { capture: true });
+    // Smooth scrolling ignores cancelled events, so it is paused too (and if it starts while the panel is up).
+    const pause = window.setInterval(() => lenisRef.current()?.stop(), 100);
+    lenisRef.current()?.stop();
     const release = () => {
+      window.clearInterval(pause);
+      lenisRef.current()?.start();
       window.removeEventListener("wheel", block, { capture: true });
       window.removeEventListener("touchmove", block, { capture: true });
       window.removeEventListener("keydown", keys, { capture: true });
@@ -69,7 +82,7 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
       }
       setPhase("leaving");
       // The mark settles and fades, then the panel lifts like a curtain off the facade.
-      const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
+      const ease = "cubic-bezier(0.32, 0.72, 0, 1)";
       el.querySelector("[data-mark]")?.animate(
         [
           { opacity: 1, transform: "none" },
@@ -78,9 +91,9 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
         { duration: 450, easing: ease, fill: "forwards" },
       );
       const lift = el.animate([{ clipPath: "inset(0 0 0 0)" }, { clipPath: "inset(0 0 100% 0)" }], {
-        duration: 900,
-        delay: 250,
-        easing: "cubic-bezier(0.76, 0, 0.24, 1)",
+        duration: 650,
+        delay: 120,
+        easing: ease,
         fill: "forwards",
       });
       lift.onfinish = () => setPhase("gone");
@@ -112,6 +125,7 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
       <script dangerouslySetInnerHTML={BOOT} />
       <div
         ref={ref}
+        data-lenis-prevent
         className="covy-splash fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--covy-sand)] text-[var(--covy-navy)]"
       >
         <div data-mark className="flex flex-col items-center gap-8">

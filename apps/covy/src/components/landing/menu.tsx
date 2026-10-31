@@ -17,7 +17,6 @@ const TAG_WORDS: Record<MenuTag, string> = {
 /** C5: the whole menu as server-rendered HTML; MenuControls adds search, filters and the section bar. */
 export async function Menu({ locale }: { locale: Locale }) {
   const t = await getTranslations("menu");
-  const nav = await getTranslations("nav");
   const tags = ["veg", "spicy", "nuts", "new", "signature"] as const;
   return (
     <section id="menu" aria-labelledby="menu-title" className="py-28">
@@ -37,7 +36,6 @@ export async function Menu({ locale }: { locale: Locale }) {
           filters: t("filters"),
           categories: t("categories"),
           clear: t("clear"),
-          book: nav("book"),
           tags: Object.fromEntries(tags.map((tag) => [tag, t(`tags.${tag}`)])) as Record<
             MenuTag,
             string

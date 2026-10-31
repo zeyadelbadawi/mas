@@ -16,7 +16,7 @@ type Job = { id: string; src?: string; bytes: number };
 const states = new Map<string, PreloadState>();
 const listeners = new Set<() => void>();
 const queue: Job[] = [];
-let active = false;
+let active: { id: string; abort: AbortController } | null = null;
 
 const emit = () => listeners.forEach((fn) => fn());
 
@@ -48,10 +48,10 @@ export function preloadProgress(ids: readonly string[]): { progress: number; don
   return { progress: total > 0 ? Math.min(1, loaded / total) : 0, done };
 }
 
-async function download(job: Job & { src: string }): Promise<void> {
+async function download(job: Job & { src: string }, signal: AbortSignal): Promise<void> {
   const fallback = job.bytes || 1;
   try {
-    const res = await fetch(job.src);
+    const res = await fetch(job.src, { signal });
     if (!res.ok || !res.body) throw new Error(`${job.src}: ${res.status}`);
     const total = Number(res.headers.get("content-length")) || fallback;
     const reader = res.body.getReader();
@@ -68,7 +68,7 @@ async function download(job: Job & { src: string }): Promise<void> {
     const url = URL.createObjectURL(new Blob(chunks as BlobPart[], { type: "video/mp4" }));
     states.set(job.id, { loaded: total, total, done: true, url });
   } catch {
-    // The player streams the file directly instead.
+    // Failed or given up (the player streams the file directly instead).
     states.set(job.id, { loaded: fallback, total: fallback, done: true, error: true });
   }
   emit();
@@ -79,9 +79,9 @@ async function pump(): Promise<void> {
   const head = queue[0];
   if (active || !head?.src) return;
   queue.shift();
-  active = true;
-  await download(head as Job & { src: string });
-  active = false;
+  active = { id: head.id, abort: new AbortController() };
+  await download(head as Job & { src: string }, active.abort.signal);
+  active = null;
   void pump();
 }
 
@@ -101,6 +101,21 @@ export function startPreload(id: string, src: string, bytes: number): void {
   job.src = src;
   job.bytes = bytes;
   states.set(id, { loaded: 0, total: bytes || 1, done: false });
+  emit();
+  void pump();
+}
+
+/**
+ * Stop waiting for a video: drop it from the queue, or cancel its download, and let the next one start. Used
+ * when its manifest can't be read, and when the visitor reaches the section first (the player streams it).
+ */
+export function abandonPreload(id: string): void {
+  const i = queue.findIndex((j) => j.id === id);
+  if (i >= 0) queue.splice(i, 1);
+  if (active?.id === id) active.abort.abort();
+  const s = states.get(id);
+  if (!s?.done)
+    states.set(id, { loaded: s?.total || 1, total: s?.total || 1, done: true, error: true });
   emit();
   void pump();
 }

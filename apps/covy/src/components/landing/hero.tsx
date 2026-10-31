@@ -22,7 +22,9 @@ export async function Hero() {
             className="absolute inset-x-0 top-[16vh] flex flex-col items-center gap-3 text-center text-[var(--covy-navy)]"
             style={{ opacity: "clamp(0, calc(1 - var(--seq-progress, 0) * 8), 1)" }}
           >
-            <p className="font-display text-sm tracking-[0.3em] uppercase">{t("kicker")}</p>
+            <p className="font-display text-sm tracking-[0.3em] uppercase rtl:tracking-normal">
+              {t("kicker")}
+            </p>
             <p className="text-sm">{t("scroll")}</p>
           </div>
           {/* Final frames: the logo and the line from the guide. */}
@@ -46,7 +48,7 @@ export async function Hero() {
               }}
             >
               <CovyWordmark className="h-auto w-[min(72vw,30rem)]" />
-              <p className="font-display mt-6 text-sm tracking-[0.35em] uppercase sm:text-base">
+              <p className="font-display mt-6 text-sm tracking-[0.35em] uppercase sm:text-base rtl:tracking-normal">
                 {home("tagline")}
               </p>
             </div>

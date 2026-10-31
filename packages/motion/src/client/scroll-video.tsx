@@ -5,7 +5,13 @@ import { progressToPosition } from "../frame-math";
 import { siblingUrl, type VideoManifest } from "../manifest";
 import { useMotion } from "./motion-provider";
 import type { SequencePlayerProps } from "./sequence-player";
-import { preloadState, reservePreload, startPreload, subscribePreload } from "./video-preload";
+import {
+  abandonPreload,
+  preloadState,
+  reservePreload,
+  startPreload,
+  subscribePreload,
+} from "./video-preload";
 
 export type ScrollVideoProps = SequencePlayerProps;
 
@@ -42,6 +48,12 @@ export function ScrollVideo({
   /** Before hydration (tier null) keep the scroll layout so the page doesn't jump once JS runs. */
   const staticLayout = tier === "LOW" || tier === "STATIC";
 
+  /** The latest scroll progress (0..1) and the handler the video effect installs for it. */
+  const progressRef = useRef<{ value: number; apply: (p: number) => void }>({
+    value: 0,
+    apply: () => {},
+  });
+
   // The manifest and the download start as soon as the tier is known, before the motion library arrives,
   // and keep their place in page order.
   useEffect(() => {
@@ -49,29 +61,39 @@ export function ScrollVideo({
     reservePreload(id, priority);
     let cancelled = false;
     void (async () => {
-      const res = await fetch(manifestUrl);
-      if (!res.ok || cancelled) return;
-      setManifest((await res.json()) as VideoManifest);
+      try {
+        const res = await fetch(manifestUrl);
+        if (!res.ok) throw new Error(String(res.status));
+        const m = (await res.json()) as VideoManifest;
+        if (!cancelled) setManifest(m);
+      } catch {
+        // No manifest: the poster stays, and the videos after this one must not wait for it.
+        if (!cancelled) abandonPreload(id);
+      }
     })();
     return () => {
       cancelled = true;
     };
   }, [animated, id, manifestUrl, priority]);
 
+  // The video: which file, when to attach it, and seeking it to the frame the scroll asks for.
   useEffect(() => {
     const section = sectionRef.current;
-    const stage = stageRef.current;
     const video = videoRef.current;
-    if (!animated || !manifest || !section || !stage || !video) return;
+    if (!animated || !manifest || !section || !video) return;
 
+    // By the screen's shape: the 4:5 crop for portrait screens, the 16:9 frames otherwise.
     const portrait = window.innerWidth / window.innerHeight < 0.9;
     const variant =
-      manifest.variants.find(
-        (v) => v.name === (tier === "MID" || portrait ? "mobile" : "desktop"),
-      ) ?? manifest.variants[0];
-    if (!variant) return;
+      manifest.variants.find((v) => v.name === (portrait ? "mobile" : "desktop")) ??
+      manifest.variants[0];
+    if (!variant) {
+      abandonPreload(id);
+      return;
+    }
     const src = siblingUrl(manifestUrl, variant.src);
     const { fps, frameCount, timing } = manifest;
+    const progress = progressRef.current;
     startPreload(id, src, variant.bytes);
 
     let cancelled = false;
@@ -81,6 +103,7 @@ export function ScrollVideo({
     let shown = -1;
     let pending = -1;
     let guard = 0;
+    let vars = "";
 
     const apply = () => {
       if (!loaded || pending !== -1 || want === shown) return;
@@ -108,40 +131,67 @@ export function ScrollVideo({
     video.addEventListener("seeked", onSeeked);
     video.addEventListener("loadeddata", onLoaded);
 
-    // Play from the downloaded copy once it is complete (or stream the file if the download failed).
-    let attached = false;
-    const attach = () => {
-      const s = preloadState(id);
-      if (attached || cancelled || !s?.done) return;
-      attached = true;
-      video.src = s.url ?? src;
-      video.load();
-    };
-    const unsubscribe = subscribePreload(attach);
-    attach();
-
-    // iOS Safari only paints seeks after the video has played once: play and pause on the first touch.
+    // iOS Safari only paints seeks after the video has played once: play and pause on the first touch
+    // after the file is attached (retried on the next touch if it fails).
     const unlock = () => {
-      void video
+      video
         .play()
         .then(() => {
           video.pause();
           shown = -1;
           apply();
         })
-        .catch(() => {});
+        .catch(() => window.addEventListener("touchstart", unlock, { once: true, passive: true }));
     };
-    window.addEventListener("touchstart", unlock, { once: true, passive: true });
+
+    // Play from the downloaded copy once complete. If the visitor gets near the section first, stream the
+    // file instead (seeking as its parts arrive) rather than hold a frozen poster, and stop the download.
+    let attached = false;
+    const attach = (stream = false) => {
+      if (attached || cancelled) return;
+      const s = preloadState(id);
+      if (!stream && !s?.done) return;
+      attached = true;
+      if (stream && !s?.done) abandonPreload(id);
+      video.src = s?.url ?? src;
+      video.load();
+      window.addEventListener("touchstart", unlock, { once: true, passive: true });
+    };
+    const unsubscribe = subscribePreload(() => attach());
+    attach();
+    // Streaming is the fallback for a visitor who scrolls to the section before its download is done; the
+    // first section is on screen from the start, so for it that only counts once the page has scrolled.
+    let near = false;
+    let scrolled = window.scrollY > 0;
+    const maybeStream = () => {
+      if (near && scrolled) attach(true);
+    };
+    const onScroll = () => {
+      scrolled = true;
+      maybeStream();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true, once: true });
+    const nearby = new IntersectionObserver(
+      ([entry]) => {
+        near = Boolean(entry?.isIntersecting);
+        maybeStream();
+      },
+      { rootMargin: "50% 0px" },
+    );
+    nearby.observe(section);
 
     // Share of the section's scroll distance (its height minus one screen) that scrubs the frames.
     const framesEnd = holdVh > 0 ? (scrollVh - 100) / (scrollVh + holdVh - 100) : 1;
-    const onProgress = (progress: number) => {
-      const frames = Math.min(1, progress / framesEnd);
-      const hold = framesEnd < 1 ? Math.max(0, (progress - framesEnd) / (1 - framesEnd)) : 0;
-      // Only the overlay layers read these, so only they restyle on scroll, not the whole section.
-      for (const el of overlaysRef.current) {
-        el?.style.setProperty("--seq-progress", frames.toFixed(4));
-        el?.style.setProperty("--seq-hold", Math.min(1, hold).toFixed(4));
+    progress.apply = (p: number) => {
+      const frames = Math.min(1, p / framesEnd);
+      const hold = framesEnd < 1 ? Math.max(0, (p - framesEnd) / (1 - framesEnd)) : 0;
+      // Only the copy layer reads these, so only it restyles on scroll, and only when they change.
+      const next = `${frames.toFixed(4)} ${Math.min(1, hold).toFixed(4)}`;
+      const el = overlaysRef.current[1];
+      if (el && next !== vars) {
+        vars = next;
+        el.style.setProperty("--seq-progress", frames.toFixed(4));
+        el.style.setProperty("--seq-hold", Math.min(1, hold).toFixed(4));
       }
       want = Math.min(
         frameCount - 1,
@@ -149,6 +199,27 @@ export function ScrollVideo({
       );
       apply();
     };
+    progress.apply(progress.value);
+
+    return () => {
+      cancelled = true;
+      progress.apply = () => {};
+      window.clearTimeout(guard);
+      unsubscribe();
+      nearby.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("touchstart", unlock);
+      video.removeEventListener("seeked", onSeeked);
+      video.removeEventListener("loadeddata", onLoaded);
+    };
+  }, [animated, manifest, manifestUrl, id, scrollVh, holdVh]);
+
+  // Scroll: the motion library (loaded after first paint) drives the progress, and the reveal of a section
+  // that continues the previous one. Kept apart from the video so its late arrival never reloads the file.
+  useEffect(() => {
+    const section = sectionRef.current;
+    const stage = stageRef.current;
+    if (!animated || !section || !stage) return;
 
     // Overlapping sections: the stage stays invisible until its section reaches the top of the screen, where
     // it pins over the previous stage's identical last frame (see SequencePlayer).
@@ -172,6 +243,10 @@ export function ScrollVideo({
         if (overlapPrevious && !reveals)
           stage.style.visibility = self.scroll() < self.start ? "hidden" : "";
       };
+      const progress = (p: number) => {
+        progressRef.current.value = p;
+        progressRef.current.apply(p);
+      };
       const st = lib.ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -179,28 +254,22 @@ export function ScrollVideo({
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           reveal(self);
-          onProgress(self.progress);
+          progress(self.progress);
         },
         onToggle: reveal,
         onRefresh: reveal,
       });
       trigger = st;
       reveal(st);
-      onProgress(st.progress);
+      progress(st.progress);
     }
 
     return () => {
-      cancelled = true;
-      window.clearTimeout(guard);
-      unsubscribe();
-      window.removeEventListener("touchstart", unlock);
-      video.removeEventListener("seeked", onSeeked);
-      video.removeEventListener("loadeddata", onLoaded);
       reveals?.cancel();
       stage.style.visibility = "";
       trigger?.kill();
     };
-  }, [animated, lib, manifest, manifestUrl, id, tier, scrollVh, holdVh, overlapPrevious]);
+  }, [animated, lib, overlapPrevious]);
 
   const style = {
     "--scroll-vh": scrollVh + holdVh,
@@ -258,7 +327,7 @@ export function ScrollVideo({
             disablePictureInPicture
             disableRemotePlayback
             tabIndex={-1}
-            className={`absolute inset-0 h-full w-full transition-opacity duration-300 ${fit === "cover" ? "object-cover" : "object-contain"}`}
+            className={`absolute inset-0 h-full w-full ${fit === "cover" ? "object-cover" : "object-contain"}`}
             style={{
               opacity: painted ? 1 : 0,
               objectPosition: `${focal.x * 100}% ${focal.y * 100}%`,

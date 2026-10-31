@@ -13,10 +13,14 @@ type Props = {
   ariaLabel: string;
 };
 
-/** English lives at "/", Arabic at "/ar" (D27): the same page in the other language. */
-function otherLocalePath(pathname: string, locale: "en" | "ar"): string {
+/**
+ * English lives at "/", Arabic at "/ar" (D27): the same page in the other language. The locale middleware
+ * serves "/" from "/en", and usePathname() can report either, so an "/en" prefix is dropped first.
+ */
+export function otherLocalePath(pathname: string, locale: "en" | "ar"): string {
   if (locale === "ar") return pathname.replace(/^\/ar(?=\/|$)/, "") || "/";
-  return pathname === "/" ? "/ar" : `/ar${pathname}`;
+  const page = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
+  return page === "/" ? "/ar" : `/ar${page}`;
 }
 
 /** Keeps the visitor on the same page in the other language. Plain Next.js routing, no i18n runtime. */
@@ -27,14 +31,15 @@ export function LanguageSwitcher({ className, locale, label, ariaLabel }: Props)
     <Link
       href={otherLocalePath(pathname, locale)}
       hrefLang={target}
-      lang={target}
-      aria-label={ariaLabel}
       className={cn(
         "rounded-control text-fg inline-flex h-10 items-center px-3 text-sm font-medium underline-offset-4 hover:underline",
         className,
       )}
     >
-      {label}
+      {/* The visible name in its own language, then the hint in the page's (WCAG 2.5.3: the accessible
+          name starts with the visible text). */}
+      <span lang={target}>{label}</span>
+      <span className="sr-only">{` (${ariaLabel})`}</span>
     </Link>
   );
 }

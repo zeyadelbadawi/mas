@@ -55,7 +55,7 @@ export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" 
             label={labels.switchTo}
             ariaLabel={labels.switchToLabel}
           />
-          <Button asChild size="sm" className="hidden sm:inline-flex">
+          <Button asChild size="sm">
             <a href="#reserve">{t("book")}</a>
           </Button>
           <button
