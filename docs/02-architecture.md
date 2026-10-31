@@ -404,7 +404,7 @@ Reviewed with the `security-and-hardening` skill before Milestone A and again be
 | 3D chunk (three + R3F + scene) | ≤ 250 KB gzip, loaded after first paint on HIGH/MID tiers only |
 | Fonts | ≤ 2 preloaded files per locale, subset woff2 |
 | Sequence poster | ≤ 120 KB AVIF |
-| Sequence frames | Desktop 1920w AVIF ≈ 40–70 KB × ≤ 150 frames; mobile 1080×1350 portrait crop, every 2nd frame ≈ 25–35 KB; downloaded in full once the section is within about 1.5 viewports, frames near the scroll position first, never blocking first paint |
+| Sequence frames | Desktop 1920w AVIF ≈ 30–80 KB × 150–330 frames (camera moves keep more frames where the image changes most, D41); mobile 1080×1350 portrait crop, every 2nd frame ≈ 25–35 KB; downloaded in full once the section is within about 1.5 viewports, frames near the scroll position first, never blocking first paint |
 
 **Device tiers** (decided once on load in `MotionProvider`):
 
@@ -415,7 +415,7 @@ Reviewed with the `security-and-hardening` skill before Milestone A and again be
 | LOW | `saveData`, 2G/3G effective type, or WebGL failure | Posters + light CSS/GSAP motion; no WebGL, no frames |
 | STATIC | `prefers-reduced-motion: reduce` | Final states, no pinning/scrubbing, normal document flow |
 
-**Where the frames live (D25):** each sequence is ~5–8 MB per full desktop view, so frames don't go through Vercel. Vercel Hobby includes about 100 GB/month of fast data transfer, roughly 12–20k full sequence views. Frames live in a Cloudflare R2 public bucket behind `media.mas.com` (free: 10 GB storage, no egress fees; all five sequences ≈ 150 MB). A Cloudflare cache rule serves repeat requests from the edge, so they don't count against R2's free monthly operations. It's static file hosting, not a backend. Activating R2 requires a card or PayPal for verification; there is no charge inside the free tier.
+**Where the frames live (D25):** each sequence is ~5–20 MB per full desktop view (D41; the COVY landing's three together ≈ 42 MB), so frames don't go through Vercel. Vercel Hobby includes about 100 GB/month of fast data transfer, roughly 5–20k full sequence views, or about 2,400 full COVY visits. Frames live in a Cloudflare R2 public bucket behind `media.mas.com` (free: 10 GB storage, no egress fees; a sequence with all its variants and both formats is ~60–125 MB, well inside the free storage). A Cloudflare cache rule serves repeat requests from the edge, so they don't count against R2's free monthly operations. It's static file hosting, not a backend. Activating R2 requires a card or PayPal for verification; there is no charge inside the free tier.
 
 ## 9. Internationalisation
 

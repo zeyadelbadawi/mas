@@ -1,6 +1,8 @@
 export { decideTier, type DeviceTier, type TierSignals } from "./device-tier";
 export {
   progressToFrame,
+  progressToPosition,
+  strideIndices,
   framePriority,
   downloadOrder,
   strideLevel,

@@ -6,6 +6,41 @@ export function progressToFrame(progress: number, frameCount: number): number {
 }
 
 /**
+ * Map normalised scroll progress (0..1) to a position between frames (0..frameCount-1, fractional). With a
+ * `timing` curve (each frame's place along the move, 0..1, rising), equal scroll moves the camera equally
+ * even where the frames are unevenly spaced; without one the frames are spread evenly.
+ */
+export function progressToPosition(
+  progress: number,
+  frameCount: number,
+  timing?: readonly number[],
+): number {
+  if (frameCount <= 1) return 0;
+  const p = Number.isFinite(progress) ? Math.min(1, Math.max(0, progress)) : 0;
+  if (!timing || timing.length !== frameCount) return p * (frameCount - 1);
+  // Last frame whose place is at or before p, then the share of the way to the next one.
+  let lo = 0;
+  let hi = frameCount - 1;
+  while (hi - lo > 1) {
+    const mid = (lo + hi) >> 1;
+    if ((timing[mid] ?? 0) <= p) lo = mid;
+    else hi = mid;
+  }
+  const a = timing[lo] ?? 0;
+  const b = timing[hi] ?? 1;
+  return b > a ? lo + Math.min(1, Math.max(0, (p - a) / (b - a))) : lo;
+}
+
+/** Every `stride`-th index of 0..frameCount-1, always ending on the last frame. */
+export function strideIndices(frameCount: number, stride: number): number[] {
+  const out: number[] = [];
+  const step = Math.max(1, Math.floor(stride));
+  for (let i = 0; i < frameCount; i += step) out.push(i);
+  if (frameCount > 0 && out[out.length - 1] !== frameCount - 1) out.push(frameCount - 1);
+  return out;
+}
+
+/**
  * Order in which to request frames around the current one: current first, then alternating
  * ahead/behind (ahead weighted by scroll direction), never outside 0..frameCount-1.
  */

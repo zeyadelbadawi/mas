@@ -45,3 +45,22 @@
 فريمات الـ signature الجديدة اترفعت تحت `covy.signature.r2` عشان الفريمات القديمة متخزنة في الكاش أسبوع بنفس الأسامي. أرقام الشغلانات وأوامر البناء والرفع في النسخة الإنجليزية.
 
 **اتبنت واترفعت على R2 يوم 2026-10-30.** `covy.connector`: ‏180 فريم desktop و180 desktop-xl و90 mobile ‏(903 ملف)، و`covy.signature.r2`: ‏150 و150 و75 ‏(753 ملف)، بصيغتي AVIF وWebP، وكل الملفات بتفتح من الرابط العام للـ bucket.
+
+### إعادة بناء: فريمات الـ hero والـ connector على حسب الحركة (من غير كريديت، D41)
+
+مفيش تصوير جديد. نفس كليبات الـ 4K اتبنت تاني بـ `--motion-step`، اللي بيختار فريم تقريبًا كل خطوة تغيير في الصورة بدل ما ياخد فريمات متساوية في الوقت، وبيكتب منحنى `timing` في كل manifest عشان الـ player يمشي بسرعة كاميرا ثابتة. القياس على الكليبات (متوسط الفرق المطلق لفريمات رمادي 192×108): اللقطة الأولى في الـ connector كانت بتتحرك حوالي 2.3 مرة قد الـ hero في كل شاشة سكرول، وفريماتها كان بينها 2.7 فريم من الأصل؛ وآخر 3.5 ثانية من كليب الـ hero إيقاعها مش منتظم (خطوة كبيرة وخطوة صغيرة ورا بعض).
+
+| المشهد | الفريمات قبل ← بعد | الخطوة | اتبنى من |
+|---|---|---|---|
+| `covy.hero.r2` | 150 ← 200 (mobile 101) | 6 | `covy-hero-4k.mp4` (207 فريم أصلي) |
+| `covy.connector.r2` | 180 ← 329 (mobile 165) | 8 | `covy-connector-4k.mp4` (481 فريم أصلي) |
+
+```bash
+pnpm sequence:build --input covy-hero-4k.mp4 --id covy.hero.r2 --out out/sequences --motion-step 6 --ease-out 0.06
+pnpm sequence:build --input covy-connector-4k.mp4 --id covy.connector.r2 --out out/sequences --motion-step 8 --ease-in 0.06 --ease-out 0.12
+pnpm sequence:upload --dir out/sequences --only covy.hero.r2,covy.connector.r2
+```
+
+سكشن الـ connector بقى 560vh بدل 400vh عشان الكاميرا فيه تمشي بسرعة الـ hero تقريبًا مع السكرول. والـ easing بيحافظ على الوصول الهادي: الـ hero بيهدى في آخر 6% من حركته قبل الوقفة، والـ connector بيبدأ هادي في أول 6% ويهدى في آخر 12% وهو داخل على الكوباية. `covy.signature.r2` زي ما هو (الكاميرا ثابتة؛ والـ player بقى بيدمج فريماته هو كمان).
+
+**اتبنت واترفعت على R2 يوم 2026-10-31.** `covy.hero.r2`: ‏1,005 ملف؛ و`covy.connector.r2`: ‏1,649 ملف (AVIF وWebP، والـ poster والـ manifest).

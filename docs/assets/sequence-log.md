@@ -115,3 +115,22 @@ pnpm sequence:upload --dir out/sequences --only covy.connector,covy.signature.r2
 The signature goes to a new path because frames are cached for a week under the same names; the site asks for it with `sequenceSource("covy.signature", { rev: 2 })`. The 960×540 drafts in `apps/covy/public/sequences/drafts` were rebuilt from the same clips (96 frames).
 
 **Built and uploaded on 2026-10-30.** `covy.connector`: 180 desktop + 180 desktop-xl + 90 mobile frames (903 files); `covy.signature.r2`: 150 + 150 + 75 (753 files), both AVIF and WebP with poster and manifest. Every file loads from the public bucket URL with the right content type and `Access-Control-Allow-Origin: *`.
+
+### Rebuild: hero and connector picked by motion (no credits, D41)
+
+No new footage. The same 4K clips were rebuilt with `--motion-step`, which keeps about one frame per step of image change instead of sampling evenly in time, and writes a `timing` curve into each manifest so the player scrubs at an even camera speed. Measured on the clips (mean absolute difference of 192×108 greyscale frames): the connector's first shot moved about 2.3× as much per screen of scroll as the hero, and its frames were 2.7 source frames apart; the last 3.5 s of the hero clip has uneven pacing (big and small steps alternating).
+
+| Sequence | Frames before → after | Step | Build from |
+|---|---|---|---|
+| `covy.hero.r2` | 150 → 200 (mobile 101) | 6 | `covy-hero-4k.mp4` (207 source frames) |
+| `covy.connector.r2` | 180 → 329 (mobile 165) | 8 | `covy-connector-4k.mp4` (481 source frames) |
+
+```bash
+pnpm sequence:build --input covy-hero-4k.mp4 --id covy.hero.r2 --out out/sequences --motion-step 6 --ease-out 0.06
+pnpm sequence:build --input covy-connector-4k.mp4 --id covy.connector.r2 --out out/sequences --motion-step 8 --ease-in 0.06 --ease-out 0.12
+pnpm sequence:upload --dir out/sequences --only covy.hero.r2,covy.connector.r2
+```
+
+The connector's section grows from 400vh to 560vh so its camera moves at about the hero's speed per scroll. Easing keeps the old slow landings: the hero eases out over the last 6% of its move into the hold, and the connector eases in over its first 6% and out over its last 12% onto the glass. `covy.signature.r2` is unchanged (static camera; the player now blends its frames too).
+
+**Built and uploaded on 2026-10-31.** `covy.hero.r2`: 1,005 files; `covy.connector.r2`: 1,649 files (AVIF and WebP, poster and manifest).

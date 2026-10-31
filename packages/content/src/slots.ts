@@ -93,6 +93,7 @@ export const slots: SlotSpec[] = [
     page: "Landing",
     section: "C1 Through the arches",
     ...SEQ,
+    frameCount: 200,
     label: {
       en: "Walking through COVY's arched entrance to the blue tree",
       ar: "الدخول من أقواس COVY حتى الشجرة الزرقاء",
@@ -106,7 +107,7 @@ export const slots: SlotSpec[] = [
     page: "Landing",
     section: "C2 To the bar",
     ...SEQ,
-    frameCount: 180,
+    frameCount: 329,
     label: {
       en: "From the blue tree, along the mural to the bar, where a glass of ice waits on the pastry case",
       ar: "من الشجرة الزرقاء، بمحاذاة الجدارية حتى البار، حيث ينتظر كوب من الثلج فوق فاترينة المخبوزات",
@@ -141,11 +142,13 @@ export const slots: SlotSpec[] = [
       kind: "image",
       id: `covy.cuisines.${key}`,
       app: "covy",
-      page: "Landing",
+      page: "Off the page (D42)",
       section: "C4 The Taste of Everywhere",
       width: 1600,
       height: 2000,
       alt: { en, ar },
+      notes:
+        "Not needed now: the section left the COVY page (D42) and will be reworked for Aroma Lounge in its identity",
     }),
   ),
   // C6: three photos per space, generated with Higgsfield from the client's interior renders (D39).
@@ -246,7 +249,12 @@ export const slots: SlotSpec[] = [
     section: "C10 Find us",
     width: 1200,
     height: 1500,
-    alt: { en: "COVY's arched entrance", ar: "مدخل COVY المقوّس" },
+    alt: {
+      en: "COVY's arched glass doors seen from the terrace, the blue tree in front, in late-afternoon sun",
+      ar: "أبواب COVY الزجاجية المقوّسة من التراس، والشجرة الزرقاء أمامها، في شمس العصر",
+    },
+    src: "/images/visit/entrance.jpg",
+    notes: "One of our Spaces photos (terrace 2), cropped to 4:5 (D42)",
   },
   {
     kind: "image",

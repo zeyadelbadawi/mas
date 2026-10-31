@@ -5,7 +5,7 @@ import { LanguageSwitcher } from "@mas/ui/language-switcher";
 import { useRef } from "react";
 import { CovyWordmark } from "@/components/logo";
 
-const SECTIONS = ["story", "menu", "spaces", "events", "visit"] as const;
+const SECTIONS = ["story", "spaces", "menu", "events", "visit"] as const;
 
 export type HeaderLabels = Record<
   (typeof SECTIONS)[number] | "label" | "book" | "open" | "close",

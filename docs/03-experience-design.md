@@ -114,15 +114,16 @@ Scene IDs match the asset manifest. "Seq" = Layer A, "RT3D" = Layer B, "Motion" 
 | # | Scene | Layer | What happens on scroll | Scroll |
 |---|---|---|---|---|
 | C1 | **Through the arches** (hero) | Seq `covy.hero` | Starts on the arched concrete facade covered in blue flowers under a soft sky. The camera pushes through the glass doors, past terrazzo and the bronze leaf screens, and stops facing the iconic blue tree as the ✦ star glints. COVY logo (SVG) settles in. Start/end frames come from the client's interior renders | 300vh |
-| C2 | **To the bar** (our story) | Seq `covy.connector` | Picks up on the hero's last frame. Following the real floor plan, the camera turns left along the mural, crosses the terrazzo to the barista bar and pushes in on a glass of ice on the pastry case, landing on the first frame of C3 (D38). The brand belief ("food is the most delicious way to connect cultures") rides over the turn on a soft navy pool | 400vh |
+| C2 | **To the bar** (our story) | Seq `covy.connector` | Picks up on the hero's last frame. Following the real floor plan, the camera turns left along the mural, crosses the terrazzo to the barista bar and pushes in on a glass of ice on the pastry case, landing on the first frame of C3 (D38). The brand belief ("food is the most delicious way to connect cultures") rides over the turn on a soft navy pool | 560vh |
 | C3 | **The signature cup** | Seq `covy.signature` | The signature iced latte builds in the glass on the pastry case, the real bar softly blurred behind (D38): milk, double espresso, cold foam, cocoa. Hotspot labels (HTML) appear at their stops; the COVY wordmark is printed on the glass (HTML, D35/D38) | 280vh |
-| C4 | **The Taste of Everywhere** | RT3D + Motion | A slow ring of caladium leaves (instanced, shader-tinted blue/cocoa) turns as the visitor moves through cuisines: Mediterranean → Asian → Latin American → Middle-Eastern → Italian. Each stop shows a dish still (ImageSlot) and a one-line story | 300vh |
-| C5 | **Menu** | Motion (+RT3D leaves on HIGH tier) | See §5 | flow |
 | C6 | **The rooms behind the arches** (spaces) | Motion | Indoor · Terrace · The bar · Photo corner, three photos each (D39). A sticky index on the left numbers the spaces and lights the one in view (a row of tabs on phones); each space is a large photo in the facade's arch shape, opening from a slit on scroll, with two smaller photos drifting at a second depth. Any photo opens a full-screen viewer for all 12 (arrows, swipe, Esc) | flow |
+| C5 | **Menu** | Motion (+RT3D leaves on HIGH tier) | See §5 | flow |
 | C7 | Events at COVY | Motion | From shared events data | — |
 | C8 | Testimonials | Motion | Placeholder quotes marked "Sample" until Google Reviews arrive | — |
 | C9 | Reserve / Feedback | UI | Tabs: "Book a table or event" / "Share your feedback" | — |
-| C10 | Find us | UI | Address, hours, phone, WhatsApp, map link (placeholders); footer with socials | — |
+| C10 | Find us | UI | Address, hours, phone, WhatsApp, map link (placeholders); footer with socials. The arch photo is our terrace view of the glass doors (D42) | — |
+
+Page order: C1, C2, C3, C6, C5, C7–C10. **C4 The Taste of Everywhere** (the 3D leaf ring through five kitchens) is off the COVY page since D42; its code stays in the repo (`taste.tsx`, `cuisines.tsx`, `@mas/three` leaf ring) to rework for Aroma Lounge in Aroma's identity.
 
 ### 4.3 Aroma Lounge — Landing: "Good food, good hearts"
 

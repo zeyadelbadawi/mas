@@ -5,14 +5,37 @@
 //   pnpm sequence:build --input clip.mp4 --id covy.hero --out out/sequences [--max-frames 150] [--fps 24]
 //                       [--focal 0.5,0.5] [--poster 0] [--avif-quality 50] [--webp-quality 72]
 //                       [--xl-width 2560 --xl-height 1440]  (0 skips the large desktop variant)
+//                       [--motion-step 8 --motion-floor 3] [--ease-in 0.06 --ease-out 0.12] [--resume]
+//                       [--jobs 4]  (frames encoded at once; default one per core, at most one per 1.5 GB RAM)
+//
+// By default frames are sampled evenly in time. With --motion-step, frames are picked by how much the image
+// changes instead: about one frame per `motion-step` units of change (mean absolute difference of small
+// greyscale copies, 0..255), so fast parts of the clip keep every frame and slow parts fewer. The manifest
+// then carries a `timing` curve per variant (where each frame sits along the move, 0..1) and the player
+// scrubs along it, so the camera moves at an even speed per scroll and a clip with uneven frame pacing plays
+// evenly. `motion-floor` is the least change a source frame counts for, so near-still stretches still take
+// some scroll. The first and last frames are always kept, in every variant, so sequences that meet at a
+// shared frame still match.
+//
+// `ease-in` / `ease-out` (shares of the move, with --motion-step) slow the camera gently at the start and
+// end of the timing curve instead of starting or stopping at full speed: use them where a sequence starts
+// from a still frame or lands on one (a hold, or the next sequence's static first frame).
 //
 // Output: <out>/<id>/manifest.json, poster.{avif,webp}, {desktop,desktop-xl,mobile}/{avif,webp}/0000.*
 // Desktop is 1920×1080 (16:9), desktop-xl 2560×1440 for large or high-density screens (only when the source
 // is at least that wide), mobile a 4:5 crop (1080×1350) around the focal point at half the frame rate.
 
 import { execFileSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  renameSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { availableParallelism, tmpdir, totalmem } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import sharp from "sharp";
@@ -34,6 +57,13 @@ const { values } = parseArgs({
     "xl-height": { type: "string", default: "1440" },
     "mobile-width": { type: "string", default: "1080" },
     "mobile-height": { type: "string", default: "1350" },
+    "motion-step": { type: "string", default: "0" },
+    "motion-floor": { type: "string", default: "3" },
+    // Keep frames already written by an interrupted run with the same settings, and encode only the rest.
+    resume: { type: "boolean", default: false },
+    "ease-in": { type: "string", default: "0" },
+    "ease-out": { type: "string", default: "0" },
+    jobs: { type: "string" },
   },
 });
 
@@ -58,6 +88,82 @@ const desktop = {
 };
 const xlRequested = { width: Number(values["xl-width"]), height: Number(values["xl-height"]) };
 const mobile = { width: Number(values["mobile-width"]), height: Number(values["mobile-height"]) };
+const motionStep = Number(values["motion-step"]);
+const motionFloor = Number(values["motion-floor"]);
+const easeIn = Number(values["ease-in"]);
+const easeOut = Number(values["ease-out"]);
+// Each job holds a decoded 4K source frame and its resized copies: allow about 1.5 GB of RAM per job.
+const jobs = Math.max(
+  1,
+  Number(values.jobs) || Math.min(availableParallelism(), Math.floor(totalmem() / (1.5 * 2 ** 30))),
+);
+
+/** Image change between consecutive frames: mean absolute difference of 192×108 greyscale copies. */
+async function motionProfile(files) {
+  const change = [];
+  let prev;
+  for (const file of files) {
+    const px = await sharp(file).resize(192, 108, { fit: "fill" }).greyscale().raw().toBuffer();
+    if (prev) {
+      let sum = 0;
+      for (let i = 0; i < px.length; i++) sum += Math.abs(px[i] - prev[i]);
+      change.push(sum / px.length);
+    }
+    prev = px;
+  }
+  return change;
+}
+
+/**
+ * Pick about one frame per `step` units of change, always keeping the first and last. Returns the picked
+ * source indices and, for each, its position along the move (0..1).
+ */
+function pickByMotion(change, step, floor) {
+  const at = [0];
+  for (const c of change) at.push(at[at.length - 1] + Math.max(c, floor));
+  const total = at[at.length - 1];
+  const picked = [0];
+  for (let i = 1; i < at.length; i++)
+    if (at[i] - at[picked[picked.length - 1]] >= step || i === at.length - 1) picked.push(i);
+  return { picked, timing: picked.map((i) => at[i] / total) };
+}
+
+/**
+ * Re-time a curve (0..1) so the camera eases in over the first `easeIn` of the move and out over the last
+ * `easeOut`: there it moves at down to 30% of its speed, which takes proportionally more of the scroll.
+ */
+function ease(timing, easeIn, easeOut) {
+  if (!(easeIn > 0) && !(easeOut > 0)) return timing;
+  const floor = 0.3;
+  const smooth = (x) => x * x * (3 - 2 * x);
+  const speed = (u) => {
+    let s = 1;
+    if (easeIn > 0 && u < easeIn) s = Math.min(s, floor + (1 - floor) * smooth(u / easeIn));
+    if (easeOut > 0 && u > 1 - easeOut)
+      s = Math.min(s, floor + (1 - floor) * smooth((1 - u) / easeOut));
+    return s;
+  };
+  // Scroll needed to reach each point of the move: the integral of 1 / speed, normalised to 0..1.
+  const n = 4000;
+  const scroll = [0];
+  for (let i = 1; i <= n; i++)
+    scroll.push(scroll[i - 1] + 2 / (speed((i - 1) / n) + speed(i / n)) / n);
+  const total = scroll[n];
+  return timing.map((t) => {
+    const x = t * n;
+    const i = Math.min(n - 1, Math.floor(x));
+    return (scroll[i] + (scroll[i + 1] - scroll[i]) * (x - i)) / total;
+  });
+}
+
+/** Every second index, plus the last one so the final frame is always there. */
+const halve = (n) => {
+  const out = [];
+  for (let i = 0; i < n; i += 2) out.push(i);
+  if (out[out.length - 1] !== n - 1) out.push(n - 1);
+  return out;
+};
+const round5 = (x) => Math.round(x * 1e5) / 1e5;
 
 const outDir = path.resolve(values.out, values.id);
 const tmp = mkdtempSync(path.join(tmpdir(), "seq-"));
@@ -87,12 +193,22 @@ try {
     .sort();
   if (all.length === 0) throw new Error("ffmpeg produced no frames");
 
-  // 2. Evenly sample down to maxFrames.
-  const count = Math.min(maxFrames, all.length);
-  const picked = Array.from(
-    { length: count },
-    (_, i) => all[Math.round((i * (all.length - 1)) / Math.max(1, count - 1))],
-  );
+  // 2. Pick the frames: by image change, or evenly in time down to maxFrames.
+  let picked;
+  let timing;
+  if (motionStep > 0) {
+    const change = await motionProfile(all.map((f) => path.join(tmp, f)));
+    const byMotion = pickByMotion(change, motionStep, motionFloor);
+    picked = byMotion.picked.map((i) => all[i]);
+    timing = ease(byMotion.timing, easeIn, easeOut);
+  } else {
+    const count = Math.min(maxFrames, all.length);
+    picked = Array.from(
+      { length: count },
+      (_, i) => all[Math.round((i * (all.length - 1)) / Math.max(1, count - 1))],
+    );
+  }
+  const mobilePicked = halve(picked.length);
 
   const meta = await sharp(path.join(tmp, picked[0])).metadata();
   const srcW = meta.width;
@@ -100,7 +216,7 @@ try {
   // Never upscale into the large variant: it only exists when the source has the pixels for it.
   const xl = xlRequested.width > 0 && srcW >= xlRequested.width ? xlRequested : null;
 
-  rmSync(outDir, { recursive: true, force: true });
+  if (!values.resume) rmSync(outDir, { recursive: true, force: true });
   const variantDirs = ["desktop", ...(xl ? ["desktop-xl"] : []), "mobile"];
   for (const v of variantDirs)
     for (const f of ["avif", "webp"]) mkdirSync(path.join(outDir, v, f), { recursive: true });
@@ -111,48 +227,63 @@ try {
   const cropLeft = Math.min(srcW - cropW, Math.max(0, Math.round(fx * srcW - cropW / 2)));
   const cropTop = 0;
 
-  let mobileCount = 0;
-  for (let i = 0; i < picked.length; i++) {
+  const mobileCount = mobilePicked.length;
+  // Each frame is written next to its final name and renamed once complete, so an interrupted run never
+  // leaves a partial file that --resume would take for a finished one.
+  const writeFrame = async (pipeline, target) => {
+    const part = target.replace(/(\.\w+)$/, ".part$1");
+    try {
+      await pipeline.toFile(part);
+      renameSync(part, target);
+    } catch (error) {
+      rmSync(part, { force: true });
+      throw error;
+    }
+  };
+  const encodeFrame = async (i) => {
+    const mi = mobilePicked.indexOf(i);
+    const outputs = [
+      ...["avif", "webp"].map((f) => path.join(outDir, `desktop/${f}`, `${pad(i)}.${f}`)),
+      ...(xl
+        ? ["avif", "webp"].map((f) => path.join(outDir, `desktop-xl/${f}`, `${pad(i)}.${f}`))
+        : []),
+      ...(mi >= 0
+        ? ["avif", "webp"].map((f) => path.join(outDir, `mobile/${f}`, `${pad(mi)}.${f}`))
+        : []),
+    ];
+    if (values.resume && outputs.every((f) => existsSync(f))) return;
     const src = path.join(tmp, picked[i]);
     const d = sharp(src).resize(desktop.width, desktop.height, {
       fit: "cover",
       position: "centre",
     });
-    await d
-      .clone()
-      .avif({ quality: avifQ, effort: 4 })
-      .toFile(path.join(outDir, "desktop/avif", `${pad(i)}.avif`));
-    await d
-      .clone()
-      .webp({ quality: webpQ })
-      .toFile(path.join(outDir, "desktop/webp", `${pad(i)}.webp`));
+    const [desktopAvif, desktopWebp, ...rest] = outputs;
+    await writeFrame(d.clone().avif({ quality: avifQ, effort: 4 }), desktopAvif);
+    await writeFrame(d.clone().webp({ quality: webpQ }), desktopWebp);
     if (xl) {
       const x = sharp(src).resize(xl.width, xl.height, { fit: "cover", position: "centre" });
-      await x
-        .clone()
-        .avif({ quality: avifQ, effort: 4 })
-        .toFile(path.join(outDir, "desktop-xl/avif", `${pad(i)}.avif`));
-      await x
-        .clone()
-        .webp({ quality: webpQ })
-        .toFile(path.join(outDir, "desktop-xl/webp", `${pad(i)}.webp`));
+      await writeFrame(x.clone().avif({ quality: avifQ, effort: 4 }), rest.shift());
+      await writeFrame(x.clone().webp({ quality: webpQ }), rest.shift());
     }
-    if (i % 2 === 0) {
+    if (mi >= 0) {
       const m = sharp(src)
         .extract({ left: cropLeft, top: cropTop, width: cropW, height: cropH })
         .resize(mobile.width, mobile.height, { fit: "cover" });
-      await m
-        .clone()
-        .avif({ quality: avifQ, effort: 4 })
-        .toFile(path.join(outDir, "mobile/avif", `${pad(mobileCount)}.avif`));
-      await m
-        .clone()
-        .webp({ quality: webpQ })
-        .toFile(path.join(outDir, "mobile/webp", `${pad(mobileCount)}.webp`));
-      mobileCount++;
+      await writeFrame(m.clone().avif({ quality: avifQ, effort: 4 }), rest.shift());
+      await writeFrame(m.clone().webp({ quality: webpQ }), rest.shift());
     }
-    if (process.stdout.isTTY) process.stdout.write(`\rframes ${i + 1}/${picked.length}`);
-  }
+  };
+  // The AVIF encoder uses about one core per image, so encode several frames at once (see `jobs`).
+  let next = 0;
+  let done = 0;
+  const worker = async () => {
+    while (next < picked.length) {
+      await encodeFrame(next++);
+      done++;
+      if (process.stdout.isTTY) process.stdout.write(`\rframes ${done}/${picked.length}`);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(jobs, picked.length) }, worker));
   if (process.stdout.isTTY) process.stdout.write("\n");
 
   // 3. Poster (the LCP candidate): desktop size, a little higher quality.
@@ -186,6 +317,7 @@ try {
         frameCount: picked.length,
         avif: "desktop/avif/{index}.avif",
         webp: "desktop/webp/{index}.webp",
+        ...(timing ? { timing: timing.map(round5) } : {}),
       },
       ...(xl
         ? [
@@ -196,6 +328,7 @@ try {
               frameCount: picked.length,
               avif: "desktop-xl/avif/{index}.avif",
               webp: "desktop-xl/webp/{index}.webp",
+              ...(timing ? { timing: timing.map(round5) } : {}),
             },
           ]
         : []),
@@ -206,6 +339,7 @@ try {
         frameCount: mobileCount,
         avif: "mobile/avif/{index}.avif",
         webp: "mobile/webp/{index}.webp",
+        ...(timing ? { timing: mobilePicked.map((i) => round5(timing[i])) } : {}),
       },
     ],
   };
