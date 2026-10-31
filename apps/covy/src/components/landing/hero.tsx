@@ -40,8 +40,8 @@ export async function Hero() {
               style={{ opacity: "clamp(0, calc(1 - var(--seq-hold, 0) * 2), 1)" }}
             />
             <div
-              className="absolute inset-x-0 bottom-[12vh] flex flex-col items-center"
-              style={{ transform: "translateY(calc(var(--seq-hold, 0) * -100svh))" }}
+              className="absolute inset-x-0 bottom-[calc(12svh+100lvh-100svh)] flex flex-col items-center"
+              style={{ transform: "translateY(calc(var(--seq-hold, 0) * -100lvh))" }}
             >
               {/* The centre of the frame is the pale mural; this shade travels with the logo to keep it legible. */}
               <div

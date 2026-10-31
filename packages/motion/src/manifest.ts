@@ -58,3 +58,11 @@ export type VideoManifest = {
 export function siblingUrl(manifestUrl: string, file: string): string {
   return manifestUrl.slice(0, manifestUrl.lastIndexOf("/") + 1) + file;
 }
+
+/** Screens narrower than this (width / height) get the 4:5 portrait video; all others the 16:9 one. */
+export const PORTRAIT_BELOW = 0.9;
+
+/** Which video variant a screen of this size plays. Also read by the COVY splash, before first paint. */
+export function videoVariantFor(width: number, height: number): "mobile" | "desktop" {
+  return width / height < PORTRAIT_BELOW ? "mobile" : "desktop";
+}

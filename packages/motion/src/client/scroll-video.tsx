@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { progressToPosition } from "../frame-math";
-import { siblingUrl, type VideoManifest } from "../manifest";
+import { siblingUrl, videoVariantFor, type VideoManifest } from "../manifest";
 import { useMotion } from "./motion-provider";
 import type { SequencePlayerProps } from "./sequence-player";
 import {
@@ -90,11 +90,10 @@ export function ScrollVideo({
     const video = videoRef.current;
     if (!animated || !manifest || !section || !video) return;
 
-    // By the screen's shape: the 4:5 crop for portrait screens, the 16:9 frames otherwise.
-    const portrait = window.innerWidth / window.innerHeight < 0.9;
-    const variant =
-      manifest.variants.find((v) => v.name === (portrait ? "mobile" : "desktop")) ??
-      manifest.variants[0];
+    // By the screen's shape when the page opens: the 4:5 crop for portrait screens, the 16:9 frames
+    // otherwise. It stays for the visit, so a resize never sends the visitor back to a download.
+    const shape = videoVariantFor(window.innerWidth, window.innerHeight);
+    const variant = manifest.variants.find((v) => v.name === shape) ?? manifest.variants[0];
     if (!variant) {
       abandonPreload(id);
       return;
@@ -267,7 +266,9 @@ export function ScrollVideo({
       const st = lib.ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: "bottom bottom",
+        // The stage's own pinned travel, not "bottom bottom": on phones the screen grows and shrinks with
+        // the browser bars, while the stage stays at the largest height.
+        end: () => `+=${section.offsetHeight - stage.offsetHeight}`,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           reveal(self);
@@ -304,9 +305,9 @@ export function ScrollVideo({
         "relative",
         staticLayout
           ? "h-auto"
-          : "h-[calc(var(--scroll-vh)*1svh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
+          : "h-[calc(var(--scroll-vh)*1lvh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
         overlapPrevious && !staticLayout
-          ? "pointer-events-none -mt-[100svh] motion-reduce:pointer-events-auto motion-reduce:mt-0"
+          ? "pointer-events-none -mt-[100lvh] motion-reduce:pointer-events-auto motion-reduce:mt-0"
           : "",
         className ?? "",
       ].join(" ")}
@@ -317,7 +318,7 @@ export function ScrollVideo({
           "[container-type:size] pointer-events-auto",
           staticLayout
             ? "relative aspect-(--poster-ratio) w-full overflow-hidden"
-            : "sticky top-0 h-svh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto",
+            : "sticky top-0 h-lvh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto",
         ].join(" ")}
         style={{ "--poster-ratio": `${poster.width} / ${poster.height}` } as CSSProperties}
       >
