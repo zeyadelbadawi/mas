@@ -105,3 +105,23 @@ export type Testimonial = {
   source: "google" | "placeholder";
   placeholder: boolean;
 };
+
+/**
+ * A recurring night at a restaurant (Aroma's live music, match nights, Aroma Nights, D52). Weekly nights
+ * carry their day and time per branch; nights without fixed dates carry a `when` line instead.
+ */
+export type RecurringNight = {
+  id: string;
+  brandId: RestaurantId;
+  title: LocalizedText;
+  summary: LocalizedText;
+  /** Weekly slots, Cairo time; weekday 0 = Sunday. */
+  weekly?: { weekday: 0 | 1 | 2 | 3 | 4 | 5 | 6; starts: string; ends: string; locationId: string }[];
+  /** For nights without fixed dates, e.g. "On Egypt's match days". */
+  when?: LocalizedText;
+  /** Who plays, named only in "What's on" (never over the generated scenes, D53). */
+  performer?: LocalizedText;
+  imageSlotId: string;
+  reservable: boolean;
+  placeholder: boolean;
+};

@@ -52,7 +52,7 @@ export default async function KitchenSink({ params }: PageProps<"/[locale]/kitch
   const { locale } = await params;
   if (!isLocale(locale) || !internalPagesEnabled()) notFound();
   setRequestLocale(locale);
-  const seq = sequenceSlot("aroma.hero");
+  const seq = sequenceSlot("aroma.morning");
   const ar = locale === "ar";
 
   return (

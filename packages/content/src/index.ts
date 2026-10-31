@@ -14,4 +14,5 @@ export {
 export { allSlots, imageSlot, sequenceSlot } from "./registry";
 export { covyMenu } from "./menus/covy";
 export { events } from "./events";
+export { nights } from "./nights";
 export { testimonials } from "./testimonials";

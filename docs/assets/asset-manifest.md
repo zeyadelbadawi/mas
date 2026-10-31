@@ -10,8 +10,8 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 46 | 16 | 30 |
-| Sequences (generated) | 6 | 0 | 6 |
+| Images | 57 | 16 | 41 |
+| Sequences (generated) | 7 | 0 | 7 |
 
 ## MAS (mas.com)
 
@@ -89,14 +89,26 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
+| `aroma.branch.mivida` | Landing · A4 Branches · Mivida | 1200 × 1500 px | 4:5 | Aroma Lounge's terrace on the lake at Mivida | تراس أروما لاونج على البحيرة في ميفيدا | ⬜ placeholder | From Aroma's own posts (D53) |
+| `aroma.branch.madinaty` | Landing · A4 Branches · Madinaty | 1200 × 1500 px | 4:5 | Aroma Lounge at The Strip Mall, Madinaty | أروما لاونج في ذا ستريب مول، مدينتي | ⬜ placeholder | From Aroma's own posts (D53) |
+| `aroma.nights.live-music` | Landing · A6 What's on · Live music | 1200 × 900 px | 4:3 | Live guitar on the terrace at night | جيتار لايف على التراس بالليل | ⬜ placeholder |  |
+| `aroma.nights.match` | Landing · A6 What's on · Match nights | 1200 × 900 px | 4:3 | A match on the big screen at Aroma Lounge | ماتش على الشاشة الكبيرة في أروما لاونج | ⬜ placeholder |  |
+| `aroma.nights.aroma-nights` | Landing · A6 What's on · Aroma Nights | 1200 × 900 px | 4:3 | Dinner and a DJ on an Aroma Night | عشا وDJ في ليلة من Aroma Nights | ⬜ placeholder |  |
+| `aroma.story` | Landing · A7 Our story | 1200 × 1500 px | 4:5 | Friends sharing plates at Aroma Lounge | صحاب بيتشاركوا الأكل في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53) |
+| `aroma.guests.1` | Landing · A8 By guests · photo 1 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
+| `aroma.guests.2` | Landing · A8 By guests · photo 2 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
+| `aroma.guests.3` | Landing · A8 By guests · photo 3 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
+| `aroma.guests.4` | Landing · A8 By guests · photo 4 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
+| `aroma.guests.5` | Landing · A8 By guests · photo 5 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
+| `aroma.guests.6` | Landing · A8 By guests · photo 6 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
+| `aroma.guests.7` | Landing · A8 By guests · photo 7 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
+| `aroma.guests.8` | Landing · A8 By guests · photo 8 | 1080 × 1350 px | 4:5 | A moment at Aroma Lounge | لحظة في أروما لاونج | ⬜ placeholder | From Aroma's own posts (D53); alt is written per photo when it's placed |
 | `aroma.og` | All · Social share image | 1200 × 630 px | 40:21 | Aroma Lounge | أروما لاونج | ⬜ placeholder |  |
-| `aroma.events.paella-night` | Landing · Events · Paella night | 1200 × 900 px | 4:3 | Paella night | ليلة الباييلا | ⬜ placeholder |  |
-| `aroma.events.terrace-jazz` | Landing · Events · Jazz on the terrace | 1200 × 900 px | 4:3 | Jazz on the terrace | جاز على التراس | ⬜ placeholder |  |
-| `aroma.events.new-year` | Landing · Events · New Year's Eve dinner | 1200 × 900 px | 4:3 | New Year's Eve dinner | عشاء ليلة رأس السنة | ⬜ placeholder |  |
 
 ### Scroll sequences
 
 | Slot ID | Page · section | Frames | Desktop | Mobile | Description | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `aroma.hero` | Landing · A1 Aroma rising | 150 | 1920 × 1080 | 1080 × 1350 | Steam rising from a freshly served paella | ⬜ placeholder | Generated with MAG |
-| `aroma.terrace` | Landing · A5 Terrace, dusk to night | 150 | 1920 × 1080 | 1080 × 1350 | Aroma Lounge's terrace from daylight to evening | ⬜ placeholder | Generated with MAG |
+| `aroma.morning` | Landing · A1 Morning at the lake | 241 | 1920 × 1080 | 1080 × 1350 | Breakfast set down plate by plate on a white marble table by the lake, a cappuccino last | ⬜ placeholder | Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52) |
+| `aroma.lake` | Landing · A2 Long afternoons | 241 | 1920 × 1080 | 1080 × 1350 | From the table to the lake and the fountain at golden hour, a sunset iced tea raised to the sun | ⬜ placeholder | Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52) |
+| `aroma.night` | Landing · A3 Nights | 241 | 1920 × 1080 | 1080 × 1350 | Dusk on the terrace: the lamps come on and a guitarist starts to play | ⬜ placeholder | Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52) |
