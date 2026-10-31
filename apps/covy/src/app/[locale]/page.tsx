@@ -12,6 +12,7 @@ import { Menu } from "@/components/landing/menu";
 import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { Reviews } from "@/components/landing/reviews";
 import { Signature } from "@/components/landing/signature";
+import { BackToTop } from "@/components/back-to-top";
 import { Splash } from "@/components/splash";
 import { Spaces } from "@/components/landing/spaces";
 import { Visit } from "@/components/landing/visit";
@@ -52,6 +53,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   return (
     <>
       <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
+      <BackToTop label={common("backToTop")} />
       <Header
         locale={locale}
         labels={{

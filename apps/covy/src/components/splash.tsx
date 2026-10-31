@@ -3,15 +3,16 @@
 import { PORTRAIT_BELOW, videoVariantFor } from "@mas/motion";
 import { useMotion } from "@mas/motion/provider";
 import { preloadProgress, preloadState, subscribePreload } from "@mas/motion/video-preload";
-import { useEffect, useRef, useState } from "react";
-import { CovyWordmark } from "@/components/logo";
+import { useEffect, useId, useRef, useState } from "react";
+import { WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/logo";
 
 /**
  * Every scroll scene must be fully downloaded before the page is revealed, so even a first scroll straight
  * through all three plays from memory, frame by frame.
  */
 const READY = ["covy.hero", "covy.connector", "covy.signature"] as const;
-const MIN_MS = 900;
+/** On a first visit the mark is written out before the panel may leave (about 2.2 s of drawing). */
+const MIN_MS = 2300;
 /** Once brought up by an early scroll on a later page load, the panel stays at least this long (no flicker). */
 const GATE_MIN_MS = 500;
 /**
@@ -95,22 +96,24 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
         return;
       }
       setPhase("leaving");
-      // The mark settles and fades, then the panel lifts like a curtain off the facade.
+      // The pour tops the mark up, the mark rises away, and the frosted veil clears: the page under it,
+      // the facade at the start of the walk, comes into focus where the panel was.
       const ease = "cubic-bezier(0.32, 0.72, 0, 1)";
       el.querySelector("[data-mark]")?.animate(
         [
           { opacity: 1, transform: "none" },
-          { opacity: 0, transform: "translateY(-12px) scale(1.04)" },
+          { opacity: 0, transform: "translateY(-28px) scale(1.06)" },
         ],
-        { duration: 450, easing: ease, fill: "forwards" },
+        { duration: 600, delay: 380, easing: ease, fill: "forwards" },
       );
-      const lift = el.animate([{ clipPath: "inset(0 0 0 0)" }, { clipPath: "inset(0 0 100% 0)" }], {
-        duration: 650,
-        delay: 120,
-        easing: ease,
+      const clear = el.querySelector("[data-veil]")?.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 900,
+        delay: 560,
+        easing: "cubic-bezier(0.4, 0, 0.2, 1)",
         fill: "forwards",
       });
-      lift.onfinish = () => setPhase("gone");
+      if (clear) clear.onfinish = () => setPhase("gone");
+      else setPhase("gone");
     };
     leaveRef.current = leave;
 
@@ -257,13 +260,19 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
       <div
         ref={ref}
         data-lenis-prevent
-        className="covy-splash fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--covy-sand)] text-[var(--covy-navy)]"
+        className="covy-splash fixed inset-0 z-[100] flex flex-col items-center justify-center text-[var(--covy-navy)]"
       >
-        <div data-mark className="flex flex-col items-center gap-8">
-          <CovyWordmark className="h-auto w-[min(56vw,18rem)]" />
-          <div className="h-px w-40 overflow-hidden bg-[var(--covy-navy)]/15">
+        {/* Frosted sand over the page itself: the facade and the header show through, blurred. */}
+        <div
+          data-veil
+          aria-hidden="true"
+          className="absolute inset-0 bg-[color-mix(in_srgb,var(--covy-sand)_72%,transparent)] backdrop-blur-2xl"
+        />
+        <div data-mark className="relative flex flex-col items-center gap-10">
+          <PouredMark level={phase === "leaving" ? 1 : progress} />
+          <div className="covy-splash-line h-px w-48 overflow-hidden bg-[var(--covy-navy)]/15">
             <div
-              className="h-full origin-left bg-[var(--covy-navy)] transition-transform duration-300 ease-out rtl:origin-right"
+              className="h-full origin-left bg-[var(--covy-navy)] transition-transform duration-700 ease-out rtl:origin-right"
               style={{ transform: `scaleX(${phase === "leaving" ? 1 : progress})` }}
             />
           </div>
@@ -288,5 +297,67 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
         ) : null}
       </div>
     </>
+  );
+}
+
+const [VB_X, VB_Y, VB_W, VB_H] = WORDMARK_VIEWBOX.split(" ").map(Number) as [
+  number,
+  number,
+  number,
+  number,
+];
+
+/** A gentle wave, two periods per mark width, three marks wide so it can drift without showing an edge. */
+const WAVE = (() => {
+  const period = VB_W / 2;
+  const amp = 3.2;
+  let d = `M ${VB_X - VB_W} 0`;
+  for (let x = VB_X - VB_W; x < VB_X + 2 * VB_W; x += period) {
+    d += ` q ${period / 4} ${-amp} ${period / 2} 0 t ${period / 2} 0`;
+  }
+  return `${d} V ${VB_H * 2} H ${VB_X - VB_W} Z`;
+})();
+
+/**
+ * The COVY wordmark written out stroke by stroke, then filled from the bottom like a pour as the scene
+ * videos download (`level`, 0..1): the loading line is the logo itself.
+ */
+function PouredMark({ level }: { level: number }) {
+  const clipId = useId();
+  // The surface sits just below the mark at 0 and just above it at 1, so the wave never shows a gap.
+  const surface = VB_Y + VB_H + 4 - level * (VB_H + 8);
+  return (
+    <svg
+      viewBox={WORDMARK_VIEWBOX}
+      aria-hidden="true"
+      focusable="false"
+      className="h-auto w-[min(86vw,46rem)] overflow-visible"
+    >
+      <defs>
+        <clipPath id={clipId}>
+          {WORDMARK_PATHS.map((d) => (
+            <path key={d.slice(0, 24)} d={d} />
+          ))}
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${clipId})`}>
+        <g className="covy-pour" style={{ transform: `translateY(${surface}px)` }}>
+          <path className="covy-wave" d={WAVE} fill="currentColor" />
+        </g>
+      </g>
+      {WORDMARK_PATHS.map((d, i) => (
+        <path
+          key={d.slice(0, 24)}
+          d={d}
+          pathLength={1}
+          className="covy-write"
+          style={{ animationDelay: `${0.12 + i * 0.16}s` }}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={0.9}
+          strokeLinejoin="round"
+        />
+      ))}
+    </svg>
   );
 }

@@ -72,3 +72,46 @@
 .covy-header[data-mode="walk"] .covy-header-progress {
   opacity: 0.55;
 }
+
+/* D49: the splash mark is written out, then poured full as the scenes download. */
+@keyframes covy-write {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.covy-write {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: covy-write 1.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.covy-pour {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes covy-wave {
+  to {
+    transform: translateX(-209.195px);
+  }
+}
+.covy-wave {
+  animation: covy-wave 2.6s linear infinite;
+}
+/* A soft light that keeps travelling along the line, so a slow download still looks alive. */
+.covy-splash-line {
+  position: relative;
+}
+.covy-splash-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.85), transparent);
+  animation: covy-sheen 1.8s ease-in-out infinite;
+}
+@keyframes covy-sheen {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
