@@ -44,7 +44,7 @@ const aromaMivida: Location = {
   phone: "+201222293914",
   whatsapp: "201222293914",
   areas: ["indoor", "outdoor", "shisha"],
-  // Google lists "closes 1:30 AM"; the opening time isn't published yet.
+  // Google lists "closes 1:30 AM"; 9 AM opening chosen by the owner (breakfast is served), 2026-10-31.
   hours: everyDay("09:00", "01:30"),
   slotMinutes: 30,
   lastBookingBeforeCloseMinutes: 90,
@@ -52,8 +52,8 @@ const aromaMivida: Location = {
   maxEventGuests: 300,
   bookingWindowDays: 60,
   placeholder: false,
-  placeholderFields: ["hours", "whatsapp"],
-  closesAt: "01:30",
+  // The same number takes WhatsApp (owner, 2026-10-31).
+  placeholderFields: [],
 };
 
 const aromaMadinaty: Location = {
@@ -79,7 +79,8 @@ const aromaMadinaty: Location = {
   maxEventGuests: 300,
   bookingWindowDays: 60,
   placeholder: false,
-  placeholderFields: ["hours", "phone", "whatsapp"],
+  // Same hours as Mivida (owner's choice, 2026-10-31); no number is published for this branch yet.
+  placeholderFields: ["phone", "whatsapp"],
 };
 
 /** Every branch of each restaurant, in the order the site lists them. */

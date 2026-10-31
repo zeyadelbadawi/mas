@@ -10,7 +10,7 @@
 // cropped square and saved as WebP under apps/aroma/public/images/menu/. Re-run when the client changes the
 // menu; a new item without an Arabic name stops the script.
 
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
@@ -27,8 +27,11 @@ const { values } = parseArgs({
 const menus = JSON.parse(readFileSync(path.join(root, values.menu), "utf8"));
 const namesFile = JSON.parse(readFileSync(path.join(root, "tools/menus/aroma-names.json"), "utf8"));
 const names = namesFile.items;
+const madePhotos = new Set(namesFile.madePhotos ?? []);
 const photoDir = path.join(root, "apps/aroma/public/images/menu");
 const PHOTO_SIZE = 640;
+/** Categories of packaged products, fitted whole rather than cropped (see savePhoto). */
+const WHOLE = new Set(["soft-drinks"]);
 
 // Category ids, tabs, Arabic names and one-line intros. Intros reuse Aroma's own captions where one fits.
 const CATEGORIES = {
@@ -227,7 +230,12 @@ const photoUrl = (s3) =>
   s3.replace(/^https:\/\/[^/]+\/media\//, "https://images-internal.mydigimenu.com/media/") +
   `?w=${PHOTO_SIZE * 2}&h=${PHOTO_SIZE * 2}&tr=rt-auto`;
 
-async function savePhoto(url, file) {
+/**
+ * Saves a dish photo square. Packaged products (cans and bottles shot on white) are fitted whole on white
+ * instead of cropped: a square crop cut them off. The cover crop is still written first, because the
+ * logo stand-in check below reads it.
+ */
+async function savePhoto(url, file, whole = false) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`${res.status} ${url}`);
   const buf = Buffer.from(await res.arrayBuffer());
@@ -235,6 +243,21 @@ async function savePhoto(url, file) {
     .resize(PHOTO_SIZE, PHOTO_SIZE, { fit: "cover", position: "attention" })
     .webp({ quality: 78 })
     .toFile(file);
+  if (whole) {
+    const inner = Math.round(PHOTO_SIZE * 0.86);
+    await sharp(buf)
+      .resize(inner, inner, { fit: "contain", background: "#ffffff" })
+      .extend({
+        top: (PHOTO_SIZE - inner) / 2,
+        bottom: (PHOTO_SIZE - inner) / 2,
+        left: (PHOTO_SIZE - inner) / 2,
+        right: (PHOTO_SIZE - inner) / 2,
+        background: "#ffffff",
+      })
+      .flatten({ background: "#ffffff" })
+      .webp({ quality: 80 })
+      .toFile(`${file}.whole`);
+  }
 }
 
 /**
@@ -283,15 +306,22 @@ for (const menuTitle of order) {
       const price = item.prices.map((p) => p.price).find((p) => p > 0);
       if (!price) throw new Error(`No price for item ${item.id} "${en}"`);
       let photo;
-      if (item.image) {
+      // Our own photo for an item the client's menu shows no photo for (aroma-names.json `madePhotos`).
+      const made = madePhotos.has(`${def.id}-${slug}`);
+      if (made) photo = `/images/menu/${def.id}-${slug}.webp`;
+      else if (item.image) {
         const file = path.join(photoDir, `${def.id}-${slug}.webp`);
         if (values.photos && !existsSync(file)) {
-          await savePhoto(photoUrl(item.image), file);
+          await savePhoto(photoUrl(item.image), file, WHOLE.has(def.id));
           photos += 1;
         }
         if (existsSync(file) && (await isLogoStandIn(file))) {
           rmSync(file);
           standIns += 1;
+        }
+        if (existsSync(`${file}.whole`)) {
+          if (existsSync(file)) renameSync(`${file}.whole`, file);
+          else rmSync(`${file}.whole`);
         }
         if (existsSync(file)) photo = `/images/menu/${def.id}-${slug}.webp`;
       }
@@ -305,6 +335,7 @@ for (const menuTitle of order) {
         priceEGP: price,
         tags: [],
         ...(photo ? { imageSlotId: `aroma.menu.${def.id}.${slug}`, photo } : {}),
+        ...(made ? { photoMade: true } : {}),
         placeholder: false,
       });
     }

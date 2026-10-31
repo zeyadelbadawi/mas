@@ -44,7 +44,9 @@
     "directions": "الموقع على الخريطة",
     "book": "احجز في {branch}",
     "hoursUntil": "مفتوحين لحد {time}",
-    "hoursSoon": "المواعيد قريب"
+    "hoursSoon": "المواعيد قريب",
+    "everyDay": "كل يوم",
+    "whatsapp": "واتساب"
   },
   "menu": {
     "title": "المنيو",

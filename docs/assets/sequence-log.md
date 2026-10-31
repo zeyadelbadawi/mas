@@ -227,3 +227,16 @@ pnpm sequence:video --input aroma-lake-4k.mp4 --id aroma.lake.r2 --out out/video
 pnpm sequence:video --input aroma-night-4k.mp4 --id aroma.night.r2 --out out/videos-r2 --crf 28
 pnpm sequence:upload --dir out/videos-r2 --prefix videos --only aroma.morning.r2,aroma.lake.r2,aroma.night.r2
 ```
+
+### Aroma: branch, story and menu photos (owner's request after launch, 27 credits)
+
+Nano Banana 2.1 at 4K, 3 credits each; balance 286.75 → 259.75.
+
+| Use | Job | Notes |
+|---|---|---|
+| `aroma.branch.mivida` | `198a3300` | The deck on the lake at sunset, from K3 and K4 |
+| `aroma.branch.madinaty` | `bd953593` | The terrace at The Strip at dusk, from the earlier Madinaty and Aroma Nights photos |
+| `aroma.story` | `19ce106e` | Friends sharing breakfast at a marble table by the lake, from K2 and K3 |
+| Menu, 51 dishes without a client photo | `a33119f5`, `8cf3e260`, `a8b0839a`, `3d40b85d`, `43ed0842`, `d1ebf660` | One 3×3 grid of nine separate photos per image, cut along the white gutters into 640 px squares: 51 photos for 18 credits. Food and desserts on warm wood like the client's own photos, drinks on white marble by the lake. Listed in `tools/menus/aroma-names.json` `madePhotos` |
+
+The ten soft-drink photos (cans and bottles shot on white) were re-fetched and fitted whole on white instead of cropped square (`savePhoto` in `tools/menus/import-aroma.mjs`), at no cost.

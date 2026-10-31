@@ -44,7 +44,9 @@
     "directions": "Open in Maps",
     "book": "Book at {branch}",
     "hoursUntil": "Open till {time}",
-    "hoursSoon": "Opening hours coming soon"
+    "hoursSoon": "Opening hours coming soon",
+    "everyDay": "Every day",
+    "whatsapp": "WhatsApp"
   },
   "menu": {
     "title": "Menu",
