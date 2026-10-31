@@ -12,10 +12,13 @@ export function BookLink({
   branch,
   className,
   children,
+  onNavigate,
 }: {
   branch?: string;
   className?: string;
   children: ReactNode;
+  /** Runs before the glide, e.g. to close the phone menu. */
+  onNavigate?: () => void;
 }) {
   const { getLenis } = useMotion();
   return (
@@ -25,6 +28,7 @@ export function BookLink({
       onClick={(e) => {
         if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
+        onNavigate?.();
         const url = new URL(window.location.href);
         if (branch) url.searchParams.set("branch", branch);
         url.hash = "reserve";

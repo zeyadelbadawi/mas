@@ -26,7 +26,6 @@ export async function Morning() {
         priority
         frameOverlay={
           <ScenePetal
-            id="aroma-morning-dust"
             // Each petal settles over the last tenth of the move, a few frames after the one before it.
             petalOpacity={(i, n) =>
               `clamp(0, calc((var(--seq-progress, 0) - ${(0.86 + (i / n) * 0.08).toFixed(3)}) * 40), 1)`

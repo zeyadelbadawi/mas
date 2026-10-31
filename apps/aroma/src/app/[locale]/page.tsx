@@ -1,6 +1,6 @@
-import { aromaMenu, branches } from "@mas/content";
+import { aromaMenu, branches, imageSlot } from "@mas/content";
 import { isLocale } from "@mas/i18n";
-import { JsonLd, menuJsonLd, restaurantJsonLd } from "@mas/seo";
+import { JsonLd, menuJsonLd, organizationJsonLd, restaurantJsonLd, websiteJsonLd } from "@mas/seo";
 import { notFound } from "next/navigation";
 import type { AbstractIntlMessages } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
@@ -16,10 +16,16 @@ import { Night } from "@/components/landing/night";
 import { Nights } from "@/components/landing/nights";
 import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { Story } from "@/components/landing/story";
+import { PetalDefs } from "@/components/petal-defs";
 import { Splash } from "@/components/splash";
 import { brand, privacyHref } from "@/site";
 
-const CUISINE = ["Egyptian", "Breakfast", "International", "Italian", "Coffee", "Desserts"];
+const CUISINE = ["Egyptian", "International", "Italian"];
+/** The menu's price span (EGP 45 for water to EGP 635 for the rib-eye). */
+const PRICE_RANGE = (() => {
+  const prices = aromaMenu.flatMap((c) => c.items.map((i) => i.priceEGP));
+  return `EGP ${Math.min(...prices)}–${Math.max(...prices)}`;
+})();
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -36,6 +42,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
+      <PetalDefs />
       <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
       <BackToTop label={common("backToTop")} />
       <Header
@@ -52,11 +59,17 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <main id="main">
         <JsonLd
           data={[
+            organizationJsonLd(brand, locale, { logoPath: "/apple-icon.png" }),
+            websiteJsonLd(brand, locale),
             ...branches.aroma.map((loc) =>
               restaurantJsonLd(brand, loc, locale, {
                 servesCuisine: CUISINE,
                 menuPath: "/#menu",
                 anchor: loc.id.replace(/^aroma-/, ""),
+                types: ["CafeOrCoffeeShop"],
+                priceRange: PRICE_RANGE,
+                imagePath: imageSlot(`aroma.branch.${loc.id.replace(/^aroma-/, "")}`).src,
+                parentOrganization: true,
               }),
             ),
             menuJsonLd(brand, aromaMenu, locale),

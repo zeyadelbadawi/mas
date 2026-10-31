@@ -2,7 +2,7 @@ import { aromaMenu, brands, imageSlot, type MenuCategory } from "@mas/content";
 import { formatPrice, pick, type Locale } from "@mas/i18n";
 import { ImageSlot } from "@mas/ui";
 import { getTranslations } from "next-intl/server";
-import { AromaPetal } from "@/components/logo";
+import { PetalMark } from "@/components/petal-defs";
 import { MenuControls, type MenuControlsLabels } from "./menu-controls";
 
 const GROUPS = ["breakfast", "food", "drinks", "dessert", "kids"] as const;
@@ -81,18 +81,13 @@ export async function Menu({ locale }: { locale: Locale }) {
 
 function Category({ category: c, locale }: { category: MenuCategory; locale: Locale }) {
   return (
-    <section
-      id={`menu-${c.id}`}
-      data-menu-section
-      aria-labelledby={`menu-${c.id}-title`}
-      className="scroll-mt-32"
-    >
+    <section id={`menu-${c.id}`} data-menu-section className="scroll-mt-32">
       <div className="flex flex-col gap-2">
         <h3
           id={`menu-${c.id}-title`}
           className="text-fg flex items-center gap-3 text-3xl font-semibold tracking-tight sm:text-4xl"
         >
-          <AromaPetal className="h-6 w-auto shrink-0" />
+          <PetalMark className="h-6 w-auto shrink-0" />
           {pick(c.name, locale)}
         </h3>
         <p className="text-muted max-w-xl">{pick(c.intro, locale)}</p>
@@ -106,20 +101,24 @@ function Category({ category: c, locale }: { category: MenuCategory; locale: Loc
             <li
               key={item.id}
               data-item
-              data-search={`${item.name.en} ${item.name.ar} ${item.description.en} ${item.description.ar} ${c.name.en} ${c.name.ar}`.toLowerCase()}
+              // The visible text is searched as it is; this adds the other language's name and the
+              // section names, so "فطير" finds feteer on the English page and "feteer" on the Arabic one.
+              data-search={`${item.name[locale === "ar" ? "en" : "ar"]} ${c.name.en} ${c.name.ar}`.toLowerCase()}
               className="border-line flex gap-4 border-b py-5"
             >
               <div className="size-20 shrink-0 overflow-hidden rounded-2xl sm:size-24">
                 {item.imageSlotId && item.photo ? (
                   <ImageSlot
                     {...imageSlot(item.imageSlotId)}
+                    // The dish name is right beside it; screen readers shouldn't hear it twice.
+                    alt={{ en: "", ar: "" }}
                     locale={locale}
                     sizes="96px"
                     className="size-full object-cover"
                   />
                 ) : (
                   <div className="bg-surface flex size-full items-center justify-center">
-                    <AromaPetal className="h-9 w-auto opacity-35" />
+                    <PetalMark className="h-9 w-auto opacity-35" />
                   </div>
                 )}
               </div>

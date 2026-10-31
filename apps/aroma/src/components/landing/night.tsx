@@ -28,14 +28,14 @@ export async function Night({ locale }: { locale: Locale }) {
         panX={[100, 100]}
       >
         <div
-          className="relative h-full text-[var(--aroma-marble)] in-data-[animated=false]:opacity-100! motion-reduce:opacity-100!"
+          className="relative h-full text-[var(--aroma-marble)] [--color-focus:var(--aroma-marble)] focus-within:opacity-100! in-data-[animated=false]:opacity-100! motion-reduce:opacity-100!"
           style={{ opacity: "clamp(0, calc((var(--seq-progress, 0) - 0.55) * 6), 1)" }}
         >
           {/* The dusk sky is pale at the horizon; a night-green fall from the top keeps the copy legible. */}
           <div
             aria-hidden="true"
             data-header-tone="dark"
-            className="absolute inset-x-0 top-0 h-[62vh] bg-gradient-to-b from-[#16261c]/85 from-30% to-transparent"
+            className="absolute inset-x-0 top-0 h-[72vh] bg-gradient-to-b from-[#16261c]/90 from-35% to-transparent"
           />
           <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 pt-[15vh] text-center sm:px-8">
             <h2
@@ -44,12 +44,12 @@ export async function Night({ locale }: { locale: Locale }) {
             >
               {t("title")}
             </h2>
-            <p className="mt-4 text-base text-[var(--aroma-marble)]/85 sm:text-lg">{t("body")}</p>
+            <p className="mt-4 text-base sm:text-lg">{t("body")}</p>
             <ul className="mt-6 flex flex-wrap justify-center gap-2 text-sm">
               {slots.map((s) => (
                 <li
                   key={s.branchId}
-                  className="rounded-full border border-[var(--aroma-marble)]/30 bg-[#16261c]/55 px-4 py-2 backdrop-blur-sm"
+                  className="rounded-full border border-[var(--aroma-marble)]/30 bg-[#16261c]/75 px-4 py-2 backdrop-blur-sm"
                 >
                   {t("slot", { day: s.day, branch: s.branch })} ·{" "}
                   <bdi>{t("time", { from: s.from, to: s.to })}</bdi>

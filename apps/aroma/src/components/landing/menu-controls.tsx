@@ -54,7 +54,8 @@ export function MenuControls({
     menu.querySelectorAll<HTMLElement>("[data-menu-section]").forEach((section) => {
       let visible = 0;
       section.querySelectorAll<HTMLElement>("[data-item]").forEach((item) => {
-        const match = !q || (item.dataset.search ?? "").includes(q);
+        const match =
+          !q || `${item.textContent ?? ""} ${item.dataset.search ?? ""}`.toLowerCase().includes(q);
         item.hidden = !match;
         if (match) visible++;
       });

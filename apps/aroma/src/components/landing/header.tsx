@@ -4,6 +4,7 @@ import { Button } from "@mas/ui";
 import { LanguageSwitcher } from "@mas/ui/language-switcher";
 import { useRef } from "react";
 import { AromaPetal, AromaWordmark } from "@/components/logo";
+import { BookLink } from "./book-link";
 import { useWalkHeader } from "./walk-header";
 
 const SECTIONS = ["menu", "branches", "nights", "story"] as const;
@@ -39,7 +40,11 @@ export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" 
       {/* Fills with the walk through the three scenes; only shown over them. */}
       <span aria-hidden="true" className="aroma-header-progress" />
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-8">
-        <a href="#top" className="flex shrink-0 items-center gap-2" aria-label="Aroma Lounge">
+        <a
+          href="#top"
+          className="flex shrink-0 items-center gap-2"
+          aria-label={locale === "ar" ? "أروما لاونج" : "Aroma Lounge"}
+        >
           <AromaPetal className="h-8 w-auto" />
           <AromaWordmark className="h-5 w-auto" />
         </a>
@@ -67,7 +72,7 @@ export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" 
             ariaLabel={labels.switchToLabel}
           />
           <Button asChild size="sm">
-            <a href="#reserve">{t("book")}</a>
+            <BookLink>{t("book")}</BookLink>
           </Button>
           <button
             type="button"
@@ -137,9 +142,7 @@ export function Header({ labels, locale }: { labels: HeaderLabels; locale: "en" 
               ariaLabel={labels.switchToLabel}
             />
             <Button asChild>
-              <a href="#reserve" onClick={close}>
-                {t("book")}
-              </a>
+              <BookLink onNavigate={close}>{t("book")}</BookLink>
             </Button>
           </div>
         </div>

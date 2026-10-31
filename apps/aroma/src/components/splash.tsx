@@ -4,7 +4,6 @@ import { PORTRAIT_BELOW, videoVariantFor } from "@mas/motion";
 import { useMotion } from "@mas/motion/provider";
 import { preloadProgress, preloadState, subscribePreload } from "@mas/motion/video-preload";
 import { useEffect, useId, useRef, useState } from "react";
-import { CocoaPattern } from "@/components/cocoa";
 import { PETAL_PATHS, PETAL_VIEWBOX, WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/logo";
 
 /**
@@ -81,7 +80,9 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
     // Two ways in. Not known to be loaded: the panel is up from the first paint (the boot script left it
     // visible). Known: it stays hidden while the files come back from the browser's cache, and only comes up
     // if the visitor tries to scroll before they are all in memory.
-    let shownAt = known ? -1 : performance.now();
+    // A first visit counts from navigation start: the cup is painted from the first frame, well before
+    // this script starts up (a second or two on a slow phone).
+    let shownAt = known ? -1 : 0;
     let left = false;
     let holding = false;
     let pause = 0;
@@ -155,7 +156,7 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
       // Smooth scrolling ignores cancelled events, so it is paused too (and if it starts while the panel is up).
       pause = window.setInterval(() => lenisRef.current()?.stop(), 100);
       lenisRef.current()?.stop();
-      minTimer = window.setTimeout(check, minMs);
+      minTimer = window.setTimeout(check, Math.max(0, minMs - (performance.now() - shownAt)));
       lastProgressAt = performance.now();
       slowTimer = window.setTimeout(() => setCanSkip(true), SLOW_MS);
       stallWatch = window.setInterval(() => {
@@ -318,7 +319,6 @@ const R = Math.max(PW, PH) * 0.62;
  * the download (`level`, 0..1). The petal that comes next breathes faintly so a slow line still looks alive.
  */
 function Cappuccino({ level }: { level: number }) {
-  const dustId = useId();
   const foamId = useId();
   const on = Math.floor(level * PETAL_PATHS.length + 1e-6);
   return (
@@ -329,7 +329,6 @@ function Cappuccino({ level }: { level: number }) {
       className="h-auto w-[min(62vw,20rem)] drop-shadow-[0_18px_30px_rgb(32_39_34/0.18)]"
     >
       <defs>
-        <CocoaPattern id={dustId} />
         <radialGradient id={foamId} cx="45%" cy="40%" r="70%">
           <stop offset="0%" stopColor="#fbf2e2" />
           <stop offset="70%" stopColor="#efdcc0" />
@@ -343,7 +342,7 @@ function Cappuccino({ level }: { level: number }) {
         <path
           key={d.slice(0, 24)}
           d={d}
-          fill={`url(#${dustId})`}
+          fill="url(#aroma-dust)"
           className="aroma-dust"
           {...(i < on ? { "data-on": "" } : i === on ? { "data-next": "" } : {})}
           style={{ transitionDelay: `${(i % 3) * 0.08}s` }}

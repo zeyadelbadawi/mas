@@ -18,7 +18,7 @@ export async function Nights({ locale }: { locale: Locale }) {
       id="nights"
       aria-labelledby="nights-title"
       data-header-tone="dark"
-      className="relative overflow-hidden bg-[var(--aroma-night)] px-4 py-28 text-[var(--aroma-marble)] sm:px-8"
+      className="relative overflow-hidden bg-[var(--aroma-night)] px-4 py-28 text-[var(--aroma-marble)] [--color-focus:var(--aroma-marble)] sm:px-8"
     >
       {/* The horizon after sunset: the drink's colours low on the night sky. */}
       <div

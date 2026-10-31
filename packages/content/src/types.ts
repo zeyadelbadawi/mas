@@ -45,6 +45,8 @@ export type Location = {
   placeholder: boolean;
   /** Short branch name for brands with more than one branch, e.g. "Mivida". */
   branch?: LocalizedText;
+  /** The town or district for postal addresses, e.g. "New Cairo"; Cairo when unset. */
+  locality?: LocalizedText;
   /** How to get in, e.g. "Enter Mivida from gates 6 or 7". */
   access?: LocalizedText;
   /** The branch's Google Maps link. */

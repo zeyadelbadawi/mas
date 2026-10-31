@@ -15,7 +15,7 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
   const link =
     "py-2 underline-offset-4 transition-colors hover:text-[var(--aroma-marble)] hover:underline";
   return (
-    <footer className="bg-[var(--aroma-night)] text-[var(--aroma-marble)]/80">
+    <footer className="bg-[var(--aroma-night)] text-[var(--aroma-marble)]/80 [--color-focus:var(--aroma-marble)]">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-9 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
         <div className="flex items-center gap-5">
           <Link

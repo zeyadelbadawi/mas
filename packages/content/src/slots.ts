@@ -498,8 +498,9 @@ export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
           app: c.brandId,
           page: "Landing",
           section: `Menu · ${c.name.en} · ${item.name.en}`,
-          width: 800,
-          height: 800,
+          // The client's photos are saved at 640 px square; designer thumbnails are delivered at 800.
+          width: item.photo ? 640 : 800,
+          height: item.photo ? 640 : 800,
           alt: item.name,
           ...(item.photo
             ? { src: item.photo, notes: "The client's digital-menu photo (D53)" }

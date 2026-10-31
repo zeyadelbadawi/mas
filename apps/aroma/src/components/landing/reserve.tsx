@@ -66,7 +66,7 @@ export function Reserve({ branches, privacyHref, turnstileSiteKey }: ReserveProp
   const name = (b: Location) => (b.branch ?? b.name)[locale];
 
   const tabClass =
-    "text-fg/60 data-[state=active]:text-fg data-[state=active]:border-accent border-b-2 border-transparent pb-3 text-xl font-semibold transition-colors hover:text-fg sm:text-2xl";
+    "text-fg/75 data-[state=active]:text-fg data-[state=active]:border-accent border-b-2 border-transparent pb-3 text-xl font-semibold transition-colors hover:text-fg sm:text-2xl";
 
   return (
     <Tabs.Root

@@ -12,8 +12,8 @@
     "nights": "What's on",
     "story": "Our story",
     "book": "Book a table",
-    "open": "Open menu",
-    "close": "Close menu"
+    "open": "Open navigation",
+    "close": "Close navigation"
   },
   "morning": {
     "title": "Aroma Lounge: breakfast, lunch and dinner in Mivida, New Cairo, and at The Strip, Madinaty",
@@ -90,7 +90,7 @@
     "intro": "Save your table and we'll call you to confirm.",
     "book": "Book a table or event",
     "feedback": "Share your feedback",
-    "pickFirst": "Pick a branch to see its times."
+    "pickFirst": "Choose a branch to start your booking."
   },
   "findUs": {
     "title": "Find us",

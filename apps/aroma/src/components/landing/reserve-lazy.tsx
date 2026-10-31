@@ -14,7 +14,7 @@ export function LazyReserve(props: ComponentProps<typeof ReserveWithIntl>) {
   const ref = useRef<HTMLDivElement>(null);
   const near = useNearViewport(ref, "150% 0px");
   return (
-    <div ref={ref} className="mx-auto min-h-[20rem] max-w-3xl">
+    <div ref={ref} className="mx-auto min-h-[34rem] max-w-3xl">
       {near ? <ReserveForms {...props} /> : null}
     </div>
   );
