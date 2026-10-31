@@ -175,7 +175,9 @@ Keyframes spent: **24 credits**. The owner approves K1–K4 before any shot.
 |---|---|---|---|---|
 | S1 `aroma.morning`: hands set the breakfast down, the cappuccino last | K1 → K2 | `ed907a92` | 60 | **Approved**: dishes arrive in order, held in hand; ends on K2 |
 | S2 `aroma.lake`: overhead → eye level toward the lake, morning → golden hour, the sunset drink raised | K2 → K3 | `78e9912f` | 60 | **Rejected**: at 3–4 s the dishes fly off the table with debris |
-| S2 re-shot: hands clear the dishes first with the camera still, then the move | K2 → K3 | `1cfcb8b8` | 60 | pending |
+| S2 re-shot: hands clear the dishes first with the camera still, then the move | K2 → K3 | `1cfcb8b8` | 60 | **Approved**: every dish leaves in a hand (some motion blur at the frame edge for under a second); one sunset glass stays and is the one raised at the end |
 | S3 `aroma.night`: dusk falls, lamps on, the guitarist starts | K3 → K4 | `d42ef40e` | 60 | **Approved**: the table change is a soft time-lapse dissolve; the guitarist is seen from the side and behind, out of focus |
 
 Two of the three were first held back by the tool's preset suggestion ("IN THE DARK"); it was declined and they were resubmitted unchanged, no credits spent on the held ones.
+
+Shots spent: **240 credits** (S2 twice). Total for the Aroma scenes: **264 of the 300-credit ceiling**. Seams, mean difference of 255: S1's last frame to S2's first 4.7, S2's last to S3's first 3.2 (COVY: 5.0 and 3.1). The owner approves the footage before the videos are built.
