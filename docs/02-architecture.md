@@ -415,7 +415,7 @@ Reviewed with the `security-and-hardening` skill before Milestone A and again be
 | LOW | `saveData`, 2G/3G effective type, or WebGL failure | Posters + light CSS/GSAP motion; no WebGL, no frames |
 | STATIC | `prefers-reduced-motion: reduce` | Final states, no pinning/scrubbing, normal document flow |
 
-**Where the frames live (D25):** each sequence is ~5–8 MB per full desktop view, so frames don't go through Vercel. Vercel Hobby includes about 100 GB/month of fast data transfer, roughly 12–20k full sequence views. Frames live in a Cloudflare R2 public bucket behind `media.mas.com` (free: 10 GB storage, no egress fees; all five sequences ≈ 150 MB). A Cloudflare cache rule serves repeat requests from the edge, so they don't count against R2's free monthly operations. It's static file hosting, not a backend. Activating R2 requires a card or PayPal for verification; there is no charge inside the free tier.
+**Where the frames live (D25):** each sequence is ~5–20 MB per full desktop view (D41; the COVY landing's three together ≈ 42 MB), so frames don't go through Vercel. Vercel Hobby includes about 100 GB/month of fast data transfer, roughly 5–20k full sequence views, or about 2,400 full COVY visits. Frames live in a Cloudflare R2 public bucket behind `media.mas.com` (free: 10 GB storage, no egress fees; a sequence with all its variants and both formats is ~60–125 MB, well inside the free storage). A Cloudflare cache rule serves repeat requests from the edge, so they don't count against R2's free monthly operations. It's static file hosting, not a backend. Activating R2 requires a card or PayPal for verification; there is no charge inside the free tier.
 
 ## 9. Internationalisation
 

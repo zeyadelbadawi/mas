@@ -6,6 +6,7 @@
 //                       [--focal 0.5,0.5] [--poster 0] [--avif-quality 50] [--webp-quality 72]
 //                       [--xl-width 2560 --xl-height 1440]  (0 skips the large desktop variant)
 //                       [--motion-step 8 --motion-floor 3] [--ease-in 0.06 --ease-out 0.12] [--resume]
+//                       [--jobs 4]  (frames encoded at once; default one per core, at most one per 1.5 GB RAM)
 //
 // By default frames are sampled evenly in time. With --motion-step, frames are picked by how much the image
 // changes instead: about one frame per `motion-step` units of change (mean absolute difference of small
@@ -25,8 +26,16 @@
 // is at least that wide), mobile a 4:5 crop (1080×1350) around the focal point at half the frame rate.
 
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from "node:fs";
-import { availableParallelism, tmpdir } from "node:os";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  renameSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { availableParallelism, tmpdir, totalmem } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import sharp from "sharp";
@@ -54,6 +63,7 @@ const { values } = parseArgs({
     resume: { type: "boolean", default: false },
     "ease-in": { type: "string", default: "0" },
     "ease-out": { type: "string", default: "0" },
+    jobs: { type: "string" },
   },
 });
 
@@ -82,6 +92,11 @@ const motionStep = Number(values["motion-step"]);
 const motionFloor = Number(values["motion-floor"]);
 const easeIn = Number(values["ease-in"]);
 const easeOut = Number(values["ease-out"]);
+// Each job holds a decoded 4K source frame and its resized copies: allow about 1.5 GB of RAM per job.
+const jobs = Math.max(
+  1,
+  Number(values.jobs) || Math.min(availableParallelism(), Math.floor(totalmem() / (1.5 * 2 ** 30))),
+);
 
 /** Image change between consecutive frames: mean absolute difference of 192×108 greyscale copies. */
 async function motionProfile(files) {
@@ -213,6 +228,18 @@ try {
   const cropTop = 0;
 
   const mobileCount = mobilePicked.length;
+  // Each frame is written next to its final name and renamed once complete, so an interrupted run never
+  // leaves a partial file that --resume would take for a finished one.
+  const writeFrame = async (pipeline, target) => {
+    const part = target.replace(/(\.\w+)$/, ".part$1");
+    try {
+      await pipeline.toFile(part);
+      renameSync(part, target);
+    } catch (error) {
+      rmSync(part, { force: true });
+      throw error;
+    }
+  };
   const encodeFrame = async (i) => {
     const mi = mobilePicked.indexOf(i);
     const outputs = [
@@ -230,40 +257,23 @@ try {
       fit: "cover",
       position: "centre",
     });
-    await d
-      .clone()
-      .avif({ quality: avifQ, effort: 4 })
-      .toFile(path.join(outDir, "desktop/avif", `${pad(i)}.avif`));
-    await d
-      .clone()
-      .webp({ quality: webpQ })
-      .toFile(path.join(outDir, "desktop/webp", `${pad(i)}.webp`));
+    const [desktopAvif, desktopWebp, ...rest] = outputs;
+    await writeFrame(d.clone().avif({ quality: avifQ, effort: 4 }), desktopAvif);
+    await writeFrame(d.clone().webp({ quality: webpQ }), desktopWebp);
     if (xl) {
       const x = sharp(src).resize(xl.width, xl.height, { fit: "cover", position: "centre" });
-      await x
-        .clone()
-        .avif({ quality: avifQ, effort: 4 })
-        .toFile(path.join(outDir, "desktop-xl/avif", `${pad(i)}.avif`));
-      await x
-        .clone()
-        .webp({ quality: webpQ })
-        .toFile(path.join(outDir, "desktop-xl/webp", `${pad(i)}.webp`));
+      await writeFrame(x.clone().avif({ quality: avifQ, effort: 4 }), rest.shift());
+      await writeFrame(x.clone().webp({ quality: webpQ }), rest.shift());
     }
     if (mi >= 0) {
       const m = sharp(src)
         .extract({ left: cropLeft, top: cropTop, width: cropW, height: cropH })
         .resize(mobile.width, mobile.height, { fit: "cover" });
-      await m
-        .clone()
-        .avif({ quality: avifQ, effort: 4 })
-        .toFile(path.join(outDir, "mobile/avif", `${pad(mi)}.avif`));
-      await m
-        .clone()
-        .webp({ quality: webpQ })
-        .toFile(path.join(outDir, "mobile/webp", `${pad(mi)}.webp`));
+      await writeFrame(m.clone().avif({ quality: avifQ, effort: 4 }), rest.shift());
+      await writeFrame(m.clone().webp({ quality: webpQ }), rest.shift());
     }
   };
-  // The AVIF encoder uses about one core per image, so encode a frame per core at once.
+  // The AVIF encoder uses about one core per image, so encode several frames at once (see `jobs`).
   let next = 0;
   let done = 0;
   const worker = async () => {
@@ -273,9 +283,7 @@ try {
       if (process.stdout.isTTY) process.stdout.write(`\rframes ${done}/${picked.length}`);
     }
   };
-  await Promise.all(
-    Array.from({ length: Math.min(availableParallelism(), picked.length) }, worker),
-  );
+  await Promise.all(Array.from({ length: Math.min(jobs, picked.length) }, worker));
   if (process.stdout.isTTY) process.stdout.write("\n");
 
   // 3. Poster (the LCP candidate): desktop size, a little higher quality.
