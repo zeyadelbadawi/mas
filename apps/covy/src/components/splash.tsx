@@ -29,10 +29,12 @@ const SLOW_MS = 30000;
 const READY_KEY = "covy-ready-";
 /**
  * Before first paint: no panel when this screen's variant is already loaded in this session, or without motion
- * (no videos then). The shape rule is the player's own (videoVariantFor). Static, no input.
+ * (no videos then). Otherwise the page is locked from the first paint (`data-splash="hold"`, overflow hidden in
+ * globals.css), before any script can catch a wheel, a swipe or the scrollbar; if the script never takes over,
+ * the lock lets go after 10 s. The shape rule is the player's own (videoVariantFor). Static, no input.
  */
 const BOOT = {
-  __html: `try{var d=document.documentElement,v=innerWidth/innerHeight<${PORTRAIT_BELOW}?"mobile":"desktop";if(sessionStorage.getItem("${READY_KEY}"+v)==="1"||matchMedia("(prefers-reduced-motion: reduce)").matches)d.dataset.splash="seen"}catch(e){}`,
+  __html: `try{var d=document.documentElement,v=innerWidth/innerHeight<${PORTRAIT_BELOW}?"mobile":"desktop";if(sessionStorage.getItem("${READY_KEY}"+v)==="1"||matchMedia("(prefers-reduced-motion: reduce)").matches)d.dataset.splash="seen";else{d.dataset.splash="hold";setTimeout(function(){if(d.dataset.splash==="hold"&&!d.dataset.splashJs)delete d.dataset.splash},10000)}}catch(e){}`,
 };
 
 /**
@@ -60,8 +62,10 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // The script is running: it decides when to leave, not the no-JS failsafe.
+    // The script is running: it decides when to leave, not the no-JS failsafe, and it owns the page lock.
     el.style.animation = "none";
+    const root = document.documentElement;
+    root.dataset.splashJs = "1";
     // Without motion the boot script has already hidden the panel for good (still frames, nothing to load).
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const key = READY_KEY + videoVariantFor(window.innerWidth, window.innerHeight);
@@ -88,10 +92,10 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
     const leave = () => {
       if (left) return;
       left = true;
-      release();
       // Also when leaving without ever showing (the LOW tier never loads the videos): stop catching scrolls.
       stopWatching();
       if (shownAt < 0) {
+        release();
         setPhase("gone");
         return;
       }
@@ -112,8 +116,13 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
         easing: "cubic-bezier(0.4, 0, 0.2, 1)",
         fill: "forwards",
       });
-      if (clear) clear.onfinish = () => setPhase("gone");
-      else setPhase("gone");
+      // The page stays locked until the panel has fully cleared, so no scroll slips into the walk.
+      const done = () => {
+        release();
+        setPhase("gone");
+      };
+      if (clear) clear.onfinish = done;
+      else done();
     };
     leaveRef.current = leave;
 
@@ -152,6 +161,7 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
       }, 1000);
     };
     function release() {
+      if (root.dataset.splash === "hold") delete root.dataset.splash;
       inerted.forEach((n) => (n.inert = false));
       inerted.length = 0;
       window.clearInterval(pause);
@@ -190,7 +200,7 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
       if (shownAt >= 0 || left) return;
       stopWatching();
       shownAt = performance.now();
-      delete document.documentElement.dataset.splash;
+      root.dataset.splash = "hold";
       el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease-out" });
       hold(GATE_MIN_MS);
       check();

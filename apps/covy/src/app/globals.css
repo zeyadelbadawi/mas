@@ -23,6 +23,11 @@
 .covy-splash {
   animation: covy-splash-failsafe 0.4s ease-out 6.5s forwards;
 }
+/* While the splash is up nothing scrolls: wheel, touch, keys and the scrollbar alike (D50). */
+html[data-splash="hold"] {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
 [data-splash="seen"] .covy-splash {
   display: none;
 }
