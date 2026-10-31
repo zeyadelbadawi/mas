@@ -25,9 +25,8 @@ const { values } = parseArgs({
 });
 
 const menus = JSON.parse(readFileSync(path.join(root, values.menu), "utf8"));
-const names = JSON.parse(
-  readFileSync(path.join(root, "tools/menus/aroma-names.json"), "utf8"),
-).items;
+const namesFile = JSON.parse(readFileSync(path.join(root, "tools/menus/aroma-names.json"), "utf8"));
+const names = namesFile.items;
 const photoDir = path.join(root, "apps/aroma/public/images/menu");
 const PHOTO_SIZE = 640;
 
@@ -200,6 +199,10 @@ const CATEGORIES = {
   },
 };
 
+/** Typo fixes in the client's English descriptions (aroma-names.json `descFixes`, in order). */
+const descFixes = namesFile.descFixes ?? [];
+const fixTypos = (text) => descFixes.reduce((t, [from, to]) => t.split(from).join(to), text);
+
 /** The menu tool stores rich text: drop tags and entities, keep the plain line. */
 function plain(text) {
   return (text ?? "")
@@ -295,7 +298,10 @@ for (const menuTitle of order) {
       items.push({
         id: `aroma.${def.id}.${slug}`,
         name: { en, ar: n.ar },
-        description: { en: plain(item.desc_en), ar: plain(item.desc_ar) || (n.descAr ?? "") },
+        description: {
+          en: fixTypos(plain(item.desc_en)),
+          ar: plain(item.desc_ar) || (n.descAr ?? ""),
+        },
         priceEGP: price,
         tags: [],
         ...(photo ? { imageSlotId: `aroma.menu.${def.id}.${slug}`, photo } : {}),

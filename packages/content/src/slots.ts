@@ -419,12 +419,11 @@ export const slots: SlotSpec[] = [
     width: 1200,
     height: 900,
     alt: {
-      en: "Friends toasting with sunset iced teas over dinner on the terrace at night, a DJ playing behind them by the lake",
-      ar: "صحاب بيخبطوا كوبايات آيس تي بطبقات على العشا في التراس بالليل، وDJ بيلعب وراهم جنب البحيرة",
+      en: "Friends toasting with layered iced teas over dinner on the walkway at The Strip at night, a DJ playing behind them",
+      ar: "صحاب بيخبطوا كوبايات آيس تي بطبقات على العشا على ممشى ذا ستريب بالليل، وDJ بيلعب وراهم",
     },
     src: "/images/nights/aroma-nights.webp",
-    notes:
-      "Made with Higgsfield from the night scene's keyframe; wine glasses edited out, Aroma serves no alcohol (D53)",
+    notes: "Made with Higgsfield at The Strip, where Aroma Nights take place; no alcohol on the table (D53, D55)",
   },
   {
     kind: "image",

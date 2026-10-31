@@ -214,3 +214,16 @@ Slots that had no usable photo in Aroma's posts. References are the approved key
 | `aroma.nights.aroma-nights` (4:3), second edit | `3552f0ff` | `668396ed` | 3 | **Used**: dinner by the lake with a DJ behind; every glass is water, juice or a sunset iced tea |
 
 Spent: **15 credits** (balance before: 304.75). The two edits went past the 9-credit estimate the owner approved, to keep alcohol out of the picture.
+
+**Aroma Nights at The Strip** (owner's OK, P4): the photo above showed the lake, but Aroma Nights are held at Madinaty – The Strip (Aroma's post). Re-made from the edited dinner photo (`668396ed`) and the Madinaty photo (`7220ce7a`): job `65d818c5`, 3 credits. **Used**: the same dinner and DJ on the palm-lined walkway in front of the shopfronts, no water. Total for the section photos: **18 credits**.
+
+### Aroma videos, revision 2 (P4, no credits)
+
+The desktop cut re-encoded at CRF 28 (was 24): no visible difference at 1:1 (SSIM 0.98 against revision 1), desktop total **25.1 → 16.3 MB** (morning 5.8, lake 6.0, night 4.5). Phone cut unchanged (CRF 26). Uploaded on 2026-10-31 as `videos/aroma.{morning,lake,night}.r2` (new folders, since files are cached for a week by name); the site reads them through `apps/aroma/src/components/landing/scenes.ts`.
+
+```bash
+pnpm sequence:video --input aroma-morning-4k.mp4 --id aroma.morning.r2 --out out/videos-r2 --crf 28
+pnpm sequence:video --input aroma-lake-4k.mp4 --id aroma.lake.r2 --out out/videos-r2 --crf 28 --motion --ease-in 0.06 --ease-out 0.08
+pnpm sequence:video --input aroma-night-4k.mp4 --id aroma.night.r2 --out out/videos-r2 --crf 28
+pnpm sequence:upload --dir out/videos-r2 --prefix videos --only aroma.morning.r2,aroma.lake.r2,aroma.night.r2
+```

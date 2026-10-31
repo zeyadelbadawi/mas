@@ -1,5 +1,5 @@
-import { videoSource } from "@mas/motion";
 import { ScrollVideo } from "@mas/motion/scroll-video";
+import { SCENES } from "./scenes";
 import { getTranslations } from "next-intl/server";
 import { ScenePetal } from "./scene-petal";
 
@@ -10,7 +10,7 @@ import { ScenePetal } from "./scene-petal";
  */
 export async function Lake() {
   const t = await getTranslations("lake");
-  const src = videoSource("aroma.lake");
+  const src = SCENES.lake;
   return (
     <section aria-labelledby="lake-title">
       <ScrollVideo

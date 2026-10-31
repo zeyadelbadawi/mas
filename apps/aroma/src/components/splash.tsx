@@ -195,7 +195,16 @@ export function Splash({ label, skip, slow }: { label: string; skip: string; slo
       if (shownAt < 0) {
         stopWatching();
         leave();
-      } else if (performance.now() - shownAt >= (known ? GATE_MIN_MS : MIN_MS)) leave();
+      } else {
+        // Timers can fire a millisecond early against performance.now(): if the minimum isn't quite up,
+        // look again when it is, or nothing else would ever call check() and the panel would stay up.
+        const wait = (known ? GATE_MIN_MS : MIN_MS) - (performance.now() - shownAt);
+        if (wait <= 0) leave();
+        else {
+          window.clearTimeout(minTimer);
+          minTimer = window.setTimeout(check, wait + 20);
+        }
+      }
     };
 
     // Known loads: the first try to scroll before the files are in brings the panel up, quickly.

@@ -9,6 +9,11 @@ export const routing = defineRouting({
   defaultLocale: "en",
   localePrefix: "as-needed",
   localeDetection: false,
+  // The page head already lists both languages with the production origin; next-intl's Link header would
+  // repeat them from the request host (wrong on preview URLs).
+  alternateLinks: false,
+  // Without browser-language detection the cookie is never read; leaving it off keeps responses cacheable.
+  localeCookie: false,
 });
 
 export const directions: Record<Locale, "ltr" | "rtl"> = { en: "ltr", ar: "rtl" };

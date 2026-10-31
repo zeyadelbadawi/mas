@@ -1,5 +1,5 @@
-import { videoSource } from "@mas/motion";
 import { ScrollVideo } from "@mas/motion/scroll-video";
+import { SCENES } from "./scenes";
 import type { Locale } from "@mas/i18n";
 import { buttonVariants } from "@mas/ui";
 import { getTranslations } from "next-intl/server";
@@ -13,7 +13,7 @@ import { liveMusic, weeklySlots } from "./weekly";
  */
 export async function Night({ locale }: { locale: Locale }) {
   const t = await getTranslations("night");
-  const src = videoSource("aroma.night");
+  const src = SCENES.night;
   const slots = liveMusic ? weeklySlots(liveMusic, locale) : [];
   return (
     <section aria-labelledby="night-title">

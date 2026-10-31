@@ -1,5 +1,5 @@
-import { videoSource } from "@mas/motion";
 import { ScrollVideo } from "@mas/motion/scroll-video";
+import { SCENES } from "./scenes";
 import { getTranslations } from "next-intl/server";
 import { AromaLogo } from "@/components/logo";
 import { ScenePetal } from "./scene-petal";
@@ -12,7 +12,7 @@ import { ScenePetal } from "./scene-petal";
  */
 export async function Morning() {
   const t = await getTranslations("morning");
-  const src = videoSource("aroma.morning");
+  const src = SCENES.morning;
   return (
     <div id="top">
       <h1 className="sr-only">{t("title")}</h1>

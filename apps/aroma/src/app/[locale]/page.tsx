@@ -1,5 +1,6 @@
 import { aromaMenu, branches, imageSlot } from "@mas/content";
 import { isLocale } from "@mas/i18n";
+import { videoPrefetchScript } from "@mas/motion";
 import { JsonLd, menuJsonLd, organizationJsonLd, restaurantJsonLd, websiteJsonLd } from "@mas/seo";
 import { notFound } from "next/navigation";
 import type { AbstractIntlMessages } from "next-intl";
@@ -15,10 +16,16 @@ import { Morning } from "@/components/landing/morning";
 import { Night } from "@/components/landing/night";
 import { Nights } from "@/components/landing/nights";
 import { LazyReserve } from "@/components/landing/reserve-lazy";
+import { SCENES } from "@/components/landing/scenes";
 import { Story } from "@/components/landing/story";
 import { PetalDefs } from "@/components/petal-defs";
 import { Splash } from "@/components/splash";
 import { brand, privacyHref } from "@/site";
+
+/** The three scenes start downloading as the page is parsed (D55): the splash waits on all of them. */
+const PREFETCH = {
+  __html: videoPrefetchScript(Object.values(SCENES).map((s) => s.manifestUrl)),
+};
 
 const CUISINE = ["Egyptian", "International", "Italian"];
 /** The menu's price span (EGP 45 for water to EGP 635 for the rib-eye). */
@@ -42,6 +49,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see PREFETCH */}
+      <script dangerouslySetInnerHTML={PREFETCH} />
       <PetalDefs />
       <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
       <BackToTop label={common("backToTop")} />

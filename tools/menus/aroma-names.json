@@ -1,5 +1,5 @@
 {
-  "_note": "Arabic names for Aroma's digital menu (D53: translated in the voice Aroma uses, with the same words its Arabic descriptions use). `en` fixes only typos and capitalisation of the client's names. `descAr` gives the Arabic description where the client's menu has an English one only.",
+  "_note": "Arabic names for Aroma's digital menu (D53: translated in the voice Aroma uses, with the same words its Arabic descriptions use). `en` fixes only typos and capitalisation of the client's names. `descAr` gives the Arabic description where the client's menu has an English one only. `descFixes` corrects typos in the client's English descriptions (owner's OK, 2026-10-31).",
   "items": {
     "959862": {
       "ar": "شوربة فراخ بالذرة"
@@ -653,5 +653,27 @@
     "1688772": {
       "ar": "باستا بالفراخ الكريسبي"
     }
-  }
+  },
+  "descFixes": [
+    ["Feteer Meshaltet / Fou /", "Feteer Meshaltet / Foul /"],
+    ["/ /Gebna", "/ Gebna"],
+    ["Pico De Galo", "Pico de Gallo"],
+    ["Pesto Sauce/ Ranch", "Pesto Sauce / Ranch"],
+    ["Nuttela-Pistachio-Strawberry )", "Nutella, pistachio or strawberry)"],
+    ["Choose Your flavor", "Choose your flavour"],
+    ["potato cubs", "potato cubes"],
+    ["Herb potato cubes", "herb potato cubes"],
+    ["mix green salad", "mixed green salad"],
+    ["Served on the side of mixed green salad", "Served with a mixed green salad on the side"],
+    ["Sunni side up", "Sunny side up"],
+    ["2 Pouched eggs", "2 poached eggs"],
+    ["Shakshooka", "shakshuka"],
+    [
+      "Premium Angus rib eye , served with Sun dried tomato mashed potato , mix Salad",
+      "Premium Angus rib-eye, served with sun-dried tomato mashed potatoes and a mixed salad"
+    ],
+    ["Premium Angus brisket Slow-cooked", "Premium Angus brisket, slow-cooked"],
+    ["A Mix of seafood", "A mix of seafood"],
+    ["Non Alcoholic Beer", "Non-alcoholic beer"]
+  ]
 }
