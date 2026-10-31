@@ -4,3 +4,5 @@ pnpm-lock.yaml
 .next/
 node_modules/
 *.md
+# generated scroll-video drafts (pnpm sequence:video --draft)
+apps/*/public/videos/
