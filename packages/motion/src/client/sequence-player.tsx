@@ -141,8 +141,21 @@ export function SequencePlayer({
     const resize = () => {
       const rect = stage.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
+      let width = rect.width * dpr;
+      let height = rect.height * dpr;
+      // Never back the canvas with more pixels than the frames have: past 1:1 the extra pixels add no detail
+      // but cost every draw (two per blend). The canvas is stretched to its box by CSS instead.
+      if (variant) {
+        const sx = width / variant.width;
+        const sy = height / variant.height;
+        const scale = fit === "cover" ? Math.max(sx, sy) : Math.min(sx, sy);
+        if (scale > 1) {
+          width /= scale;
+          height /= scale;
+        }
+      }
+      canvas.width = Math.round(width);
+      canvas.height = Math.round(height);
       lastDrawn = undefined;
       draw();
     };
