@@ -1,6 +1,6 @@
 # 06 — Aroma Lounge re-plan
 
-**Status:** draft for the owner's approval (2026-10-31). Once approved, it replaces §4.3 of `03-experience-design.md`, the Aroma rows of `docs/assets/asset-manifest.md`, and the City Stars location in `packages/content`. Research and sources: `docs/research/aroma/README.md`.
+**Status:** approved by the owner (2026-10-31), with the answers in §12 (D53). Once approved, it replaces §4.3 of `03-experience-design.md`, the Aroma rows of `docs/assets/asset-manifest.md`, and the City Stars location in `packages/content`. Research and sources: `docs/research/aroma/README.md`.
 
 ## 1. Why we are re-planning
 
@@ -236,8 +236,8 @@ Flyers (posts with text baked in) are never used as photos. The rest of the imag
 - Match nights and Aroma Nights have no fixed dates on the site; only the weekly live music does.
 - One menu for both branches until the client says otherwise.
 
-**Open for the owner**
-1. **Real photos:** may we use the client's social photos and digital-menu photos on the site (exception to rule 3)? Some show guests' faces. My suggestion: only photos Aroma posted on its own account, and the client confirms they're cleared to reuse.
-2. **The 3D leaf ring:** D42 kept it to rework for Aroma. I suggest leaving it out (it fights the bright lakeside feel and costs about 240 KB of 3D). Keep or drop?
-3. **Facts from Aroma's posts** (branches, gates 6/7, unit B11, the live music schedule, the City Stars start): treat them as client-provided data, marked for the client to confirm before launch, with no "Sample" badge on the page? Hours and phone stay placeholders until confirmed (we only have "Mivida closes 1:30 AM" and one number from a reel).
-4. **Arabic menu names:** OK for us to translate them, marked for the client to review?
+**Answered by the owner (D53)**
+1. **Photos:** use the photos Aroma posted on its own account and the digital-menu photos, and make more with Higgsfield from them where needed. The measure: they look alive and good.
+2. **The 3D leaf ring:** dropped.
+3. **Facts from Aroma's social media are confirmed client data** and ship as real, with no placeholder labels. Anything not on social (e.g. full opening hours) stays a placeholder.
+4. **Arabic menu names:** we translate them in the voice Aroma uses on social.
