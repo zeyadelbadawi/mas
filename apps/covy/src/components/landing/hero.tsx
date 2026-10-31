@@ -11,7 +11,7 @@ import { CovyWordmark } from "@/components/logo";
 export async function Hero() {
   const t = await getTranslations("hero");
   const home = await getTranslations("home");
-  const src = sequenceSource("covy.hero");
+  const src = sequenceSource("covy.hero", { rev: 2 });
   return (
     <div id="top">
       <h1 className="sr-only">{t("title")}</h1>

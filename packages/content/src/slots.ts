@@ -93,6 +93,7 @@ export const slots: SlotSpec[] = [
     page: "Landing",
     section: "C1 Through the arches",
     ...SEQ,
+    frameCount: 200,
     label: {
       en: "Walking through COVY's arched entrance to the blue tree",
       ar: "الدخول من أقواس COVY حتى الشجرة الزرقاء",
@@ -106,7 +107,7 @@ export const slots: SlotSpec[] = [
     page: "Landing",
     section: "C2 To the bar",
     ...SEQ,
-    frameCount: 180,
+    frameCount: 329,
     label: {
       en: "From the blue tree, along the mural to the bar, where a glass of ice waits on the pastry case",
       ar: "من الشجرة الزرقاء، بمحاذاة الجدارية حتى البار، حيث ينتظر كوب من الثلج فوق فاترينة المخبوزات",
