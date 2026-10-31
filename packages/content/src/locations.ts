@@ -69,8 +69,9 @@ const aromaMadinaty: Location = {
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Aroma%20Lounge%20-%20Madinaty",
   lat: 30.0724617,
   lng: 31.6548246,
-  phone: "+201000000002",
-  whatsapp: "201000000002",
+  // Aroma answers both branches on one number (owner, 2026-10-31).
+  phone: "+201222293914",
+  whatsapp: "201222293914",
   areas: ["indoor", "outdoor", "shisha"],
   hours: everyDay("09:00", "01:30"),
   slotMinutes: 30,
@@ -79,8 +80,8 @@ const aromaMadinaty: Location = {
   maxEventGuests: 300,
   bookingWindowDays: 60,
   placeholder: false,
-  // Same hours as Mivida (owner's choice, 2026-10-31); no number is published for this branch yet.
-  placeholderFields: ["phone", "whatsapp"],
+  // Same hours as Mivida (owner's choice, 2026-10-31).
+  placeholderFields: [],
 };
 
 /** Every branch of each restaurant, in the order the site lists them. */

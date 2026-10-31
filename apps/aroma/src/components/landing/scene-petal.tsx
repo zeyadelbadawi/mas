@@ -11,8 +11,9 @@ export function ScenePetal({
   petalOpacity: (index: number, count: number) => string;
 }) {
   return (
-    // The cup's foam sits at 50.4% × 56.6% of the frame, about 6% of its width across.
-    <div className="absolute top-[56.6%] left-[50.4%] w-[3.9%] -translate-x-1/2 -translate-y-1/2 mix-blend-multiply in-data-[animated=false]:hidden motion-reduce:hidden">
+    // The coffee in the cup is centred at 51.1% × 55.7% of the frame and 5.7% of its width across (a circle
+    // fitted to the crema ring on the last frame); the stencil covers about 70% of it.
+    <div className="absolute top-[55.66%] left-[51.11%] w-[3.9%] -translate-x-1/2 -translate-y-1/2 mix-blend-multiply in-data-[animated=false]:hidden motion-reduce:hidden">
       <svg viewBox={PETAL_VIEWBOX} aria-hidden="true" focusable="false" className="h-auto w-full">
         {PETAL_PATHS.map((d, i) => (
           <path

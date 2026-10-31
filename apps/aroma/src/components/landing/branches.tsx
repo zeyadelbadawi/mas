@@ -2,6 +2,7 @@ import { branches, imageSlot, type Location } from "@mas/content";
 import { formatTime, pick, type Locale } from "@mas/i18n";
 import { buttonVariants, ImageSlot, PlaceholderBadge } from "@mas/ui";
 import { getTranslations } from "next-intl/server";
+import { WhatsAppIcon } from "@/components/brand-icons";
 import { BookLink } from "./book-link";
 
 const LINES = { "aroma-mivida": "mivida", "aroma-madinaty": "madinaty" } as const;
@@ -46,15 +47,30 @@ async function Branch({ loc, locale }: { loc: Location; locale: Locale }) {
     <article
       id={LINES[id]}
       aria-labelledby={`${loc.id}-title`}
-      className="flex scroll-mt-24 flex-col gap-6"
+      // Cards in a row stretch to the same height; the buttons sit at the foot of each, so they line up
+      // whatever the length of the copy above them.
+      className="flex h-full scroll-mt-24 flex-col gap-6"
     >
-      <div className="overflow-hidden rounded-[2rem]">
+      <div className="relative overflow-hidden rounded-[2rem]">
         <ImageSlot
           {...imageSlot(SLOTS[id])}
           locale={locale}
           sizes="(min-width: 768px) 45vw, 100vw"
           className="aspect-[4/5] object-cover"
         />
+        {/* WhatsApp rides on the photo's corner, so the buttons below stay on one row. */}
+        {sample.has("whatsapp") ? null : (
+          <a
+            href={`https://wa.me/${loc.whatsapp}`}
+            target="_blank"
+            rel="noopener"
+            aria-label={`${t("whatsapp")}: ${name}`}
+            title={t("whatsapp")}
+            className="absolute end-4 top-4 inline-flex size-12 items-center justify-center rounded-full bg-[#25d366] text-white shadow-[0_6px_18px_rgb(0_0_0/0.25)] transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <WhatsAppIcon className="size-6" />
+          </a>
+        )}
       </div>
       <div className="flex flex-col gap-3">
         <h3 id={`${loc.id}-title`} className="text-fg text-4xl font-semibold tracking-tight">
@@ -78,7 +94,7 @@ async function Branch({ loc, locale }: { loc: Location; locale: Locale }) {
           )}
         </p>
       </div>
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="mt-auto flex flex-wrap items-center gap-3">
         <BookLink branch={loc.id} className={buttonVariants()}>
           {t("book", { branch: name })}
         </BookLink>
@@ -97,16 +113,6 @@ async function Branch({ loc, locale }: { loc: Location; locale: Locale }) {
         ) : (
           <a href={`tel:${loc.phone}`} className={buttonVariants({ variant: "secondary" })}>
             {t("call")} <span dir="ltr">{displayPhone(loc.phone)}</span>
-          </a>
-        )}
-        {sample.has("whatsapp") ? null : (
-          <a
-            href={`https://wa.me/${loc.whatsapp}`}
-            target="_blank"
-            rel="noopener"
-            className={buttonVariants({ variant: "secondary" })}
-          >
-            {t("whatsapp")}
           </a>
         )}
       </div>
