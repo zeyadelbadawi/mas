@@ -11,3 +11,18 @@
 @theme inline {
   --font-editorial: var(--brand-font-editorial);
 }
+
+/* Splash (D43): if a script never takes it away (no JS), it gets out of the way by itself; once seen this
+   session, a head script marks the page and it never shows. */
+@keyframes covy-splash-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.covy-splash {
+  animation: covy-splash-failsafe 0.4s ease-out 6.5s forwards;
+}
+[data-splash="seen"] .covy-splash {
+  display: none;
+}

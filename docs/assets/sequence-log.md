@@ -134,3 +134,22 @@ pnpm sequence:upload --dir out/sequences --only covy.hero.r2,covy.connector.r2
 The connector's section grows from 400vh to 560vh so its camera moves at about the hero's speed per scroll. Easing keeps the old slow landings: the hero eases out over the last 6% of its move into the hold, and the connector eases in over its first 6% and out over its last 12% onto the glass. `covy.signature.r2` is unchanged (static camera; the player now blends its frames too).
 
 **Built and uploaded on 2026-10-31.** `covy.hero.r2`: 1,005 files; `covy.connector.r2`: 1,649 files (AVIF and WebP, poster and manifest).
+
+### COVY as scroll videos (no credits, D43)
+
+The same three clips, encoded as H.264 MP4s for hardware-decoded scrubbing: every source frame, a keyframe every 6 frames, no B-frames, `+faststart`, no audio. Timing as in D41 (motion-based, eased) for the hero and connector; even for the signature (static camera).
+
+| Video | Frames | Desktop 1920×1080 | Mobile 1080×1350 |
+|---|---|---|---|
+| `covy.hero` | 207 | 10.4 MB | 6.0 MB |
+| `covy.connector` | 481 | 14.3 MB | 7.5 MB |
+| `covy.signature` | 241 | 3.5 MB | 2.5 MB |
+
+```bash
+pnpm sequence:video --input covy-hero-4k.mp4 --id covy.hero --out out/videos --motion --ease-out 0.06
+pnpm sequence:video --input covy-connector-4k.mp4 --id covy.connector --out out/videos --motion --ease-in 0.06 --ease-out 0.12
+pnpm sequence:video --input covy-signature-bar-4k.mp4 --id covy.signature --out out/videos
+pnpm sequence:upload --dir out/videos --prefix videos
+```
+
+Seams, mean difference of 255: hero's last frame to the connector's first 5.0, connector's last to the signature's first 3.1 (the same as the image frames). **Uploaded on 2026-10-31** under `videos/`, 5 files each, `video/mp4` with range requests and `Access-Control-Allow-Origin: *`.

@@ -93,7 +93,7 @@ export const slots: SlotSpec[] = [
     page: "Landing",
     section: "C1 Through the arches",
     ...SEQ,
-    frameCount: 200,
+    frameCount: 207,
     label: {
       en: "Walking through COVY's arched entrance to the blue tree",
       ar: "الدخول من أقواس COVY حتى الشجرة الزرقاء",
@@ -107,7 +107,7 @@ export const slots: SlotSpec[] = [
     page: "Landing",
     section: "C2 To the bar",
     ...SEQ,
-    frameCount: 329,
+    frameCount: 481,
     label: {
       en: "From the blue tree, along the mural to the bar, where a glass of ice waits on the pastry case",
       ar: "من الشجرة الزرقاء، بمحاذاة الجدارية حتى البار، حيث ينتظر كوب من الثلج فوق فاترينة المخبوزات",
@@ -122,6 +122,7 @@ export const slots: SlotSpec[] = [
     page: "Landing",
     section: "C3 The signature cup",
     ...SEQ,
+    frameCount: 241,
     label: {
       en: "COVY's signature iced coffee being built in a glass on the pastry case at the bar",
       ar: "تحضير قهوة COVY المثلجة المميزة في الكوب فوق فاترينة المخبوزات عند البار",

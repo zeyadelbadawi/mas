@@ -2,7 +2,6 @@
 
 import type { MenuTag } from "@mas/content";
 import { useMotionEffect } from "@mas/motion/provider";
-import { Button } from "@mas/ui";
 import { useEffect, useId, useRef, useState } from "react";
 
 const FILTERS: MenuTag[] = ["veg", "spicy", "signature", "new"];
@@ -13,7 +12,6 @@ export type MenuControlsLabels = {
   filters: string;
   categories: string;
   clear: string;
-  book: string;
   tags: Record<MenuTag, string>;
   /** Plural templates by Intl.PluralRules category ("#" = count); "zero" is used for 0. */
   resultsForms: Partial<Record<Intl.LDMLPluralRule, string>> & { other: string };
@@ -38,7 +36,6 @@ export function MenuControls({ categories, labels, locale }: Props) {
   const [count, setCount] = useState<number | null>(null);
   const [hiddenSections, setHiddenSections] = useState<string[]>([]);
   const [active, setActive] = useState(categories[0]?.id ?? "");
-  const [inView, setInView] = useState(false);
   const filtering = query.trim() !== "" || tags.length > 0;
   const results = (n: number) => {
     const form =
@@ -79,7 +76,7 @@ export function MenuControls({ categories, labels, locale }: Props) {
     setHiddenSections(emptySections);
   };
 
-  // Scroll-spy and "is the menu on screen" for the floating button.
+  // Scroll-spy for the category bar.
   useEffect(() => {
     const menu = document.getElementById("menu");
     if (!menu) return;
@@ -90,13 +87,8 @@ export function MenuControls({ categories, labels, locale }: Props) {
       { rootMargin: "-35% 0px -60% 0px" },
     );
     menu.querySelectorAll("[data-menu-section]").forEach((el) => spy.observe(el));
-    const whole = new IntersectionObserver(([e]) => setInView(Boolean(e?.isIntersecting)), {
-      rootMargin: "0px 0px -40% 0px",
-    });
-    whole.observe(menu);
     return () => {
       spy.disconnect();
-      whole.disconnect();
     };
   }, []);
 
@@ -196,25 +188,13 @@ export function MenuControls({ categories, labels, locale }: Props) {
                 href={`#menu-${c.id}`}
                 data-chip={c.id}
                 aria-current={c.id === active ? "location" : undefined}
-                className={`rounded-full px-4 py-2 text-sm whitespace-nowrap transition-colors ${c.id === active ? "bg-accent text-accent-fg" : "text-fg/80 hover:text-fg"}`}
+                className={`rounded-full px-3 py-2 text-sm whitespace-nowrap transition-colors ${c.id === active ? "bg-accent text-accent-fg" : "text-fg/80 hover:text-fg"}`}
               >
                 {c.name}
               </a>
             ))}
         </div>
       </nav>
-
-      {/* Phones only: the header's "Book a table" is hidden there. */}
-      <div
-        className={`fixed end-4 bottom-4 z-40 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:translate-y-0 sm:hidden ${inView ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"}`}
-        aria-hidden={!inView}
-      >
-        <Button asChild className="shadow-lg">
-          <a href="#reserve" tabIndex={inView ? 0 : -1}>
-            {labels.book}
-          </a>
-        </Button>
-      </div>
     </>
   );
 }

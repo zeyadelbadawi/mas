@@ -404,7 +404,7 @@ Reviewed with the `security-and-hardening` skill before Milestone A and again be
 | 3D chunk (three + R3F + scene) | ≤ 250 KB gzip, loaded after first paint on HIGH/MID tiers only |
 | Fonts | ≤ 2 preloaded files per locale, subset woff2 |
 | Sequence poster | ≤ 120 KB AVIF |
-| Sequence frames | Desktop 1920w AVIF ≈ 30–80 KB × 150–330 frames (camera moves keep more frames where the image changes most, D41); mobile 1080×1350 portrait crop, every 2nd frame ≈ 25–35 KB; downloaded in full once the section is within about 1.5 viewports, frames near the scroll position first, never blocking first paint |
+| Sequence frames | Desktop 1920w AVIF ≈ 30–80 KB × 150–330 frames (camera moves keep more frames where the image changes most, D41; COVY's three scenes play instead as hardware-decoded scroll videos, 28 MB on desktop in all, D43); mobile 1080×1350 portrait crop, every 2nd frame ≈ 25–35 KB; downloaded in full once the section is within about 1.5 viewports, frames near the scroll position first, never blocking first paint |
 
 **Device tiers** (decided once on load in `MotionProvider`):
 

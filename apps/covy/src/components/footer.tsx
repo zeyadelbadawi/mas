@@ -12,7 +12,8 @@ const DESIGNER_URL = "https://ziad-elbadawi.vercel.app/";
 export async function Footer({ locale }: { locale: "en" | "ar" }) {
   const t = await getTranslations({ locale, namespace: "common" });
   const home = await getTranslations({ locale, namespace: "home" });
-  const link = "underline-offset-4 transition-colors hover:text-[var(--covy-sand)] hover:underline";
+  const link =
+    "py-2 underline-offset-4 transition-colors hover:text-[var(--covy-sand)] hover:underline";
   return (
     <footer className="bg-[var(--covy-navy)] text-[var(--covy-sand)]/80">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-9 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
@@ -29,7 +30,7 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
             {home("tagline")}
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+        <div className="flex flex-wrap items-center gap-x-6 text-sm">
           <Link href={localePath(locale, "/privacy")} className={link}>
             {t("privacy")}
           </Link>
@@ -37,7 +38,7 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
             {t("terms")}
           </Link>
           <CookieSettingsButton className={link} />
-          <LanguageSwitch className="h-auto px-0 text-[var(--covy-sand)]/80 hover:text-[var(--covy-sand)]" />
+          <LanguageSwitch className="h-auto px-0 py-2 text-[var(--covy-sand)]/80 hover:text-[var(--covy-sand)]" />
         </div>
       </div>
       <div className="border-t border-[var(--covy-sand)]/15">
@@ -53,7 +54,7 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
               href={DESIGNER_URL}
               target="_blank"
               rel="noopener"
-              className="text-[var(--covy-sand)] underline decoration-[var(--covy-sand)]/40 underline-offset-4 transition-colors hover:decoration-[var(--covy-sand)]"
+              className="inline-block py-1.5 text-[var(--covy-sand)] underline decoration-[var(--covy-sand)]/40 underline-offset-4 transition-colors hover:decoration-[var(--covy-sand)]"
             >
               {t("designer")}
             </a>

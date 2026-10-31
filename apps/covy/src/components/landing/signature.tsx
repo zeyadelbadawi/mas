@@ -1,5 +1,5 @@
-import { sequenceSource } from "@mas/motion";
-import { SequencePlayer } from "@mas/motion/sequence-player";
+import { videoSource } from "@mas/motion";
+import { ScrollVideo } from "@mas/motion/scroll-video";
 import { getTranslations } from "next-intl/server";
 import type { CSSProperties } from "react";
 import { CovyWordmark } from "@/components/logo";
@@ -24,10 +24,10 @@ const STOPS = [
  */
 export async function Signature() {
   const t = await getTranslations("signature");
-  const src = sequenceSource("covy.signature", { rev: 2 });
+  const src = videoSource("covy.signature");
   return (
     <section aria-labelledby="signature-title">
-      <SequencePlayer
+      <ScrollVideo
         id="covy.signature"
         {...src}
         label={t("body")}
@@ -82,7 +82,7 @@ export async function Signature() {
                 className="absolute start-[56%] flex flex-row-reverse items-center gap-3 rounded-full bg-[#262d3f]/75 px-3 py-1.5 max-sm:hidden"
                 style={{ top: s.top, ...at(s.stop) }}
               >
-                <span className="font-display text-sm tracking-[0.2em] whitespace-nowrap uppercase">
+                <span className="font-display text-sm tracking-[0.2em] whitespace-nowrap uppercase rtl:tracking-normal">
                   {t(s.key)}
                 </span>
                 <span className="h-px w-16 bg-current opacity-70" />
@@ -91,7 +91,7 @@ export async function Signature() {
             ))}
           </ul>
         </div>
-      </SequencePlayer>
+      </ScrollVideo>
     </section>
   );
 }

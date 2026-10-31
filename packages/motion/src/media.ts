@@ -20,3 +20,21 @@ export function sequenceSource(
     poster: { avif: `${base}/poster.avif`, webp: `${base}/poster.webp`, ...size },
   };
 }
+
+/**
+ * Where a scroll video lives (D43): on R2 under `videos/` with NEXT_PUBLIC_MEDIA_URL set, otherwise the small
+ * previews committed under public/videos/drafts. A re-encoded video gets a new `rev` (`<id>.r<rev>`), since
+ * files are cached for a week under their names.
+ */
+export function videoSource(
+  id: string,
+  { rev }: { rev?: number } = {},
+): { manifestUrl: string; poster: SequencePoster } {
+  const media = process.env.NEXT_PUBLIC_MEDIA_URL?.replace(/\/+$/, "");
+  const base = media ? `${media}/videos/${rev ? `${id}.r${rev}` : id}` : `/videos/drafts/${id}`;
+  const size = media ? { width: 1920, height: 1080 } : { width: 960, height: 540 };
+  return {
+    manifestUrl: `${base}/manifest.json`,
+    poster: { avif: `${base}/poster.avif`, webp: `${base}/poster.webp`, ...size },
+  };
+}

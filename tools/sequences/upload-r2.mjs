@@ -1,15 +1,22 @@
 #!/usr/bin/env node
 // Upload encoded sequences to Cloudflare R2 (S3-compatible API).
-// Usage: pnpm sequence:upload --dir out/sequences [--only covy.hero,covy.signature]
+// Usage: pnpm sequence:upload --dir out/sequences [--only covy.hero,covy.signature] [--prefix videos]
 // Reads R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY and R2_BUCKET from the environment.
-// Keys go to sequences/<id>/... so NEXT_PUBLIC_MEDIA_URL + "/sequences/<id>/manifest.json" resolves.
+// Keys go to <prefix>/<id>/... (prefix "sequences" by default, "videos" for scroll videos) so
+// NEXT_PUBLIC_MEDIA_URL + "/<prefix>/<id>/manifest.json" resolves.
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
-const { values } = parseArgs({ options: { dir: { type: "string", default: "out/sequences" }, only: { type: "string" } } });
+const { values } = parseArgs({
+  options: {
+    dir: { type: "string", default: "out/sequences" },
+    only: { type: "string" },
+    prefix: { type: "string", default: "sequences" },
+  },
+});
 const env = (name) => {
   const v = process.env[name];
   if (!v) {
@@ -26,7 +33,12 @@ const client = new S3Client({
 });
 const bucket = env("R2_BUCKET");
 
-const TYPES = { ".avif": "image/avif", ".webp": "image/webp", ".json": "application/json" };
+const TYPES = {
+  ".avif": "image/avif",
+  ".webp": "image/webp",
+  ".json": "application/json",
+  ".mp4": "video/mp4",
+};
 function* walk(dir) {
   for (const name of readdirSync(dir)) {
     const full = path.join(dir, name);
@@ -47,7 +59,7 @@ for (const id of ids) {
   await Promise.all(
     Array.from({ length: 8 }, async () => {
       for (let file = queue.shift(); file; file = queue.shift()) {
-        const key = `sequences/${id}/${path.relative(path.join(root, id), file).split(path.sep).join("/")}`;
+        const key = `${values.prefix}/${id}/${path.relative(path.join(root, id), file).split(path.sep).join("/")}`;
         const isManifest = file.endsWith("manifest.json");
         await client.send(
           new PutObjectCommand({

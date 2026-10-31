@@ -12,6 +12,7 @@ import { Menu } from "@/components/landing/menu";
 import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { Reviews } from "@/components/landing/reviews";
 import { Signature } from "@/components/landing/signature";
+import { Splash } from "@/components/splash";
 import { Spaces } from "@/components/landing/spaces";
 import { Visit } from "@/components/landing/visit";
 import { brand, privacyHref } from "@/site";
@@ -23,6 +24,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const t = await getTranslations("reserve");
   const nav = await getTranslations("nav");
   const common = await getTranslations("common");
+  const splash = await getTranslations("splash");
   const all = await getMessages();
   // Only what the forms need crosses into the client.
   const formMessages = { forms: all.forms, reserve: all.reserve } as AbstractIntlMessages;
@@ -49,6 +51,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
+      <Splash label={splash("loading")} skip={splash("skip")} />
       <Header
         locale={locale}
         labels={{

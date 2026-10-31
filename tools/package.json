@@ -8,7 +8,8 @@
     "sequence:test": "node sequences/make-test-sequence.mjs",
     "assets:manifest": "node assets/manifest.mjs",
     "placeholders:report": "node assets/placeholders.mjs",
-    "sequence:upload": "node sequences/upload-r2.mjs"
+    "sequence:upload": "node sequences/upload-r2.mjs",
+    "sequence:video": "node sequences/build-video.mjs"
   },
   "dependencies": {
     "sharp": "0.35.5",

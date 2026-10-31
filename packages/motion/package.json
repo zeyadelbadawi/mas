@@ -12,7 +12,9 @@
     "./split-reveal": "./src/client/split-reveal.tsx",
     "./scroll-progress": "./src/client/scroll-progress.tsx",
     "./motion-lib": "./src/client/motion-lib.ts",
-    "./near-viewport": "./src/client/near-viewport.tsx"
+    "./near-viewport": "./src/client/near-viewport.tsx",
+    "./scroll-video": "./src/client/scroll-video.tsx",
+    "./video-preload": "./src/client/video-preload.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

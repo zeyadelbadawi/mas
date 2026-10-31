@@ -65,7 +65,7 @@ export async function Events({ locale }: { locale: Locale }) {
                 {e.reservable ? (
                   <a
                     href={`?event=${e.id}#reserve`}
-                    className="text-fg mt-auto self-start text-sm font-medium underline underline-offset-4"
+                    className="text-fg mt-auto self-start py-2 text-sm font-medium underline underline-offset-4"
                   >
                     {t("book")}
                   </a>

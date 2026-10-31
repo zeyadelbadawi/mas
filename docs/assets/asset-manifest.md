@@ -79,9 +79,9 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Frames | Desktop | Mobile | Description | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `covy.hero` | Landing · C1 Through the arches | 200 | 1920 × 1080 | 1080 × 1350 | Walking through COVY's arched entrance to the blue tree | ⬜ placeholder | Generated with MAG from the client's interior renders |
-| `covy.connector` | Landing · C2 To the bar | 329 | 1920 × 1080 | 1080 × 1350 | From the blue tree, along the mural to the bar, where a glass of ice waits on the pastry case | ⬜ placeholder | Generated with Higgsfield (D37, D38), following the floor plan in the client's interior presentation |
-| `covy.signature` | Landing · C3 The signature cup | 150 | 1920 × 1080 | 1080 × 1350 | COVY's signature iced coffee being built in a glass on the pastry case at the bar | ⬜ placeholder | Generated with MAG; counter and backdrop re-edited with Higgsfield to the real bar (D38) |
+| `covy.hero` | Landing · C1 Through the arches | 207 | 1920 × 1080 | 1080 × 1350 | Walking through COVY's arched entrance to the blue tree | ⬜ placeholder | Generated with MAG from the client's interior renders |
+| `covy.connector` | Landing · C2 To the bar | 481 | 1920 × 1080 | 1080 × 1350 | From the blue tree, along the mural to the bar, where a glass of ice waits on the pastry case | ⬜ placeholder | Generated with Higgsfield (D37, D38), following the floor plan in the client's interior presentation |
+| `covy.signature` | Landing · C3 The signature cup | 241 | 1920 × 1080 | 1080 × 1350 | COVY's signature iced coffee being built in a glass on the pastry case at the bar | ⬜ placeholder | Generated with MAG; counter and backdrop re-edited with Higgsfield to the real bar (D38) |
 
 ## Aroma Lounge (aroma.mas.com)
 
