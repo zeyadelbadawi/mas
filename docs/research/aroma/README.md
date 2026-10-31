@@ -27,7 +27,8 @@ Facebook, Instagram and Google Maps need a login for anything past the first scr
   - Live guitar by Sherif Elgesr, 9–11 PM: Thursdays at Madinaty, Fridays at Mivida.
   - "Aroma Nights" with The Yellow Duck DJ: "a night of fine dining, music & good vibes".
   - Egypt match screenings on big screens, with savoury/sweet feteer and shisha-head offers.
-- **Phone seen in a reel:** 012 2229 3914 (RSVP for live music) *(social; confirm)*.
+- **Phone seen in a reel:** 012 2229 3914 (RSVP for live music, Mivida); used for calls and WhatsApp (owner, D57). No number for Madinaty in the posts, flyers or on the web.
+- **Hours:** Google lists Mivida closing at 1:30 AM; the site shows 9:00 AM – 1:30 AM at both branches (owner's pick, D57).
 - **Also on:** talabat (link in the Instagram bio).
 
 ## What it looks like (from the photos and videos)

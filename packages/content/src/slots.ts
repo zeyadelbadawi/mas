@@ -354,14 +354,15 @@ export const slots: SlotSpec[] = [
     app: "aroma",
     page: "Landing",
     section: "A4 Branches · Mivida",
-    width: 1080,
-    height: 1350,
+    width: 1200,
+    height: 1500,
     alt: {
-      en: "Two iced drinks raised in a toast on Aroma Lounge's terrace, the lake at Mivida behind them",
-      ar: "كوبايتين مشروب ساقع مرفوعين في خبطة كاسات على تراس أروما لاونج، وبحيرة ميفيدا وراهم",
+      en: "Aroma Lounge's deck on the lake at Mivida at sunset: marble tables, string lights and the fountain",
+      ar: "ممشى أروما لاونج على البحيرة في ميفيدا وقت الغروب: ترابيزات رخام، ونور معلّق، والنافورة",
     },
-    src: "/images/branches/mivida.webp",
-    notes: "From Aroma's own posts (D53)",
+    src: "/images/branches/mivida-lake.webp",
+    notes:
+      "Made with Higgsfield from the scenes' keyframes, which follow Aroma's photos of Mivida (D57)",
   },
   {
     kind: "image",
@@ -372,12 +373,11 @@ export const slots: SlotSpec[] = [
     width: 1200,
     height: 1500,
     alt: {
-      en: "Two layered iced teas and a board of feteer on a marble table outdoors, shopfronts behind",
-      ar: "اتنين آيس تي بطبقات وطبق فطير على ترابيزة رخام برّه، ووراهم محلات",
+      en: "Aroma Lounge's terrace at The Strip, Madinaty at dusk, tables lit by candles in front of the glowing windows",
+      ar: "تراس أروما لاونج في ذا ستريب مدينتي وقت المغرب، ترابيزات بالشمع قدام الشبابيك المنوّرة",
     },
-    src: "/images/branches/madinaty.webp",
-    notes:
-      "Made with Higgsfield from the lake scene's keyframe (Aroma's tables, chairs and drinks); no photos of the Madinaty branch exist yet (D53)",
+    src: "/images/branches/madinaty-strip.webp",
+    notes: "Made with Higgsfield from the earlier Madinaty and Aroma Nights photos (D57)",
   },
   {
     kind: "image",
@@ -423,7 +423,8 @@ export const slots: SlotSpec[] = [
       ar: "صحاب بيخبطوا كوبايات آيس تي بطبقات على العشا على ممشى ذا ستريب بالليل، وDJ بيلعب وراهم",
     },
     src: "/images/nights/aroma-nights.webp",
-    notes: "Made with Higgsfield at The Strip, where Aroma Nights take place; no alcohol on the table (D53, D55)",
+    notes:
+      "Made with Higgsfield at The Strip, where Aroma Nights take place; no alcohol on the table (D53, D55)",
   },
   {
     kind: "image",
@@ -431,14 +432,14 @@ export const slots: SlotSpec[] = [
     app: "aroma",
     page: "Landing",
     section: "A7 Our story",
-    width: 1080,
-    height: 1350,
+    width: 1200,
+    height: 1500,
     alt: {
-      en: "A guest laughing with friends over plates and juice at a table by the lake",
-      ar: "ضيفة بتضحك مع صحابها على ترابيزة عليها أكل وعصير جنب البحيرة",
+      en: "Friends sharing feteer, shakshuka and layered iced teas at a marble table by the lake, a waiter setting down another plate",
+      ar: "صحاب بيتقسموا فطير وشكشوكة وآيس تي بطبقات على ترابيزة رخام جنب البحيرة، والجرسون بيحط طبق كمان",
     },
-    src: "/images/story/friends.webp",
-    notes: "From Aroma's own posts (D53)",
+    src: "/images/story/table.webp",
+    notes: "Made with Higgsfield from the scenes' keyframes (D57)",
   },
   ...GUEST_PHOTOS.map(
     (alt, n): ImageSlotSpec => ({
@@ -502,7 +503,12 @@ export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
           height: item.photo ? 640 : 800,
           alt: item.name,
           ...(item.photo
-            ? { src: item.photo, notes: "The client's digital-menu photo (D53)" }
+            ? {
+                src: item.photo,
+                notes: item.photoMade
+                  ? "Made with Higgsfield; the client's menu has no photo for this item (D57)"
+                  : "The client's digital-menu photo (D53)",
+              }
             : {}),
         }),
       ),

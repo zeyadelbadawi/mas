@@ -68,7 +68,7 @@ async function Branch({ loc, locale }: { loc: Location; locale: Locale }) {
         <p className="text-fg">
           {!sample.has("hours") && first ? (
             <>
-              <bdi>{formatTime(first.opens, locale)}</bdi> –{" "}
+              {t("everyDay")}: <bdi>{formatTime(first.opens, locale)}</bdi> –{" "}
               <bdi>{formatTime(first.closes, locale)}</bdi>
             </>
           ) : loc.closesAt ? (
@@ -97,6 +97,16 @@ async function Branch({ loc, locale }: { loc: Location; locale: Locale }) {
         ) : (
           <a href={`tel:${loc.phone}`} className={buttonVariants({ variant: "secondary" })}>
             {t("call")} <span dir="ltr">{displayPhone(loc.phone)}</span>
+          </a>
+        )}
+        {sample.has("whatsapp") ? null : (
+          <a
+            href={`https://wa.me/${loc.whatsapp}`}
+            target="_blank"
+            rel="noopener"
+            className={buttonVariants({ variant: "secondary" })}
+          >
+            {t("whatsapp")}
           </a>
         )}
       </div>

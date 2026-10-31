@@ -62,9 +62,9 @@ describe("JSON-LD", () => {
     const b = madinaty ? restaurantJsonLd(brands.aroma, madinaty, "en") : {};
     expect(a["@id"]).not.toBe(b["@id"]);
     expect(a.url).toMatch(/#mivida$/);
-    // Mivida's phone is confirmed, its hours are not; Madinaty has neither yet.
+    // Mivida's phone and hours are confirmed; Madinaty's phone isn't published yet.
     expect(a.telephone).toBe(mivida.phone);
-    expect(a).not.toHaveProperty("openingHoursSpecification");
+    expect(a).toHaveProperty("openingHoursSpecification");
     expect(b).not.toHaveProperty("telephone");
   });
 });
