@@ -79,6 +79,8 @@ export function Splash({ label, skip }: { label: string; skip: string }) {
       if (left) return;
       left = true;
       release();
+      // Also when leaving without ever showing (the LOW tier never loads the videos): stop catching scrolls.
+      stopWatching();
       if (shownAt < 0) {
         setPhase("gone");
         return;
