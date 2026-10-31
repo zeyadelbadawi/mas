@@ -153,3 +153,77 @@ pnpm sequence:upload --dir out/videos --prefix videos
 ```
 
 Seams, mean difference of 255: hero's last frame to the connector's first 5.0, connector's last to the signature's first 3.1 (the same as the image frames). **Uploaded on 2026-10-31** under `videos/`, 5 files each, `video/mp4` with range requests and `Access-Control-Allow-Origin: *`.
+
+## Aroma Lounge: "A day at Aroma" (Higgsfield, D52/D53, ceiling 300 credits)
+
+Balance before: 568.75 credits. References are Aroma's own posts and frames from their reels (owner's Drive folder): overhead marble tables, leaf placemats, the shakshuka pan, sunset drinks, the lake and fountain, the deck railing, the night terrace. Flyer frames with text over them were cropped or left out.
+
+### Keyframes (Nano Banana 2.1, 4K, 16:9, 3 credits each)
+
+| Keyframe | Job(s) | Credits | Verdict |
+|---|---|---|---|
+| K1 empty table from above, morning sun (2 options) | `fb6c0831`, `1da4a41a` | 6 | **`1da4a41a`**: the table runs down the centre like Aroma's own plates reel, and it crops well for phones |
+| K2 the same table with breakfast; cappuccino in the centre with plain foam (2 options) | `9af63408`, `229f3046` | 6 | **`229f3046`**: keeps K1's herb, glasses and placemats in place, so S1 has nothing jumping |
+| K3 eye level at golden hour: a hand raises the sunset drink against the lake and fountain (2 options) | `ac1a56cf`, `80151650` | 6 | **`80151650`**: the camera looks down the length of K2's table (shakshuka, feteer, herb, placemats in the same order), so S2's move from overhead to eye level makes sense; it also shows the restaurant frontage |
+| K4 the same view at blue hour: lamps and string lights on, the fountain lit, a guitarist on the deck seen from behind (2 options) | `6a36824c`, `32f2cb4e` | 6 | **`6a36824c`**: closest framing to K3, so S3 is night falling on a still camera; the guitarist's face isn't visible |
+
+Keyframes spent: **24 credits**. The owner approves K1–K4 before any shot.
+
+### Shots (Kling 3.0, 4K, 10 s, start and end frame, no audio, 60 credits each; approved by the owner)
+
+| Shot | From → to | Job | Credits | Verdict |
+|---|---|---|---|---|
+| S1 `aroma.morning`: hands set the breakfast down, the cappuccino last | K1 → K2 | `ed907a92` | 60 | **Approved**: dishes arrive in order, held in hand; ends on K2 |
+| S2 `aroma.lake`: overhead → eye level toward the lake, morning → golden hour, the sunset drink raised | K2 → K3 | `78e9912f` | 60 | **Rejected**: at 3–4 s the dishes fly off the table with debris |
+| S2 re-shot: hands clear the dishes first with the camera still, then the move | K2 → K3 | `1cfcb8b8` | 60 | **Approved**: every dish leaves in a hand (some motion blur at the frame edge for under a second); one sunset glass stays and is the one raised at the end |
+| S3 `aroma.night`: dusk falls, lamps on, the guitarist starts | K3 → K4 | `d42ef40e` | 60 | **Approved**: the table change is a soft time-lapse dissolve; the guitarist is seen from the side and behind, out of focus |
+
+Two of the three were first held back by the tool's preset suggestion ("IN THE DARK"); it was declined and they were resubmitted unchanged, no credits spent on the held ones.
+
+Shots spent: **240 credits** (S2 twice). Total for the Aroma scenes: **264 of the 300-credit ceiling**. Seams, mean difference of 255: S1's last frame to S2's first 4.7, S2's last to S3's first 3.2 (COVY: 5.0 and 3.1). The owner approves the footage before the videos are built.
+
+### Aroma scroll videos (no credits, D43 method)
+
+Every source frame, a keyframe every 6 frames, no B-frames. The phone cut is a 4:5 crop around the centre (it keeps the table, the cup, the drink, the lake and the fountain; the guitarist at the far left of S3 is outside it).
+
+| Video | Source | Frames | Timing | Desktop 1920×1080 | Mobile 1080×1350 |
+|---|---|---|---|---|---|
+| `aroma.morning` | S1 `ed907a92` | 241 | even (static camera) | 8.7 MB | 4.0 MB |
+| `aroma.lake` | S2 `1cfcb8b8` | 241 | by motion, ease in 0.06, out 0.08 | 9.4 MB | 4.1 MB |
+| `aroma.night` | S3 `d42ef40e` | 241 | even (static camera) | 7.0 MB | 3.3 MB |
+
+```bash
+pnpm sequence:video --input aroma-morning-4k.mp4 --id aroma.morning --out out/videos
+pnpm sequence:video --input aroma-lake-4k.mp4 --id aroma.lake --out out/videos --motion --ease-in 0.06 --ease-out 0.08
+pnpm sequence:video --input aroma-night-4k.mp4 --id aroma.night --out out/videos
+pnpm sequence:upload --dir out/videos --prefix videos --only aroma.morning,aroma.lake,aroma.night
+```
+
+**Uploaded on 2026-10-31** under `videos/`, 5 files each; the manifests answer 200 and the videos serve byte ranges (206). The 4K sources stay on Higgsfield (job ids above).
+
+### Aroma section photos (Nano Banana 2.1, 4K, 3 credits each; approved by the owner)
+
+Slots that had no usable photo in Aroma's posts. References are the approved keyframes (themselves made from Aroma's photos), so the tables, chairs, placemats and drinks match. No text, no logos, nobody recognisable.
+
+| Slot | Reference | Job | Credits | Verdict |
+|---|---|---|---|---|
+| `aroma.branch.madinaty` (4:5) | K3 `80151650` | `7220ce7a` | 3 | **Used**: sunset drinks and feteer on a marble table along a palm-lined walkway at The Strip; shopfronts out of focus |
+| `aroma.nights.match` (4:3) | K4 `6a36824c` | `acb2199b` | 3 | **Used**: fans in red cheering at the big screen on the night terrace; the screen's score bar is unreadable |
+| `aroma.nights.aroma-nights` (4:3) | K4 `6a36824c` | `864f2e25` | 3 | Rejected: wine glasses on the table, and Aroma's menu has no alcohol |
+| `aroma.nights.aroma-nights` (4:3), edit | `864f2e25` | `3552f0ff` | 3 | Rejected: one stemmed glass of red still on the table |
+| `aroma.nights.aroma-nights` (4:3), second edit | `3552f0ff` | `668396ed` | 3 | **Used**: dinner by the lake with a DJ behind; every glass is water, juice or a sunset iced tea |
+
+Spent: **15 credits** (balance before: 304.75). The two edits went past the 9-credit estimate the owner approved, to keep alcohol out of the picture.
+
+**Aroma Nights at The Strip** (owner's OK, P4): the photo above showed the lake, but Aroma Nights are held at Madinaty – The Strip (Aroma's post). Re-made from the edited dinner photo (`668396ed`) and the Madinaty photo (`7220ce7a`): job `65d818c5`, 3 credits. **Used**: the same dinner and DJ on the palm-lined walkway in front of the shopfronts, no water. Total for the section photos: **18 credits**.
+
+### Aroma videos, revision 2 (P4, no credits)
+
+The desktop cut re-encoded at CRF 28 (was 24): no visible difference at 1:1 (SSIM 0.98 against revision 1), desktop total **25.1 → 16.3 MB** (morning 5.8, lake 6.0, night 4.5). Phone cut unchanged (CRF 26). Uploaded on 2026-10-31 as `videos/aroma.{morning,lake,night}.r2` (new folders, since files are cached for a week by name); the site reads them through `apps/aroma/src/components/landing/scenes.ts`.
+
+```bash
+pnpm sequence:video --input aroma-morning-4k.mp4 --id aroma.morning.r2 --out out/videos-r2 --crf 28
+pnpm sequence:video --input aroma-lake-4k.mp4 --id aroma.lake.r2 --out out/videos-r2 --crf 28 --motion --ease-in 0.06 --ease-out 0.08
+pnpm sequence:video --input aroma-night-4k.mp4 --id aroma.night.r2 --out out/videos-r2 --crf 28
+pnpm sequence:upload --dir out/videos-r2 --prefix videos --only aroma.morning.r2,aroma.lake.r2,aroma.night.r2
+```

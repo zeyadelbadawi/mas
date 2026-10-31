@@ -34,14 +34,16 @@ export const brands: Record<BrandId, Brand> = {
     name: { en: "Aroma Lounge", ar: "أروما لاونج" },
     tagline: {
       en: "Good food comes from good hearts, we aspire for both.",
-      ar: "الطعام الطيب يأتي من القلوب الطيبة، ونسعى إلى الاثنين.",
+      ar: "الأكل الحلو بيطلع من القلوب الطيبة، وإحنا بنسعى للاتنين.",
     },
     domain: "https://aroma.mas.com",
     inboxEmail: "aroma@mas.com",
+    // Aroma's own accounts (D53); the domain is still the placeholder all three sites share.
     socials: [
-      { network: "instagram", url: "https://instagram.com/" },
-      { network: "facebook", url: "https://facebook.com/" },
+      { network: "instagram", url: "https://www.instagram.com/aroma_lounge_eg" },
+      { network: "facebook", url: "https://www.facebook.com/AromaLoungeeg" },
     ],
-    placeholder: true,
+    orderUrl: "https://www.talabat.com/egypt/aroma-lounge",
+    placeholder: false,
   },
 };

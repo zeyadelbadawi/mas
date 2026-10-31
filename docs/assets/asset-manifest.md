@@ -10,8 +10,8 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 46 | 16 | 30 |
-| Sequences (generated) | 6 | 0 | 6 |
+| Images | 222 | 175 | 47 |
+| Sequences (generated) | 7 | 0 | 7 |
 
 ## MAS (mas.com)
 
@@ -89,14 +89,191 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `aroma.og` | All · Social share image | 1200 × 630 px | 40:21 | Aroma Lounge | أروما لاونج | ⬜ placeholder |  |
-| `aroma.events.paella-night` | Landing · Events · Paella night | 1200 × 900 px | 4:3 | Paella night | ليلة الباييلا | ⬜ placeholder |  |
-| `aroma.events.terrace-jazz` | Landing · Events · Jazz on the terrace | 1200 × 900 px | 4:3 | Jazz on the terrace | جاز على التراس | ⬜ placeholder |  |
-| `aroma.events.new-year` | Landing · Events · New Year's Eve dinner | 1200 × 900 px | 4:3 | New Year's Eve dinner | عشاء ليلة رأس السنة | ⬜ placeholder |  |
+| `aroma.branch.mivida` | Landing · A4 Branches · Mivida | 1080 × 1350 px | 4:5 | Two iced drinks raised in a toast on Aroma Lounge's terrace, the lake at Mivida behind them | كوبايتين مشروب ساقع مرفوعين في خبطة كاسات على تراس أروما لاونج، وبحيرة ميفيدا وراهم | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.branch.madinaty` | Landing · A4 Branches · Madinaty | 1200 × 1500 px | 4:5 | Two layered iced teas and a board of feteer on a marble table outdoors, shopfronts behind | اتنين آيس تي بطبقات وطبق فطير على ترابيزة رخام برّه، ووراهم محلات | ✅ delivered | Made with Higgsfield from the lake scene's keyframe (Aroma's tables, chairs and drinks); no photos of the Madinaty branch exist yet (D53) |
+| `aroma.nights.live-music` | Landing · A6 What's on · Live music | 1200 × 900 px | 4:3 | The terrace at dusk: candles and a layered iced tea on a marble table, the lit fountain on the lake | التراس وقت المغرب: شمع وآيس تي بطبقات على ترابيزة رخام، والنافورة منوّرة على البحيرة | ✅ delivered | Cropped from the night scene's last keyframe, made with Higgsfield from Aroma's photos (D53) |
+| `aroma.nights.match` | Landing · A6 What's on · Match nights | 1200 × 900 px | 4:3 | Fans in red cheering at a match on the big screen on the terrace at night, feteer and fries on the table | مشجعين لابسين أحمر بيشجعوا ماتش على الشاشة الكبيرة في التراس بالليل، وعلى الترابيزة فطير وبطاطس | ✅ delivered | Made with Higgsfield from the night scene's keyframe (D53) |
+| `aroma.nights.aroma-nights` | Landing · A6 What's on · Aroma Nights | 1200 × 900 px | 4:3 | Friends toasting with layered iced teas over dinner on the walkway at The Strip at night, a DJ playing behind them | صحاب بيخبطوا كوبايات آيس تي بطبقات على العشا على ممشى ذا ستريب بالليل، وDJ بيلعب وراهم | ✅ delivered | Made with Higgsfield at The Strip, where Aroma Nights take place; no alcohol on the table (D53, D55) |
+| `aroma.story` | Landing · A7 Our story | 1080 × 1350 px | 4:5 | A guest laughing with friends over plates and juice at a table by the lake | ضيفة بتضحك مع صحابها على ترابيزة عليها أكل وعصير جنب البحيرة | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.1` | Landing · A8 By guests · photo 1 | 1080 × 1350 px | 4:5 | A guest holds a layered red and orange iced tea up to the camera | ضيفة رافعة آيس تي بطبقات أحمر وبرتقالي قدام الكاميرا | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.2` | Landing · A8 By guests · photo 2 | 1080 × 1350 px | 4:5 | Hands reaching for onion rings, fettuccine and feteer on a shared table | إيدين بتمد على أونيون رينجز وفيتوتشيني وفطير على ترابيزة واحدة | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.3` | Landing · A8 By guests · photo 3 | 1080 × 1350 px | 4:5 | Two friends at a terrace table set with plates, seen from above | صاحبين على ترابيزة في التراس عليها أطباق، من فوق | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.4` | Landing · A8 By guests · photo 4 | 1080 × 1350 px | 4:5 | A waiter in an Aroma Lounge apron carries a club sandwich | جرسون بمريلة أروما لاونج شايل كلوب ساندوتش | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.5` | Landing · A8 By guests · photo 5 | 1080 × 1350 px | 4:5 | A full table from above: pasta, salad, soup, juices and flatbreads | ترابيزة مليانة من فوق: باستا وسلطة وشوربة وعصاير وعيش | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.6` | Landing · A8 By guests · photo 6 | 1080 × 1350 px | 4:5 | A burger held over a plate of fries on the terrace, a juice beside it | برجر في الإيد فوق طبق بطاطس محمرة في التراس، وجنبه عصير | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.7` | Landing · A8 By guests · photo 7 | 1080 × 1350 px | 4:5 | A forkful of chocolate cake lifted from the plate | شوكة شايلة حتة كيك شوكولاتة من الطبق | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.guests.8` | Landing · A8 By guests · photo 8 | 1080 × 1350 px | 4:5 | Two sunset iced drinks glowing in the afternoon sun | مشروبين بطبقات منوّرين في شمس العصر | ✅ delivered | From Aroma's own posts (D53) |
+| `aroma.og` | All · Social share image | 1200 × 630 px | 40:21 | A sunset iced tea raised over a breakfast table by the lake at Mivida | آيس تي بطبقات مرفوع فوق ترابيزة فطار جنب البحيرة في ميفيدا | ✅ delivered | Cropped from the lake scene's last keyframe, made with Higgsfield from Aroma's photos (D53) |
+| `aroma.menu.breakfast.hero` | Landing · Menu · Breakfast | 1600 × 1000 px | 8:5 | Breakfast at Aroma Lounge | الفطار | ⬜ placeholder |  |
+| `aroma.menu.breakfast.full-oriental-breakfast-tray` | Landing · Menu · Breakfast · Full Oriental Breakfast Tray | 640 × 640 px | 1:1 | Full Oriental Breakfast Tray | صينية فطار شرقي كاملة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.oriental-breakfast-tray` | Landing · Menu · Breakfast · Oriental Breakfast Tray | 640 × 640 px | 1:1 | Oriental Breakfast Tray | صينية فطار شرقي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.mushroom-cheese-spinach-omelette` | Landing · Menu · Breakfast · Mushroom, Cheese & Spinach Omelette | 640 × 640 px | 1:1 | Mushroom, Cheese & Spinach Omelette | أومليت مشروم وجبنة وسبانخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.egg-white-cheese-olives-omelette` | Landing · Menu · Breakfast · Egg White, Cheese & Olives Omelette | 640 × 640 px | 1:1 | Egg White, Cheese & Olives Omelette | أومليت بياض بيض بالجبنة والزيتون | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.salmon-avocado-omelette` | Landing · Menu · Breakfast · Salmon Avocado Omelette | 640 × 640 px | 1:1 | Salmon Avocado Omelette | أومليت سالمون وأفوكادو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.eggs-shakshuka-casserole` | Landing · Menu · Breakfast · Eggs Shakshuka Casserole | 640 × 640 px | 1:1 | Eggs Shakshuka Casserole | طاجن شكشوكة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.hash-brown-eggs-cheese-casserole` | Landing · Menu · Breakfast · Hash Brown Eggs & Cheese Casserole | 640 × 640 px | 1:1 | Hash Brown Eggs & Cheese Casserole | طاجن هاش براون بالبيض والجبنة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.pastrami-eggs-casserole` | Landing · Menu · Breakfast · Pastrami Eggs Casserole | 640 × 640 px | 1:1 | Pastrami Eggs Casserole | طاجن بيض بالبسطرمة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.focaccia-spanish-egg` | Landing · Menu · Breakfast · Focaccia Spanish Egg | 640 × 640 px | 1:1 | Focaccia Spanish Egg | فوكاتشا بالبيض الإسباني | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.smoked-turkey-benedict` | Landing · Menu · Breakfast · Smoked Turkey Benedict | 640 × 640 px | 1:1 | Smoked Turkey Benedict | بينيدكت ديك رومي مدخن | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.avocado-beef-bacon-benedict` | Landing · Menu · Breakfast · Avocado & Beef Bacon Benedict | 640 × 640 px | 1:1 | Avocado & Beef Bacon Benedict | بينيدكت أفوكادو وبيف بيكون | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.flat-bread-minced-beef-eggs` | Landing · Menu · Breakfast · Flat Bread - Minced Beef & Eggs | 640 × 640 px | 1:1 | Flat Bread - Minced Beef & Eggs | فلات بريد لحمة مفرومة وبيض | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.flat-bread-beef-bacon-eggs` | Landing · Menu · Breakfast · Flat Bread - Beef Bacon & Eggs | 640 × 640 px | 1:1 | Flat Bread - Beef Bacon & Eggs | فلات بريد بيف بيكون وبيض | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.smoked-salmon-eggs-benedict` | Landing · Menu · Breakfast · Smoked Salmon Eggs Benedict | 640 × 640 px | 1:1 | Smoked Salmon Eggs Benedict | بينيدكت سالمون مدخن | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.flat-bread-smoked-salmon-cheese` | Landing · Menu · Breakfast · Flat Bread - Smoked Salmon & Cheese | 640 × 640 px | 1:1 | Flat Bread - Smoked Salmon & Cheese | فلات بريد سالمون مدخن وجبنة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.turkey-omelette-croissant` | Landing · Menu · Breakfast · Turkey Omelette Croissant | 640 × 640 px | 1:1 | Turkey Omelette Croissant | كرواسون أومليت بالديك الرومي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.omelette-hot-dogs-croissant` | Landing · Menu · Breakfast · Omelette Hot Dogs Croissant | 640 × 640 px | 1:1 | Omelette Hot Dogs Croissant | كرواسون أومليت بالهوت دوج | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.chicken-ranch-croissant` | Landing · Menu · Breakfast · Chicken Ranch Croissant | 640 × 640 px | 1:1 | Chicken Ranch Croissant | كرواسون فراخ رانش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.breakfast.mixed-cheese-croissant` | Landing · Menu · Breakfast · Mixed Cheese Croissant | 640 × 640 px | 1:1 | Mixed Cheese Croissant | كرواسون جبن ميكس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soups.hero` | Landing · Menu · Soups | 1600 × 1000 px | 8:5 | Soups at Aroma Lounge | الشوربة | ⬜ placeholder |  |
+| `aroma.menu.soups.chicken-corn-soup` | Landing · Menu · Soups · Chicken Corn Soup | 640 × 640 px | 1:1 | Chicken Corn Soup | شوربة فراخ بالذرة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soups.wild-mushroom` | Landing · Menu · Soups · Wild Mushroom | 640 × 640 px | 1:1 | Wild Mushroom | شوربة مشروم وايلد | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soups.shrimps-ginger-carrot-soup` | Landing · Menu · Soups · Shrimps Ginger & Carrot Soup | 640 × 640 px | 1:1 | Shrimps Ginger & Carrot Soup | شوربة جمبري بالجنزبيل والجزر | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.hero` | Landing · Menu · Burgers & Sandwiches | 1600 × 1000 px | 8:5 | Burgers & Sandwiches at Aroma Lounge | البرجر والساندوتشات | ⬜ placeholder |  |
+| `aroma.menu.burgers-sandwiches.classic-cheeseburger` | Landing · Menu · Burgers & Sandwiches · Classic Cheeseburger | 640 × 640 px | 1:1 | Classic Cheeseburger | تشيز برجر كلاسيك | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.mushroom-cheeseburger` | Landing · Menu · Burgers & Sandwiches · Mushroom Cheeseburger | 640 × 640 px | 1:1 | Mushroom Cheeseburger | مشروم تشيز برجر | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.aroma-chili-burger` | Landing · Menu · Burgers & Sandwiches · Aroma Chili Burger | 640 × 640 px | 1:1 | Aroma Chili Burger | أروما تشيلي برجر | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.crispy-fried-chicken-bun` | Landing · Menu · Burgers & Sandwiches · Crispy Fried Chicken Bun | 640 × 640 px | 1:1 | Crispy Fried Chicken Bun | ساندوتش فراخ كريسبي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.club-sandwich` | Landing · Menu · Burgers & Sandwiches · Club Sandwich | 640 × 640 px | 1:1 | Club Sandwich | كلوب ساندوتش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.seafood-mix-sandwich` | Landing · Menu · Burgers & Sandwiches · Seafood Mix Sandwich | 640 × 640 px | 1:1 | Seafood Mix Sandwich | ساندوتش سي فود ميكس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.grilled-chicken-wrap` | Landing · Menu · Burgers & Sandwiches · Grilled Chicken Wrap | 640 × 640 px | 1:1 | Grilled Chicken Wrap | راب فراخ مشوية | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.burgers-sandwiches.steak-sandwich` | Landing · Menu · Burgers & Sandwiches · Steak Sandwich | 640 × 640 px | 1:1 | Steak Sandwich | ستيك ساندوتش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.salads.hero` | Landing · Menu · Salads | 1600 × 1000 px | 8:5 | Salads at Aroma Lounge | السلطات | ⬜ placeholder |  |
+| `aroma.menu.salads.chicken-caesar-salad` | Landing · Menu · Salads · Chicken Caesar Salad | 640 × 640 px | 1:1 | Chicken Caesar Salad | سلطة سيزر بالفراخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.salads.steak-salad` | Landing · Menu · Salads · Steak Salad | 640 × 640 px | 1:1 | Steak Salad | سلطة ستيك | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.salads.halloumi-avocado-salad` | Landing · Menu · Salads · Halloumi Avocado Salad | 640 × 640 px | 1:1 | Halloumi Avocado Salad | سلطة حلوم وأفوكادو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.salads.honey-garlic-shrimp-salad` | Landing · Menu · Salads · Honey Garlic Shrimp Salad | 640 × 640 px | 1:1 | Honey Garlic Shrimp Salad | سلطة جمبري بالعسل والثوم | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.salads.salmon-salad` | Landing · Menu · Salads · Salmon Salad | 640 × 640 px | 1:1 | Salmon Salad | سلطة سالمون | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.salads.chicken-ranch-salad` | Landing · Menu · Salads · Chicken Ranch Salad | 640 × 640 px | 1:1 | Chicken Ranch Salad | سلطة فراخ رانش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.salads.quinoa-salad` | Landing · Menu · Salads · Quinoa Salad | 640 × 640 px | 1:1 | Quinoa Salad | سلطة كينوا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.appetizers.hero` | Landing · Menu · Appetizers | 1600 × 1000 px | 8:5 | Appetizers at Aroma Lounge | المقبلات | ⬜ placeholder |  |
+| `aroma.menu.appetizers.hawawshi` | Landing · Menu · Appetizers · Hawawshi | 640 × 640 px | 1:1 | Hawawshi | حواوشي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.appetizers.tacos-beef-tenderloin` | Landing · Menu · Appetizers · Tacos Beef Tenderloin | 640 × 640 px | 1:1 | Tacos Beef Tenderloin | تاكوز بيف تندرلوين | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.appetizers.chicken-croquettes` | Landing · Menu · Appetizers · Chicken Croquettes | 640 × 640 px | 1:1 | Chicken Croquettes | كروكيت فراخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.appetizers.shrimps-cilantro` | Landing · Menu · Appetizers · Shrimps Cilantro | 640 × 640 px | 1:1 | Shrimps Cilantro | جمبري بالكزبرة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.appetizers.chicken-liver` | Landing · Menu · Appetizers · Chicken Liver | 640 × 640 px | 1:1 | Chicken Liver | كبدة فراخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.appetizers.soguk` | Landing · Menu · Appetizers · Soguk | 640 × 640 px | 1:1 | Soguk | سجق | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.hero` | Landing · Menu · Feteer | 1600 × 1000 px | 8:5 | Feteer at Aroma Lounge | الفطير | ⬜ placeholder |  |
+| `aroma.menu.feteer.meshaltet` | Landing · Menu · Feteer · Meshaltet | 640 × 640 px | 1:1 | Meshaltet | فطير مشلتت | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.mix-cheese-feteer` | Landing · Menu · Feteer · Mix Cheese Feteer | 640 × 640 px | 1:1 | Mix Cheese Feteer | فطير جبن ميكس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.soguk-feteer` | Landing · Menu · Feteer · Soguk Feteer | 640 × 640 px | 1:1 | Soguk Feteer | فطير سجق | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.mixed-beef-feteer` | Landing · Menu · Feteer · Mixed Beef Feteer | 640 × 640 px | 1:1 | Mixed Beef Feteer | فطير لحمة ميكس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.chicken-feteer` | Landing · Menu · Feteer · Chicken Feteer | 640 × 640 px | 1:1 | Chicken Feteer | فطير فراخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.basterma-feteer` | Landing · Menu · Feteer · Basterma Feteer | 640 × 640 px | 1:1 | Basterma Feteer | فطير بسطرمة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.boghasha-feteer` | Landing · Menu · Feteer · Boghasha Feteer | 640 × 640 px | 1:1 | Boghasha Feteer | فطير بوغاشة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.nutella-marshmallow-feteer` | Landing · Menu · Feteer · Nutella Marshmallow Feteer | 640 × 640 px | 1:1 | Nutella Marshmallow Feteer | فطير نوتيلا ومارشميلو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.lotus-feteer` | Landing · Menu · Feteer · Lotus Feteer | 640 × 640 px | 1:1 | Lotus Feteer | فطير لوتس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.feteer.custard-feteer-roll` | Landing · Menu · Feteer · Custard Feteer Roll | 640 × 640 px | 1:1 | Custard Feteer Roll | رول فطير بالكاسترد | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pasta.hero` | Landing · Menu · Pasta | 1600 × 1000 px | 8:5 | Pasta at Aroma Lounge | الباستا | ⬜ placeholder |  |
+| `aroma.menu.pasta.chicken-penne-alfredo` | Landing · Menu · Pasta · Chicken Penne Alfredo | 640 × 640 px | 1:1 | Chicken Penne Alfredo | بيني ألفريدو بالفراخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pasta.meatballs-fettuccine` | Landing · Menu · Pasta · Meatballs Fettuccine | 640 × 640 px | 1:1 | Meatballs Fettuccine | فيتوتشيني بكرات اللحمة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pasta.chicken-liver-penne` | Landing · Menu · Pasta · Chicken Liver Penne | 640 × 640 px | 1:1 | Chicken Liver Penne | بيني بكبدة الفراخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pasta.seafood-fettuccine` | Landing · Menu · Pasta · Seafood Fettuccine | 640 × 640 px | 1:1 | Seafood Fettuccine | فيتوتشيني سي فود | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pasta.spaghetti-bolognese` | Landing · Menu · Pasta · Spaghetti Bolognese | 640 × 640 px | 1:1 | Spaghetti Bolognese | سباجيتي بولونيز | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pasta.negresco-fried-chicken` | Landing · Menu · Pasta · Negresco Fried Chicken | 640 × 640 px | 1:1 | Negresco Fried Chicken | نجرسكو بالفراخ المقلية | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pasta.beef-pesto-fettuccine` | Landing · Menu · Pasta · Beef Pesto Fettuccine | 640 × 640 px | 1:1 | Beef Pesto Fettuccine | فيتوتشيني بيستو باللحمة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.paella.hero` | Landing · Menu · Paella | 1600 × 1000 px | 8:5 | Paella at Aroma Lounge | الباييلا | ⬜ placeholder |  |
+| `aroma.menu.paella.chicken-paella` | Landing · Menu · Paella · Chicken Paella | 640 × 640 px | 1:1 | Chicken Paella | باييلا فراخ | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.paella.vegetables-paella` | Landing · Menu · Paella · Vegetables Paella | 640 × 640 px | 1:1 | Vegetables Paella | باييلا خضار | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.paella.seafood-paella` | Landing · Menu · Paella · Seafood Paella | 640 × 640 px | 1:1 | Seafood Paella | باييلا سي فود | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.hero` | Landing · Menu · Main Course | 1600 × 1000 px | 8:5 | Main Course at Aroma Lounge | الأطباق الرئيسية | ⬜ placeholder |  |
+| `aroma.menu.main-course.aroma-beef-fillet` | Landing · Menu · Main Course · Aroma Beef Fillet | 640 × 640 px | 1:1 | Aroma Beef Fillet | أروما بيف فيليه | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.osso-buco` | Landing · Menu · Main Course · Osso Buco | 640 × 640 px | 1:1 | Osso Buco | أوسوبوكو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.aroma-rib-eye-steak` | Landing · Menu · Main Course · Aroma Rib Eye Steak | 640 × 640 px | 1:1 | Aroma Rib Eye Steak | أروما ريب آي ستيك | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.grilled-chicken-mesahab` | Landing · Menu · Main Course · Grilled Chicken Mesahab | 640 × 640 px | 1:1 | Grilled Chicken Mesahab | فراخ مسحب مشوية | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.aroma-grilled-chicken` | Landing · Menu · Main Course · Aroma Grilled Chicken | 640 × 640 px | 1:1 | Aroma Grilled Chicken | أروما فراخ مشوية | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.smoked-angus-brisket` | Landing · Menu · Main Course · Smoked Angus Brisket | 640 × 640 px | 1:1 | Smoked Angus Brisket | بريسكت أنجس مدخن | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.salmon-lemon-butter` | Landing · Menu · Main Course · Salmon Lemon Butter | 640 × 640 px | 1:1 | Salmon Lemon Butter | سالمون بالليمون والزبدة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.country-fried-chicken` | Landing · Menu · Main Course · Country Fried Chicken | 640 × 640 px | 1:1 | Country Fried Chicken | فراخ كانتري مقلية | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.seafood-mix-tajin` | Landing · Menu · Main Course · Seafood Mix Tajin | 640 × 640 px | 1:1 | Seafood Mix Tajin | طاجن سي فود ميكس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.chicken-pastrami-roll` | Landing · Menu · Main Course · Chicken Pastrami Roll | 640 × 640 px | 1:1 | Chicken Pastrami Roll | رول فراخ بالبسطرمة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.main-course.liver-shish-kabab` | Landing · Menu · Main Course · Liver Shish Kabab | 640 × 640 px | 1:1 | Liver Shish Kabab | شيش كبدة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pizza.hero` | Landing · Menu · Pizza | 1600 × 1000 px | 8:5 | Pizza at Aroma Lounge | البيتزا | ⬜ placeholder |  |
+| `aroma.menu.pizza.pepperoni-pizza` | Landing · Menu · Pizza · Pepperoni Pizza | 640 × 640 px | 1:1 | Pepperoni Pizza | بيتزا بيبروني | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pizza.chicken-truffle-mushroom-pizza` | Landing · Menu · Pizza · Chicken Truffle Mushroom Pizza | 640 × 640 px | 1:1 | Chicken Truffle Mushroom Pizza | بيتزا فراخ ومشروم ترافل | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pizza.pizza-quattro-formaggi` | Landing · Menu · Pizza · Pizza Quattro Formaggi | 640 × 640 px | 1:1 | Pizza Quattro Formaggi | بيتزا كواترو فورماجي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pizza.shrimp-pizza` | Landing · Menu · Pizza · Shrimp Pizza | 640 × 640 px | 1:1 | Shrimp Pizza | بيتزا جمبري | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.pizza.buffalo-cheese-pizza` | Landing · Menu · Pizza · Buffalo Cheese Pizza | 640 × 640 px | 1:1 | Buffalo Cheese Pizza | بيتزا جبنة بافلو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.risotto.hero` | Landing · Menu · Risotto | 1600 × 1000 px | 8:5 | Risotto at Aroma Lounge | الريزوتو | ⬜ placeholder |  |
+| `aroma.menu.risotto.shrimp-risotto` | Landing · Menu · Risotto · Shrimp Risotto | 640 × 640 px | 1:1 | Shrimp Risotto | ريزوتو جمبري | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.risotto.truffle-mushroom-risotto` | Landing · Menu · Risotto · Truffle Mushroom Risotto | 640 × 640 px | 1:1 | Truffle Mushroom Risotto | ريزوتو مشروم ترافل | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.risotto.beef-risotto` | Landing · Menu · Risotto · Beef Risotto | 640 × 640 px | 1:1 | Beef Risotto | ريزوتو لحمة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.hero` | Landing · Menu · Soft Drinks & Water | 1600 × 1000 px | 8:5 | Soft Drinks & Water at Aroma Lounge | الساقع والمية | ⬜ placeholder |  |
+| `aroma.menu.soft-drinks.pepsi` | Landing · Menu · Soft Drinks & Water · Pepsi | 640 × 640 px | 1:1 | Pepsi | بيبسي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.diet-pepsi` | Landing · Menu · Soft Drinks & Water · Diet Pepsi | 640 × 640 px | 1:1 | Diet Pepsi | بيبسي دايت | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.7-up` | Landing · Menu · Soft Drinks & Water · 7 Up | 640 × 640 px | 1:1 | 7 Up | سفن أب | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.mirinda-orange` | Landing · Menu · Soft Drinks & Water · Mirinda Orange | 640 × 640 px | 1:1 | Mirinda Orange | ميرندا برتقال | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.fayrouz-pineapple` | Landing · Menu · Soft Drinks & Water · Fayrouz Pineapple | 640 × 640 px | 1:1 | Fayrouz Pineapple | فيروز أناناس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.birel` | Landing · Menu · Soft Drinks & Water · Birel | 640 × 640 px | 1:1 | Birel | بيريل | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.red-bull` | Landing · Menu · Soft Drinks & Water · Red Bull | 640 × 640 px | 1:1 | Red Bull | ريد بول | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.water-small` | Landing · Menu · Soft Drinks & Water · Water (Small) | 640 × 640 px | 1:1 | Water (Small) | مياه (صغيرة) | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.water-large` | Landing · Menu · Soft Drinks & Water · Water (Large) | 640 × 640 px | 1:1 | Water (Large) | مياه (كبيرة) | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.soft-drinks.sparkling-water` | Landing · Menu · Soft Drinks & Water · Sparkling Water | 640 × 640 px | 1:1 | Sparkling Water | مياه فوار | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.juices.hero` | Landing · Menu · Juices & Mixes | 1600 × 1000 px | 8:5 | Juices & Mixes at Aroma Lounge | العصاير والكوكتيلات | ⬜ placeholder |  |
+| `aroma.menu.juices.fresh-orange-juice` | Landing · Menu · Juices & Mixes · Fresh Orange Juice | 640 × 640 px | 1:1 | Fresh Orange Juice | عصير برتقال فريش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.juices.fresh-strawberry-juice` | Landing · Menu · Juices & Mixes · Fresh Strawberry Juice | 640 × 640 px | 1:1 | Fresh Strawberry Juice | عصير فراولة فريش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.juices.banana-milk` | Landing · Menu · Juices & Mixes · Banana Milk | 640 × 640 px | 1:1 | Banana Milk | موز باللبن | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.juices.fresh-guava-juice` | Landing · Menu · Juices & Mixes · Fresh Guava Juice | 640 × 640 px | 1:1 | Fresh Guava Juice | عصير جوافة فريش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.juices.fresh-mango-juice` | Landing · Menu · Juices & Mixes · Fresh Mango Juice | 640 × 640 px | 1:1 | Fresh Mango Juice | عصير مانجا فريش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.juices.fresh-kiwi-cocktail` | Landing · Menu · Juices & Mixes · Fresh Kiwi Cocktail | 640 × 640 px | 1:1 | Fresh Kiwi Cocktail | كوكتيل كيوي فريش | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.hero` | Landing · Menu · Hot Drinks | 1600 × 1000 px | 8:5 | Hot Drinks at Aroma Lounge | المشروبات السخنة | ⬜ placeholder |  |
+| `aroma.menu.hot-drinks.espresso` | Landing · Menu · Hot Drinks · Espresso | 640 × 640 px | 1:1 | Espresso | إسبريسو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.cappuccino` | Landing · Menu · Hot Drinks · Cappuccino | 640 × 640 px | 1:1 | Cappuccino | كابتشينو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.cappuccino-caramel` | Landing · Menu · Hot Drinks · Cappuccino Caramel | 640 × 640 px | 1:1 | Cappuccino Caramel | كابتشينو كراميل | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.cafe-latte` | Landing · Menu · Hot Drinks · Café Latte | 640 × 640 px | 1:1 | Café Latte | كافيه لاتيه | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.cafe-mocha` | Landing · Menu · Hot Drinks · Cafe Mocha | 640 × 640 px | 1:1 | Cafe Mocha | كافيه موكا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.americano` | Landing · Menu · Hot Drinks · Americano | 640 × 640 px | 1:1 | Americano | أمريكانو | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.aroma-gold` | Landing · Menu · Hot Drinks · Aroma Gold | 640 × 640 px | 1:1 | Aroma Gold | أروما جولد | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.apple-cider` | Landing · Menu · Hot Drinks · Apple Cider | 640 × 640 px | 1:1 | Apple Cider | أبل سايدر | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.hot-chocolate` | Landing · Menu · Hot Drinks · Hot Chocolate | 640 × 640 px | 1:1 | Hot Chocolate | هوت شوكليت | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.turkish-coffee` | Landing · Menu · Hot Drinks · Turkish Coffee | 640 × 640 px | 1:1 | Turkish Coffee | قهوة تركي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.turkish-coffee-mehawweg` | Landing · Menu · Hot Drinks · Turkish Coffee (Mehawweg) | 640 × 640 px | 1:1 | Turkish Coffee (Mehawweg) | قهوة تركي (محوّج) | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.homoss-elsham` | Landing · Menu · Hot Drinks · Homoss Elsham | 640 × 640 px | 1:1 | Homoss Elsham | حمص الشام | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.nutella-coffee` | Landing · Menu · Hot Drinks · Nutella Coffee | 640 × 640 px | 1:1 | Nutella Coffee | قهوة نوتيلا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.coffee-lotus` | Landing · Menu · Hot Drinks · Coffee Lotus | 640 × 640 px | 1:1 | Coffee Lotus | قهوة لوتس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.hot-drinks.sahlab` | Landing · Menu · Hot Drinks · Sahlab | 640 × 640 px | 1:1 | Sahlab | سحلب | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.hero` | Landing · Menu · Cold Drinks | 1600 × 1000 px | 8:5 | Cold Drinks at Aroma Lounge | المشروبات الساقعة | ⬜ placeholder |  |
+| `aroma.menu.cold-drinks.sunshine` | Landing · Menu · Cold Drinks · Sunshine | 640 × 640 px | 1:1 | Sunshine | صن شاين | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.iced-chocolate` | Landing · Menu · Cold Drinks · Iced Chocolate | 640 × 640 px | 1:1 | Iced Chocolate | آيس شوكليت | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.oreo-shake` | Landing · Menu · Cold Drinks · Oreo Shake | 640 × 640 px | 1:1 | Oreo Shake | أوريو شيك | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.milkshake` | Landing · Menu · Cold Drinks · Milkshake | 640 × 640 px | 1:1 | Milkshake | ميلك شيك | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.redbull-mix-berries` | Landing · Menu · Cold Drinks · Redbull Mix Berries | 640 × 640 px | 1:1 | Redbull Mix Berries | ريد بول ميكس بيريز | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.cherry-cola` | Landing · Menu · Cold Drinks · Cherry Cola | 640 × 640 px | 1:1 | Cherry Cola | شيري كولا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.apple-angel` | Landing · Menu · Cold Drinks · Apple Angel | 640 × 640 px | 1:1 | Apple Angel | أبل أنجل | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.cookies-iced-latte` | Landing · Menu · Cold Drinks · Cookies Iced Latte | 640 × 640 px | 1:1 | Cookies Iced Latte | آيس لاتيه كوكيز | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-drinks.kiwi-lemonade` | Landing · Menu · Cold Drinks · Kiwi Lemonade | 640 × 640 px | 1:1 | Kiwi Lemonade | ليموناضة كيوي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.smoothies.hero` | Landing · Menu · Smoothies | 1600 × 1000 px | 8:5 | Smoothies at Aroma Lounge | السموذي | ⬜ placeholder |  |
+| `aroma.menu.smoothies.pina-colada` | Landing · Menu · Smoothies · Pina Colada | 640 × 640 px | 1:1 | Pina Colada | بينا كولادا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.smoothies.mango-smoothie` | Landing · Menu · Smoothies · Mango Smoothie | 640 × 640 px | 1:1 | Mango Smoothie | سموذي مانجا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.smoothies.strawberry-smoothie` | Landing · Menu · Smoothies · Strawberry Smoothie | 640 × 640 px | 1:1 | Strawberry Smoothie | سموذي فراولة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.smoothies.orange-strawberry` | Landing · Menu · Smoothies · Orange Strawberry | 640 × 640 px | 1:1 | Orange Strawberry | برتقال وفراولة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.smoothies.lemon-mint` | Landing · Menu · Smoothies · Lemon Mint | 640 × 640 px | 1:1 | Lemon Mint | ليمون نعناع | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.smoothies.mango-colada` | Landing · Menu · Smoothies · Mango Colada | 640 × 640 px | 1:1 | Mango Colada | مانجو كولادا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.yogurt.hero` | Landing · Menu · Yogurt Mixes | 1600 × 1000 px | 8:5 | Yogurt Mixes at Aroma Lounge | ميكسات الزبادي | ⬜ placeholder |  |
+| `aroma.menu.hot-matcha.hero` | Landing · Menu · Hot Matcha | 1600 × 1000 px | 8:5 | Hot Matcha at Aroma Lounge | ماتشا سخنة | ⬜ placeholder |  |
+| `aroma.menu.cold-matcha.hero` | Landing · Menu · Cold Matcha | 1600 × 1000 px | 8:5 | Cold Matcha at Aroma Lounge | ماتشا ساقعة | ⬜ placeholder |  |
+| `aroma.menu.cold-matcha.iced-spanish-matcha` | Landing · Menu · Cold Matcha · Iced Spanish Matcha | 640 × 640 px | 1:1 | Iced Spanish Matcha | آيس سبانش ماتشا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-matcha.salted-caramel-matcha` | Landing · Menu · Cold Matcha · Salted Caramel Matcha | 640 × 640 px | 1:1 | Salted Caramel Matcha | ماتشا سولتد كراميل | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-matcha.blended-pistachio-matcha` | Landing · Menu · Cold Matcha · Blended Pistachio Matcha | 640 × 640 px | 1:1 | Blended Pistachio Matcha | ماتشا بيستاشيو بلندد | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-matcha.iced-mango-vanilla-matcha` | Landing · Menu · Cold Matcha · Iced Mango Vanilla Matcha | 640 × 640 px | 1:1 | Iced Mango Vanilla Matcha | آيس ماتشا مانجا وفانيليا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.cold-matcha.iced-strawberry-matcha` | Landing · Menu · Cold Matcha · Iced Strawberry Matcha | 640 × 640 px | 1:1 | Iced Strawberry Matcha | آيس ماتشا فراولة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.hero` | Landing · Menu · Dessert | 1600 × 1000 px | 8:5 | Dessert at Aroma Lounge | الحلو | ⬜ placeholder |  |
+| `aroma.menu.dessert.chocolate-fudge` | Landing · Menu · Dessert · Chocolate Fudge | 640 × 640 px | 1:1 | Chocolate Fudge | شوكليت فادج | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.blueberry-cheesecake` | Landing · Menu · Dessert · Blueberry Cheesecake | 640 × 640 px | 1:1 | Blueberry Cheesecake | تشيز كيك بلوبيري | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.om-ali` | Landing · Menu · Dessert · Om Ali | 640 × 640 px | 1:1 | Om Ali | أم علي | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.ice-cream` | Landing · Menu · Dessert · Ice Cream | 640 × 640 px | 1:1 | Ice Cream | آيس كريم | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.nutella-pancake` | Landing · Menu · Dessert · Nutella Pancake | 640 × 640 px | 1:1 | Nutella Pancake | بان كيك نوتيلا | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.lotus-pancake` | Landing · Menu · Dessert · Lotus Pancake | 640 × 640 px | 1:1 | Lotus Pancake | بان كيك لوتس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.cream-brulee-french-toast` | Landing · Menu · Dessert · Cream Brûlée French toast | 640 × 640 px | 1:1 | Cream Brûlée French toast | فرنش توست كريم بروليه | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.dessert.chocolate-lava-cake-with-ice-cream` | Landing · Menu · Dessert · Chocolate Lava Cake With Ice Cream | 640 × 640 px | 1:1 | Chocolate Lava Cake With Ice Cream | شوكليت لافا كيك بالآيس كريم | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.kids.hero` | Landing · Menu · Kids | 1600 × 1000 px | 8:5 | Kids at Aroma Lounge | الأطفال | ⬜ placeholder |  |
+| `aroma.menu.kids.pasta-meatballs` | Landing · Menu · Kids · Pasta Meatballs | 640 × 640 px | 1:1 | Pasta Meatballs | باستا بكرات اللحمة | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.kids.chicken-strips` | Landing · Menu · Kids · Chicken Strips | 640 × 640 px | 1:1 | Chicken Strips | تشيكن ستريبس | ✅ delivered | The client's digital-menu photo (D53) |
+| `aroma.menu.kids.pasta-crispy-chicken` | Landing · Menu · Kids · Pasta Crispy Chicken | 640 × 640 px | 1:1 | Pasta Crispy Chicken | باستا بالفراخ الكريسبي | ✅ delivered | The client's digital-menu photo (D53) |
 
 ### Scroll sequences
 
 | Slot ID | Page · section | Frames | Desktop | Mobile | Description | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `aroma.hero` | Landing · A1 Aroma rising | 150 | 1920 × 1080 | 1080 × 1350 | Steam rising from a freshly served paella | ⬜ placeholder | Generated with MAG |
-| `aroma.terrace` | Landing · A5 Terrace, dusk to night | 150 | 1920 × 1080 | 1080 × 1350 | Aroma Lounge's terrace from daylight to evening | ⬜ placeholder | Generated with MAG |
+| `aroma.morning` | Landing · A1 Morning at the lake | 241 | 1920 × 1080 | 1080 × 1350 | Breakfast set down plate by plate on a white marble table by the lake, a cappuccino last | ⬜ placeholder | Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52) |
+| `aroma.lake` | Landing · A2 Long afternoons | 241 | 1920 × 1080 | 1080 × 1350 | From the table to the lake and the fountain at golden hour, a sunset iced tea raised to the sun | ⬜ placeholder | Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52) |
+| `aroma.night` | Landing · A3 Nights | 241 | 1920 × 1080 | 1080 × 1350 | Dusk on the terrace: the lamps come on and a guitarist starts to play | ⬜ placeholder | Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52) |

@@ -44,6 +44,42 @@ const SEQ = {
   mobile: { width: 1080, height: 1350 },
 };
 
+/** "By guests" (A8): moments from Aroma's own posts, in the order the wall shows them. */
+const GUEST_PHOTOS: LocalizedText[] = [
+  {
+    en: "A guest holds a layered red and orange iced tea up to the camera",
+    ar: "ضيفة رافعة آيس تي بطبقات أحمر وبرتقالي قدام الكاميرا",
+  },
+  {
+    en: "Hands reaching for onion rings, fettuccine and feteer on a shared table",
+    ar: "إيدين بتمد على أونيون رينجز وفيتوتشيني وفطير على ترابيزة واحدة",
+  },
+  {
+    en: "Two friends at a terrace table set with plates, seen from above",
+    ar: "صاحبين على ترابيزة في التراس عليها أطباق، من فوق",
+  },
+  {
+    en: "A waiter in an Aroma Lounge apron carries a club sandwich",
+    ar: "جرسون بمريلة أروما لاونج شايل كلوب ساندوتش",
+  },
+  {
+    en: "A full table from above: pasta, salad, soup, juices and flatbreads",
+    ar: "ترابيزة مليانة من فوق: باستا وسلطة وشوربة وعصاير وعيش",
+  },
+  {
+    en: "A burger held over a plate of fries on the terrace, a juice beside it",
+    ar: "برجر في الإيد فوق طبق بطاطس محمرة في التراس، وجنبه عصير",
+  },
+  {
+    en: "A forkful of chocolate cake lifted from the plate",
+    ar: "شوكة شايلة حتة كيك شوكولاتة من الطبق",
+  },
+  {
+    en: "Two sunset iced drinks glowing in the afternoon sun",
+    ar: "مشروبين بطبقات منوّرين في شمس العصر",
+  },
+];
+
 export const slots: SlotSpec[] = [
   /* ------------------------------------------------------------ MAS */
   {
@@ -269,32 +305,155 @@ export const slots: SlotSpec[] = [
   },
 
   /* ------------------------------------------------------------ Aroma Lounge */
+  // "A day at Aroma" (D52): three Higgsfield scenes made from Aroma's own photos of Mivida's terrace.
   {
     kind: "sequence",
-    id: "aroma.hero",
+    id: "aroma.morning",
     app: "aroma",
     page: "Landing",
-    section: "A1 Aroma rising",
+    section: "A1 Morning at the lake",
     ...SEQ,
+    frameCount: 241,
     label: {
-      en: "Steam rising from a freshly served paella",
-      ar: "بخار يتصاعد من طبق باييلا طازج",
+      en: "Breakfast set down plate by plate on a white marble table by the lake, a cappuccino last",
+      ar: "الفطار بيتحط طبق ورا طبق على ترابيزة رخام بيضا جنب البحيرة، والكابتشينو آخر واحد",
     },
-    notes: "Generated with MAG",
+    notes: "Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52)",
   },
   {
     kind: "sequence",
-    id: "aroma.terrace",
+    id: "aroma.lake",
     app: "aroma",
     page: "Landing",
-    section: "A5 Terrace, dusk to night",
+    section: "A2 Long afternoons",
     ...SEQ,
+    frameCount: 241,
     label: {
-      en: "Aroma Lounge's terrace from daylight to evening",
-      ar: "تراس أروما لاونج من النهار حتى المساء",
+      en: "From the table to the lake and the fountain at golden hour, a sunset iced tea raised to the sun",
+      ar: "من الترابيزة للبحيرة والنافورة وقت الغروب، وآيس تي بطبقات مرفوع قدام الشمس",
     },
-    notes: "Generated with MAG",
+    notes: "Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52)",
   },
+  {
+    kind: "sequence",
+    id: "aroma.night",
+    app: "aroma",
+    page: "Landing",
+    section: "A3 Nights",
+    ...SEQ,
+    frameCount: 241,
+    label: {
+      en: "Dusk on the terrace: the lamps come on and a guitarist starts to play",
+      ar: "المغرب على التراس: الأنوار بتنوّر وعازف الجيتار بيبدأ",
+    },
+    notes: "Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52)",
+  },
+  {
+    kind: "image",
+    id: "aroma.branch.mivida",
+    app: "aroma",
+    page: "Landing",
+    section: "A4 Branches · Mivida",
+    width: 1080,
+    height: 1350,
+    alt: {
+      en: "Two iced drinks raised in a toast on Aroma Lounge's terrace, the lake at Mivida behind them",
+      ar: "كوبايتين مشروب ساقع مرفوعين في خبطة كاسات على تراس أروما لاونج، وبحيرة ميفيدا وراهم",
+    },
+    src: "/images/branches/mivida.webp",
+    notes: "From Aroma's own posts (D53)",
+  },
+  {
+    kind: "image",
+    id: "aroma.branch.madinaty",
+    app: "aroma",
+    page: "Landing",
+    section: "A4 Branches · Madinaty",
+    width: 1200,
+    height: 1500,
+    alt: {
+      en: "Two layered iced teas and a board of feteer on a marble table outdoors, shopfronts behind",
+      ar: "اتنين آيس تي بطبقات وطبق فطير على ترابيزة رخام برّه، ووراهم محلات",
+    },
+    src: "/images/branches/madinaty.webp",
+    notes:
+      "Made with Higgsfield from the lake scene's keyframe (Aroma's tables, chairs and drinks); no photos of the Madinaty branch exist yet (D53)",
+  },
+  {
+    kind: "image",
+    id: "aroma.nights.live-music",
+    app: "aroma",
+    page: "Landing",
+    section: "A6 What's on · Live music",
+    width: 1200,
+    height: 900,
+    alt: {
+      en: "The terrace at dusk: candles and a layered iced tea on a marble table, the lit fountain on the lake",
+      ar: "التراس وقت المغرب: شمع وآيس تي بطبقات على ترابيزة رخام، والنافورة منوّرة على البحيرة",
+    },
+    src: "/images/nights/live-music.webp",
+    notes:
+      "Cropped from the night scene's last keyframe, made with Higgsfield from Aroma's photos (D53)",
+  },
+  {
+    kind: "image",
+    id: "aroma.nights.match",
+    app: "aroma",
+    page: "Landing",
+    section: "A6 What's on · Match nights",
+    width: 1200,
+    height: 900,
+    alt: {
+      en: "Fans in red cheering at a match on the big screen on the terrace at night, feteer and fries on the table",
+      ar: "مشجعين لابسين أحمر بيشجعوا ماتش على الشاشة الكبيرة في التراس بالليل، وعلى الترابيزة فطير وبطاطس",
+    },
+    src: "/images/nights/match.webp",
+    notes: "Made with Higgsfield from the night scene's keyframe (D53)",
+  },
+  {
+    kind: "image",
+    id: "aroma.nights.aroma-nights",
+    app: "aroma",
+    page: "Landing",
+    section: "A6 What's on · Aroma Nights",
+    width: 1200,
+    height: 900,
+    alt: {
+      en: "Friends toasting with layered iced teas over dinner on the walkway at The Strip at night, a DJ playing behind them",
+      ar: "صحاب بيخبطوا كوبايات آيس تي بطبقات على العشا على ممشى ذا ستريب بالليل، وDJ بيلعب وراهم",
+    },
+    src: "/images/nights/aroma-nights.webp",
+    notes: "Made with Higgsfield at The Strip, where Aroma Nights take place; no alcohol on the table (D53, D55)",
+  },
+  {
+    kind: "image",
+    id: "aroma.story",
+    app: "aroma",
+    page: "Landing",
+    section: "A7 Our story",
+    width: 1080,
+    height: 1350,
+    alt: {
+      en: "A guest laughing with friends over plates and juice at a table by the lake",
+      ar: "ضيفة بتضحك مع صحابها على ترابيزة عليها أكل وعصير جنب البحيرة",
+    },
+    src: "/images/story/friends.webp",
+    notes: "From Aroma's own posts (D53)",
+  },
+  ...GUEST_PHOTOS.map(
+    (alt, n): ImageSlotSpec => ({
+      kind: "image",
+      id: `aroma.guests.${n + 1}`,
+      app: "aroma",
+      page: "Landing",
+      section: `A8 By guests · photo ${n + 1}`,
+      width: 1080,
+      height: 1350,
+      alt,
+      src: `/images/guests/${n + 1}.webp`,
+      notes: "From Aroma's own posts (D53)",
+    }),
+  ),
   {
     kind: "image",
     id: "aroma.og",
@@ -303,7 +462,13 @@ export const slots: SlotSpec[] = [
     section: "Social share image",
     width: 1200,
     height: 630,
-    alt: { en: "Aroma Lounge", ar: "أروما لاونج" },
+    alt: {
+      en: "A sunset iced tea raised over a breakfast table by the lake at Mivida",
+      ar: "آيس تي بطبقات مرفوع فوق ترابيزة فطار جنب البحيرة في ميفيدا",
+    },
+    src: "/images/share/aroma-og.jpg",
+    notes:
+      "Cropped from the lake scene's last keyframe, made with Higgsfield from Aroma's photos (D53)",
   },
 ];
 
@@ -324,17 +489,21 @@ export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
       },
     },
     ...c.items
-      .filter((item) => item.imageSlotId)
+      .filter((item) => item.imageSlotId || item.photo)
       .map(
         (item): ImageSlotSpec => ({
           kind: "image",
-          id: item.imageSlotId!,
+          id: item.imageSlotId ?? `${c.brandId}.menu.${item.id.split(".").pop()}`,
           app: c.brandId,
           page: "Landing",
           section: `Menu · ${c.name.en} · ${item.name.en}`,
-          width: 800,
-          height: 800,
+          // The client's photos are saved at 640 px square; designer thumbnails are delivered at 800.
+          width: item.photo ? 640 : 800,
+          height: item.photo ? 640 : 800,
           alt: item.name,
+          ...(item.photo
+            ? { src: item.photo, notes: "The client's digital-menu photo (D53)" }
+            : {}),
         }),
       ),
   ]);

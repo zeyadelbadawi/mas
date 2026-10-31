@@ -11,3 +11,160 @@
 @theme inline {
   --font-editorial: var(--brand-font-editorial);
 }
+
+/* Splash (same mechanism as COVY, D45/D48-D50): if a script never takes it away (no JS), it gets out of the
+   way by itself; once seen this session, a head script marks the page and it never shows. */
+@keyframes aroma-splash-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.aroma-splash {
+  animation: aroma-splash-failsafe 0.4s ease-out 6.5s forwards;
+}
+/* While the splash is up nothing scrolls: wheel, touch, keys and the scrollbar alike. */
+html[data-splash="hold"] {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+[data-splash="seen"] .aroma-splash {
+  display: none;
+}
+
+/* The splash is a cappuccino seen from above: each petal of the logo settles on the foam as cocoa dust as
+   the scenes download, then the wordmark writes itself underneath. */
+.aroma-dust {
+  opacity: 0;
+  transform: scale(1.12);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.aroma-dust[data-on] {
+  opacity: 1;
+  transform: none;
+}
+@keyframes aroma-write {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.aroma-write {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: aroma-write 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.aroma-ink {
+  opacity: 0;
+  transition: opacity 0.8s ease-out 1.2s;
+}
+[data-written] .aroma-ink {
+  opacity: 1;
+}
+/* While the download is still running, the newest petal breathes, so a slow line still looks alive. */
+@keyframes aroma-breathe {
+  50% {
+    opacity: 0.55;
+  }
+}
+.aroma-dust[data-next] {
+  opacity: 0.18;
+  transform: none;
+  animation: aroma-breathe 1.6s ease-in-out infinite;
+}
+
+/*
+ * The header over the three scroll scenes (D47/D51 on COVY): no bar; the footage runs up to the top edge
+ * under a soft wash of the tone colour that fades out below the header, and the type carries a halo of it.
+ * Ink type on a marble wash over bright frames (morning, the lake), marble type on a night-green wash over
+ * dark ones (the night). Unlayered, so it wins over the bar's utility classes.
+ */
+.aroma-header {
+  --walk-tint: var(--aroma-marble);
+  transition:
+    background-color 0.45s var(--ease-brand),
+    color 0.45s var(--ease-brand),
+    border-color 0.45s var(--ease-brand);
+}
+.aroma-header::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 160%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--walk-tint) 70%, transparent),
+    color-mix(in srgb, var(--walk-tint) 40%, transparent) 45%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-brand);
+}
+.aroma-header[data-mode="walk"] {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--aroma-ink);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--walk-tint) 70%, transparent);
+}
+.aroma-header[data-mode="walk"]::before {
+  opacity: 1;
+}
+.aroma-header[data-mode="walk"] > div > a:first-child svg {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--walk-tint) 60%, transparent));
+}
+.aroma-header[data-mode="walk"] nav a {
+  opacity: 1;
+}
+.aroma-header[data-mode="walk"][data-tone="dark"] {
+  --walk-tint: var(--aroma-night);
+  color: var(--aroma-marble);
+  --color-focus: var(--aroma-marble);
+}
+.aroma-header-progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--aroma-sunset-gradient);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 0.45s var(--ease-brand);
+}
+[dir="rtl"] .aroma-header-progress {
+  transform-origin: right;
+}
+.aroma-header[data-mode="walk"] .aroma-header-progress {
+  opacity: 0.9;
+}
+
+/* The sunset drink as a hairline (ember to gold), read in the direction of the text. */
+.aroma-hairline {
+  background: linear-gradient(
+    to right,
+    var(--aroma-ember),
+    var(--aroma-sunset) 55%,
+    var(--aroma-gold)
+  );
+}
+[dir="rtl"] .aroma-hairline {
+  background: linear-gradient(
+    to left,
+    var(--aroma-ember),
+    var(--aroma-sunset) 55%,
+    var(--aroma-gold)
+  );
+}
+
+/* Alexandria's tall diacritics and descenders touch at the tight Latin headline leading. */
+:lang(ar) :is(h1, h2, h3) {
+  line-height: 1.4;
+}

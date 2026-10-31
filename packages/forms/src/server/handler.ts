@@ -30,8 +30,8 @@ const PREFIX: Record<BrandId, "CV" | "AL" | "MS"> = { covy: "CV", aroma: "AL", m
 export type FormRouteConfig = {
   brandId: BrandId;
   emailBrand: EmailBrand;
-  /** Which forms this app accepts. */
-  reservation?: { location: Location };
+  /** Which forms this app accepts. A brand with several branches passes them all; the guest picks one. */
+  reservation?: { location: Location } | { locations: readonly Location[] };
   feedback?: boolean;
   inquiry?: { services: MasService[] };
 };
@@ -144,21 +144,32 @@ export function createFormRoute(config: FormRouteConfig) {
     const inbox = to || "dev-inbox@localhost";
 
     if (kind === "reservation" && config.reservation) {
-      const { location } = config.reservation;
+      const list =
+        "locations" in config.reservation
+          ? config.reservation.locations
+          : [config.reservation.location];
+      // With several branches the request names one; a single branch needs nothing.
+      const wanted = (envelope.data.data as { locationId?: unknown } | null)?.locationId;
+      const location =
+        list.length === 1 ? list[0] : list.find((l) => l.id === wanted);
+      if (!location)
+        return json({ ok: false, error: "validation", fields: { locationId: "required" } }, 400);
       const result = reservationSchema({ location }).safeParse(envelope.data.data);
       if (!result.success)
         return json({ ok: false, error: "validation", fields: fieldErrors(result.error) }, 400);
       const r = result.data;
+      const where = list.length > 1 && location.branch ? ` · ${location.branch.en}` : "";
       const staff = await sendMail(
         {
           to: inbox,
           replyTo: r.email,
-          subject: `[${config.emailBrand.name}] ${r.type} · ${r.date} · ${r.time} · ${r.guests} guests · ${reference}`,
+          subject: `[${config.emailBrand.name}${where}] ${r.type} · ${r.date} · ${r.time} · ${r.guests} guests · ${reference}`,
           react: ReservationStaffEmail({
             brand: config.emailBrand,
             reference,
             r,
             afterMidnight: isAfterMidnight(location, r.date, r.time),
+            branch: list.length > 1 ? location.branch : undefined,
           }),
           idempotencyKey: `reservation/${reference}`,
         },
@@ -178,6 +189,7 @@ export function createFormRoute(config: FormRouteConfig) {
             reference,
             r,
             contact: { phone: location.phone },
+            branch: list.length > 1 ? location.branch : undefined,
           }),
           idempotencyKey: `reservation-ack/${reference}`,
         },

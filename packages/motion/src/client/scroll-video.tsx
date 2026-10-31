@@ -20,6 +20,13 @@ export type ScrollVideoProps = SequencePlayerProps & {
    * last) before the cut, instead of still trailing a few frames behind on a fast scroll.
    */
   leadVh?: number;
+  /**
+   * Horizontal pan of the cropped picture over the move, as object-position x in % (from, to). It only shows
+   * where the screen is narrower than the video (phones), and lets a scene follow its subject out of the
+   * centre. A scene that continues this one should start where this one ends. The frame overlay assumes the
+   * centre, so keep `from` at 50 while a mark is on the footage.
+   */
+  panX?: readonly [number, number];
 };
 
 /**
@@ -38,6 +45,7 @@ export function ScrollVideo({
   scrollVh = 280,
   holdVh = 0,
   leadVh = 0,
+  panX,
   fit = "cover",
   priority = false,
   overlapPrevious = false,
@@ -53,6 +61,7 @@ export function ScrollVideo({
   const [manifest, setManifest] = useState<VideoManifest | null>(null);
   const [painted, setPainted] = useState(false);
   const animated = tier === "HIGH" || tier === "MID";
+  const [panFrom, panTo] = panX ?? [];
   /** Before hydration (tier null) keep the scroll layout so the page doesn't jump once JS runs. */
   const staticLayout = tier === "LOW" || tier === "STATIC";
 
@@ -100,6 +109,7 @@ export function ScrollVideo({
     }
     const src = siblingUrl(manifestUrl, variant.src);
     const { fps, frameCount, timing } = manifest;
+    const focalY = manifest.focal.y;
     const progress = progressRef.current;
     startPreload(id, src, variant.bytes);
 
@@ -195,13 +205,19 @@ export function ScrollVideo({
     progress.apply = (p: number) => {
       const frames = Math.min(1, Math.max(0, (p - framesStart) / (framesEnd - framesStart)));
       const hold = framesEnd < 1 ? Math.max(0, (p - framesEnd) / (1 - framesEnd)) : 0;
-      // Only the copy layer reads these, so only it restyles on scroll, and only when they change.
+      // Only the overlays read these (the copy layer, and the frame overlay for marks that settle on the
+      // footage), so only they restyle on scroll, and only when the values change.
       const next = `${frames.toFixed(4)} ${Math.min(1, hold).toFixed(4)}`;
-      const el = overlaysRef.current[1];
-      if (el && next !== vars) {
+      if (next !== vars) {
         vars = next;
-        el.style.setProperty("--seq-progress", frames.toFixed(4));
-        el.style.setProperty("--seq-hold", Math.min(1, hold).toFixed(4));
+        for (const el of overlaysRef.current) {
+          el?.style.setProperty("--seq-progress", frames.toFixed(4));
+          el?.style.setProperty("--seq-hold", Math.min(1, hold).toFixed(4));
+        }
+      }
+      if (panFrom !== undefined && panTo !== undefined) {
+        const x = panFrom + (panTo - panFrom) * frames;
+        video.style.objectPosition = `${x.toFixed(2)}% ${(focalY * 100).toFixed(2)}%`;
       }
       want = Math.min(
         frameCount - 1,
@@ -222,7 +238,7 @@ export function ScrollVideo({
       video.removeEventListener("seeked", onSeeked);
       video.removeEventListener("loadeddata", onLoaded);
     };
-  }, [animated, manifest, manifestUrl, id, scrollVh, holdVh, leadVh]);
+  }, [animated, manifest, manifestUrl, id, scrollVh, holdVh, leadVh, panFrom, panTo]);
 
   // Scroll: the motion library (loaded after first paint) drives the progress, and the reveal of a section
   // that continues the previous one. Kept apart from the video so its late arrival never reloads the file.

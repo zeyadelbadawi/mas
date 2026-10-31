@@ -1,3 +1,5 @@
+import type { VideoPrefetch, VideoPrefetchMap } from "../video-prefetch";
+
 /**
  * Downloads scroll videos whole, one at a time in page order, and reports progress (for a splash screen).
  * A fully downloaded video plays from a blob: URL, so every seek is answered from memory, never the network.
@@ -48,8 +50,59 @@ export function preloadProgress(ids: readonly string[]): { progress: number; don
   return { progress: total > 0 ? Math.min(1, loaded / total) : 0, done };
 }
 
+/** Takes over a download the page's inline script already started (videoPrefetchScript), if there is one. */
+function adoptPrefetch(src: string): VideoPrefetch | undefined {
+  const map = (globalThis as { __masVideoPrefetch?: VideoPrefetchMap }).__masVideoPrefetch;
+  const pre = map?.[src];
+  if (pre && map) delete map[src];
+  return pre;
+}
+
+/** Follows an adopted download to its end, reporting its progress as this video's. */
+function followPrefetch(
+  job: Job & { src: string },
+  pre: VideoPrefetch,
+  signal: AbortSignal,
+): Promise<boolean> {
+  const fallback = job.bytes || 1;
+  return new Promise((resolve) => {
+    const finish = (ok: boolean) => {
+      pre.on = null;
+      resolve(ok);
+    };
+    const tick = () => {
+      if (pre.done) {
+        finish(!pre.error);
+        return;
+      }
+      states.set(job.id, { loaded: pre.loaded, total: pre.total || fallback, done: false });
+      emit();
+    };
+    signal.addEventListener("abort", () => finish(false), { once: true });
+    pre.on = tick;
+    tick();
+  });
+}
+
 async function download(job: Job & { src: string }, signal: AbortSignal): Promise<void> {
   const fallback = job.bytes || 1;
+  const pre = adoptPrefetch(job.src);
+  if (pre) {
+    const ok = await followPrefetch(job, pre, signal);
+    if (ok) {
+      const url = URL.createObjectURL(new Blob(pre.chunks as BlobPart[], { type: "video/mp4" }));
+      const total = pre.total || pre.loaded;
+      states.set(job.id, { loaded: total, total, done: true, url });
+      emit();
+      return;
+    }
+    // Aborted (the visitor reached the section first) or failed: same as a failed download below.
+    if (signal.aborted) {
+      states.set(job.id, { loaded: fallback, total: fallback, done: true, error: true });
+      emit();
+      return;
+    }
+  }
   try {
     const res = await fetch(job.src, { signal });
     if (!res.ok || !res.body) throw new Error(`${job.src}: ${res.status}`);

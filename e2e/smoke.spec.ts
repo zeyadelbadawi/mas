@@ -97,6 +97,8 @@ test.describe("every site", () => {
 test.describe("forms", () => {
   test("shows translated errors and keeps the visitor on the step", async ({ page }, info) => {
     const app = appOf(info.project);
+    // Aroma has no kitchen sink any more: aroma.spec.ts checks its booking form on the landing page.
+    test.skip(app === "aroma", "Covered in aroma.spec.ts");
     await page.goto("/ar/kitchen-sink");
     await page
       .locator("section[aria-labelledby=consent-title]")

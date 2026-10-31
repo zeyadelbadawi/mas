@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import type { VideoPrefetch } from "../src/video-prefetch";
 
 /** A fetch that answers each URL with `size` bytes in two chunks, once released. */
 function fakeFetch(started: string[]) {
@@ -53,6 +54,34 @@ describe("video preload queue", () => {
     expect(q.preloadState("hero")?.url).toBe("blob:x");
     await vi.waitFor(() => expect(started).toEqual(["/hero.mp4", "/connector.mp4"]));
     expect(q.preloadProgress(["hero", "connector"]).progress).toBeCloseTo(0.5);
+  });
+
+  it("adopts a download the page's inline script started, keeping its progress", async () => {
+    const fetch = vi.fn();
+    vi.stubGlobal("fetch", fetch);
+    vi.spyOn(URL, "createObjectURL").mockReturnValue("blob:early");
+    const early: VideoPrefetch = {
+      loaded: 60,
+      total: 100,
+      done: false,
+      chunks: [new Uint8Array(60)],
+      on: null,
+    };
+    vi.stubGlobal("__masVideoPrefetch", { "/hero.mp4": early });
+    const q = await import("../src/client/video-preload");
+
+    q.reservePreload("hero", true);
+    q.startPreload("hero", "/hero.mp4", 100);
+    await flush();
+    expect(q.preloadProgress(["hero"]).progress).toBeCloseTo(0.6);
+
+    early.chunks.push(new Uint8Array(40));
+    early.loaded = 100;
+    early.done = true;
+    early.on?.();
+    await vi.waitFor(() => expect(q.preloadProgress(["hero"]).done).toBe(true));
+    expect(q.preloadState("hero")?.url).toBe("blob:early");
+    expect(fetch).not.toHaveBeenCalled();
   });
 
   it("reports unknown videos as not done", async () => {

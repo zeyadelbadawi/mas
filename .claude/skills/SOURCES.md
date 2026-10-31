@@ -33,3 +33,4 @@ Vendored from public GitHub repos (found with find-skills, checked on skills.sh:
 | shadcn | https://github.com/shadcn-ui/ui | 96da9cc | MIT License |
 | humanizer | https://github.com/blader/humanizer | 0ef9fe5 | MIT License |
 | ux-heuristics | https://github.com/wondelai/skills | c172996 | MIT License (LICENSE copied; local corrections to WCAG levels, legal wording and scoring) |
+| brainstorming | https://github.com/obra/superpowers | 2ce8aa1 | MIT License (LICENSE copied) |

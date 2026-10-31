@@ -9,7 +9,8 @@
     "assets:manifest": "node assets/manifest.mjs",
     "placeholders:report": "node assets/placeholders.mjs",
     "sequence:upload": "node sequences/upload-r2.mjs",
-    "sequence:video": "node sequences/build-video.mjs"
+    "sequence:video": "node sequences/build-video.mjs",
+    "menu:aroma": "node menus/import-aroma.mjs"
   },
   "dependencies": {
     "sharp": "0.35.5",

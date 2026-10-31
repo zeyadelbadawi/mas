@@ -78,6 +78,8 @@ export function reservationSchema({ location, now = new Date() }: ReservationCon
       occasionDetails: optionalText(LIMITS.occasion.max),
       notes: optionalText(LIMITS.notes.max),
       eventId: z.string().max(64).optional(),
+      /** The branch, for brands with more than one (the route picks it; COVY sends none). */
+      locationId: z.string().max(64).optional(),
       locale: localeEnum,
       consent,
     })

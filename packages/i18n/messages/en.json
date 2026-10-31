@@ -62,6 +62,8 @@
         "details": "Your details",
         "review": "Review & send"
       },
+      "branch": "Branch",
+      "branchPick": "Which branch?",
       "type": "What would you like to book?",
       "event": "Event",
       "types": {

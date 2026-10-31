@@ -22,7 +22,8 @@
     "sequence:build": "pnpm --filter @mas/tools sequence:build",
     "sequence:test": "pnpm --filter @mas/tools sequence:test",
     "sequence:upload": "pnpm --filter @mas/tools sequence:upload",
-    "sequence:video": "pnpm --filter @mas/tools sequence:video"
+    "sequence:video": "pnpm --filter @mas/tools sequence:video",
+    "menu:aroma": "pnpm --filter @mas/tools menu:aroma"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

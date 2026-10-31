@@ -1,0 +1,3748 @@
+[
+ {
+  "menu": "Food Menu",
+  "id": 24279,
+  "sections": [
+   {
+    "id": 173085,
+    "name": {
+     "en": "Soups"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626055117230640.png",
+    "items": [
+     {
+      "id": 959862,
+      "name": {
+       "en": "Chicken Corn Soup"
+      },
+      "desc_en": "<p>Chicken Cubes / Cream Soup / Sweet Corn / Potatoes <br />",
+      "desc_ar": "شوربة كريمة / مكعبات فراخ / ذرة حلوة / بطاطس<br />\n </p>",
+      "prices": [
+       {
+        "price": 210.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626054417543958.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959861,
+      "name": {
+       "en": "Wild Mushroom"
+      },
+      "desc_en": "<p>Mushroom Soup  / Pesto Sauce</p><p>",
+      "desc_ar": "شوربة مشروم / صوص الريحان</p><p> </p>",
+      "prices": [
+       {
+        "price": 220.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626054449159589.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959863,
+      "name": {
+       "en": "Shrimps Ginger & Carrot Soup"
+      },
+      "desc_en": "<p>Shrimps / Ginger / Carrots / Onion / Garlic / Turmeric / Coconut Cream<br />",
+      "desc_ar": "شوربة جمبري / جنزبيل / جزر / بصل / ثوم / كركم / كريمة جوز هند</p>",
+      "prices": [
+       {
+        "price": 245.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626054551573566.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173088,
+    "name": {
+     "en": "Burgers & Sandwiches"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026204746867004.png",
+    "items": [
+     {
+      "id": 959885,
+      "name": {
+       "en": "Classic Cheeseburger"
+      },
+      "desc_en": "<p>Lettuce / Tomatoes / Pickled Cucumber / Cheese Sauce / French Fries<br />",
+      "desc_ar": "خس / طماطم / خيار مخلل / صوص جبنة / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026204829354922.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959886,
+      "name": {
+       "en": "Mushroom Cheeseburger"
+      },
+      "desc_en": "<p>Lettuce / Tomatoes / Pickled Cucumber / Mushroom Sauce / Cheese Sauce / French Fries<br />",
+      "desc_ar": "خس / طماطم / خيار مخلل / صوص مشروم / صوص جبنة / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 335.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026205802879057.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959887,
+      "name": {
+       "en": "Aroma Chili Burger"
+      },
+      "desc_en": "<p>Lettuce / Tomatoes / Pickled Cucumber / Jalapeño / Chilli Sauce / Cheese Sauce / French Fries<br />",
+      "desc_ar": "خس / طماطم / خيار مخلل / هلابينو / صوص تشيلي / صوص جبنة / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 320.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026205909724228.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959888,
+      "name": {
+       "en": "Crispy Fried Chicken Bun"
+      },
+      "desc_en": "<p>Fried Chicken / Lettuce / Tomatoes / Pickled Cucumber / Pink Sauce / Ranch Sauce / French Fries<br />",
+      "desc_ar": "فراخ مقلية / خس / طماطم / خيار مخلل / صوص وردي / صوص رانش / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026205837869427.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959890,
+      "name": {
+       "en": "Club Sandwich"
+      },
+      "desc_en": "<p>Toast Bread / Chicken / Eggs / Cheddar Cheese / Smoked Turkey / Lettuce / Tomatoes / Mayonnaise / French Fries</br>",
+      "desc_ar": "عيش توست / فراخ / بيض / جبن شيدر / ديك مدخن / خس / طماطم / مايونيز / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 285.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026210034481981.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959891,
+      "name": {
+       "en": "Tuna Melt Sandwich"
+      },
+      "desc_en": "<p>Toast Bread / Capsicum / Mustard / Capers / Mayonnaise / French Fries </br>",
+      "desc_ar": "عيش توست / فلفل رومي / مسطردة / كابري / مايونيز / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 265.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959892,
+      "name": {
+       "en": "Seafood Mix Sandwich"
+      },
+      "desc_en": "<p>Vienna Bread / Seafood Mix / Pico De Galo / Mayonnaise / Ranch Sauce / French Fries</br>",
+      "desc_ar": "عيش فيينا / خلطة فواكه البحر / بيكو دي جالو  / مايونيز / صوص رانش / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 365.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026210104337003.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959893,
+      "name": {
+       "en": "Grilled Chicken Wrap"
+      },
+      "desc_en": "<p>Tortilla Bread / Lettuce / Mozzarella Cheese / Cheddar Cheese / Carrots / Sumac Onion / Ranch Sauce / French Fries<br />",
+      "desc_ar": "عيش تورتيلا / خس / جبنة موتزاريلا / جبنة شيدر / جزر / بصل بالسماق / صوص رانش / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026210251640922.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959895,
+      "name": {
+       "en": "Steak Sandwich"
+      },
+      "desc_en": "<p>Ciabatta Bread / Beef Slices / Capsicum / Onion / Cheddar Cheese / Brown Sauce / French Fries  <br />",
+      "desc_ar": "عيش شاباتا / شرائح لحم / فلفل رومي / بصل / جبنة شيدر / صوص بني / بطاطس محمرة</p>",
+      "prices": [
+       {
+        "price": 355.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026210328602803.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5580484,
+      "name": {
+       "en": "Salmon Avocado Sandwich"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 345.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5580485,
+      "name": {
+       "en": "Beef bacon Sandwich"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 275.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5580486,
+      "name": {
+       "en": "Smoked Turkey Sandwich"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 290.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5580487,
+      "name": {
+       "en": "Halloumi Avocado Sandwich"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 275.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173086,
+    "name": {
+     "en": "Salads"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926152353146394.png",
+    "items": [
+     {
+      "id": 4447521,
+      "name": {
+       "en": "Chicken Caesar Salads"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 345.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926152136859546.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959866,
+      "name": {
+       "en": "Steak Salad"
+      },
+      "desc_en": "<p>Grilled Steak / Arugula / Avocado / Balsamic Vinaigrette / Roasted Mushroom / Cherry Tomatoes / Parmesan Cheese / Gorgonzola Dressing<br />",
+      "desc_ar": "ستيك مشوي / جرجير / أفوكادو / خل بلساميك / ماشروم روستد / طماطم تشيري / جبنة بارميزان / دريسينج الجورجونزولا</p>",
+      "prices": [
+       {
+        "price": 395.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926152206106571.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959868,
+      "name": {
+       "en": "Halloumi Avocado Salad"
+      },
+      "desc_en": "<p>Halloumi Cheese / Avocado Spread / Arugula / Lettuce / Pico De Galo / Radish / Pesto Sauce/ Ranch Mint Dressing<br />",
+      "desc_ar": "جبنة حلوم / أفوكادو سبريد / جرجير / خس / بيكو دي جالو / فجل / صوص ريحان / دريسنج الرانش و النعناع</p>",
+      "prices": [
+       {
+        "price": 320.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926152227501874.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959871,
+      "name": {
+       "en": "Honey Garlic Shrimp Salad"
+      },
+      "desc_en": "<p>Shrimps / Arugula / Cherry Tomatoes / Roasted Capsicum / Lettuce / Roasted Almonds / Honey Garlic Dressing<br />",
+      "desc_ar": "جمبري / جرجير / طماطم تشيري / فلفل روستد / خس / لوز محمص / دريسينج العسل بالثوم</p>",
+      "prices": [
+       {
+        "price": 385.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926152254665842.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959865,
+      "name": {
+       "en": "Salmon Salad"
+      },
+      "desc_en": "<p>Smoked Salmon / Lettuce / Arugula / Cherry Tomatoes / Pineapple / Onion with Sumac / Capers / Pineapple Vinaigrette Dressing   <br />",
+      "desc_ar": "سالمون مدخن / خس / جرجير / طماطم تشيري / بصل بالسماق / كابري / أناناس / دريسينج خل الأناناس</p>",
+      "prices": [
+       {
+        "price": 385.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10102218102820469.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959867,
+      "name": {
+       "en": "Chicken Ranch Salad"
+      },
+      "desc_en": "<p>Grilled Chicken Slices / Lettuce / Cherry Tomatoes / Caramelized Walnuts / Radish / Croutons / Parmesan Cheese / Ranch Dressing <br />",
+      "desc_ar": "شرائح الفراخ المشوية / خس / طماطم تشيري / عين جمل مكرمل / فجل / كروتون / جبنة بارميزان / دريسنج الرانش</p>",
+      "prices": [
+       {
+        "price": 335.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10102218109760749.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 2062936,
+      "name": {
+       "en": "Quinoa Salad"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 295.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-10012412018010937.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173087,
+    "name": {
+     "en": "Appetizers"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926202600287405.png",
+    "items": [
+     {
+      "id": 1856475,
+      "name": {
+       "en": "Hawawshi"
+      },
+      "desc_en": "",
+      "desc_ar": "سادة أو بالجبنه<div></div>",
+      "prices": [
+       {
+        "price": 265.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-200425173157513627.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959874,
+      "name": {
+       "en": "Tacos Beef Tenderloin"
+      },
+      "desc_en": "<p>Beef Slices / Avocado Wasabi / Pico De Galo / Sour Cream / Cheddar Cheese Sauce / Tortilla Bread</p><p>",
+      "desc_ar": "شرائح لحم / أفوكادو بالوسابي / بيكو دي جالو / ساور كريم/ صوص جبن شيدر / عيش تورتيلا</p>",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926202720426215.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959875,
+      "name": {
+       "en": "Chicken Croquettes"
+      },
+      "desc_en": "<p>Chicken Balls / Mozzarella Cheese / Red Cheddar Cheese / Parmesan Cheese / Herbs / Onion / Pink Sauce</br>",
+      "desc_ar": "كرات فراخ / جبنة موتزاريلا / جبنة شيدر أحمر / جبنة بارميزان / توابل / بصل / صوص وردي</p>",
+      "prices": [
+       {
+        "price": 210.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-09022315021390990.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959878,
+      "name": {
+       "en": "Shrimps Cilantro"
+      },
+      "desc_en": "<p>Shrimps / White Lemon Sauce / Cilantro / Nachos <br />",
+      "desc_ar": "جمبري / صوص ليمون أبيض / كزبرة / ناتشوز</p>",
+      "prices": [
+       {
+        "price": 245.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-24102213102740768.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959879,
+      "name": {
+       "en": "Chicken Quesadilia"
+      },
+      "desc_en": "<p>Chicken / Cheddar Cheese / Mozzarella Cheese / Sweet Corn / Kidney Beans / Roasted Capsicum / Sour Cream / Guacamole / Tortilla Bread</p><p>",
+      "desc_ar": "فراخ / جبنة شيدر / جبنة موتزاريلا / ذرة حلوة / فاصوليا حمراء / فلفل روستد / ساور كريم / جواكامولي / عيش تورتيلا</p>",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-101024192434985101.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959881,
+      "name": {
+       "en": "Shrimps & Calamari Basket"
+      },
+      "desc_en": "<p>Fried Shrimps / Fried Calamari / Ranch Sauce</br>",
+      "desc_ar": "جمبري مقلي / كالاماري مقلي / صوص رانش</p>",
+      "prices": [
+       {
+        "price": 320.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-101024192509786500.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959873,
+      "name": {
+       "en": "Chicken Liver"
+      },
+      "desc_en": "<p>Chicken Liver / Spinach / Roasted Almonds / Cherry Tomatoes / Lemon Cream Sauce / Nachos<br />",
+      "desc_ar": "كبدة فراخ / سبانخ / لوز محمص / طماطم تشيري / صوص كريمة الليمون / ناتشوز</p>",
+      "prices": [
+       {
+        "price": 195.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10022314022720103.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1856473,
+      "name": {
+       "en": "Soguk"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 195.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-03112317110320600.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4596553,
+      "name": {
+       "en": "Beef Quesadilia"
+      },
+      "desc_en": "<p>Beef / Cheddar Cheese / Mozzarella Cheese / Sweet Corn / Kidney Beans / Roasted Capsicum / Sour Cream / Guacamole / Tortilla Bread</p><p>",
+      "desc_ar": "لحم / جبنة شيدر / جبنة موتزاريلا / ذرة حلوة / فاصوليا حمراء / فلفل روستد / ساور كريم / جواكامولي / عيش تورتيلا</p>",
+      "prices": [
+       {
+        "price": 325.0,
+        "label": ""
+       }
+      ],
+      "image": "https://images.mydigimenu.com/media/ZqOqDlcW2M/9258-101024192434985101.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 202915,
+    "name": {
+     "en": "Feteer"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026203429755477.png",
+    "items": [
+     {
+      "id": 1191726,
+      "name": {
+       "en": "Meshaltet"
+      },
+      "desc_en": "<div><div><p>On the side of Cream / Molasses / Tahini / Gebna Kadeema<br>",
+      "desc_ar": "يقدم بجانب القشطة / العسل الأسود / الطحينة / الجبنه القديمه</p></div></div>",
+      "prices": [
+       {
+        "price": 520.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-300926210328245684.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1146757,
+      "name": {
+       "en": "Mix Cheese Feteer"
+      },
+      "desc_en": "<p>Red Cheddar Cheese / Cream Cheese / Mozzarella Cheese / Halloumi Cheese / Pesto Sauce</br>",
+      "desc_ar": "جبنة شيدر أحمر / جبنه كريمي / جبنة موتزاريلا / جبنه حلومي / صوص بستو</p>",
+      "prices": [
+       {
+        "price": 365.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026204429858137.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1146760,
+      "name": {
+       "en": "Soguk Feteer"
+      },
+      "desc_en": "<p>Soguk / Mozzarella Cheese / Roumi Cheese / Tomatoes / Olives / Bell Pepper</br>",
+      "desc_ar": "سجق / جبنة موتزاريلا / جبنه رومي / طماطم / زيتون / فلفل رومي</p>",
+      "prices": [
+       {
+        "price": 395.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026203625372399.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1146763,
+      "name": {
+       "en": "Mixed Beef Feteer"
+      },
+      "desc_en": "<p>Soguk / Ground Beef / Pastrami / Mozzarella Cheese / Tomatoes</br>",
+      "desc_ar": "سجق / لحمة مفرومة / بسطرمة / جبنة موتزاريلا / طماطم</p>",
+      "prices": [
+       {
+        "price": 395.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026203647469739.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1146771,
+      "name": {
+       "en": "Chicken Feteer"
+      },
+      "desc_en": "<p>Chicken / Mushroom / Olives / Mozzarella Cheese / Roumi Cheese / Cheddar Cheese  / Spinach</br>",
+      "desc_ar": "فراخ / ماشروم / زيتون / جبنة موتزاريلا / جبنة رومي / جبنة شيدر / سبانخ</p>",
+      "prices": [
+       {
+        "price": 390.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026204533170695.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1628797,
+      "name": {
+       "en": "Basterma Feteer"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 390.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026204559406312.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1146777,
+      "name": {
+       "en": "Boghasha Feteer"
+      },
+      "desc_en": "<p>Condensed Milk / Vanilla / Hot Milk / Powdered Sugar</br>",
+      "desc_ar": "لبن مكثف / فانيليا / لبن ساخن / سكر بودره</p>",
+      "prices": [
+       {
+        "price": 260.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026204458681562.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1146779,
+      "name": {
+       "en": "Nutella Marshmallow Feteer"
+      },
+      "desc_en": "<p>Nutella Chocolate / Marshmallow / Custard / White Chocolate Flakes</br>",
+      "desc_ar": "شوكولاتا نوتيلا / مارشميلو / كاستارد / فليكس شوكولاتا بيضاء</p>",
+      "prices": [
+       {
+        "price": 265.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-200425173413324850.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1628795,
+      "name": {
+       "en": "Lotus Feteer"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 265.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18082311081110519.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 2899883,
+      "name": {
+       "en": "Custard Feteer Roll"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 225.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026204648186597.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173090,
+    "name": {
+     "en": "Pasta"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11026203513771384.png",
+    "items": [
+     {
+      "id": 1054642,
+      "name": {
+       "en": "Chicken Penne Alfredo"
+      },
+      "desc_en": "<p>Grilled Chicken / Alfredo Sauce / Mushroom / Parmesan Cheese</br>",
+      "desc_ar": "فراخ مشويه / صوص الفريدو / ماشروم/ جبنة بارميزان</p>",
+      "prices": [
+       {
+        "price": 340.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-13102212106300299.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959898,
+      "name": {
+       "en": "Meatballs Fettuccini"
+      },
+      "desc_en": "<p>Meatballs / Aroma Red Sauce / Parmesan Cheese<br />",
+      "desc_ar": "كرات اللحم المتبل / صوص أروما الأحمر / جبنة بارميزان</p>",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10102221106550981.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959899,
+      "name": {
+       "en": "Chicken Liver Penne"
+      },
+      "desc_en": "<p>Chicken Liver / Cherry Tomatoes / Aroma Red Sauce / White Sauce / Sprouts<br />",
+      "desc_ar": "كبد فراخ / طماطم تشيري / صوص أروما الأحمر / صوص أبيض / براعم</p>",
+      "prices": [
+       {
+        "price": 285.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10102221109980965.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959901,
+      "name": {
+       "en": "Seafood Fettuccini"
+      },
+      "desc_en": "<p>Shrimps / Calamari / Fish / White Sauce / Parmesan Cheese / Sprouts<br />",
+      "desc_ar": "جمبري / كلاماري / سمك / صوص أبيض / جبن بارميزان / براعم</p>",
+      "prices": [
+       {
+        "price": 375.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10102221103200880.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 961650,
+      "name": {
+       "en": "Spaghetti Bolognese"
+      },
+      "desc_en": "<p>Bolognese Sauce / Basil / Parmesan Cheese<br />",
+      "desc_ar": "صوص بولونيز / ريحان / جبن بارميزان</p>",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10102221101130257.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3712657,
+      "name": {
+       "en": "Negresco Fried Chicken"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 340.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80525203212128450.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5437375,
+      "name": {
+       "en": "Beef pesto fettuccine"
+      },
+      "desc_en": "<p>",
+      "desc_ar": "مكرونه فوتشيني بصوص الريحان الكريمي مع شرائح لحم بقري وجبنة بارميزان </p>",
+      "prices": [
+       {
+        "price": 420.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80826202435433301.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173091,
+    "name": {
+     "en": "Paella"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626054857585548.png",
+    "items": [
+     {
+      "id": 959904,
+      "name": {
+       "en": "Chicken Paella"
+      },
+      "desc_en": "<p>Chicken / Paella Rice / Peas / Carrots / Cilantro / Parsley<br />",
+      "desc_ar": "فراخ / أرز بايلا / بسلة / جزر / كزبرة / بقدونس</p>",
+      "prices": [
+       {
+        "price": 545.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626054944776712.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959905,
+      "name": {
+       "en": "Vegetables Paella"
+      },
+      "desc_en": "<p>Zucchini / Broccoli / Mushroom / Capsicum / Paella Rice / Peas / Carrots / Cilantro / Parsley</br>",
+      "desc_ar": "كوسة / بروكلي / ماشروم / فلفل رومي / أرز بايلا / بسلة / جزر / كزبرة / بقدونس</p>",
+      "prices": [
+       {
+        "price": 410.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-151025171622649871.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959906,
+      "name": {
+       "en": "Seafood Paella"
+      },
+      "desc_en": "<p>Shrimps / Calamari / Fish / Mussels / Paella Rice / Peas / Carrots / Cilantro / Parsley</br>",
+      "desc_ar": "جمبري / كالماري / سمك / بلح بحر / أرز بايلا / بسلة / جزر / كزبرة / بقدونس</p>",
+      "prices": [
+       {
+        "price": 590.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626055025061095.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173092,
+    "name": {
+     "en": "Main Course"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-240626054836044502.jpeg",
+    "items": [
+     {
+      "id": 1054613,
+      "name": {
+       "en": "Beef Stroganoff"
+      },
+      "desc_en": "<p>Beef Slices / Stroganoff Sauce / Mushroom / Yellow Basmati Rice</p><p>",
+      "desc_ar": "شرائح اللحم / صوص السترجنوف / ماشروم / أرز بسمتي</p>",
+      "prices": [
+       {
+        "price": 610.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1933485,
+      "name": {
+       "en": "Meatballs Pot"
+      },
+      "desc_en": "<p>A pot of meatballs in brown sauce with vegetables, served with Yellow Basmati rice.</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 420.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959917,
+      "name": {
+       "en": "Aroma Beef Fillet"
+      },
+      "desc_en": "<div><p>Beef Fillet (Baladi) / Potato Cubes / Mixed Green Salad / Black Pepper or Mushroom Sauce<br>",
+      "desc_ar": "لحم فيلية بلدي / مكعبات بطاطس / سلطه خضراء / صوص فلفل أسود أو صوص الماشروم</p>\n</div>",
+      "prices": [
+       {
+        "price": 610.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-210626221322829649.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959914,
+      "name": {
+       "en": "Osso Buco"
+      },
+      "desc_en": "<p>Osso Buco / Safflower Lemon Demi Glace Sauce / Roasted Mushroom / Mashed Potatoes <br />",
+      "desc_ar": "أوسوبوكو / صوص ديمي جلاس الليمون المعصفر / مشروم روستد / بطاطس مهروسة</p>",
+      "prices": [
+       {
+        "price": 595.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-11025042939041294.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5208233,
+      "name": {
+       "en": "Aroma Rib Eye Steak"
+      },
+      "desc_en": "<p>Premium Angus rib eye , served with Sun dried tomato mashed potato , mix Salad </p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 625.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-210626185837405609.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959907,
+      "name": {
+       "en": "Grilled Chicken Mesahab"
+      },
+      "desc_en": "<p>Half Chicken / Sautéed Vegetables / Yellow Basmati Rice / Thomeyya  </p><p>",
+      "desc_ar": "نصف فرخة / خضار سوتيه / أرز بالريحان / ثومية</p>",
+      "prices": [
+       {
+        "price": 425.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-09022316027520200.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959909,
+      "name": {
+       "en": "Aroma Grilled Chicken"
+      },
+      "desc_en": "<p>Grilled Chicken Breasts / Potato Cubes / Mushroom Sauce / Mixed Green Salad<br />",
+      "desc_ar": "صدور فراخ مشوية / مكعبات بطاطس / صوص مشروم / سلطة خضراء</p>",
+      "prices": [
+       {
+        "price": 425.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-210626220911265101.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5208325,
+      "name": {
+       "en": "Smoked Angus Brisket"
+      },
+      "desc_en": "<p>Premium Angus brisket Slow-cooked to perfection and served with creamy mashed potatoes </p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 625.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-210626215022327510.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959919,
+      "name": {
+       "en": "Salmon Lemon Butter"
+      },
+      "desc_en": "<p>Grilled Salmon / Sautéed Vegetables / Mashed Potatoes / Lemon Butter Sauce</p>\n\n<p>",
+      "desc_ar": "سالمون مشوي / خضار سوتيه / بطاطس ماش / صوص ليمون باتر</p>",
+      "prices": [
+       {
+        "price": 635.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-09022315023010563.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959910,
+      "name": {
+       "en": "Country Fried Chicken"
+      },
+      "desc_en": "<p>",
+      "desc_ar": "صدور فراخ مقلية مع صوص الجبنه تقدم مع الأرز البسمتي الأصفر وبطاطس مقلية </p>",
+      "prices": [
+       {
+        "price": 410.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80826204341573125.png",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1930568,
+      "name": {
+       "en": "Seafood Mix Tajin"
+      },
+      "desc_en": "<p>A Mix of seafood with white sauce, topped by cheese</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 495.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-08122313124950231.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3712656,
+      "name": {
+       "en": "Chicken Pastrami Roll"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 425.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80525203154493973.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5437376,
+      "name": {
+       "en": "Liver shish Kaba"
+      },
+      "desc_en": "<p>",
+      "desc_ar": "كبدة بقري مشويه تقدم مع أرز بالريحان وخضار مشوي وصوص طحينه </p>",
+      "prices": [
+       {
+        "price": 485.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80826204320893104.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 850081,
+    "name": {
+     "en": "Pizza "
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-60826214914911190.jpeg",
+    "items": [
+     {
+      "id": 5423875,
+      "name": {
+       "en": "PIZZA PEPERONI"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 385.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-60826215034734725.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5423878,
+      "name": {
+       "en": "Pizza chicken Truffle mushroom"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 495.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-60826215155326568.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5423879,
+      "name": {
+       "en": "Pizza Quattro Formaggi"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 410.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-60826215238162119.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5423880,
+      "name": {
+       "en": "Shrimp Pizza"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 465.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-60826215312813538.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5423881,
+      "name": {
+       "en": "Buffalo cheese Pizza"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 375.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-60826215420839175.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 853060,
+    "name": {
+     "en": "Risotto "
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80826201212530056.jpeg",
+    "items": [
+     {
+      "id": 5437090,
+      "name": {
+       "en": "Shrimp Risotto"
+      },
+      "desc_en": "<p>",
+      "desc_ar": "ريزوتو إيطالي كريمي بنكهة صوص الجمبري مع قطع جمبري مشوي وصوص الريحان وجبنه بارميزان </p>",
+      "prices": [
+       {
+        "price": 520.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80826201613747950.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5437091,
+      "name": {
+       "en": "Truffle Mushroom Risotto"
+      },
+      "desc_en": "<p>",
+      "desc_ar": "روزيتو كريمي بالمشروم الترافيل وجبنه البارميزان وصوص الريحان وقطع مشروم فريش </p>",
+      "prices": [
+       {
+        "price": 450.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80826201816947659.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5437276,
+      "name": {
+       "en": "Beef Risotto"
+      },
+      "desc_en": "<p>",
+      "desc_ar": "روزيتو كريمي مع صوص الريكفورد وجبنه البارميزان وقطع لحم البقري </p>",
+      "prices": [
+       {
+        "price": 520.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-80826202012397970.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "menu": "Beverage Menu",
+  "id": 24280,
+  "sections": [
+   {
+    "id": 173093,
+    "name": {
+     "en": "Soft Drinks & Water"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-31072222073560717.png",
+    "items": [
+     {
+      "id": 959923,
+      "name": {
+       "en": "Pepsi"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 80.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-02102218103600628.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959924,
+      "name": {
+       "en": "Diet Pepsi"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 80.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-02102214100570219.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959925,
+      "name": {
+       "en": "7 Up"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 80.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-13102221107520403.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959926,
+      "name": {
+       "en": "Mirinda Orange"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 80.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-11102217106690475.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959928,
+      "name": {
+       "en": "Fayrouz - Pineapple"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 85.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10082222083520143.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959930,
+      "name": {
+       "en": "Birel"
+      },
+      "desc_en": "<p>Non Alcoholic Beer</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 85.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10082222087530731.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959931,
+      "name": {
+       "en": "Red Bull"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 125.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10082222080910724.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959933,
+      "name": {
+       "en": "Water (Small)"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 45.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-02102214108450864.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959934,
+      "name": {
+       "en": "Water (Large)"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 60.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-04102219102970761.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959935,
+      "name": {
+       "en": "Sparkling Water"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 85.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10082222087910136.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173094,
+    "name": {
+     "en": "Juices & Mixes"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10082222087890431.jpeg",
+    "items": [
+     {
+      "id": 959939,
+      "name": {
+       "en": "Fresh Lemon Juice"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-200425173813650489.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959946,
+      "name": {
+       "en": "Fresh Avocado Cocktail"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 195.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-200425173926977785.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5291956,
+      "name": {
+       "en": "Fresh fig"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593687,
+      "name": {
+       "en": "Fresh Orange Juice"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://images.mydigimenu.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217108260473.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593688,
+      "name": {
+       "en": "Fresh Strawberry Juice"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217107520351.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593689,
+      "name": {
+       "en": "Banana / Milk"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217107730904.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593690,
+      "name": {
+       "en": "Fresh Guava Juice"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217106550783.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593691,
+      "name": {
+       "en": "Fresh Mango Juice"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 155.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217109530841.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593692,
+      "name": {
+       "en": "Fresh Kiwi Cocktail"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217103070132.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173095,
+    "name": {
+     "en": "Hot Drinks"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-31072222073850404.png",
+    "items": [
+     {
+      "id": 959947,
+      "name": {
+       "en": "Espresso"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 95.0,
+        "label": ""
+       },
+       {
+        "price": 0.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102217107940361.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959948,
+      "name": {
+       "en": "Cappuccino"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 140.0,
+        "label": ""
+       },
+       {
+        "price": 0.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102216105400556.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959949,
+      "name": {
+       "en": "Cappuccino Caramel"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102216108780901.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959950,
+      "name": {
+       "en": "Cafe Late"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 135.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102216105950903.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959951,
+      "name": {
+       "en": "Cafe Mocha"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 135.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102217106120341.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959952,
+      "name": {
+       "en": "American Coffee"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 120.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102217106890827.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959953,
+      "name": {
+       "en": "Aroma Gold"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 135.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102216100960335.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959955,
+      "name": {
+       "en": "Apple Cider"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 135.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102216109610360.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959958,
+      "name": {
+       "en": "Herbs"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 70.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10032419036250947.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959956,
+      "name": {
+       "en": "Hot Chocolate"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 135.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102216106260557.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959957,
+      "name": {
+       "en": "Tea"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 85.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10032419039360981.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959959,
+      "name": {
+       "en": "Turkish Coffee"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 90.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102217100370123.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4101562,
+      "name": {
+       "en": "Turkish Coffee (Mehawweg)"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 95.0,
+        "label": ""
+       }
+      ],
+      "image": "https://images-internal.mydigimenu.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102217100370123.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4276602,
+      "name": {
+       "en": "Homoss elsham"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-161025222431209766.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959961,
+      "name": {
+       "en": "Nutella Coffee"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 125.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102218102000212.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959963,
+      "name": {
+       "en": "Coffee Lotus"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-17102216101100279.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1202138,
+      "name": {
+       "en": "Sahlab"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-27122216120080187.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 2285731,
+      "name": {
+       "en": "Cinnamon Milk"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 110.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-10032419034980341.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4101563,
+      "name": {
+       "en": "Health Boost"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 155.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-290825021139446760.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203512,
+      "name": {
+       "en": "Spanish latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203520,
+      "name": {
+       "en": "Salted caramel latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203521,
+      "name": {
+       "en": "Pistachio Latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203522,
+      "name": {
+       "en": "White Mocha"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4470571,
+      "name": {
+       "en": "Espresso Double"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173096,
+    "name": {
+     "en": "Cold Drinks"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-31072222072520270.png",
+    "items": [
+     {
+      "id": 4593698,
+      "name": {
+       "en": "Sunshine"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217108630605.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593696,
+      "name": {
+       "en": "Ice Chocolate"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217100300995.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593695,
+      "name": {
+       "en": "Oreo Shake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217107400809.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593700,
+      "name": {
+       "en": "Milkshake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217108580235.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593702,
+      "name": {
+       "en": "Redbull Mix Berries"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 180.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217108050147.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593699,
+      "name": {
+       "en": "Cherry Cola"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 125.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301020960527.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593701,
+      "name": {
+       "en": "Apple Angel"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217106000986.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593704,
+      "name": {
+       "en": "Cookies Ice Latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18102217102990741.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3716653,
+      "name": {
+       "en": "Ice Tea (Peach, Passion Fruit, Apple, Coconut)"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 140.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593703,
+      "name": {
+       "en": "Kiwi Lemonade"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301024990557.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203559,
+      "name": {
+       "en": "Iced Spanish Latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203560,
+      "name": {
+       "en": "Iced salted caramel latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203561,
+      "name": {
+       "en": "Iced White Mocha Latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203563,
+      "name": {
+       "en": "Ice Caramel Macchiato"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 155.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4590232,
+      "name": {
+       "en": "Ice Latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 145.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4590306,
+      "name": {
+       "en": "Mocha Frappe"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593705,
+      "name": {
+       "en": "Mojito Passion Fruit"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593694,
+      "name": {
+       "en": "Latte Frappe"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 160.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4593706,
+      "name": {
+       "en": "Pistachio Ice Latte"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173098,
+    "name": {
+     "en": "Smoothies"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-31072222070810769.png",
+    "items": [
+     {
+      "id": 959979,
+      "name": {
+       "en": "Pina Colada"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 185.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301029750376.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959980,
+      "name": {
+       "en": "Mango Smoothie"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301029230161.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959981,
+      "name": {
+       "en": "Strawberries Smoothie"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301028460398.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959982,
+      "name": {
+       "en": "Banana Berries"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 185.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959983,
+      "name": {
+       "en": "Orange Strawberries"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301026460513.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959984,
+      "name": {
+       "en": "Lemon Mint"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301022830975.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959985,
+      "name": {
+       "en": "Mango Colada"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 185.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-07022301025110912.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959986,
+      "name": {
+       "en": "Watermelon Smoothie"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5474712,
+      "name": {
+       "en": "Strawberry Colada"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 185.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 173099,
+    "name": {
+     "en": "Yogurt Mixes"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-10082221089770611.jpeg",
+    "items": [
+     {
+      "id": 959989,
+      "name": {
+       "en": "Hony"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       },
+       {
+        "price": 0.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959991,
+      "name": {
+       "en": "Mix berry"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 185.0,
+        "label": ""
+       },
+       {
+        "price": 0.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 959992,
+      "name": {
+       "en": "Strawberries"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1052800,
+      "name": {
+       "en": "Peach"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 667414,
+    "name": {
+     "en": "Hot matcha"
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-230925173423812355.jpeg",
+    "items": [
+     {
+      "id": 4203523,
+      "name": {
+       "en": "Hot pistachio matcha"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 175.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203525,
+      "name": {
+       "en": "Hot matcha"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 155.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203558,
+      "name": {
+       "en": "Spanish Matcha"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   },
+   {
+    "id": 667418,
+    "name": {
+     "en": "Cold matcha "
+    },
+    "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-250925165238204839.jpeg",
+    "items": [
+     {
+      "id": 4203564,
+      "name": {
+       "en": "Iced Spanish"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 170.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-250925164829072123.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203565,
+      "name": {
+       "en": "Salted caramel"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-250925164417362552.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203566,
+      "name": {
+       "en": "Blended Pistachio"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 160.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-250925165147412324.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203567,
+      "name": {
+       "en": "Iced mango vanilla"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 155.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-250925164618394490.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4203569,
+      "name": {
+       "en": "Iced Strawberry"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 160.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-250925164651013028.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "menu": "Dessert",
+  "id": 24614,
+  "sections": [
+   {
+    "id": null,
+    "name": {
+     "en": "Dessert"
+    },
+    "items": [
+     {
+      "id": 977246,
+      "name": {
+       "en": "Chocolate Fudge"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 180.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-19042320040010855.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 986442,
+      "name": {
+       "en": "Blueberry Cheese Cake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 190.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18082218080390767.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1197175,
+      "name": {
+       "en": "Om Ali"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 135.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-22122216126120594.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4555251,
+      "name": {
+       "en": "Strawberry cheesecake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 185.0,
+        "label": ""
+       },
+       {
+        "price": 0.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 987965,
+      "name": {
+       "en": "Ice Cream"
+      },
+      "desc_en": "<p>French Vanilla / Chocolate / Strawberry / Mango</br>",
+      "desc_ar": "فانيليا / شوكولاته / فراوله / مانجو</p>",
+      "prices": [
+       {
+        "price": 95.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-20082221080410505.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1633991,
+      "name": {
+       "en": "Nutella Pancake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 220.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18082311088720125.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1633992,
+      "name": {
+       "en": "Nutella Ice Cream Pancake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 230.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1633993,
+      "name": {
+       "en": "Lotus Pancake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 210.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-18082311084840686.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1633994,
+      "name": {
+       "en": "Pistachio Pancake"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 235.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3132780,
+      "name": {
+       "en": "Four Seasons Waffle"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 285.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-61124184413806172.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3132781,
+      "name": {
+       "en": "Oreo Ice Cream Waffle"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 250.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-61124184452159818.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4233509,
+      "name": {
+       "en": "Waffle Croissant"
+      },
+      "desc_en": "<p>Choose Your flavor (Nuttela-Pistachio-Strawberry  )</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 250.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5226331,
+      "name": {
+       "en": "Eclair Nutella"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 165.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5226332,
+      "name": {
+       "en": "Eclair Caramel"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 160.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5226335,
+      "name": {
+       "en": "Tiramisu"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 180.0,
+        "label": ""
+       }
+      ],
+      "image": "",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5295052,
+      "name": {
+       "en": "Cream Brûlée French toast"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 255.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-110726211135872027.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 5295053,
+      "name": {
+       "en": "Chocolate Lava Cake With Ice Cream"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 225.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-110726211413042598.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "menu": "Breakfast Menu",
+  "id": 26774,
+  "sections": [
+   {
+    "id": null,
+    "name": {
+     "en": "Breakfast Menu"
+    },
+    "items": [
+     {
+      "id": 1807859,
+      "name": {
+       "en": "Full Oriental Breakfast Tray"
+      },
+      "desc_en": "<p>Feteer Meshaltet / Fou / Eggs / Tameyya / Gebna Beida / Labna / Salad / Molasses / /Gebna Adeema </p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 550.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-12102313102020439.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1807860,
+      "name": {
+       "en": "Oriental Breakfast Tray"
+      },
+      "desc_en": "<p>Foul  / Eggs / Tameyya / Gebna Beida / Labna / Salad</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 450.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-12102313104500395.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073598,
+      "name": {
+       "en": "Mushroom Cheese Spinach Omelet"
+      },
+      "desc_en": "<p>Omelet with Cheddar Cheese, fresh mushroom, spinach, cherry tomatoes, served with our special herb potato cubs and mix green salad</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 295.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212104090604.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073599,
+      "name": {
+       "en": "Egg White Cheese & Olives Omelet"
+      },
+      "desc_en": "<p>Egg white omelet with feta cheese, black olives, fresh mushroom, and bell pepper. Served with our special Herb potato cubs and mix green salad</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 275.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212106870802.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073600,
+      "name": {
+       "en": "Salmon Avocado Omelet"
+      },
+      "desc_en": "<p>Omelet with smoked salmon, avocado slices, capers, labna, onion, and sumac. Served with our special herb potato cubs and mix green salad</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212100900448.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073721,
+      "name": {
+       "en": "Eggs Shakshooka Casserole"
+      },
+      "desc_en": "<p>Sunny side up eggs with oriental Shakshooka mix</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 275.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212109140861.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073722,
+      "name": {
+       "en": "Hash Brown Eggs & Cheese Casserole"
+      },
+      "desc_en": "<p>Eggs with Feta Cheese, fries, broccoli, and tomatoes</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 280.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212102590576.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073723,
+      "name": {
+       "en": "Pastrami Eggs Casserole"
+      },
+      "desc_en": "<p>Sunni side up eggs with pastrami, tomatoes, and arugula</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 295.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212103270744.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 4375975,
+      "name": {
+       "en": "Focaccia Spanish egg"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 275.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-111125215755997105.jpeg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073726,
+      "name": {
+       "en": "Smoked Turkey Benedict"
+      },
+      "desc_en": "<p>2 Pouched eggs, with smoked turkey slices, mayonnaise, arugula, sun-dried tomatoes, and Hollandaise sauce. Served on the side of mix green salad</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 285.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212107280600.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073725,
+      "name": {
+       "en": "Avocado & Beef Bacon Benedict"
+      },
+      "desc_en": "<p>2 Pouched eggs, with beef bacon, arugula, guacamole, and Hollandaise sauce. Served on the side of mix green salad</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 295.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212108560912.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1203670,
+      "name": {
+       "en": "Flat Bread - Minced Beef & Eggs"
+      },
+      "desc_en": "<p>Flat Bread dough with herbed minced beef, eggs, and parsley</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 255.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-29122215122070875.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1203671,
+      "name": {
+       "en": "Flat Bread - Beef Bacon & eggs"
+      },
+      "desc_en": "<p>Flat Bread dough with beef bacon, cherry tomatoes, and eggs</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 245.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-29122215127510713.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1073724,
+      "name": {
+       "en": "Smoked Salmon Eggs Benedict"
+      },
+      "desc_en": "<p>2 Pouched eggs, with smoked salmon, arugula, avocado, spinach, and Hollandaise sauce. Served on the side of mix green salad</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 310.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-26102212100990440.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1203668,
+      "name": {
+       "en": "Flat Bread -  Smoked Salmon & Cheese"
+      },
+      "desc_en": "<p>Flat bread dough with cream cheese, smoked salmon slices and capers</p>",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 275.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-29122215122280978.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3132776,
+      "name": {
+       "en": "Turkey Omelette Croissant"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 245.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-71124191935460312.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3132777,
+      "name": {
+       "en": "Omelette Hot Dogs Croissant"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 235.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-71124191952870546.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3132778,
+      "name": {
+       "en": "Chicken Ranch Croissant"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 265.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-71124192008607812.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 3132779,
+      "name": {
+       "en": "Mixed Cheese Croissant"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 220.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/9258-71124192024505061.jpg",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "menu": "Kids Menu",
+  "id": 36337,
+  "sections": [
+   {
+    "id": null,
+    "name": {
+     "en": "Kids Menu"
+    },
+    "items": [
+     {
+      "id": 1688770,
+      "name": {
+       "en": "Pasta Meatballs"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 210.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-24082308082890193.JPG",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1688771,
+      "name": {
+       "en": "Chicken Strips"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 185.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-24082308083400153.JPG",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     },
+     {
+      "id": 1688772,
+      "name": {
+       "en": "Pasta Crispy Chicken"
+      },
+      "desc_en": "",
+      "desc_ar": "",
+      "prices": [
+       {
+        "price": 210.0,
+        "label": ""
+       }
+      ],
+      "image": "https://mymenu-backend-staging.s3.amazonaws.com/media/ZqOqDlcW2M/ZqOqDlcW2M-24082308086600359.JPG",
+      "flags": [],
+      "spicy": "",
+      "available": true
+     }
+    ]
+   }
+  ]
+ }
+]

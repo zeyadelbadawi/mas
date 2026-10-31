@@ -2,6 +2,7 @@ export { siteOrigin, isIndexable, internalPagesEnabled, localePath, type Locale 
 export { pageMetadata } from "./metadata";
 export {
   organizationJsonLd,
+  websiteJsonLd,
   restaurantJsonLd,
   breadcrumbJsonLd,
   menuJsonLd,
