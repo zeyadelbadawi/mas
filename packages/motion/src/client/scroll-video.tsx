@@ -267,7 +267,9 @@ export function ScrollVideo({
       const st = lib.ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: "bottom bottom",
+        // The stage's own pinned travel, not "bottom bottom": on phones the screen grows and shrinks with
+        // the browser bars, while the stage stays at the largest height.
+        end: () => `+=${section.offsetHeight - stage.offsetHeight}`,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           reveal(self);
@@ -304,9 +306,9 @@ export function ScrollVideo({
         "relative",
         staticLayout
           ? "h-auto"
-          : "h-[calc(var(--scroll-vh)*1svh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
+          : "h-[calc(var(--scroll-vh)*1lvh)] motion-reduce:h-auto motion-reduce:[--seq-progress:1]",
         overlapPrevious && !staticLayout
-          ? "pointer-events-none -mt-[100svh] motion-reduce:pointer-events-auto motion-reduce:mt-0"
+          ? "pointer-events-none -mt-[100lvh] motion-reduce:pointer-events-auto motion-reduce:mt-0"
           : "",
         className ?? "",
       ].join(" ")}
@@ -317,7 +319,7 @@ export function ScrollVideo({
           "[container-type:size] pointer-events-auto",
           staticLayout
             ? "relative aspect-(--poster-ratio) w-full overflow-hidden"
-            : "sticky top-0 h-svh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto",
+            : "sticky top-0 h-lvh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto",
         ].join(" ")}
         style={{ "--poster-ratio": `${poster.width} / ${poster.height}` } as CSSProperties}
       >

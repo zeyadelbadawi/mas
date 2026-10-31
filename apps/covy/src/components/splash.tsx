@@ -5,10 +5,14 @@ import { preloadProgress, subscribePreload } from "@mas/motion/video-preload";
 import { useEffect, useRef, useState } from "react";
 import { CovyWordmark } from "@/components/logo";
 
-/** Videos that must be fully downloaded before the page is revealed. */
-const READY = ["covy.hero"] as const;
+/**
+ * Every scroll scene must be fully downloaded before the page is revealed, so even a first scroll straight
+ * through all three plays from memory, frame by frame.
+ */
+const READY = ["covy.hero", "covy.connector", "covy.signature"] as const;
 const MIN_MS = 900;
-const MAX_MS = 6000;
+/** Safety net for a stalled connection; the skip link is there sooner. */
+const MAX_MS = 30000;
 const SEEN = "covy-splash";
 /** Before first paint: a visitor who already saw it this session never sees it flash. Static, no input. */
 const BOOT = {
@@ -16,9 +20,9 @@ const BOOT = {
 };
 
 /**
- * D43: the first visit of a session opens on the COVY mark with a loading line while the first scene's video
- * downloads, so the walk plays from the first scroll; then the panel lifts off the facade. It never waits more
- * than six seconds, can be skipped, and doesn't show again in the session, on a deep link, or without motion.
+ * D43/D45: the first visit of a session opens on the COVY mark with a loading line while the three scene videos
+ * download, so the walk plays from the first scroll; then the panel lifts off the facade. It can be skipped,
+ * gives up after 30 seconds, and doesn't show again in the session, on a deep link, or without motion.
  */
 export function Splash({ label, skip }: { label: string; skip: string }) {
   const ref = useRef<HTMLDivElement>(null);
