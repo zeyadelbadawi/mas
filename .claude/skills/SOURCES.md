@@ -32,3 +32,4 @@ Vendored from public GitHub repos (found with find-skills, checked on skills.sh:
 | resend | https://github.com/resend/resend-skills | b2ae7b1 | MIT License |
 | shadcn | https://github.com/shadcn-ui/ui | 96da9cc | MIT License |
 | humanizer | https://github.com/blader/humanizer | 0ef9fe5 | MIT License |
+| ux-heuristics | https://github.com/wondelai/skills | c172996 | see repo |

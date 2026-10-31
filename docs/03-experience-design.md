@@ -118,7 +118,7 @@ Scene IDs match the asset manifest. "Seq" = Layer A, "RT3D" = Layer B, "Motion" 
 | C3 | **The signature cup** | Seq `covy.signature` | The signature iced latte builds in the glass on the pastry case, the real bar softly blurred behind (D38): milk, double espresso, cold foam, cocoa. Hotspot labels (HTML) appear at their stops; the COVY wordmark is printed on the glass (HTML, D35/D38) | 15vh lead + 280vh |
 | C6 | **The rooms behind the arches** (spaces) | Motion | Indoor · Terrace · The bar · Photo corner, three photos each (D39). A sticky index on the left numbers the spaces and lights the one in view (a row of tabs on phones); each space is a large photo in the facade's arch shape, opening from a slit on scroll, with two smaller photos drifting at a second depth. Any photo opens a full-screen viewer for all 12 (arrows, swipe, Esc) | flow |
 | C5 | **Menu** | Motion (+RT3D leaves on HIGH tier) | See §5 | flow |
-| C7 | Events at COVY | Motion | From shared events data | — |
+| C7 | Events at COVY | Motion | From shared events data; each card has a photo made from our own interior photos (D46) | — |
 | C8 | Testimonials | Motion | Placeholder quotes marked "Sample" until Google Reviews arrive | — |
 | C9 | Reserve / Feedback | UI | Tabs: "Book a table or event" / "Share your feedback" | — |
 | C10 | Find us | UI | Address, hours, phone, WhatsApp, map link (placeholders); footer with socials. The arch photo is our terrace view of the glass doors (D42) | — |
