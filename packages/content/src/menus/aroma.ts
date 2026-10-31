@@ -1763,8 +1763,8 @@ export const aromaMenu: MenuCategory[] = [
           ar: "بيريل",
         },
         description: {
-          en: "Non-alcoholic beer",
-          ar: "بيرة من غير كحول",
+          en: "",
+          ar: "",
         },
         priceEGP: 85,
         tags: [],

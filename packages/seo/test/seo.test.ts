@@ -62,9 +62,15 @@ describe("JSON-LD", () => {
     const b = madinaty ? restaurantJsonLd(brands.aroma, madinaty, "en") : {};
     expect(a["@id"]).not.toBe(b["@id"]);
     expect(a.url).toMatch(/#mivida$/);
-    // Mivida's phone and hours are confirmed; Madinaty's phone isn't published yet.
     expect(a.telephone).toBe(mivida.phone);
     expect(a).toHaveProperty("openingHoursSpecification");
-    expect(b).not.toHaveProperty("telephone");
+    // A branch whose phone and hours are still samples publishes neither.
+    const unconfirmed = restaurantJsonLd(
+      brands.aroma,
+      { ...mivida, placeholderFields: ["phone", "hours"] },
+      "en",
+    );
+    expect(unconfirmed).not.toHaveProperty("telephone");
+    expect(unconfirmed).not.toHaveProperty("openingHoursSpecification");
   });
 });

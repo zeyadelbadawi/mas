@@ -252,8 +252,7 @@
       "ar": "فيروز أناناس"
     },
     "959930": {
-      "ar": "بيريل",
-      "descAr": "بيرة من غير كحول"
+      "ar": "بيريل"
     },
     "959931": {
       "ar": "ريد بول"
@@ -655,26 +654,74 @@
     }
   },
   "descFixes": [
-    ["Feteer Meshaltet / Fou /", "Feteer Meshaltet / Foul /"],
-    ["/ /Gebna", "/ Gebna"],
-    ["Pico De Galo", "Pico de Gallo"],
-    ["Pesto Sauce/ Ranch", "Pesto Sauce / Ranch"],
-    ["Nuttela-Pistachio-Strawberry )", "Nutella, pistachio or strawberry)"],
-    ["Choose Your flavor", "Choose your flavour"],
-    ["potato cubs", "potato cubes"],
-    ["Herb potato cubes", "herb potato cubes"],
-    ["mix green salad", "mixed green salad"],
-    ["Served on the side of mixed green salad", "Served with a mixed green salad on the side"],
-    ["Sunni side up", "Sunny side up"],
-    ["2 Pouched eggs", "2 poached eggs"],
-    ["Shakshooka", "shakshuka"],
+    [
+      "Feteer Meshaltet / Fou /",
+      "Feteer Meshaltet / Foul /"
+    ],
+    [
+      "/ /Gebna",
+      "/ Gebna"
+    ],
+    [
+      "Pico De Galo",
+      "Pico de Gallo"
+    ],
+    [
+      "Pesto Sauce/ Ranch",
+      "Pesto Sauce / Ranch"
+    ],
+    [
+      "Nuttela-Pistachio-Strawberry )",
+      "Nutella, pistachio or strawberry)"
+    ],
+    [
+      "Choose Your flavor",
+      "Choose your flavour"
+    ],
+    [
+      "potato cubs",
+      "potato cubes"
+    ],
+    [
+      "Herb potato cubes",
+      "herb potato cubes"
+    ],
+    [
+      "mix green salad",
+      "mixed green salad"
+    ],
+    [
+      "Served on the side of mixed green salad",
+      "Served with a mixed green salad on the side"
+    ],
+    [
+      "Sunni side up",
+      "Sunny side up"
+    ],
+    [
+      "2 Pouched eggs",
+      "2 poached eggs"
+    ],
+    [
+      "Shakshooka",
+      "shakshuka"
+    ],
     [
       "Premium Angus rib eye , served with Sun dried tomato mashed potato , mix Salad",
       "Premium Angus rib-eye, served with sun-dried tomato mashed potatoes and a mixed salad"
     ],
-    ["Premium Angus brisket Slow-cooked", "Premium Angus brisket, slow-cooked"],
-    ["A Mix of seafood", "A mix of seafood"],
-    ["Non Alcoholic Beer", "Non-alcoholic beer"]
+    [
+      "Premium Angus brisket Slow-cooked",
+      "Premium Angus brisket, slow-cooked"
+    ],
+    [
+      "A Mix of seafood",
+      "A mix of seafood"
+    ],
+    [
+      "Non Alcoholic Beer",
+      ""
+    ]
   ],
   "madePhotos": [
     "appetizers-beef-quesadilla",
