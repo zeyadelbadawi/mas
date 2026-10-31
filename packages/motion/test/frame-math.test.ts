@@ -136,7 +136,8 @@ describe("decideTier", () => {
   it("drops to LOW on Save-Data, slow networks or no WebGL", () => {
     expect(decideTier({ ...base, saveData: true })).toBe("LOW");
     expect(decideTier({ ...base, effectiveType: "3g" })).toBe("LOW");
-    expect(decideTier({ ...base, webgl: false })).toBe("LOW");
+    // Scroll videos don't need WebGL; 3D scenes check it on their own (hasWebgl).
+    expect(decideTier({ ...base, webgl: false })).toBe("HIGH");
   });
   it("uses MID for touch, small screens or low memory", () => {
     expect(decideTier({ ...base, coarsePointer: true })).toBe("MID");

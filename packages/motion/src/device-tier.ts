@@ -22,7 +22,9 @@ export function decideTier(s: TierSignals): DeviceTier {
     s.effectiveType === "3g"
   )
     return "LOW";
-  if (!s.webgl) return "LOW";
+  // WebGL is not a reason to drop the scroll videos: they only need the video decoder. Chrome also turns
+  // WebGL off by itself after GPU errors (many tabs, a crashed GPU process), which used to send a capable
+  // desktop to still posters. 3D scenes check WebGL themselves (hasWebgl).
   const small = s.viewportWidth < 1024;
   if (s.coarsePointer || small || (s.deviceMemory !== undefined && s.deviceMemory <= 4))
     return "MID";
@@ -43,9 +45,15 @@ function detectWebgl(): boolean {
   }
 }
 
+let cachedWebgl: boolean | undefined;
+/** Whether this browser can create a WebGL context now; measured once per page load. For 3D scenes. */
+export function hasWebgl(): boolean {
+  return (cachedWebgl ??= detectWebgl());
+}
+
 export function readTierSignals(): TierSignals {
   const nav = navigator as NavigatorWithHints;
-  const webgl = detectWebgl();
+  const webgl = hasWebgl();
   return {
     reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     saveData: Boolean(nav.connection?.saveData),
