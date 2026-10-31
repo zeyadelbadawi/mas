@@ -15,7 +15,7 @@ type Group = { id: string; name: string; sections: string[] };
 
 /**
  * The menu's only client code: search and the sticky bar of Aroma's five menus (Breakfast, Food, Drinks,
- * Dessert, Kids), as on the client's digital menu. The dishes are server-rendered HTML; search hides them in
+ * Dessert, Kids), shown one at a time as on the client's digital menu. The dishes are server-rendered HTML; search hides them in
  * place (data-search), so nothing is re-rendered and the menu stays readable without JS.
  */
 export function MenuControls({
@@ -33,6 +33,7 @@ export function MenuControls({
   const [count, setCount] = useState<number | null>(null);
   const [hiddenGroups, setHiddenGroups] = useState<string[]>([]);
   const [active, setActive] = useState(groups[0]?.id ?? "");
+  const activeRef = useRef(active);
   const filtering = query.trim() !== "";
   const results = (n: number) => {
     const form =
@@ -65,29 +66,25 @@ export function MenuControls({
       const any = [...group.querySelectorAll<HTMLElement>("[data-menu-section]")].some(
         (s) => !s.hidden,
       );
-      group.hidden = !any;
+      // A search looks through all five menus; otherwise only the chosen one shows.
+      group.hidden = q ? !any : group.dataset.menuGroup !== activeRef.current;
       if (!any) empty.push(group.dataset.menuGroup ?? "");
     });
     setCount(shown);
-    setHiddenGroups(empty);
+    setHiddenGroups(q ? empty : []);
   };
 
-  // Scroll-spy for the bar: the group whose section is in the reading line.
+  // One menu at a time (the client's five tabs), so the page after the menu stays within reach. Without
+  // JavaScript every menu shows.
+  const show = (id: string) => {
+    activeRef.current = id;
+    setActive(id);
+    apply(query);
+  };
   useEffect(() => {
-    const menu = document.getElementById("menu");
-    if (!menu) return;
-    const spy = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries)
-          if (e.isIntersecting) {
-            const id = (e.target as HTMLElement).dataset.menuGroup;
-            if (id) setActive(id);
-          }
-      },
-      { rootMargin: "-35% 0px -60% 0px" },
-    );
-    menu.querySelectorAll("[data-menu-group]").forEach((el) => spy.observe(el));
-    return () => spy.disconnect();
+    document.querySelectorAll<HTMLElement>("#menu [data-menu-group]").forEach((group) => {
+      group.hidden = group.dataset.menuGroup !== activeRef.current;
+    });
   }, []);
 
   // Keep the current chip visible in the bar without moving the page.
@@ -145,15 +142,27 @@ export function MenuControls({
           {groups
             .filter((g) => !hiddenGroups.includes(g.id))
             .map((g) => (
-              <a
+              <button
                 key={g.id}
-                href={`#menu-group-${g.id}`}
+                type="button"
                 data-chip={g.id}
-                aria-current={g.id === active ? "location" : undefined}
-                className={`rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors ${g.id === active ? "bg-accent text-accent-fg" : "text-fg/80 hover:text-fg"}`}
+                aria-pressed={!filtering && g.id === active}
+                aria-controls={`menu-group-${g.id}`}
+                onClick={() => {
+                  if (filtering) apply("");
+                  show(g.id);
+                  const top = document.getElementById("menu-groups");
+                  if (top && top.getBoundingClientRect().top < 0)
+                    top.scrollIntoView({
+                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                        ? "auto"
+                        : "smooth",
+                    });
+                }}
+                className={`rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors ${!filtering && g.id === active ? "bg-accent text-accent-fg" : "text-fg/80 hover:text-fg"}`}
               >
                 {g.name}
-              </a>
+              </button>
             ))}
         </div>
       </nav>

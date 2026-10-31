@@ -55,7 +55,7 @@ const CATEGORIES = {
     group: "food",
     kind: "food",
     name: { en: "Burgers & Sandwiches", ar: "البرجر والساندوتشات" },
-    intro: { en: "Stacked with flavor, served with love.", ar: "طبقات من الطعم، ومتقدّمة بحب." },
+    intro: { en: "Stacked with flavor, served with love.", ar: "طعم فوق طعم، ومتقدّمة بحب." },
   },
   Salads: {
     id: "salads",
@@ -69,7 +69,7 @@ const CATEGORIES = {
     group: "food",
     kind: "food",
     name: { en: "Appetizers", ar: "المقبلات" },
-    intro: { en: "Made for sharing.", ar: "معمولة للمشاركة." },
+    intro: { en: "Made for sharing.", ar: "تتقسم على الترابيزة." },
   },
   Feteer: {
     id: "feteer",
@@ -108,7 +108,7 @@ const CATEGORIES = {
     name: { en: "Main Course", ar: "الأطباق الرئيسية" },
     intro: {
       en: "Comfort food, elevated — with a side of ambiance.",
-      ar: "أكل بيريّح، على مستوى تاني، ومعاه الجو.",
+      ar: "أكل بيريّح، بس على مستوى تاني، ومعاه أحلى قعدة.",
     },
   },
   Pizza: {
@@ -116,7 +116,7 @@ const CATEGORIES = {
     group: "food",
     kind: "food",
     name: { en: "Pizza", ar: "البيتزا" },
-    intro: { en: "Made to share.", ar: "معمولة للمشاركة." },
+    intro: { en: "Made to share.", ar: "تتقسم على الترابيزة." },
   },
   Risotto: {
     id: "risotto",
@@ -129,8 +129,8 @@ const CATEGORIES = {
     id: "soft-drinks",
     group: "drinks",
     kind: "drinks",
-    name: { en: "Soft Drinks & Water", ar: "المشروبات الغازية والمياه" },
-    intro: { en: "The classics, ice cold.", ar: "الكلاسيكيات، ساقعة." },
+    name: { en: "Soft Drinks & Water", ar: "الساقع والمية" },
+    intro: { en: "The classics, ice cold.", ar: "الكلاسيك، ساقع على الآخر." },
   },
   "Juices & Mixes": {
     id: "juices",

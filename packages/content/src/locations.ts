@@ -52,6 +52,7 @@ const aromaMivida: Location = {
   bookingWindowDays: 60,
   placeholder: false,
   placeholderFields: ["hours", "whatsapp"],
+  closesAt: "01:30",
 };
 
 const aromaMadinaty: Location = {

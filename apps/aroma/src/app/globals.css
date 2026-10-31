@@ -163,3 +163,8 @@ html[data-splash="hold"] {
     var(--aroma-gold)
   );
 }
+
+/* Alexandria's tall diacritics and descenders touch at the tight Latin headline leading. */
+:lang(ar) :is(h1, h2, h3) {
+  line-height: 1.4;
+}

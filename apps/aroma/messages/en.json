@@ -3,7 +3,7 @@
     "title": "Aroma Lounge",
     "tagline": "Good food comes from good hearts, we aspire for both.",
     "seoTitle": "Aroma Lounge: Mivida Lake District & Madinaty | Breakfast, Dinner, Live Music",
-    "description": "Aroma Lounge by the lake in Mivida's Lake District and at The Strip, Madinaty. Breakfast, dinner, coffee and live music every week. See the full menu and book a table."
+    "description": "Aroma Lounge by the lake in Mivida's Lake District, New Cairo, and at The Strip, Madinaty. Breakfast, dinner, coffee, and live music twice a week. See the full menu and book a table."
   },
   "nav": {
     "label": "Main",
@@ -16,7 +16,7 @@
     "close": "Close menu"
   },
   "morning": {
-    "title": "Aroma Lounge: breakfast, lunch and dinner by the lake at Mivida and at The Strip, Madinaty",
+    "title": "Aroma Lounge: breakfast, lunch and dinner in Mivida, New Cairo, and at The Strip, Madinaty",
     "line": "We believe in quality ingredients. We believe in quality times.",
     "scroll": "Scroll and pull up a chair"
   },
@@ -36,25 +36,25 @@
   },
   "branches": {
     "title": "Two places to find us",
-    "intro": "By the lake at Mivida, and at The Strip in Madinaty. One menu, the same welcome.",
+    "intro": "By the lake at Mivida, and at The Strip in Madinaty.",
     "mivida": "On the water in The Lake District, with the fountain in view.",
     "madinaty": "Our newest home, at The Strip Mall since June 2026.",
-    "hours": "Open every day",
-    "hoursSample": "Hours to be confirmed",
     "phoneSample": "Number to be confirmed",
     "call": "Call",
-    "directions": "Directions",
-    "book": "Book at {branch}"
+    "directions": "Open in Maps",
+    "book": "Book at {branch}",
+    "hoursUntil": "Open till {time}",
+    "hoursSoon": "Opening hours coming soon"
   },
   "menu": {
     "title": "Menu",
-    "intro": "Breakfast till late, plates made for sharing, and the drinks you know us for.",
+    "intro": "Breakfast, plates for the middle of the table, and the drinks you know us for.",
     "search": "Search the menu",
     "searchPlaceholder": "Try feteer, matcha or burger",
     "categories": "Menu sections",
     "clear": "Clear",
     "order": "Order on talabat",
-    "allergens": "Tell us about any allergy before you order. Prices in Egyptian pounds; one menu at both branches.",
+    "allergens": "Tell us about any allergy before you order. Prices in Egyptian pounds.",
     "groups": {
       "breakfast": "Breakfast",
       "food": "Food",
@@ -78,7 +78,7 @@
   },
   "story": {
     "title": "Our story",
-    "body": "Aroma Lounge started as a rooftop lounge at City Stars. Today you'll find us by the lake at Mivida and at The Strip in Madinaty, cooking with the same idea we started with."
+    "body": "Aroma Lounge started as a rooftop lounge at City Stars. Today you'll find us by the lake at Mivida and at The Strip in Madinaty. Same idea since day one: quality ingredients, quality times."
   },
   "guests": {
     "title": "Around our tables",
@@ -96,7 +96,7 @@
     "title": "Find us",
     "follow": "Follow us",
     "order": "Order on talabat",
-    "directions": "Directions"
+    "directions": "Open in Maps"
   },
   "splash": {
     "loading": "Setting your table",

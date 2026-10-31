@@ -51,6 +51,8 @@ export type Location = {
   mapsUrl?: string;
   /** Fields that are still placeholders on an otherwise real record (rule 5). */
   placeholderFields?: ("hours" | "phone" | "whatsapp")[];
+  /** While the hours are still placeholders: the closing time, when that much is confirmed ("HH:MM"). */
+  closesAt?: string;
 };
 
 export type MasService = {

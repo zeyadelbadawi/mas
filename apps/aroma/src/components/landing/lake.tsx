@@ -38,12 +38,9 @@ export async function Lake() {
               "min(clamp(0, calc((var(--seq-progress, 0) - 0.62) * 8), 1), clamp(0, calc((0.6 - var(--seq-hold, 0)) * 4), 1))",
           }}
         >
-          {/* Desktop: the pale sky at the top start. Phones: the white table at the foot, clear of the glass. */}
-          <div className="absolute inset-x-4 bottom-[calc(7svh+100lvh-100svh)] isolate max-w-md sm:inset-x-8 sm:top-[18vh] sm:bottom-auto">
-            <div
-              aria-hidden="true"
-              className="absolute -inset-x-10 -inset-y-8 -z-10 bg-[radial-gradient(closest-side,#f7f5f0f2_0%,#f7f5f0cc_55%,transparent_100%)]"
-            />
+          {/* Desktop: the pale sky at the top start. Phones: the white table at the foot, clear of the glass.
+              A frosted marble card keeps the copy legible over the bright, busy lake. */}
+          <div className="absolute inset-x-4 bottom-[calc(6svh+100lvh-100svh)] max-w-md rounded-[1.5rem] bg-[var(--aroma-marble)]/80 p-5 backdrop-blur-md sm:inset-x-8 sm:top-[18vh] sm:bottom-auto sm:p-7">
             <h2
               id="lake-title"
               className="relative text-3xl leading-[1.15] font-semibold tracking-tight text-balance sm:text-5xl"

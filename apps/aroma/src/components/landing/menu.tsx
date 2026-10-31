@@ -57,7 +57,10 @@ export async function Menu({ locale }: { locale: Locale }) {
         }}
       />
 
-      <div className="mx-auto flex max-w-7xl flex-col gap-24 px-4 pt-16 max-sm:pb-24 sm:px-8">
+      <div
+        id="menu-groups"
+        className="mx-auto flex max-w-7xl scroll-mt-32 flex-col gap-24 px-4 pt-16 max-sm:pb-24 sm:px-8"
+      >
         {groups.map((g) => (
           <div
             key={g.id}

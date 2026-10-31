@@ -26,14 +26,29 @@ test("has no serious accessibility violations in English and Arabic", async ({ p
   }
 });
 
-test("lists the whole menu and searches it in both languages", async ({ page }) => {
+test("shows one menu at a time and searches all of them in both languages", async ({ page }) => {
   await page.goto("/");
   await rejectCookies(page);
   const items = page.locator("#menu [data-item]:visible");
-  await expect(items).toHaveCount(195);
+  // The whole menu is in the page (for search engines and without JavaScript); one tab shows at a time.
+  await expect(page.locator("#menu [data-item]")).toHaveCount(195);
+  const breakfast = await items.count();
+  expect(breakfast).toBeGreaterThan(10);
+  expect(breakfast).toBeLessThan(195);
+  await page.getByRole("button", { name: "Drinks" }).click();
+  await expect(page.getByRole("button", { name: "Drinks" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await expect(page.locator("#menu-group-breakfast")).toBeHidden();
+  await expect(page.locator("#menu-group-drinks")).toBeVisible();
+
   await page.getByLabel("Search the menu").fill("matcha");
-  await expect(items).not.toHaveCount(195);
   for (const text of await items.allInnerTexts()) expect(text.toLowerCase()).toContain("matcha");
+  expect(await items.count()).toBeGreaterThan(1);
+  await page.getByLabel("Search the menu").fill("burger");
+  expect(await items.count()).toBeGreaterThan(0);
+  await expect(page.locator("#menu-group-food")).toBeVisible();
 
   await page.goto("/ar");
   await page.getByLabel("دوّر في المنيو").fill("فطير");

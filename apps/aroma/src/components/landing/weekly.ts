@@ -21,7 +21,11 @@ export function weeklySlots(night: RecurringNight, locale: Locale): WeeklySlot[]
   return (night.weekly ?? []).map((w) => {
     const loc = findBranch(night.brandId, w.locationId);
     return {
-      day: weekdayName(w.weekday, locale),
+      // Arabic reads "كل خميس" ("every Thursday"): the day without its article.
+      day:
+        locale === "ar"
+          ? weekdayName(w.weekday, locale).replace(/^ال/, "")
+          : weekdayName(w.weekday, locale),
       branch: loc?.branch ? pick(loc.branch, locale) : "",
       branchId: w.locationId,
       from: formatTime(w.starts, locale),

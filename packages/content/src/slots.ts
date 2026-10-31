@@ -76,7 +76,7 @@ const GUEST_PHOTOS: LocalizedText[] = [
   },
   {
     en: "Two sunset iced drinks glowing in the afternoon sun",
-    ar: "مشروبين sunset منوّرين في شمس العصر",
+    ar: "مشروبين بطبقات منوّرين في شمس العصر",
   },
 ];
 
@@ -330,7 +330,7 @@ export const slots: SlotSpec[] = [
     frameCount: 241,
     label: {
       en: "From the table to the lake and the fountain at golden hour, a sunset iced tea raised to the sun",
-      ar: "من الترابيزة للبحيرة والنافورة وقت الغروب، وآيس تي sunset مرفوع قدام الشمس",
+      ar: "من الترابيزة للبحيرة والنافورة وقت الغروب، وآيس تي بطبقات مرفوع قدام الشمس",
     },
     notes: "Generated with Higgsfield (Kling 3.0) from Aroma's own photos (D52)",
   },
@@ -372,8 +372,8 @@ export const slots: SlotSpec[] = [
     width: 1200,
     height: 1500,
     alt: {
-      en: "Two sunset iced teas and a board of feteer on a marble table along the palm-lined walkway at The Strip, Madinaty",
-      ar: "اتنين آيس تي sunset وطبق فطير على ترابيزة رخام على ممشى النخل في ذا ستريب، مدينتي",
+      en: "Two layered iced teas and a board of feteer on a marble table outdoors, shopfronts behind",
+      ar: "اتنين آيس تي بطبقات وطبق فطير على ترابيزة رخام برّه، ووراهم محلات",
     },
     src: "/images/branches/madinaty.webp",
     notes:
@@ -388,8 +388,8 @@ export const slots: SlotSpec[] = [
     width: 1200,
     height: 900,
     alt: {
-      en: "A guitarist playing on the deck at dusk, the lit fountain on the lake behind him",
-      ar: "عازف جيتار على الممشى وقت المغرب، والنافورة منوّرة على البحيرة وراه",
+      en: "The terrace at dusk: candles and a layered iced tea on a marble table, the lit fountain on the lake",
+      ar: "التراس وقت المغرب: شمع وآيس تي بطبقات على ترابيزة رخام، والنافورة منوّرة على البحيرة",
     },
     src: "/images/nights/live-music.webp",
     notes:
@@ -420,7 +420,7 @@ export const slots: SlotSpec[] = [
     height: 900,
     alt: {
       en: "Friends toasting with sunset iced teas over dinner on the terrace at night, a DJ playing behind them by the lake",
-      ar: "صحاب بيخبطوا كوبايات آيس تي sunset على العشا في التراس بالليل، وDJ بيلعب وراهم جنب البحيرة",
+      ar: "صحاب بيخبطوا كوبايات آيس تي بطبقات على العشا في التراس بالليل، وDJ بيلعب وراهم جنب البحيرة",
     },
     src: "/images/nights/aroma-nights.webp",
     notes:
@@ -465,7 +465,7 @@ export const slots: SlotSpec[] = [
     height: 630,
     alt: {
       en: "A sunset iced tea raised over a breakfast table by the lake at Mivida",
-      ar: "آيس تي sunset مرفوع فوق ترابيزة فطار جنب البحيرة في ميفيدا",
+      ar: "آيس تي بطبقات مرفوع فوق ترابيزة فطار جنب البحيرة في ميفيدا",
     },
     src: "/images/share/aroma-og.jpg",
     notes:

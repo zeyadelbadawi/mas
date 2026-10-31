@@ -27,8 +27,8 @@ export async function Branches({ locale }: { locale: Locale }) {
         </h2>
         <p className="text-muted mt-4 max-w-xl text-lg">{t("intro")}</p>
         <div className="mt-14 grid gap-14 md:grid-cols-2 md:gap-10">
-          {branches.aroma.map((loc, i) => (
-            <Branch key={loc.id} loc={loc} locale={locale} offset={i === 1} />
+          {branches.aroma.map((loc) => (
+            <Branch key={loc.id} loc={loc} locale={locale} />
           ))}
         </div>
       </div>
@@ -36,7 +36,7 @@ export async function Branches({ locale }: { locale: Locale }) {
   );
 }
 
-async function Branch({ loc, locale, offset }: { loc: Location; locale: Locale; offset: boolean }) {
+async function Branch({ loc, locale }: { loc: Location; locale: Locale }) {
   const t = await getTranslations("branches");
   const id = loc.id as keyof typeof LINES;
   const name = loc.branch ? pick(loc.branch, locale) : pick(loc.name, locale);
@@ -46,8 +46,7 @@ async function Branch({ loc, locale, offset }: { loc: Location; locale: Locale; 
     <article
       id={LINES[id]}
       aria-labelledby={`${loc.id}-title`}
-      // The second card sits lower on wide screens, like two tables along the water.
-      className={`flex scroll-mt-24 flex-col gap-6 ${offset ? "md:mt-24" : ""}`}
+      className="flex scroll-mt-24 flex-col gap-6"
     >
       <div className="overflow-hidden rounded-[2rem]">
         <ImageSlot
@@ -66,15 +65,18 @@ async function Branch({ loc, locale, offset }: { loc: Location; locale: Locale; 
           <span>{pick(loc.address, locale)}</span>
           {loc.access ? <span>{pick(loc.access, locale)}</span> : null}
         </address>
-        {first ? (
-          <p className="text-fg flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span>
-              {t("hours")}: <bdi>{formatTime(first.opens, locale)}</bdi> –{" "}
+        <p className="text-fg">
+          {!sample.has("hours") && first ? (
+            <>
+              <bdi>{formatTime(first.opens, locale)}</bdi> –{" "}
               <bdi>{formatTime(first.closes, locale)}</bdi>
-            </span>
-            {sample.has("hours") ? <PlaceholderBadge label={t("hoursSample")} /> : null}
-          </p>
-        ) : null}
+            </>
+          ) : loc.closesAt ? (
+            t("hoursUntil", { time: formatTime(loc.closesAt, locale) })
+          ) : (
+            t("hoursSoon")
+          )}
+        </p>
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <BookLink branch={loc.id} className={buttonVariants()}>

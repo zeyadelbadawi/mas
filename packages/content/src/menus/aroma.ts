@@ -399,7 +399,7 @@ export const aromaMenu: MenuCategory[] = [
     },
     intro: {
       en: "Stacked with flavor, served with love.",
-      ar: "طبقات من الطعم، ومتقدّمة بحب.",
+      ar: "طعم فوق طعم، ومتقدّمة بحب.",
     },
     items: [
       {
@@ -741,7 +741,7 @@ export const aromaMenu: MenuCategory[] = [
     },
     intro: {
       en: "Made for sharing.",
-      ar: "معمولة للمشاركة.",
+      ar: "تتقسم على الترابيزة.",
     },
     items: [
       {
@@ -1263,7 +1263,7 @@ export const aromaMenu: MenuCategory[] = [
     },
     intro: {
       en: "Comfort food, elevated — with a side of ambiance.",
-      ar: "أكل بيريّح، على مستوى تاني، ومعاه الجو.",
+      ar: "أكل بيريّح، بس على مستوى تاني، ومعاه أحلى قعدة.",
     },
     items: [
       {
@@ -1483,7 +1483,7 @@ export const aromaMenu: MenuCategory[] = [
     },
     intro: {
       en: "Made to share.",
-      ar: "معمولة للمشاركة.",
+      ar: "تتقسم على الترابيزة.",
     },
     items: [
       {
@@ -1639,11 +1639,11 @@ export const aromaMenu: MenuCategory[] = [
     group: "drinks",
     name: {
       en: "Soft Drinks & Water",
-      ar: "المشروبات الغازية والمياه",
+      ar: "الساقع والمية",
     },
     intro: {
       en: "The classics, ice cold.",
-      ar: "الكلاسيكيات، ساقعة.",
+      ar: "الكلاسيك، ساقع على الآخر.",
     },
     items: [
       {
