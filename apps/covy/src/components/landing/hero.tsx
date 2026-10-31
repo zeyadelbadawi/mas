@@ -47,7 +47,12 @@ export async function Hero() {
               <div
                 aria-hidden="true"
                 className="absolute top-1/2 left-1/2 h-[200%] w-[min(120vw,60rem)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,#262d3fcc_0%,#262d3f8c_50%,transparent_100%)]"
-                style={{ opacity: "clamp(0, calc(var(--seq-hold, 0) * 5), 1)" }}
+                style={{
+                  // Fades back out over the last fifth of the hold: on short screens the shade is still
+                  // partly in view when the logo has gone, and the connector starts with no overlay.
+                  opacity:
+                    "min(clamp(0, calc(var(--seq-hold, 0) * 5), 1), clamp(0, calc((1 - var(--seq-hold, 0)) * 5), 1))",
+                }}
               />
               <CovyWordmark className="relative h-auto w-[min(72vw,30rem)]" />
               <p className="font-display relative mt-6 text-sm tracking-[0.35em] uppercase sm:text-base rtl:tracking-normal">
