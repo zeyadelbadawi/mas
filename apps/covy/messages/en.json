@@ -106,7 +106,9 @@
   "reserve": {
     "title": "Book a table, or tell us how it went",
     "book": "Book a table or event",
-    "feedback": "Share your feedback"
+    "feedback": "Share your feedback",
+    "eventFor": "Booking for: {title}",
+    "eventClear": "Remove"
   },
   "visit": {
     "title": "Visit us",

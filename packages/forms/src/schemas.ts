@@ -68,7 +68,7 @@ export function reservationSchema({ location, now = new Date() }: ReservationCon
   return z
     .object({
       type: z.enum(reservationTypes, { error: "required" }),
-      date: z.string().regex(DATE_RE, "required"),
+      date: z.string().regex(DATE_RE, "date"),
       time: z.string().regex(TIME_RE, "time"),
       guests: z.coerce.number({ error: "guests" }).int("guests").min(1, "guests"),
       seating: z.enum(seatings, { error: "required" }),

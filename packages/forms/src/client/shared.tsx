@@ -161,11 +161,25 @@ export function TurnstileField({
   );
 }
 
+/**
+ * Comes into view and takes focus when it appears, so a failed send never sits unseen above the fold or
+ * under a fixed header.
+ */
 export function FormAlert({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.focus({ preventScroll: true });
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+  }, []);
   return (
     <div
+      ref={ref}
       role="alert"
-      className="rounded-control border-danger/40 bg-danger/10 text-danger border px-4 py-3 text-sm font-medium"
+      tabIndex={-1}
+      className="rounded-control border-danger/40 bg-danger/10 text-danger scroll-mt-24 border px-4 py-3 text-sm font-medium outline-none"
     >
       {children}
     </div>

@@ -7,6 +7,7 @@
     "menu": "Menu",
     "close": "Close",
     "backToTop": "Back to top",
+    "backHome": "Back to the home page",
     "cookieSettings": "Cookie settings",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
@@ -42,6 +43,7 @@
       "phone": "Enter a valid mobile number, like 010 1234 5678.",
       "tooShort": "Please write at least {min} characters.",
       "tooLong": "Please keep this under {max} characters.",
+      "date": "Choose a date.",
       "pastDate": "Choose today or a later date.",
       "outOfWindow": "Reservations open up to {days} days ahead.",
       "guests": "Choose between {min} and {max} guests.",
@@ -61,6 +63,7 @@
         "review": "Review & send"
       },
       "type": "What would you like to book?",
+      "event": "Event",
       "types": {
         "table": "Table",
         "birthday": "Birthday",

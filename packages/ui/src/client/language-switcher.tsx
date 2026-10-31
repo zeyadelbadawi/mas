@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import type { MouseEvent } from "react";
 import { cn } from "../cn";
 
 type Props = {
@@ -23,14 +24,41 @@ export function otherLocalePath(pathname: string, locale: "en" | "ar"): string {
   return page === "/" ? "/ar" : `/ar${page}`;
 }
 
-/** Keeps the visitor on the same page in the other language. Plain Next.js routing, no i18n runtime. */
+/**
+ * Where the visitor is on the page: the link target in the URL, or else the last section with an id whose
+ * top has passed the upper third of the screen. Empty at the very top.
+ */
+function currentPlace(): string {
+  if (window.location.hash) return window.location.hash;
+  if (window.scrollY < 1) return "";
+  let id = "";
+  for (const el of document.querySelectorAll<HTMLElement>("main section[id]")) {
+    if (el.getBoundingClientRect().top <= window.innerHeight / 3) id = el.id;
+  }
+  return id ? `#${id}` : "";
+}
+
+/**
+ * Keeps the visitor on the same page in the other language, at the same section. Plain Next.js routing,
+ * no i18n runtime.
+ */
 export function LanguageSwitcher({ className, locale, label, ariaLabel }: Props) {
   const pathname = usePathname();
+  const router = useRouter();
   const target = locale === "ar" ? "en" : "ar";
+  const href = otherLocalePath(pathname, locale);
+  const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const place = currentPlace();
+    if (!place) return;
+    e.preventDefault();
+    router.push(href + place);
+  };
   return (
     <Link
-      href={otherLocalePath(pathname, locale)}
+      href={href}
       hrefLang={target}
+      onClick={onClick}
       className={cn(
         "rounded-control text-fg inline-flex h-10 items-center px-3 text-sm font-medium underline-offset-4 hover:underline",
         className,

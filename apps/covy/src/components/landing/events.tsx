@@ -2,6 +2,7 @@ import { events, imageSlot } from "@mas/content";
 import { formatDate, formatTime, pick, type Locale } from "@mas/i18n";
 import { ImageSlot, PlaceholderBadge } from "@mas/ui";
 import { getTranslations } from "next-intl/server";
+import { BookEventLink } from "./book-event-link";
 
 const cairoTime = (iso: string) => iso.slice(11, 16);
 
@@ -63,12 +64,12 @@ export async function Events({ locale }: { locale: Locale }) {
                 <h3 className="font-editorial text-fg text-3xl">{pick(e.title, locale)}</h3>
                 <p className="text-muted leading-relaxed">{pick(e.summary, locale)}</p>
                 {e.reservable ? (
-                  <a
-                    href={`?event=${e.id}#reserve`}
+                  <BookEventLink
+                    id={e.id}
                     className="text-fg mt-auto self-start py-2 text-sm font-medium underline underline-offset-4"
                   >
                     {t("book")}
-                  </a>
+                  </BookEventLink>
                 ) : (
                   <p className="text-muted mt-auto text-sm">{t("walkIn")}</p>
                 )}
