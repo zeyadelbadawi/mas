@@ -18,7 +18,6 @@ import { Nights } from "@/components/landing/nights";
 import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { SCENES } from "@/components/landing/scenes";
 import { Story } from "@/components/landing/story";
-import { PetalDefs } from "@/components/petal-defs";
 import { Splash } from "@/components/splash";
 import { brand, privacyHref } from "@/site";
 
@@ -51,7 +50,6 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <>
       {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see PREFETCH */}
       <script dangerouslySetInnerHTML={PREFETCH} />
-      <PetalDefs />
       <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
       <BackToTop label={common("backToTop")} />
       <Header

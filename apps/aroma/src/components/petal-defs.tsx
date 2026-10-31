@@ -1,10 +1,11 @@
 import type { SVGProps } from "react";
 import { CocoaPattern } from "./cocoa";
-import { PETAL_PATHS, PETAL_VIEWBOX } from "./logo";
+import { LogoSymbols, PETAL_VIEWBOX } from "./logo";
 
 /**
- * Drawn once per page: the petal as a symbol and the cocoa dust as patterns, so the menu's many petals and the
- * three cocoa stencils (splash, morning, lake) reference one copy instead of repeating the artwork in the HTML.
+ * Drawn once per page (in the layout): the logo's petal and wordmark as symbols and the cocoa dust as patterns,
+ * so every logo, the menu's petals and the three cocoa stencils (splash, morning, lake) reference one copy
+ * instead of repeating the artwork in the HTML.
  */
 export function PetalDefs() {
   return (
@@ -13,11 +14,7 @@ export function PetalDefs() {
         <CocoaPattern id="aroma-dust" />
         {/* Finer grains for the small stencil on the cup in the scenes. */}
         <pattern id="aroma-dust-fine" href="#aroma-dust" patternTransform="scale(0.7)" />
-        <symbol id="aroma-petal" viewBox={PETAL_VIEWBOX}>
-          {PETAL_PATHS.map((d) => (
-            <path key={d.slice(0, 32)} d={d} />
-          ))}
-        </symbol>
+        <LogoSymbols />
       </defs>
     </svg>
   );
