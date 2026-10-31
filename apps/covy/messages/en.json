@@ -104,9 +104,11 @@
     "stars": "{count} out of 5 stars"
   },
   "reserve": {
-    "title": "Book a table, or tell us how it went",
+    "title": "Reservations",
     "book": "Book a table or event",
-    "feedback": "Share your feedback"
+    "feedback": "Share your feedback",
+    "eventFor": "Booking for: {title}",
+    "eventClear": "Remove"
   },
   "visit": {
     "title": "Visit us",
@@ -119,6 +121,7 @@
   },
   "splash": {
     "loading": "Preparing COVY",
-    "skip": "Skip"
+    "skip": "Continue without waiting",
+    "slow": "This is taking longer than usual."
   }
 }

@@ -317,8 +317,9 @@ export function ScrollVideo({
         className={[
           "[container-type:size] pointer-events-auto",
           staticLayout
-            ? "relative aspect-(--poster-ratio) w-full overflow-hidden"
-            : "sticky top-0 h-lvh w-full overflow-hidden motion-reduce:relative motion-reduce:aspect-(--poster-ratio) motion-reduce:h-auto",
+            ? // Still: the poster fills a screen-tall stage, so the copy layered on it always has room.
+              "relative min-h-svh w-full overflow-hidden"
+            : "sticky top-0 h-lvh w-full overflow-hidden motion-reduce:relative motion-reduce:h-auto motion-reduce:min-h-svh",
         ].join(" ")}
         style={{ "--poster-ratio": `${poster.width} / ${poster.height}` } as CSSProperties}
       >

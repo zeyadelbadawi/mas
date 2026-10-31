@@ -30,7 +30,8 @@ export async function Signature() {
       <ScrollVideo
         id="covy.signature"
         {...src}
-        label={t("body")}
+        // Empty alt: the same words are the section copy, on screen.
+        label=""
         scrollVh={280}
         leadVh={15}
         overlapPrevious
@@ -61,7 +62,10 @@ export async function Signature() {
           style={{ opacity: "clamp(0, calc(var(--seq-progress, 0) * 20), 1)" }}
         >
           {/* On phones the copy sits over the glass, so it gets a soft navy backing. */}
-          <div className="absolute inset-x-0 top-0 h-[55vh] bg-gradient-to-b from-[#262d3f]/90 from-40% to-transparent sm:hidden" />
+          <div
+            data-header-tone="dark"
+            className="absolute inset-x-0 top-0 h-[55vh] bg-gradient-to-b from-[#262d3f]/90 from-40% to-transparent sm:hidden"
+          />
           <div className="absolute inset-x-4 top-[12vh] isolate max-w-sm sm:inset-x-8">
             {/* The bar behind is pale concrete; on wider screens a soft navy pool sits behind the copy. */}
             <div
@@ -71,7 +75,7 @@ export async function Signature() {
             <h2 id="signature-title" className="font-editorial text-4xl sm:text-5xl">
               {t("title")}
             </h2>
-            <p className="mt-4 leading-relaxed opacity-85">{t("body")}</p>
+            <p className="mt-4 leading-relaxed">{t("body")}</p>
             <a href="#menu-iced" className="mt-4 inline-block text-sm underline underline-offset-4">
               {t("link")}
             </a>

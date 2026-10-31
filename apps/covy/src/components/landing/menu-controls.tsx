@@ -1,7 +1,6 @@
 "use client";
 
 import type { MenuTag } from "@mas/content";
-import { useMotionEffect } from "@mas/motion/provider";
 import { useEffect, useId, useRef, useState } from "react";
 
 const FILTERS: MenuTag[] = ["veg", "spicy", "signature", "new"];
@@ -106,21 +105,6 @@ export function MenuControls({ categories, labels, locale }: Props) {
       behavior: reduce ? "auto" : "smooth",
     });
   }, [active]);
-
-  // Section photos open from a narrow band as they arrive (scrubbed, reversible).
-  useMotionEffect(({ gsap }) => {
-    gsap.utils.toArray<HTMLElement>("#menu .menu-hero").forEach((el) => {
-      gsap.fromTo(
-        el,
-        { clipPath: "inset(18% 12% 18% 12% round 999px 999px 0 0)" },
-        {
-          clipPath: "inset(0% 0% 0% 0% round 999px 999px 0 0)",
-          ease: "sine.inOut",
-          scrollTrigger: { trigger: el, start: "top 95%", end: "top 40%", scrub: 1 },
-        },
-      );
-    });
-  }, []);
 
   const toggle = (tag: MenuTag) =>
     apply(query, tags.includes(tag) ? tags.filter((x) => x !== tag) : [...tags, tag]);

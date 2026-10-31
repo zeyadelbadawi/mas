@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 46 | 13 | 33 |
+| Images | 46 | 16 | 30 |
 | Sequences (generated) | 6 | 0 | 6 |
 
 ## MAS (mas.com)
@@ -71,9 +71,9 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | `covy.menu.covy-signature` | Landing · Menu · Iced & signature · COVY signature iced latte | 800 × 800 px | 1:1 | COVY signature iced latte | آيس لاتيه COVY | ⬜ placeholder |  |
 | `covy.menu.tea-juices.hero` | Landing · Menu · Tea, juices & smoothies | 1600 × 1000 px | 8:5 | Tea, juices & smoothies at COVY | الشاي والعصائر والسموذي | ⬜ placeholder |  |
 | `covy.menu.shisha.hero` | Landing · Menu · Shisha | 1600 × 1000 px | 8:5 | Shisha at COVY | الشيشة | ⬜ placeholder |  |
-| `covy.events.brunch-club` | Landing · Events · Friday brunch club | 1200 × 900 px | 4:3 | Friday brunch club | برانش الجمعة | ⬜ placeholder |  |
-| `covy.events.oud-evening` | Landing · Events · Oud and coffee evening | 1200 × 900 px | 4:3 | Oud and coffee evening | أمسية عود وقهوة | ⬜ placeholder |  |
-| `covy.events.japan-week` | Landing · Events · World kitchen week: Japan | 1200 × 900 px | 4:3 | World kitchen week: Japan | أسبوع المطابخ: اليابان | ⬜ placeholder |  |
+| `covy.events.brunch-club` | Landing · Events · Friday brunch club | 1200 × 900 px | 4:3 | COVY's terrace tables joined into one long table, set for brunch with shakshuka, croissants, fruit and orange juice | طاولات تراس COVY مضمومة في طاولة واحدة طويلة ومجهزة للبرانش: شكشوكة وكرواسون وفاكهة وعصير برتقال | ✅ delivered | Generated with Higgsfield from our COVY interior photos (D46) |
+| `covy.events.oud-evening` | Landing · Events · Oud and coffee evening | 1200 × 900 px | 4:3 | An oud resting on a chair under the blue tree in the evening, beside coffee cups, a brass dallah and dates | عود مسنود على كرسي تحت الشجرة الزرقاء في المساء، بجانب فناجين قهوة ودلة نحاسية وتمر | ✅ delivered | Generated with Higgsfield from our COVY interior photos (D46) |
+| `covy.events.japan-week` | Landing · Events · World kitchen week: Japan | 1200 × 900 px | 4:3 | Ramen, gyoza, matcha cake and matcha tea on a table by COVY's sculpted flower wall | رامن وجيوزا وكيك ماتشا وشاي ماتشا على طاولة بجوار جدار الزهور المنحوتة في COVY | ✅ delivered | Generated with Higgsfield from our COVY interior photos (D46) |
 
 ### Scroll sequences
 

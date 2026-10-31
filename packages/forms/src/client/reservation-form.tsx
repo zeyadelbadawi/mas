@@ -40,6 +40,8 @@ export type ReservationFormProps = {
   defaultType?: ReservationType;
   /** Set when booking from an event card. */
   eventId?: string;
+  /** That event's name, shown in the review step. */
+  eventTitle?: string;
   /** Prefill from an event card: its date (YYYY-MM-DD) and start time (HH:MM). */
   defaults?: { date?: string; time?: string };
 };
@@ -63,6 +65,7 @@ export function ReservationForm({
   turnstileTheme,
   defaultType = "table",
   eventId,
+  eventTitle,
   defaults,
 }: ReservationFormProps) {
   const t = useTranslations("forms");
@@ -124,6 +127,11 @@ export function ReservationForm({
   async function next() {
     const fields = [...STEP_FIELDS[step]!];
     const valid = await trigger(fields);
+    // Take the visitor to the first field that needs attention, in the order the step shows them.
+    const focusFirstError = () => {
+      const first = fields.find((f) => form.getFieldState(f).invalid);
+      if (first) form.setFocus(first);
+    };
     if (step === 0 && valid) {
       const v = getValues();
       const issues = reservationRuleIssues(
@@ -132,9 +140,15 @@ export function ReservationForm({
       );
       for (const issue of issues)
         setError(issue.path[0] as keyof ReservationInput, { type: "rule", message: issue.message });
-      if (issues.length) return;
+      if (issues.length) {
+        focusFirstError();
+        return;
+      }
     }
-    if (!valid) return;
+    if (!valid) {
+      focusFirstError();
+      return;
+    }
     if (step === 0) track("reservation_start", { type: getValues("type") });
     track("reservation_step", { step: step + 2 });
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
@@ -244,7 +258,7 @@ export function ReservationForm({
             <Field
               id="time"
               label={t("reservation.time")}
-              error={err("time")}
+              error={date ? err("time") : undefined}
               hint={date && slots.length === 0 ? t("reservation.noTimes") : undefined}
               required
             >
@@ -365,6 +379,7 @@ export function ReservationForm({
       {step === 2 ? (
         <div className="flex flex-col gap-6">
           <dl className="rounded-card border-line bg-surface grid gap-x-6 gap-y-3 border p-5 text-sm sm:grid-cols-[auto_1fr]">
+            {eventTitle ? <SummaryRow label={t("reservation.event")} value={eventTitle} /> : null}
             <SummaryRow
               label={t("reservation.type")}
               value={t(`reservation.types.${values.type}`)}

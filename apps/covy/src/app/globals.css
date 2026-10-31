@@ -23,6 +23,129 @@
 .covy-splash {
   animation: covy-splash-failsafe 0.4s ease-out 6.5s forwards;
 }
+/* While the splash is up nothing scrolls: wheel, touch, keys and the scrollbar alike (D50). */
+html[data-splash="hold"] {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
 [data-splash="seen"] .covy-splash {
   display: none;
+}
+
+/*
+ * D47: the header over the three scroll scenes. Frosted glass that lets the footage through, toned by the
+ * frame under it (useWalkHeader sets data-tone): navy type on a sand tint over bright frames, sand type on a
+ * navy tint over dark ones. Unlayered, so it wins over the bar's utility classes.
+ */
+.covy-header {
+  transition:
+    background-color 0.45s var(--ease-brand),
+    color 0.45s var(--ease-brand),
+    border-color 0.45s var(--ease-brand);
+}
+/* Over the scenes there is no bar: the footage runs up to the top edge, under a soft wash of the tone colour
+   that fades out below the header, and the type carries a halo of the same colour. */
+.covy-header {
+  --walk-tint: var(--covy-sand);
+}
+.covy-header::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 160%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--walk-tint) 70%, transparent),
+    color-mix(in srgb, var(--walk-tint) 40%, transparent) 45%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-brand);
+}
+.covy-header[data-mode="walk"] {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--covy-navy);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--walk-tint) 70%, transparent);
+}
+.covy-header[data-mode="walk"]::before {
+  opacity: 1;
+}
+.covy-header[data-mode="walk"] > div > a:first-child svg {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--walk-tint) 60%, transparent));
+}
+/* Full-strength type over the footage (the bar's links are softened to 80%). */
+.covy-header[data-mode="walk"] nav a {
+  opacity: 1;
+}
+.covy-header[data-mode="walk"][data-tone="dark"] {
+  --walk-tint: var(--covy-navy);
+  color: var(--covy-sand);
+  --color-focus: var(--covy-sand);
+}
+.covy-header-progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  /* Set on the element itself as the walk scrolls (useWalkHeader). */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 0.45s var(--ease-brand);
+}
+[dir="rtl"] .covy-header-progress {
+  transform-origin: right;
+}
+.covy-header[data-mode="walk"] .covy-header-progress {
+  opacity: 0.55;
+}
+
+/* D49: the splash mark is written out, then poured full as the scenes download. */
+@keyframes covy-write {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.covy-write {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: covy-write 1.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.covy-pour {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes covy-wave {
+  to {
+    transform: translateX(-209.195px);
+  }
+}
+.covy-wave {
+  animation: covy-wave 2.6s linear infinite;
+}
+/* A soft light that keeps travelling along the line, so a slow download still looks alive. */
+.covy-splash-line {
+  position: relative;
+}
+.covy-splash-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.85), transparent);
+  animation: covy-sheen 1.8s ease-in-out infinite;
+}
+@keyframes covy-sheen {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
 }

@@ -12,6 +12,7 @@ import { Menu } from "@/components/landing/menu";
 import { LazyReserve } from "@/components/landing/reserve-lazy";
 import { Reviews } from "@/components/landing/reviews";
 import { Signature } from "@/components/landing/signature";
+import { BackToTop } from "@/components/back-to-top";
 import { Splash } from "@/components/splash";
 import { Spaces } from "@/components/landing/spaces";
 import { Visit } from "@/components/landing/visit";
@@ -51,7 +52,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
-      <Splash label={splash("loading")} skip={splash("skip")} />
+      <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
+      <BackToTop label={common("backToTop")} />
       <Header
         locale={locale}
         labels={{
@@ -80,9 +82,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             menuJsonLd(brand, covyMenu, locale),
           ]}
         />
-        <Hero />
-        <Connector />
-        <Signature />
+        {/* The three scroll scenes: the header turns to glass over them (D47). */}
+        <div data-walk>
+          <Hero />
+          <Connector />
+          <Signature />
+        </div>
         <Spaces locale={locale} />
         <Menu locale={locale} />
         <Events locale={locale} />
@@ -94,7 +99,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         >
           <h2
             id="reserve-title"
-            className="font-editorial text-fg mx-auto mb-12 max-w-3xl text-5xl sm:text-6xl"
+            // Takes focus after "Book this event" while the forms are still loading.
+            tabIndex={-1}
+            className="font-editorial outline-none text-fg mx-auto mb-12 max-w-3xl text-5xl sm:text-6xl"
           >
             {t("title")}
           </h2>

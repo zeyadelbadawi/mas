@@ -5,7 +5,7 @@ export function SkipLink({ label }: { label: string }) {
   return (
     <a
       href="#main"
-      className="rounded-control bg-accent text-accent-fg sr-only fixed start-4 top-4 z-[100] px-4 py-2 focus:not-sr-only"
+      className="rounded-control bg-accent text-accent-fg sr-only fixed start-4 top-4 z-[100] px-4 py-2 focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[110]"
     >
       {label}
     </a>
