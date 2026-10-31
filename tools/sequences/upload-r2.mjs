@@ -29,7 +29,10 @@ const env = (name) => {
 const client = new S3Client({
   region: "auto",
   endpoint: `https://${env("R2_ACCOUNT_ID")}.r2.cloudflarestorage.com`,
-  credentials: { accessKeyId: env("R2_ACCESS_KEY_ID"), secretAccessKey: env("R2_SECRET_ACCESS_KEY") },
+  credentials: {
+    accessKeyId: env("R2_ACCESS_KEY_ID"),
+    secretAccessKey: env("R2_SECRET_ACCESS_KEY"),
+  },
 });
 const bucket = env("R2_BUCKET");
 
@@ -49,7 +52,9 @@ function* walk(dir) {
 
 const root = path.resolve(values.dir);
 const only = values.only?.split(",");
-const ids = readdirSync(root).filter((id) => statSync(path.join(root, id)).isDirectory() && (!only || only.includes(id)));
+const ids = readdirSync(root).filter(
+  (id) => statSync(path.join(root, id)).isDirectory() && (!only || only.includes(id)),
+);
 
 for (const id of ids) {
   const files = [...walk(path.join(root, id))].filter((f) => TYPES[path.extname(f)]);
@@ -61,6 +66,8 @@ for (const id of ids) {
       for (let file = queue.shift(); file; file = queue.shift()) {
         const key = `${values.prefix}/${id}/${path.relative(path.join(root, id), file).split(path.sep).join("/")}`;
         const isManifest = file.endsWith("manifest.json");
+        // A revision folder (<id>.r2, …) is never rewritten: its files can be cached for good.
+        const versioned = /\.r\d+$/.test(id);
         await client.send(
           new PutObjectCommand({
             Bucket: bucket,
@@ -68,7 +75,12 @@ for (const id of ids) {
             Body: readFileSync(file),
             ContentType: TYPES[path.extname(file)],
             // Frames keep their names between renders, so cache for a week, not forever; the manifest briefly.
-            CacheControl: isManifest ? "public, max-age=300" : "public, max-age=604800",
+            // Files in a revision folder never change, so they are cached for a year.
+            CacheControl: isManifest
+              ? "public, max-age=300"
+              : versioned
+                ? "public, max-age=31536000, immutable"
+                : "public, max-age=604800",
           }),
         );
         done++;

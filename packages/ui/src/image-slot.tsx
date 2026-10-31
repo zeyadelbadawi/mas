@@ -13,7 +13,8 @@ export type ImageSlotProps = {
   locale: "en" | "ar";
   /** Set once the designer delivers the asset. Until then the placeholder box renders. */
   src?: string;
-  sizes?: string;
+  /** `null` for an image shown at a fixed size (its width/height): a 1x/2x srcset instead of every width. */
+  sizes?: string | null;
   priority?: boolean;
   className?: string;
 };
@@ -37,7 +38,7 @@ export function ImageSlot({
         width={width}
         height={height}
         alt={altText}
-        sizes={sizes}
+        {...(sizes ? { sizes } : {})}
         priority={priority ?? false}
         className={cn("h-auto w-full", className)}
       />

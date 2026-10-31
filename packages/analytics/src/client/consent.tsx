@@ -180,7 +180,9 @@ export function ConsentProvider({
 
   return (
     <ConsentContext value={{ consent, save, openPreferences, labels }}>
-      {children}
+      {/* First in the document: it is fixed to the bottom of the screen anyway, and placed before the page
+          it is parsed and painted with the first paint instead of after the whole page (on a long page it
+          was the late Largest Contentful Paint on phones). Keyboard users meet the choice first too. */}
       {showBanner ? (
         <CookieBanner
           key={panel}
@@ -194,6 +196,7 @@ export function ConsentProvider({
           labels={labels}
         />
       ) : null}
+      {children}
     </ConsentContext>
   );
 }

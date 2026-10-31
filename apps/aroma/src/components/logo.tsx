@@ -33,19 +33,42 @@ export const WORDMARK_PATHS: readonly string[] = [
 
 const LOGO_VIEWBOX = "84.0 67.0 2667.7 1005.9";
 
+const box = (viewBox: string) => viewBox.split(" ").map(Number) as [number, number, number, number];
+const [PX, PY, PW, PH] = box(PETAL_VIEWBOX);
+const [WX, WY, WW, WH] = box(WORDMARK_VIEWBOX);
+
+/**
+ * The artwork, drawn once per page (in the layout) as symbols; every logo on the page references them, so the
+ * long wordmark outlines aren't repeated in the HTML for each header, footer and scene.
+ */
+export function LogoSymbols() {
+  return (
+    <>
+      <symbol id="aroma-petal" viewBox={PETAL_VIEWBOX}>
+        {PETAL_PATHS.map((d) => (
+          <path key={d.slice(0, 32)} d={d} />
+        ))}
+      </symbol>
+      <symbol id="aroma-wordmark" viewBox={WORDMARK_VIEWBOX}>
+        {WORDMARK_PATHS.map((d) => (
+          <path key={d.slice(0, 32)} d={d} />
+        ))}
+      </symbol>
+    </>
+  );
+}
+
 /** The petal flower alone. */
 export function AromaPetal(props: SvgProps) {
   return (
     <svg
-      viewBox={PETAL_VIEWBOX}
+      viewBox={`0 0 ${PW} ${PH}`}
       fill="var(--aroma-green)"
       aria-hidden="true"
       focusable="false"
       {...props}
     >
-      {PETAL_PATHS.map((d) => (
-        <path key={d.slice(0, 32)} d={d} />
-      ))}
+      <use href="#aroma-petal" />
     </svg>
   );
 }
@@ -54,15 +77,13 @@ export function AromaPetal(props: SvgProps) {
 export function AromaWordmark(props: SvgProps) {
   return (
     <svg
-      viewBox={WORDMARK_VIEWBOX}
+      viewBox={`0 0 ${WW} ${WH}`}
       fill="currentColor"
       aria-hidden="true"
       focusable="false"
       {...props}
     >
-      {WORDMARK_PATHS.map((d) => (
-        <path key={d.slice(0, 32)} d={d} />
-      ))}
+      <use href="#aroma-wordmark" />
     </svg>
   );
 }
@@ -74,14 +95,8 @@ export function AromaLogo({
 }: SvgProps & { petal?: string }) {
   return (
     <svg viewBox={LOGO_VIEWBOX} fill="currentColor" aria-hidden="true" focusable="false" {...props}>
-      <g fill={petal}>
-        {PETAL_PATHS.map((d) => (
-          <path key={d.slice(0, 32)} d={d} />
-        ))}
-      </g>
-      {WORDMARK_PATHS.map((d) => (
-        <path key={d.slice(0, 32)} d={d} />
-      ))}
+      <use href="#aroma-petal" x={PX} y={PY} width={PW} height={PH} fill={petal} />
+      <use href="#aroma-wordmark" x={WX} y={WY} width={WW} height={WH} />
     </svg>
   );
 }

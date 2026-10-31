@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
   ],
   turbopack: { root: path.resolve(process.cwd(), "../..") },
   images: { formats: ["image/avif", "image/webp"] },
+  // The stylesheet (~12 KB compressed) goes into the HTML, so the first paint doesn't wait for a request.
+  experimental: { inlineCss: true },
   async headers() {
     return [
       {

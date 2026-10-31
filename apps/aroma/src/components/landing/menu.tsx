@@ -112,8 +112,11 @@ function Category({ category: c, locale }: { category: MenuCategory; locale: Loc
                     {...imageSlot(item.imageSlotId)}
                     // The dish name is right beside it; screen readers shouldn't hear it twice.
                     alt={{ en: "", ar: "" }}
+                    // Shown at 96 px: a 1x/2x pair instead of a srcset of every width (it was most of the HTML).
+                    width={96}
+                    height={96}
+                    sizes={null}
                     locale={locale}
-                    sizes="96px"
                     className="size-full object-cover"
                   />
                 ) : (

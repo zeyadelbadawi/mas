@@ -10,9 +10,14 @@ import { MotionProvider } from "@mas/motion/provider";
 import { pageMetadata } from "@mas/seo";
 import { SkipLink } from "@mas/ui";
 import { Footer } from "@/components/footer";
+import { PetalDefs } from "@/components/petal-defs";
 import { fontVariables } from "@/fonts";
 import { brand, privacyHref } from "@/site";
 import "../globals.css";
+
+const MEDIA_ORIGIN = process.env.NEXT_PUBLIC_MEDIA_URL
+  ? new URL(process.env.NEXT_PUBLIC_MEDIA_URL).origin
+  : undefined;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -44,6 +49,14 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   return (
     <html lang={locale} dir={directions[locale]} className={fontVariables} suppressHydrationWarning>
       <head>
+        {/* The scene posters and videos come from the media host: open both connections early (the
+            posters load without CORS, the videos with it). */}
+        {MEDIA_ORIGIN ? (
+          <>
+            <link rel="preconnect" href={MEDIA_ORIGIN} />
+            <link rel="preconnect" href={MEDIA_ORIGIN} crossOrigin="anonymous" />
+          </>
+        ) : null}
         <ConsentBootScript />
       </head>
       <body>
@@ -54,6 +67,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           labels={await getConsentLabels(locale)}
         >
           <MotionProvider ease="sine.inOut">
+            <PetalDefs />
             <SkipLink label={t("skipToContent")} />
             {children}
             <Footer locale={locale} />
