@@ -7,6 +7,7 @@ import {
   framePriority,
   progressToFrame,
   progressToPosition,
+  strideIndices,
   strideLevel,
 } from "../src/frame-math";
 import { frameUrl } from "../src/manifest";
@@ -31,6 +32,15 @@ describe("progressToPosition", () => {
 
   it("ignores a timing curve of the wrong length", () => {
     expect(progressToPosition(0.5, 5, [0, 1])).toBe(2);
+  });
+});
+
+describe("strideIndices", () => {
+  it("keeps every n-th frame and always the last", () => {
+    expect(strideIndices(5, 1)).toEqual([0, 1, 2, 3, 4]);
+    expect(strideIndices(5, 2)).toEqual([0, 2, 4]);
+    expect(strideIndices(6, 2)).toEqual([0, 2, 4, 5]);
+    expect(strideIndices(0, 2)).toEqual([]);
   });
 });
 

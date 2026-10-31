@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { FrameCache } from "../frame-cache";
-import { fitRect, progressToPosition } from "../frame-math";
+import { fitRect, progressToPosition, strideIndices } from "../frame-math";
 import { frameUrl, type SequenceManifest, type SequenceVariant } from "../manifest";
 import { useMotion } from "./motion-provider";
 
@@ -124,6 +124,9 @@ export function SequencePlayer({
     let variant: SequenceVariant | undefined;
     let format: "avif" | "webp" = "webp";
     let current = 0;
+    /** The variant's frames this machine plays (all, or every second one) and their timing. */
+    let picks: number[] = [];
+    let timing: number[] | undefined;
     /** Where the scroll sits between frames (fractional); `current` is the nearest frame. */
     let position = 0;
     /** What's on the canvas: a bitmap, or "base+mix" for a blend of two. */
@@ -188,7 +191,7 @@ export function SequencePlayer({
       section.style.setProperty("--seq-progress", frames.toFixed(4));
       section.style.setProperty("--seq-hold", Math.min(1, hold).toFixed(4));
       if (!variant || !cache) return;
-      position = progressToPosition(frames, variant.frameCount, variant.timing);
+      position = progressToPosition(frames, picks.length, timing);
       current = Math.round(position);
       cache.prioritise(current, direction < 0 ? -1 : 1);
       schedule();
@@ -202,10 +205,17 @@ export function SequencePlayer({
       if (!variant || cancelled) return;
       format = avif ? "avif" : "webp";
       const template = variant[format];
+      // On a weaker machine, a desktop sequence picked by motion plays every second frame: half the decoding,
+      // and the blend between frames covers the gap. Stronger machines get every frame.
+      const chosen = variant;
+      const weak = tier === "MID" || (navigator.hardwareConcurrency || 4) <= 4;
+      const stride = chosen.timing && chosen.name !== "mobile" && weak ? 2 : 1;
+      picks = strideIndices(chosen.frameCount, stride);
+      timing = chosen.timing ? picks.map((i) => chosen.timing?.[i] ?? 0) : undefined;
       cache = new FrameCache(
-        variant.frameCount,
+        picks.length,
         async (index, signal) => {
-          const r = await fetch(frameUrl(manifestUrl, template, index), { signal });
+          const r = await fetch(frameUrl(manifestUrl, template, picks[index] ?? index), { signal });
           if (!r.ok) throw new Error(`frame ${index}: ${r.status}`);
           return r.blob();
         },

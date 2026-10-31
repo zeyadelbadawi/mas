@@ -31,6 +31,15 @@ export function progressToPosition(
   return b > a ? lo + Math.min(1, Math.max(0, (p - a) / (b - a))) : lo;
 }
 
+/** Every `stride`-th index of 0..frameCount-1, always ending on the last frame. */
+export function strideIndices(frameCount: number, stride: number): number[] {
+  const out: number[] = [];
+  const step = Math.max(1, Math.floor(stride));
+  for (let i = 0; i < frameCount; i += step) out.push(i);
+  if (frameCount > 0 && out[out.length - 1] !== frameCount - 1) out.push(frameCount - 1);
+  return out;
+}
+
 /**
  * Order in which to request frames around the current one: current first, then alternating
  * ahead/behind (ahead weighted by scroll direction), never outside 0..frameCount-1.
