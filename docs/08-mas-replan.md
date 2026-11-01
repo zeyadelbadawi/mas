@@ -186,6 +186,8 @@ The hero will use whichever of these the owner confirms:
 
 The frames carry no text or logos (rule 4). The video is built into desktop and phone versions with the frame index (D62) and uploaded to R2.
 
+**Revision 2 (D65):** the first cut kept the same near fins in its first and last frames, so the far fins slid up to them and the doors seemed to come at the viewer. The end frame is now an antechamber past the corridor, with no fins, so the camera has to walk out of the corridor to reach the doors.
+
 **Fallback if a generated shot can't reach the quality bar:** no new video. The scene becomes two half-screen panels cut on the diagonal, showing the COVY and Aroma scenes' own frames, with the same overlays. 0 credits. Proposed only as a fallback.
 
 ## 8. Images (rule 3)

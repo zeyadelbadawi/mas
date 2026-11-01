@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 /**
  * The MAS wordmark (D64), traced from the client's own Illustrator file (`3 logos.pdf`): three shapes built on
  * one diagonal cut, and the registered mark. Inline SVG, so it is sharp at every size and takes the colour
@@ -24,6 +26,7 @@ const REG_R =
 
 type MarkProps = {
   className?: string;
+  style?: CSSProperties;
   /** The registered mark (®) above the S, as on the identity guide. */
   registered?: boolean;
   /**
@@ -37,6 +40,7 @@ type MarkProps = {
 
 export function MasWordmark({
   className,
+  style,
   registered = false,
   variant = "solid",
   title,
@@ -46,6 +50,7 @@ export function MasWordmark({
     <svg
       viewBox={registered ? WORDMARK_REG_VIEWBOX : WORDMARK_VIEWBOX}
       className={className}
+      style={style}
       role={title ? "img" : undefined}
       aria-label={title || undefined}
       aria-hidden={title ? undefined : true}

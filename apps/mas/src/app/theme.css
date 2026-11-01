@@ -20,6 +20,9 @@
   --brand-line: #3c3a3c;
   --brand-accent: var(--mas-gold);
   --brand-accent-fg: var(--mas-ink);
+  /* Small accent text (a brand name, a number): gold on dark; on soft grey it turns dark gray (gold text
+     there is about 1.6 : 1). */
+  --brand-accent-text: var(--mas-gold);
   --brand-focus: var(--mas-gold);
   --brand-danger: #ff8a7a;
   --brand-success: #8fd19e;
@@ -52,6 +55,7 @@
   --brand-surface-2: #dedede;
   --brand-line: #c3c1c3;
   --brand-focus: var(--mas-ink);
+  --brand-accent-text: var(--mas-ink);
   --brand-danger: #b3261e;
   --brand-success: #1e6b3a;
   --brand-slot: var(--mas-silver);

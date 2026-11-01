@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ConsentBootScript, getConsentLabels } from "@mas/analytics";
 import { ConsentProvider } from "@mas/analytics/consent";
 import { directions, routing } from "@mas/i18n";
+import { splashBootScript } from "@mas/motion";
 import { MotionProvider } from "@mas/motion/provider";
 import { pageMetadata } from "@mas/seo";
 import { SkipLink } from "@mas/ui";
@@ -12,6 +13,12 @@ import { Footer } from "@/components/footer";
 import { fontVariables } from "@/fonts";
 import { brand, privacyHref } from "@/site";
 import "../globals.css";
+
+const MEDIA_ORIGIN = process.env.NEXT_PUBLIC_MEDIA_URL
+  ? new URL(process.env.NEXT_PUBLIC_MEDIA_URL).origin
+  : undefined;
+
+const SPLASH_BOOT = { __html: splashBootScript() };
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -21,7 +28,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "home" });
-  const title = `${t("title")} · ${t("tagline")}`;
+  const title = t("seoTitle");
   const base = pageMetadata({ brand, locale, path: "/", title, description: t("description") });
   return { ...base, title: { default: title, template: `%s · ${brand.name[locale]}` } };
 }
@@ -35,6 +42,17 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   return (
     <html lang={locale} dir={directions[locale]} className={fontVariables} suppressHydrationWarning>
       <head>
+        {/* The scene posters and videos come from the media host: open both connections early (the
+            posters load without CORS, the videos with it). */}
+        {MEDIA_ORIGIN ? (
+          <>
+            <link rel="preconnect" href={MEDIA_ORIGIN} />
+            <link rel="preconnect" href={MEDIA_ORIGIN} crossOrigin="anonymous" />
+          </>
+        ) : null}
+        {/* Before the body: the home page is covered and locked from its first paint (splash gate, D62). */}
+        {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see splashBootScript */}
+        <script dangerouslySetInnerHTML={SPLASH_BOOT} />
         <ConsentBootScript />
       </head>
       <body>

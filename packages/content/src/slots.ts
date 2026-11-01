@@ -38,6 +38,70 @@ export type SequenceSlotSpec = {
 
 export type SlotSpec = ImageSlotSpec | SequenceSlotSpec;
 
+/** The nine services' header images (slug, alt EN, alt AR), in the order of masServices. */
+const MAS_SERVICES: [string, string, string][] = [
+  [
+    "fnb-concept-development",
+    "Sketches and a mood board for a new restaurant concept",
+    "رسومات ولوحة إلهام لفكرة مطعم جديد",
+  ],
+  [
+    "fnb-catering-service",
+    "A catering table laid for a corporate event",
+    "طاولة ضيافة مُعدّة لمناسبة شركة",
+  ],
+  [
+    "menu-engineering-costing",
+    "A chef weighing ingredients next to a costing sheet",
+    "شيف يزن المكونات بجوار ورقة حساب التكلفة",
+  ],
+  [
+    "events-management",
+    "A restaurant terrace set up for a private evening",
+    "تراس مطعم مُجهّز لأمسية خاصة",
+  ],
+  [
+    "recruitment-training",
+    "A trainer showing new staff how to set a table",
+    "مدرّب يعلّم فريقًا جديدًا تجهيز الطاولة",
+  ],
+  [
+    "operations-hospitality-management",
+    "A manager greeting guests on a busy service night",
+    "مدير يستقبل الضيوف في ليلة خدمة مزدحمة",
+  ],
+  [
+    "financial-control-performance",
+    "Monthly performance figures on a laptop in a café",
+    "أرقام الأداء الشهري على لابتوب في كافيه",
+  ],
+  [
+    "production-packaging-supply",
+    "Packed sauces and baked goods ready for delivery to the branches",
+    "صوصات ومخبوزات مغلّفة جاهزة للتوزيع على الفروع",
+  ],
+  [
+    "tools-quality-assurance",
+    "A point-of-sale screen and a checklist on a café counter",
+    "شاشة نقطة بيع وقائمة مراجعة على كاونتر كافيه",
+  ],
+];
+
+/** The sample articles' images (slug, alt EN, alt AR); see insights.ts. */
+const MAS_INSIGHTS: [string, string, string][] = [
+  ["reading-your-menu", "A printed menu marked up with a pen", "منيو مطبوع عليه ملاحظات بالقلم"],
+  [
+    "the-ninety-days-before-opening",
+    "A restaurant dining room before opening, chairs still stacked",
+    "صالة مطعم قبل الافتتاح والكراسي ما زالت مرصوصة",
+  ],
+  [
+    "hiring-your-first-team",
+    "A new café team lined up behind the counter",
+    "فريق كافيه جديد واقف خلف الكاونتر",
+  ],
+];
+
 const SEQ = {
   frameCount: 150,
   desktop: { width: 1920, height: 1080 },
@@ -122,6 +186,44 @@ export const slots: SlotSpec[] = [
     height: 630,
     alt: { en: "MAS", ar: "MAS" },
   },
+  {
+    kind: "image",
+    id: "mas.about.story",
+    app: "mas",
+    page: "About",
+    section: "What we do",
+    width: 1600,
+    height: 1000,
+    alt: {
+      en: "The MAS team planning a restaurant opening around a table",
+      ar: "فريق MAS يخطط لافتتاح مطعم حول طاولة",
+    },
+  },
+  ...MAS_SERVICES.map(
+    ([slug, en, ar]): ImageSlotSpec => ({
+      kind: "image",
+      id: `mas.services.${slug}`,
+      app: "mas",
+      page: "Service detail",
+      section: "Header image",
+      width: 1600,
+      height: 900,
+      alt: { en, ar },
+    }),
+  ),
+  ...MAS_INSIGHTS.map(
+    ([slug, en, ar]): ImageSlotSpec => ({
+      kind: "image",
+      id: `mas.insights.${slug}`,
+      app: "mas",
+      page: "Home, Insights",
+      section: "Article image",
+      width: 1200,
+      height: 750,
+      alt: { en, ar },
+      notes: "Sample article (placeholder) until MAS sends its own",
+    }),
+  ),
 
   /* ------------------------------------------------------------ COVY */
   {

@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 272 | 226 | 46 |
+| Images | 285 | 226 | 59 |
 | Sequences (generated) | 8 | 0 | 8 |
 
 ## MAS (mas.com)
@@ -20,6 +20,19 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
 | `mas.og` | All · Social share image | 1200 × 630 px | 40:21 | MAS | MAS | ⬜ placeholder |  |
+| `mas.about.story` | About · What we do | 1600 × 1000 px | 8:5 | The MAS team planning a restaurant opening around a table | فريق MAS يخطط لافتتاح مطعم حول طاولة | ⬜ placeholder |  |
+| `mas.services.fnb-concept-development` | Service detail · Header image | 1600 × 900 px | 16:9 | Sketches and a mood board for a new restaurant concept | رسومات ولوحة إلهام لفكرة مطعم جديد | ⬜ placeholder |  |
+| `mas.services.fnb-catering-service` | Service detail · Header image | 1600 × 900 px | 16:9 | A catering table laid for a corporate event | طاولة ضيافة مُعدّة لمناسبة شركة | ⬜ placeholder |  |
+| `mas.services.menu-engineering-costing` | Service detail · Header image | 1600 × 900 px | 16:9 | A chef weighing ingredients next to a costing sheet | شيف يزن المكونات بجوار ورقة حساب التكلفة | ⬜ placeholder |  |
+| `mas.services.events-management` | Service detail · Header image | 1600 × 900 px | 16:9 | A restaurant terrace set up for a private evening | تراس مطعم مُجهّز لأمسية خاصة | ⬜ placeholder |  |
+| `mas.services.recruitment-training` | Service detail · Header image | 1600 × 900 px | 16:9 | A trainer showing new staff how to set a table | مدرّب يعلّم فريقًا جديدًا تجهيز الطاولة | ⬜ placeholder |  |
+| `mas.services.operations-hospitality-management` | Service detail · Header image | 1600 × 900 px | 16:9 | A manager greeting guests on a busy service night | مدير يستقبل الضيوف في ليلة خدمة مزدحمة | ⬜ placeholder |  |
+| `mas.services.financial-control-performance` | Service detail · Header image | 1600 × 900 px | 16:9 | Monthly performance figures on a laptop in a café | أرقام الأداء الشهري على لابتوب في كافيه | ⬜ placeholder |  |
+| `mas.services.production-packaging-supply` | Service detail · Header image | 1600 × 900 px | 16:9 | Packed sauces and baked goods ready for delivery to the branches | صوصات ومخبوزات مغلّفة جاهزة للتوزيع على الفروع | ⬜ placeholder |  |
+| `mas.services.tools-quality-assurance` | Service detail · Header image | 1600 × 900 px | 16:9 | A point-of-sale screen and a checklist on a café counter | شاشة نقطة بيع وقائمة مراجعة على كاونتر كافيه | ⬜ placeholder |  |
+| `mas.insights.reading-your-menu` | Home, Insights · Article image | 1200 × 750 px | 8:5 | A printed menu marked up with a pen | منيو مطبوع عليه ملاحظات بالقلم | ⬜ placeholder | Sample article (placeholder) until MAS sends its own |
+| `mas.insights.the-ninety-days-before-opening` | Home, Insights · Article image | 1200 × 750 px | 8:5 | A restaurant dining room before opening, chairs still stacked | صالة مطعم قبل الافتتاح والكراسي ما زالت مرصوصة | ⬜ placeholder | Sample article (placeholder) until MAS sends its own |
+| `mas.insights.hiring-your-first-team` | Home, Insights · Article image | 1200 × 750 px | 8:5 | A new café team lined up behind the counter | فريق كافيه جديد واقف خلف الكاونتر | ⬜ placeholder | Sample article (placeholder) until MAS sends its own |
 
 ### Scroll sequences
 

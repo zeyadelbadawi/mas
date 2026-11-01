@@ -2,6 +2,196 @@
   "home": {
     "title": "MAS",
     "tagline": "Café & Restaurant Management",
-    "description": "MAS helps restaurant and café owners in Egypt plan, open and grow their venues, from concept and menu costing to operations and marketing."
+    "seoTitle": "MAS · Café & Restaurant Management in Egypt",
+    "description": "MAS shapes and runs cafés and restaurants in Egypt: concept, brand, menu, people, operations and growth, from the first idea to a full room."
+  },
+  "nav": {
+    "label": "Main",
+    "about": "About",
+    "services": "Services",
+    "brands": "Our brands",
+    "events": "Events",
+    "insights": "Insights",
+    "contact": "Contact",
+    "cta": "Discuss your project",
+    "open": "Menu",
+    "close": "Close",
+    "home": "MAS home"
+  },
+  "splash": {
+    "loading": "Loading the MAS home page",
+    "skip": "Continue without waiting",
+    "slow": "This is taking longer than usual."
+  },
+  "hero": {
+    "headline": "Shaping F&B destinations.",
+    "lead": "From an empty room to a place people come back to: we plan, open and run cafés and restaurants.",
+    "scroll": "Scroll",
+    "cta": "Discuss your project"
+  },
+  "statement": {
+    "lines": ["People.", "Places.", "Flavors.", "Performance."],
+    "body": "A good restaurant is many things done right at once: the concept, the brand, the menu, the team, the service and the numbers behind it. MAS brings them together and keeps them working, so owners can grow with confidence.",
+    "link": "About MAS"
+  },
+  "services": {
+    "title": "What we do",
+    "intro": "Nine services, from the first idea to the daily running of the room. Take one, or all of them.",
+    "all": "All services",
+    "more": "Read more"
+  },
+  "how": {
+    "title": "How we work",
+    "intro": "One line from the first sketch to steady growth.",
+    "steps": [
+      {
+        "t": "Concept",
+        "d": "The idea, the market and the plan that make it work."
+      },
+      {
+        "t": "Brand",
+        "d": "A name, an identity and a voice guests remember."
+      },
+      {
+        "t": "People",
+        "d": "The right team, hired and trained to one standard."
+      },
+      {
+        "t": "Operations",
+        "d": "Service, kitchen, suppliers and costs, run every day."
+      },
+      {
+        "t": "Growth",
+        "d": "The numbers read, the menu tuned, the next branch planned."
+      }
+    ]
+  },
+  "doors": {
+    "title": "Two places we run",
+    "intro": "Follow the line.",
+    "covy": {
+      "name": "COVY",
+      "line": "A restaurant and café that tastes of everywhere.",
+      "visit": "Visit COVY"
+    },
+    "aroma": {
+      "name": "Aroma Lounge",
+      "line": "Good food and good hearts, by the lake and in Madinaty.",
+      "visit": "Visit Aroma Lounge"
+    },
+    "label": "A walk along a gold line in a dark stone corridor, to two doors: COVY's dining room on the left and Aroma Lounge's lake on the right."
+  },
+  "events": {
+    "title": "What's on",
+    "intro": "Nights and events at the places we run.",
+    "all": "All events",
+    "weekly": "Every week",
+    "sample": "Sample events: the real calendar replaces them before launch",
+    "at": "at"
+  },
+  "insights": {
+    "title": "Insights",
+    "intro": "Notes on running cafés and restaurants well.",
+    "all": "All insights",
+    "read": "Read",
+    "sample": "Sample articles: MAS's own articles replace them before launch",
+    "soon": "This is a sample article to show the layout. MAS's own article will take its place."
+  },
+  "cta": {
+    "title": "Let's shape your next destination.",
+    "body": "Tell us where your project stands. We reply within one business day.",
+    "button": "Discuss your project"
+  },
+  "footer": {
+    "company": "Company",
+    "explore": "Explore",
+    "brands": "Our brands",
+    "contact": "Contact",
+    "email": "Email"
+  },
+  "about": {
+    "title": "About MAS",
+    "lead": "MAS is a café and restaurant management company. We shape new places and run existing ones, from concept and brand to people, operations and growth.",
+    "storyTitle": "What we do",
+    "story": [
+      "Owners come to MAS at every stage: with an idea, with a place about to open, or with a busy room that should be doing better. We take on as much as they need, from a single service to the whole operation.",
+      "Our mark is built from cuts that lock into each other. It stands for the work itself: many parts of a restaurant, made to fit, so the whole runs as one."
+    ],
+    "valuesTitle": "What the mark stands for",
+    "values": [
+      {
+        "t": "Structure",
+        "d": "Clear plans, clear roles and numbers that add up."
+      },
+      {
+        "t": "Coordination",
+        "d": "Kitchen, floor, brand and back office working as one."
+      },
+      {
+        "t": "Confidence",
+        "d": "Decisions made on evidence, and owned."
+      },
+      {
+        "t": "Forward movement",
+        "d": "Every week a little better than the last."
+      }
+    ]
+  },
+  "servicesPage": {
+    "title": "Services",
+    "lead": "Nine ways MAS helps a café or restaurant start well and run well.",
+    "included": "What it covers",
+    "how": "How it runs",
+    "related": "Related services",
+    "back": "All services",
+    "steps": [
+      {
+        "t": "Listen",
+        "d": "We start where you are: the idea, the place or the numbers."
+      },
+      {
+        "t": "Plan",
+        "d": "A clear plan with owners, dates and costs."
+      },
+      {
+        "t": "Build",
+        "d": "We do the work with your team, step by step."
+      },
+      {
+        "t": "Hand over or run",
+        "d": "We hand it over trained and documented, or keep running it with you."
+      }
+    ]
+  },
+  "brandsPage": {
+    "title": "Our brands",
+    "lead": "The places MAS runs today.",
+    "visit": "Visit the site",
+    "read": "About the brand",
+    "branches": "Branches",
+    "managed": "Managed by MAS",
+    "covy": {
+      "lead": "COVY is a restaurant and café with a world-tour menu, an interior of blue leaves and a terrace to stay on.",
+      "place": "Cairo (address to be confirmed)"
+    },
+    "aroma": {
+      "lead": "Aroma Lounge is a lakeside café and restaurant: breakfast in the sun, sunset drinks by the water and live music at night.",
+      "place": "Mivida, Lake District · Madinaty, The Strip"
+    },
+    "placeholder": "Placeholder: confirmed before launch"
+  },
+  "eventsPage": {
+    "title": "Events",
+    "lead": "What's on at COVY and Aroma Lounge."
+  },
+  "insightsPage": {
+    "title": "Insights",
+    "lead": "Notes from MAS on running cafés and restaurants well.",
+    "back": "All insights"
+  },
+  "contactPage": {
+    "title": "Discuss your project",
+    "lead": "Tell us about your café or restaurant, where it stands and what you need. We reply within one business day.",
+    "emailLabel": "Or write to us"
   }
 }

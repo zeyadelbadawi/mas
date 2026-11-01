@@ -143,3 +143,16 @@ export type RecurringNight = {
   reservable: boolean;
   placeholder: boolean;
 };
+
+/** A MAS article (Insights). Samples until MAS sends its own (rule 5): `placeholder: true`. */
+export type Insight = {
+  slug: string;
+  title: LocalizedText;
+  excerpt: LocalizedText;
+  /** Paragraphs, in reading order. */
+  body: { en: string[]; ar: string[] };
+  /** ISO date, Cairo time. */
+  publishedAt: string;
+  imageSlotId: string;
+  placeholder: boolean;
+};
