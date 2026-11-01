@@ -16,7 +16,8 @@
     "cta": "Discuss your project",
     "open": "Menu",
     "close": "Close",
-    "home": "MAS home"
+    "home": "MAS home",
+    "brandsAll": "All our brands"
   },
   "splash": {
     "loading": "Loading the MAS home page",
@@ -30,7 +31,12 @@
     "cta": "Discuss your project"
   },
   "statement": {
-    "lines": ["People.", "Places.", "Flavors.", "Performance."],
+    "lines": [
+      "People.",
+      "Places.",
+      "Flavors.",
+      "Performance."
+    ],
     "body": "A good restaurant is many things done right at once: the concept, the brand, the menu, the team, the service and the numbers behind it. MAS brings them together and keeps them working, so owners can grow with confidence.",
     "link": "About MAS"
   },
@@ -172,13 +178,26 @@
     "managed": "Managed by MAS",
     "covy": {
       "lead": "COVY is a restaurant and café with a world-tour menu, an interior of blue leaves and a terrace to stay on.",
-      "place": "Cairo (address to be confirmed)"
+      "place": "Cairo (address to be confirmed)",
+      "kitchen": "A world tour of kitchens, from the Mediterranean to Asia and Latin America"
     },
     "aroma": {
       "lead": "Aroma Lounge is a lakeside café and restaurant: breakfast in the sun, sunset drinks by the water and live music at night.",
-      "place": "Mivida, Lake District · Madinaty, The Strip"
+      "place": "Mivida, Lake District · Madinaty, The Strip",
+      "kitchen": "Egyptian, international and Italian"
     },
-    "placeholder": "Placeholder: confirmed before launch"
+    "placeholder": "Placeholder: confirmed before launch",
+    "book": "Book a table",
+    "about": "About {brand}",
+    "kitchen": "Kitchen",
+    "inside": "Inside {brand}",
+    "seeMore": "More on {brand}",
+    "guests": "What a guest said",
+    "rating": "{stars} out of 5 stars",
+    "fromMenu": "From the menu",
+    "fullMenu": "The full menu on {brand}",
+    "directions": "Directions, hours and booking",
+    "stepInside": "Step inside {brand}"
   },
   "eventsPage": {
     "title": "Events",
@@ -188,7 +207,11 @@
     "title": "Insights",
     "lead": "Notes from MAS on running cafés and restaurants well.",
     "back": "All insights",
-    "sources": "Sources"
+    "sources": "Sources",
+    "readTime": "{minutes} min read",
+    "contents": "In this article",
+    "sourcesCount": "{count, plural, one {# source} other {# sources}}",
+    "more": "More insights"
   },
   "contactPage": {
     "title": "Discuss your project",

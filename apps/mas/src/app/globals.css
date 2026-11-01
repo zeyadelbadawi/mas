@@ -319,8 +319,89 @@ html[data-splash="hold"]::after {
     0 0 90px 10px color-mix(in srgb, var(--mas-gold) 28%, transparent);
 }
 
-/* The letter pattern (the wordmark's shapes, very faint): the call to action and the footer only. */
+/*
+ * The letter pattern (the wordmark's shapes, very faint) behind the call to action. It is its own layer,
+ * faded in at the top and out at the foot, and the section's floor deepens into the footer's, so the two
+ * meet without a seam or a cut-off row of letters.
+ */
 .mas-pattern {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(to bottom, var(--mas-ink) 55%, var(--mas-deep));
+}
+.mas-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image: url("/brand/pattern.svg");
   background-size: 34rem auto;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 55%, transparent 92%);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 55%, transparent 92%);
+}
+
+/* "Our brands" menu (D67): two small doors under the header. */
+.mas-brands-menu {
+  transform: translate(-50%, 6px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.28s var(--brand-ease),
+    transform 0.28s var(--brand-ease),
+    visibility 0s linear 0.28s;
+}
+.mas-brands-menu[data-open] {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.28s var(--brand-ease),
+    transform 0.28s var(--brand-ease),
+    visibility 0s;
+}
+.mas-brands-menu::before {
+  /* The gold rule from the tagline, at the top of the panel. */
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  inset-inline-start: 0;
+  width: 3.5rem;
+  height: 1px;
+  background: var(--mas-gold);
+  z-index: 1;
+}
+@keyframes mas-door-in {
+  from {
+    clip-path: polygon(0 0, 0 0, -60% 100%, -60% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 170% 0, 110% 100%, -60% 100%);
+  }
+}
+.mas-brands-menu[data-open] .mas-menu-door {
+  animation: mas-door-in 0.7s var(--brand-ease) both;
+}
+.mas-menu-frame {
+  border: 1px solid color-mix(in srgb, var(--mas-gold) 45%, transparent);
+  transition:
+    border-color 0.45s var(--brand-ease),
+    box-shadow 0.45s var(--brand-ease);
+}
+.group:hover .mas-menu-frame,
+.group:focus-visible .mas-menu-frame {
+  border-color: var(--mas-gold);
+  box-shadow:
+    0 0 28px 2px color-mix(in srgb, var(--mas-gold) 35%, transparent),
+    inset 0 0 22px color-mix(in srgb, var(--mas-gold) 18%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mas-brands-menu,
+  .mas-brands-menu[data-open] {
+    transition: none;
+  }
+  .mas-brands-menu[data-open] .mas-menu-door {
+    animation: none;
+  }
 }

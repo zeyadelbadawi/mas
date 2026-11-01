@@ -18,11 +18,15 @@ function Column({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+/** The designer's portfolio (the same signature as on COVY and Aroma). */
+const DESIGNER_URL = "https://ziad-elbadawi.vercel.app/";
+
 const link = "hover:text-[var(--mas-soft)] transition-colors duration-200";
 
 /**
  * The footer (D64): the gold wordmark with the tagline and its rule, the site map, the two brands MAS runs
- * and the inbox, over the letter pattern; the legal line below.
+ * and the inbox, on the deepest gray (the call to action above it fades into it); the legal line and the
+ * designer's signature below.
  */
 export async function Footer({ locale }: { locale: "en" | "ar" }) {
   const t = await getTranslations({ locale, namespace: "common" });
@@ -33,7 +37,7 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
     `${brands[id].domain}${localePath(locale, "/")}`.replace(/\/$/, "");
 
   return (
-    <footer className="mas-pattern border-t border-[var(--brand-line)] bg-[var(--mas-ink)] text-[var(--mas-soft)]">
+    <footer className="bg-[var(--mas-deep)] text-[var(--mas-soft)]">
       <div className="mx-auto grid max-w-7xl gap-14 px-4 pt-20 pb-14 sm:px-8 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Link
@@ -103,18 +107,37 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
           </Column>
         </div>
       </div>
-      <div className="text-muted mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-3 border-t border-[var(--brand-line)] px-4 py-6 text-xs sm:px-8">
-        <p className="me-auto">
-          © {new Date().getFullYear()} {brand.name[locale]}. {t("rights")}
-        </p>
-        <Link href={localePath(locale, "/privacy")} className={link}>
-          {t("privacy")}
-        </Link>
-        <Link href={localePath(locale, "/terms")} className={link}>
-          {t("terms")}
-        </Link>
-        <CookieSettingsButton className={link} />
-        <LanguageSwitch className="h-auto px-0 text-xs" />
+      <div className="border-t border-[var(--mas-silver)]/10">
+        <div className="text-muted mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-xs sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <p>
+              © {new Date().getFullYear()} {brand.name[locale]}. {t("rights")}
+            </p>
+            <Link href={localePath(locale, "/privacy")} className={link}>
+              {t("privacy")}
+            </Link>
+            <Link href={localePath(locale, "/terms")} className={link}>
+              {t("terms")}
+            </Link>
+            <CookieSettingsButton className={link} />
+            <LanguageSwitch className="h-auto px-0 text-xs" />
+          </div>
+          {/* The signature, as on COVY and Aroma. */}
+          <p className="flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-6 bg-[var(--mas-gold)]" />
+            <span>
+              {t("designedBy")}{" "}
+              <a
+                href={DESIGNER_URL}
+                target="_blank"
+                rel="noopener"
+                className="inline-block py-1.5 text-[var(--mas-soft)] underline decoration-[var(--mas-gold)]/60 underline-offset-4 transition-colors hover:decoration-[var(--mas-gold)]"
+              >
+                {t("designer")}
+              </a>
+            </span>
+          </p>
+        </div>
       </div>
     </footer>
   );

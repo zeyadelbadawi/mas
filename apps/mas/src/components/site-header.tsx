@@ -1,6 +1,8 @@
 import { localePath } from "@mas/seo";
 import { getTranslations } from "next-intl/server";
 import { Header, type HeaderProps } from "@/components/header";
+import { brands } from "@mas/content";
+import { BRAND_POSTERS } from "@/lib/brand-posters";
 
 /** The six pages in the header, in the order of the D13 site map. */
 export const PAGES = ["about", "services", "brands", "events", "insights", "contact"] as const;
@@ -22,6 +24,7 @@ export async function SiteHeader({
 }) {
   const t = await getTranslations({ locale, namespace: "nav" });
   const common = await getTranslations({ locale, namespace: "common" });
+  const doors = await getTranslations({ locale, namespace: "doors" });
   return (
     <Header
       locale={locale}
@@ -34,6 +37,17 @@ export async function SiteHeader({
         label: t(p),
       }))}
       cta={{ href: pageHref(locale, "contact"), label: t("cta") }}
+      brandsMenu={{
+        label: t("brands"),
+        all: t("brandsAll"),
+        items: (["covy", "aroma"] as const).map((id) => ({
+          id,
+          name: brands[id].name[locale],
+          href: pageHref(locale, "brands", `/${id}`),
+          line: doors(`${id}.line`),
+          image: { src: BRAND_POSTERS[id].webp, position: id === "covy" ? "50% 50%" : "66% 50%" },
+        })),
+      }}
       labels={{
         nav: t("label"),
         home: t("home"),

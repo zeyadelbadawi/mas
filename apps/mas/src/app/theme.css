@@ -9,6 +9,8 @@
   --mas-gold: #ddaf52;
   --mas-soft: #e5e5e5;
   --mas-silver: #d6d6d6;
+  /* The footer's floor: a step deeper than Dark Gray, so the page ends on a quiet base. */
+  --mas-deep: #141314;
   /* The wordmark's own diagonal (logo.tsx, MAS_DIAGONAL_DEG): cut corners and wipes use it. */
   --mas-cut: 50.5deg;
 
