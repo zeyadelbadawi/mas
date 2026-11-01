@@ -16,7 +16,9 @@ export {
   videoVariantFor,
   type SequenceManifest,
   type SequenceVariant,
+  type VideoDecodeIndex,
   type VideoManifest,
 } from "./manifest";
 export { sequenceSource, videoSource } from "./media";
+export { splashBootScript } from "./splash-boot";
 export { videoPrefetchScript, type VideoPrefetch, type VideoPrefetchMap } from "./video-prefetch";

@@ -14,7 +14,9 @@
     "./motion-lib": "./src/client/motion-lib.ts",
     "./near-viewport": "./src/client/near-viewport.tsx",
     "./scroll-video": "./src/client/scroll-video.tsx",
-    "./video-preload": "./src/client/video-preload.ts"
+    "./video-preload": "./src/client/video-preload.ts",
+    "./scene-status": "./src/client/scene-status.ts",
+    "./splash-gate": "./src/client/splash-gate.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

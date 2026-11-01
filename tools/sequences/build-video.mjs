@@ -6,10 +6,10 @@
 //                       [--ease-in 0.06 --ease-out 0.12] [--focal 0.5,0.5] [--crf 24] [--mobile-crf 26] [--gop 6]
 //                       [--draft]  (960×540 / 432×540 previews for public/videos/drafts, used without R2)
 //
-// The player scrubs the video by seeking, which the browser decodes in hardware. A keyframe every `gop` frames
-// (a quarter of a second at 24 fps) keeps every seek within a few frames of a keyframe, so it stays fast in
-// both directions while the file stays much smaller than one image per frame. B-frames are off, so frame i is
-// shown at exactly i / fps.
+// The player decodes the frames itself with WebCodecs (D62), from the frame index written into the manifest
+// (sample-index.mjs); browsers without it seek the video instead. A keyframe every `gop` frames (a quarter of
+// a second at 24 fps) keeps any frame within a few decodes of a keyframe in both directions, while the file
+// stays much smaller than one image per frame. B-frames are off, so frame i is shown at exactly i / fps.
 //
 // The manifest's `timing` gives each source frame's place along the move (0..1). With --motion it follows how
 // much the image changes (even camera speed per scroll; see timing.mjs), with optional easing at either end;
@@ -21,6 +21,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import sharp from "sharp";
+import { sampleIndex } from "./sample-index.mjs";
 import { ease, motionProfile, motionTiming } from "./timing.mjs";
 
 const { values } = parseArgs({
@@ -161,8 +162,20 @@ try {
     focal: { x: fx, y: fy },
     poster: { avif: "poster.avif", webp: "poster.webp", ...desktop },
     variants: [
-      { name: "desktop", ...desktop, src: "desktop.mp4", bytes: size("desktop.mp4") },
-      { name: "mobile", ...mobile, src: "mobile.mp4", bytes: size("mobile.mp4") },
+      {
+        name: "desktop",
+        ...desktop,
+        src: "desktop.mp4",
+        bytes: size("desktop.mp4"),
+        decode: sampleIndex(path.join(outDir, "desktop.mp4"), fps),
+      },
+      {
+        name: "mobile",
+        ...mobile,
+        src: "mobile.mp4",
+        bytes: size("mobile.mp4"),
+        decode: sampleIndex(path.join(outDir, "mobile.mp4"), fps),
+      },
     ],
     timing: timing.map(round5),
   };

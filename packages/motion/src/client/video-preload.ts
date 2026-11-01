@@ -2,7 +2,8 @@ import type { VideoPrefetch, VideoPrefetchMap } from "../video-prefetch";
 
 /**
  * Downloads scroll videos whole, one at a time in page order, and reports progress (for a splash screen).
- * A fully downloaded video plays from a blob: URL, so every seek is answered from memory, never the network.
+ * A fully downloaded video is decoded from memory (the frame engine), or played from a blob: URL (the fallback),
+ * never from the network.
  */
 
 export type PreloadState = {
@@ -10,6 +11,8 @@ export type PreloadState = {
   total: number;
   done: boolean;
   url?: string;
+  /** The downloaded file: the frame engine decodes from its bytes, the video fallback plays `url`. */
+  blob?: Blob;
   error?: boolean;
 };
 
@@ -117,9 +120,16 @@ async function download(job: Job & { src: string }, signal: AbortSignal): Promis
   if (pre) {
     const ok = await followPrefetch(job, pre, signal);
     if (ok) {
-      const url = URL.createObjectURL(new Blob(pre.chunks as BlobPart[], { type: "video/mp4" }));
+      const blob = new Blob(pre.chunks as BlobPart[], { type: "video/mp4" });
+      pre.chunks = [];
       const total = pre.total || pre.loaded;
-      states.set(job.id, { loaded: total, total, done: true, url });
+      states.set(job.id, {
+        loaded: total,
+        total,
+        done: true,
+        url: URL.createObjectURL(blob),
+        blob,
+      });
       emit();
       return;
     }
@@ -145,8 +155,8 @@ async function download(job: Job & { src: string }, signal: AbortSignal): Promis
       states.set(job.id, { loaded, total, done: false });
       emit();
     }
-    const url = URL.createObjectURL(new Blob(chunks as BlobPart[], { type: "video/mp4" }));
-    states.set(job.id, { loaded: total, total, done: true, url });
+    const blob = new Blob(chunks as BlobPart[], { type: "video/mp4" });
+    states.set(job.id, { loaded: total, total, done: true, url: URL.createObjectURL(blob), blob });
   } catch {
     // Failed or given up (the player streams the file directly instead).
     states.set(job.id, { loaded: fallback, total: fallback, done: true, error: true });
@@ -192,9 +202,10 @@ export function startPreload(id: string, src: string, bytes: number): void {
       following.delete(id);
       if (abort.signal.aborted) return;
       if (ok) {
-        const url = URL.createObjectURL(new Blob(pre.chunks as BlobPart[], { type: "video/mp4" }));
+        const blob = new Blob(pre.chunks as BlobPart[], { type: "video/mp4" });
+        pre.chunks = [];
         const total = pre.total || pre.loaded;
-        states.set(id, { loaded: total, total, done: true, url });
+        states.set(id, { loaded: total, total, done: true, url: URL.createObjectURL(blob), blob });
       } else {
         states.set(id, { loaded: bytes || 1, total: bytes || 1, done: true, error: true });
       }

@@ -36,8 +36,8 @@ export async function Lake() {
           }}
         >
           {/* Desktop: the pale sky at the top left (in Arabic too: the glass is on the right). Phones: the white table at the foot, clear of the glass.
-              A frosted marble card keeps the copy legible over the bright, busy lake. */}
-          <div className="absolute inset-x-4 bottom-[calc(6svh+100lvh-100svh)] max-w-md rounded-[1.5rem] bg-[var(--aroma-marble)]/80 p-5 backdrop-blur-md sm:inset-x-auto sm:top-[18vh] sm:right-auto sm:bottom-auto sm:left-8 sm:p-7">
+              A marble card keeps the copy legible over the bright, busy lake (a tint, not a blur: nothing redraws over the moving picture, D62). */}
+          <div className="absolute inset-x-4 bottom-[calc(6svh+100lvh-100svh)] max-w-md rounded-[1.5rem] bg-[var(--aroma-marble)]/[0.93] p-5 sm:inset-x-auto sm:top-[18vh] sm:right-auto sm:bottom-auto sm:left-8 sm:p-7">
             <h2
               id="lake-title"
               className="relative text-3xl leading-[1.15] font-semibold tracking-tight text-balance sm:text-5xl"
