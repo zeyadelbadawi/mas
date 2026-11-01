@@ -34,7 +34,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         skip={splash("skip")}
         slow={splash("slow")}
       />
-      <SiteHeader locale={locale} mode="overlay" />
+      <SiteHeader locale={locale} mode="overlay" current="home" />
       <main id="main">
         <JsonLd data={[organizationJsonLd(brand, locale), websiteJsonLd(brand, locale)]} />
         <Hero contactHref={pageHref(locale, "contact")} />

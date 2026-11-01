@@ -17,7 +17,7 @@
     "open": "Menu",
     "close": "Close",
     "home": "MAS home",
-    "brandsAll": "All our brands"
+    "homeLink": "Home"
   },
   "splash": {
     "loading": "Loading the MAS home page",
@@ -73,7 +73,7 @@
     ]
   },
   "doors": {
-    "title": "Two places we run",
+    "title": "Places under MAS management",
     "intro": "Follow the line.",
     "covy": {
       "name": "COVY",
@@ -167,7 +167,9 @@
         "t": "Hand over or run",
         "d": "We hand it over trained and documented, or keep running it with you."
       }
-    ]
+    ],
+    "receive": "What you receive",
+    "ask": "Discuss this service"
   },
   "brandsPage": {
     "title": "Our brands",

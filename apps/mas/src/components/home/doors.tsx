@@ -60,18 +60,29 @@ export async function Doors({ locale }: { locale: "en" | "ar" }) {
   return (
     <section id="brands" aria-labelledby="doors-title">
       <ScrollVideo id="mas.doors" {...src} label={t("label")} scrollVh={320} holdVh={90}>
-        {/* The title over the dark corridor as the walk begins. */}
+        {/* The title over the dark corridor as the walk begins; a thin gold line runs down from it towards
+            the line in the floor, the one the walk follows. */}
         <div
-          className="absolute inset-x-0 top-[16svh] px-4 text-center in-data-[animated=false]:top-[8svh] sm:px-8"
+          className="absolute inset-x-0 top-[14svh] isolate flex flex-col items-center px-4 text-center in-data-[animated=false]:top-[8svh] sm:px-8"
           style={{ opacity: `clamp(0, calc((0.22 - ${P}) * 7), 1)` }}
         >
+          <div
+            aria-hidden="true"
+            className="absolute top-1/2 left-1/2 -z-10 h-[170%] w-[min(110vw,56rem)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--mas-ink)_70%,transparent),transparent)]"
+          />
           <h2
             id="doors-title"
-            className="text-3xl font-semibold tracking-tight text-[var(--mas-soft)] sm:text-5xl rtl:tracking-normal"
+            className="max-w-3xl text-4xl leading-[1.08] font-semibold tracking-tight text-balance text-[var(--mas-soft)] sm:text-6xl rtl:leading-[1.35] rtl:tracking-normal"
           >
             {t("title")}
           </h2>
-          <p className="mt-3 font-light text-[var(--mas-soft)]/80">{t("intro")}</p>
+          <p className="mt-5 text-sm font-light tracking-[0.18em] text-[var(--mas-soft)]/80 sm:text-base rtl:tracking-normal">
+            {t("intro")}
+          </p>
+          <span
+            aria-hidden="true"
+            className="mt-5 h-14 w-px bg-[linear-gradient(to_bottom,var(--mas-gold),transparent)]"
+          />
         </div>
 
         <div

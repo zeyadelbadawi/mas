@@ -405,3 +405,23 @@ html[data-splash="hold"]::after {
     animation: none;
   }
 }
+
+/* A service in the "Services" menu (D69): the gold rule draws across its top on hover or focus. */
+.mas-menu-service::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: var(--mas-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--brand-ease);
+}
+[dir="rtl"] .mas-menu-service::before {
+  transform-origin: right;
+}
+.mas-menu-service:hover::before,
+.mas-menu-service:focus-visible::before {
+  transform: scaleX(1);
+}

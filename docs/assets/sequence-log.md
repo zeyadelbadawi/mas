@@ -303,3 +303,9 @@ Credits for MAS so far: 157 (balance 224.75 → 67.75).
 Checked: the last frame matches the end frame; frame-to-frame change is even (mean 4.8, max 6.2, no spikes). Built with `pnpm sequence:video --input hero-r2.mp4 --id mas.hero --motion`: 241 frames, desktop 6.0 MB, mobile 2.9 MB; uploaded as `videos/mas.hero.r2`; draft copy replaced. Revision 1 stays on R2, unused.
 
 Credits for MAS so far: 223 (balance 224.75 → 1.75, after the 10 for the article images and 66 here).
+
+### MAS: About image (D69)
+
+`mas.about.story`, Nano Banana 2.1 at 1K (`7474266b`, 1.5 credits), with the lit-room frame `06f24fb6` as reference: two people's hands over a restaurant floor plan with material samples, a plate and a glass, under a gold pendant. Checked: the plans carry lines only, no text. Saved as WebP 1264 × 790.
+
+Credits for MAS so far: 224.5 (balance 224.75 → 0.25).

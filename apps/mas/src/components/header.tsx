@@ -19,6 +19,9 @@ export type BrandMenuItem = {
   logoSmall: ReactNode;
 };
 
+/** One service in the "Services" menu. */
+export type ServiceMenuItem = { order: number; title: string; href: string };
+
 export type HeaderProps = {
   locale: "en" | "ar";
   links: NavLink[];
@@ -40,7 +43,9 @@ export type HeaderProps = {
    */
   mode?: "overlay" | "solid";
   /** The two brands, for the "Our brands" menu. */
-  brandsMenu: { label: string; all: string; items: BrandMenuItem[] };
+  brandsMenu: { items: BrandMenuItem[] };
+  /** The nine services, for the "Services" menu. */
+  servicesMenu: { items: ServiceMenuItem[] };
 };
 
 /**
@@ -57,6 +62,7 @@ export function Header({
   labels,
   mode = "solid",
   brandsMenu,
+  servicesMenu,
 }: HeaderProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const close = () => dialogRef.current?.close();
@@ -78,13 +84,35 @@ export function Header({
           <ul className="flex items-center gap-8 text-sm font-light">
             {links.map((l) =>
               l.key === "brands" ? (
-                <BrandsMenu
+                <NavMenu
                   key={l.key}
+                  id="brands-menu"
                   link={l}
                   current={current === l.key}
-                  menu={brandsMenu}
                   prefetch={prefetch}
-                />
+                  panelClass="w-[34rem]"
+                >
+                  {(load) => (
+                    <ul className="grid grid-cols-2 gap-4">
+                      {brandsMenu.items.map((b, i) => (
+                        <MenuDoor prefetch={prefetch} key={b.id} item={b} index={i} load={load}>
+                          {b.logo}
+                        </MenuDoor>
+                      ))}
+                    </ul>
+                  )}
+                </NavMenu>
+              ) : l.key === "services" ? (
+                <NavMenu
+                  key={l.key}
+                  id="services-menu"
+                  link={l}
+                  current={current === l.key}
+                  prefetch={prefetch}
+                  panelClass="w-[44rem]"
+                >
+                  {() => <ServicesGrid items={servicesMenu.items} prefetch={prefetch} />}
+                </NavMenu>
               ) : (
                 <li key={l.key}>
                   <Link
@@ -218,22 +246,27 @@ export function Header({
 }
 
 /**
- * "Our brands" with its menu (D67): two small doors, as at the end of the home page's walk. Each card shows
- * the picture seen through that brand's door in a thin gold frame, with its mark and one line; on opening
- * the two are revealed one after the other along the wordmark's diagonal, and the hovered door lights up.
- * Opens on hover with a mouse, and with the arrow button from a keyboard or a touch screen; Escape closes it
- * and returns focus. The pictures load only once it has been opened, so they never compete with the scenes.
+ * A header link with a small menu under it (D67, D69): "Our brands" and "Services". Opens on hover with a
+ * mouse, and with the arrow button from a keyboard or a touch screen; Escape closes it and returns focus.
+ * The panel is rendered only once it has been opened, so its pictures never compete with the scenes. Its
+ * foot is the link's own name, with the gold rule, leading to the page.
  */
-function BrandsMenu({
+function NavMenu({
+  id,
   link,
   current,
-  menu,
   prefetch,
+  panelClass,
+  children,
 }: {
+  id: string;
   link: NavLink;
   current: boolean;
-  menu: HeaderProps["brandsMenu"];
   prefetch: false | undefined;
+  /** The panel's width. */
+  panelClass: string;
+  /** The panel's content; `load` is true once it has been opened (its pictures may load). */
+  children: (load: boolean) => ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const [everOpened, setEverOpened] = useState(false);
@@ -279,8 +312,8 @@ function BrandsMenu({
           ref={buttonRef}
           type="button"
           aria-expanded={open}
-          aria-controls="brands-menu"
-          aria-label={menu.label}
+          aria-controls={id}
+          aria-label={link.label}
           onClick={() => show(!open)}
           className="inline-flex size-6 items-center justify-center"
         >
@@ -297,37 +330,27 @@ function BrandsMenu({
         </button>
       </span>
       <div
-        id="brands-menu"
+        id={id}
         data-open={open ? "" : undefined}
         hidden={!everOpened}
         className="mas-brands-menu absolute top-full left-1/2 pt-6"
       >
-        <div className="w-[34rem] border border-[var(--mas-silver)]/12 bg-[var(--mas-ink)] p-5 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.7)]">
-          <ul className="grid grid-cols-2 gap-4">
-            {menu.items.map((b, i) => (
-              <MenuDoor
-                prefetch={prefetch}
-                key={b.id}
-                item={b}
-                index={i}
-                load={everOpened}
-                onNavigate={() => show(false)}
-              >
-                {b.logo}
-              </MenuDoor>
-            ))}
-          </ul>
-          <div className="mt-5 flex items-center justify-between border-t border-[var(--mas-silver)]/10 pt-4 text-sm">
-            <span className="mas-rule text-xs font-light tracking-[0.12em] text-[var(--mas-soft)]/70 rtl:tracking-normal">
-              {menu.label}
-            </span>
+        {/* Following any link in the panel closes it. */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- only catches clicks on the links inside */}
+        <div
+          onClick={(e) => {
+            if ((e.target as HTMLElement).closest("a")) show(false);
+          }}
+          className={`max-w-[calc(100vw-2rem)] border border-[var(--mas-silver)]/12 bg-[var(--mas-ink)] p-5 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.7)] ${panelClass}`}
+        >
+          {children(everOpened)}
+          <div className="mt-5 border-t border-[var(--mas-silver)]/10 pt-4">
             <Link
               prefetch={prefetch}
               href={link.href}
-              onClick={() => show(false)}
-              className="mas-rule-link inline-flex items-center py-1 font-medium"
+              className="mas-rule-link inline-flex items-center py-1 text-sm font-medium"
             >
-              {menu.all}
+              {link.label}
             </Link>
           </div>
         </div>
@@ -336,18 +359,54 @@ function BrandsMenu({
   );
 }
 
+/**
+ * The services menu (D69): the nine services as a numbered grid (their order is the client's own), each a
+ * small square of the identity: the gold number, the name, and the gold rule drawing across its top on
+ * hover. They are revealed one after another along the wordmark's diagonal, as the brands' doors are.
+ */
+function ServicesGrid({
+  items,
+  prefetch,
+}: {
+  items: ServiceMenuItem[];
+  prefetch: false | undefined;
+}) {
+  return (
+    <ul className="grid grid-cols-3 gap-px bg-[var(--mas-silver)]/10">
+      {items.map((s, i) => (
+        <li
+          key={s.href}
+          className="mas-menu-door bg-[var(--mas-ink)]"
+          style={{ animationDelay: `${60 + i * 45}ms` }}
+        >
+          <Link
+            prefetch={prefetch}
+            href={s.href}
+            className="mas-menu-service group relative flex h-full min-h-[6.5rem] flex-col gap-2 p-4 transition-colors duration-300 hover:bg-[var(--brand-surface)]"
+          >
+            <span className="text-xs font-light text-[var(--mas-gold)] tabular-nums">
+              {String(s.order).padStart(2, "0")}
+            </span>
+            <span className="text-sm leading-snug text-[var(--mas-soft)] transition-colors duration-300 group-hover:text-[var(--mas-gold)]">
+              {s.title}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function MenuDoor({
   item,
   index,
   load,
-  onNavigate,
   prefetch,
   children,
 }: {
   item: BrandMenuItem;
   index: number;
   load: boolean;
-  onNavigate: () => void;
   prefetch: false | undefined;
   children: ReactNode;
 }) {
@@ -356,7 +415,6 @@ function MenuDoor({
       <Link
         prefetch={prefetch}
         href={item.href}
-        onClick={onNavigate}
         className="group relative block aspect-[4/5] overflow-hidden bg-[var(--brand-surface)]"
       >
         {load ? (

@@ -165,3 +165,10 @@ export type Insight = {
   imageSlotId: string;
   placeholder: boolean;
 };
+
+/** A service in depth (D69): what it is, what it covers and what the owner receives. */
+export type ServiceDetails = {
+  intro: LocalizedText;
+  covers: { t: LocalizedText; d: LocalizedText }[];
+  deliverables: LocalizedText[];
+};

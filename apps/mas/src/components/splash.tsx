@@ -8,12 +8,26 @@ import { MAS_DIAGONAL_DEG, WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components
 const READY = ["mas.hero", "mas.doors"] as const;
 /** On a first visit the wordmark is drawn out before the panel may leave (about 1.8 s of drawing). */
 const MIN_MS = 2400;
-/** Later in the session the files come from the browser's cache: a short panel, the mark already gold. */
-const QUICK_MS = 700;
+/**
+ * Later in the session (another page and back, a reload) the files are in memory or the browser's cache and
+ * the scenes are ready in a fraction of a second: the panel only covers the jump back to the top, then goes
+ * at once (D69).
+ */
+const QUICK_MS = 250;
 
 /** The exit: the gold mark rises away and the dark panel clears onto the empty room of the first frame. */
 function animateOut(panel: HTMLElement, done: () => void) {
   const ease = "cubic-bezier(0.215, 0.61, 0.355, 1)";
+  // Coming back in the same session: a short fade, nothing to wait for (D69).
+  if (panel.dataset.quick !== undefined) {
+    const fade = panel.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: 420,
+      easing: ease,
+      fill: "forwards",
+    });
+    fade.onfinish = done;
+    return;
+  }
   panel.querySelector("[data-mark]")?.animate(
     [
       { opacity: 1, transform: "none" },

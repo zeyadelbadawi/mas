@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 287 | 231 | 56 |
+| Images | 287 | 232 | 55 |
 | Sequences (generated) | 8 | 0 | 8 |
 
 ## MAS (mas.com)
@@ -20,7 +20,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
 | `mas.og` | All · Social share image | 1200 × 630 px | 40:21 | MAS | MAS | ⬜ placeholder |  |
-| `mas.about.story` | About · What we do | 1600 × 1000 px | 8:5 | The MAS team planning a restaurant opening around a table | فريق MAS يخطط لافتتاح مطعم حول طاولة | ⬜ placeholder |  |
+| `mas.about.story` | About · What we do | 1264 × 790 px | 8:5 | Two people planning a restaurant's floor plan with material samples, a plate and a glass on a dark table | شخصان يخططان لمسقط مطعم مع عينات خامات وطبق وكأس على طاولة داكنة | ✅ delivered | Made with Higgsfield in the MAS restaurant of the hero scene (D69) |
 | `mas.services.fnb-concept-development` | Service detail · Header image | 1600 × 900 px | 16:9 | Sketches and a mood board for a new restaurant concept | رسومات ولوحة إلهام لفكرة مطعم جديد | ⬜ placeholder |  |
 | `mas.services.fnb-catering-service` | Service detail · Header image | 1600 × 900 px | 16:9 | A catering table laid for a corporate event | طاولة ضيافة مُعدّة لمناسبة شركة | ⬜ placeholder |  |
 | `mas.services.menu-engineering-costing` | Service detail · Header image | 1600 × 900 px | 16:9 | A chef weighing ingredients next to a costing sheet | شيف يزن المكونات بجوار ورقة حساب التكلفة | ⬜ placeholder |  |
