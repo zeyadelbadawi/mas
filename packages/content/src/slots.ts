@@ -87,18 +87,50 @@ const MAS_SERVICES: [string, string, string][] = [
   ],
 ];
 
-/** The sample articles' images (slug, alt EN, alt AR); see insights.ts. */
-const MAS_INSIGHTS: [string, string, string][] = [
-  ["reading-your-menu", "A printed menu marked up with a pen", "منيو مطبوع عليه ملاحظات بالقلم"],
+/**
+ * The articles' images (D66, made with Higgsfield): slot id, file under /images/insights, size, alt EN,
+ * alt AR. The cover is the card and the top of the article; ".pass" and ".service" sit inside the text.
+ */
+const MAS_INSIGHTS: [string, string, number, number, string, string][] = [
   [
-    "the-ninety-days-before-opening",
-    "A restaurant dining room before opening, chairs still stacked",
-    "صالة مطعم قبل الافتتاح والكراسي ما زالت مرصوصة",
+    "reading-your-menu",
+    "reading-your-menu.webp",
+    1600,
+    1000,
+    "A blank menu card and a brass pen beside a plated scallop on a dark stone table",
+    "بطاقة منيو فارغة وقلم نحاسي بجوار طبق إسكالوب على طاولة حجر غامقة",
   ],
   [
-    "hiring-your-first-team",
-    "A new café team lined up behind the counter",
-    "فريق كافيه جديد واقف خلف الكاونتر",
+    "reading-your-menu.pass",
+    "reading-your-menu-pass.webp",
+    1600,
+    900,
+    "A chef plating a small dish with tweezers next to a kitchen scale",
+    "شيف يجهّز طبقًا صغيرًا بالملقط بجوار ميزان مطبخ",
+  ],
+  [
+    "why-restaurants-close",
+    "why-restaurants-close.webp",
+    1600,
+    1000,
+    "An empty restaurant dining room set for service at dusk, lit in warm gold",
+    "صالة مطعم فارغة مجهزة للخدمة وقت الغروب بإضاءة ذهبية دافئة",
+  ],
+  [
+    "what-one-star-is-worth",
+    "what-one-star-is-worth.webp",
+    1600,
+    1000,
+    "A guest photographing a plated dish with a phone by candlelight",
+    "ضيف يصوّر طبقًا بهاتفه على ضوء الشموع",
+  ],
+  [
+    "what-one-star-is-worth.service",
+    "what-one-star-is-worth-service.webp",
+    1600,
+    900,
+    "A server presenting a dish to two guests in a warm, dark restaurant",
+    "نادل يقدّم طبقًا لضيفين في مطعم غامق دافئ",
   ],
 ];
 
@@ -212,16 +244,17 @@ export const slots: SlotSpec[] = [
     }),
   ),
   ...MAS_INSIGHTS.map(
-    ([slug, en, ar]): ImageSlotSpec => ({
+    ([slug, file, width, height, en, ar]): ImageSlotSpec => ({
       kind: "image",
       id: `mas.insights.${slug}`,
       app: "mas",
       page: "Home, Insights",
-      section: "Article image",
-      width: 1200,
-      height: 750,
+      section: slug.includes(".") ? "Image in the article" : "Article cover",
+      width,
+      height,
       alt: { en, ar },
-      notes: "Sample article (placeholder) until MAS sends its own",
+      src: `/images/insights/${file}`,
+      notes: "Made with Higgsfield (D66)",
     }),
   ),
 

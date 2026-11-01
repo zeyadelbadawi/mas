@@ -274,3 +274,19 @@ The ten soft-drink photos (cans and bottles shot on white) were re-fetched and f
 One 10-second Kling 3.0 4K shot from K1 (`6413dc5b`) to the new K2 (`3422dfca`, 60 credits), first try. Checked with an optical-flow pass: the picture expands from the centre for the whole move (left edge moving left, right edge right, floor down), which is a camera moving forward; the doors grow steadily and the fins pass out of frame. Built with `pnpm sequence:video --input doors4k-r2.mp4 --id mas.doors --motion`: 241 frames, desktop 5.7 MB, mobile 2.8 MB; draft copy replaced. Revision 1 stays on R2, unused.
 
 Credits for MAS so far: 147 (balance 224.75 → 77.75).
+
+### MAS: article images (D66)
+
+Five images, Nano Banana 2.1 at 2K, 2 credits each (10 credits, the owner's budget), all used:
+
+| Slot | Job | Notes |
+|---|---|---|
+| `mas.insights.reading-your-menu` | `9f2832c9` | Cover: a blank menu card, a brass pen and a plated dish on dark stone |
+| `mas.insights.reading-your-menu.pass` | `e54f3d62` | In the text: a chef plating next to a scale (display checked: blank) |
+| `mas.insights.why-restaurants-close` | `a0561c65` | Cover: an empty dining room set for service at dusk |
+| `mas.insights.what-one-star-is-worth` | `0fe7fa8c` | Cover: a guest photographing a dish by candlelight (phone screen checked: only the blurred dish) |
+| `mas.insights.what-one-star-is-worth.service` | `9513c335` | In the text: a server presenting a dish |
+
+Saved as WebP in `apps/mas/public/images/insights` (covers 1600 × 1000, images in the text 1600 × 900).
+
+Credits for MAS so far: 157 (balance 224.75 → 67.75).

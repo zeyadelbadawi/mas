@@ -24,7 +24,7 @@
 |---|---|---|
 | `RESEND_API_KEY` | من Resend (خطوة 3) | سري. مفتاح إرسال فقط |
 | `MAIL_FROM` | مثلًا `COVY <reservations@send.mas.com>` | لازم يكون من الدومين المتحقق منه في Resend |
-| `MAIL_TO` | ‏`mas@mas.com` / ‏`covy@mas.com` / ‏`aroma@mas.com` | في الاختبار ينفع بريدك أنت |
+| `MAIL_TO` | ‏`info@masegypt.com` / ‏`covy@mas.com` / ‏`aroma@mas.com` | في الاختبار ينفع بريدك أنت |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | من Cloudflare (خطوة 4) | |
 | `TURNSTILE_SECRET_KEY` | من Cloudflare (خطوة 4) | سري. من غيره نماذج الإنتاج بترفض الإرسال |
 | `NEXT_PUBLIC_SITE_URL` | سيبه فاضي على Hobby | بيتضبط على الدومين الحقيقي في الإنتاج |

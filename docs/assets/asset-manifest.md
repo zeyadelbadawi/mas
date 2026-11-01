@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 285 | 226 | 59 |
+| Images | 287 | 231 | 56 |
 | Sequences (generated) | 8 | 0 | 8 |
 
 ## MAS (mas.com)
@@ -30,9 +30,11 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | `mas.services.financial-control-performance` | Service detail · Header image | 1600 × 900 px | 16:9 | Monthly performance figures on a laptop in a café | أرقام الأداء الشهري على لابتوب في كافيه | ⬜ placeholder |  |
 | `mas.services.production-packaging-supply` | Service detail · Header image | 1600 × 900 px | 16:9 | Packed sauces and baked goods ready for delivery to the branches | صوصات ومخبوزات مغلّفة جاهزة للتوزيع على الفروع | ⬜ placeholder |  |
 | `mas.services.tools-quality-assurance` | Service detail · Header image | 1600 × 900 px | 16:9 | A point-of-sale screen and a checklist on a café counter | شاشة نقطة بيع وقائمة مراجعة على كاونتر كافيه | ⬜ placeholder |  |
-| `mas.insights.reading-your-menu` | Home, Insights · Article image | 1200 × 750 px | 8:5 | A printed menu marked up with a pen | منيو مطبوع عليه ملاحظات بالقلم | ⬜ placeholder | Sample article (placeholder) until MAS sends its own |
-| `mas.insights.the-ninety-days-before-opening` | Home, Insights · Article image | 1200 × 750 px | 8:5 | A restaurant dining room before opening, chairs still stacked | صالة مطعم قبل الافتتاح والكراسي ما زالت مرصوصة | ⬜ placeholder | Sample article (placeholder) until MAS sends its own |
-| `mas.insights.hiring-your-first-team` | Home, Insights · Article image | 1200 × 750 px | 8:5 | A new café team lined up behind the counter | فريق كافيه جديد واقف خلف الكاونتر | ⬜ placeholder | Sample article (placeholder) until MAS sends its own |
+| `mas.insights.reading-your-menu` | Home, Insights · Article cover | 1600 × 1000 px | 8:5 | A blank menu card and a brass pen beside a plated scallop on a dark stone table | بطاقة منيو فارغة وقلم نحاسي بجوار طبق إسكالوب على طاولة حجر غامقة | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.reading-your-menu.pass` | Home, Insights · Image in the article | 1600 × 900 px | 16:9 | A chef plating a small dish with tweezers next to a kitchen scale | شيف يجهّز طبقًا صغيرًا بالملقط بجوار ميزان مطبخ | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.why-restaurants-close` | Home, Insights · Article cover | 1600 × 1000 px | 8:5 | An empty restaurant dining room set for service at dusk, lit in warm gold | صالة مطعم فارغة مجهزة للخدمة وقت الغروب بإضاءة ذهبية دافئة | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.what-one-star-is-worth` | Home, Insights · Article cover | 1600 × 1000 px | 8:5 | A guest photographing a plated dish with a phone by candlelight | ضيف يصوّر طبقًا بهاتفه على ضوء الشموع | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.what-one-star-is-worth.service` | Home, Insights · Image in the article | 1600 × 900 px | 16:9 | A server presenting a dish to two guests in a warm, dark restaurant | نادل يقدّم طبقًا لضيفين في مطعم غامق دافئ | ✅ delivered | Made with Higgsfield (D66) |
 
 ### Scroll sequences
 

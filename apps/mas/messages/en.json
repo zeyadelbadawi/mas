@@ -91,7 +91,7 @@
   },
   "insights": {
     "title": "Insights",
-    "intro": "Notes on running cafés and restaurants well.",
+    "intro": "Notes on running cafés and restaurants well, drawn from published research.",
     "all": "All insights",
     "read": "Read",
     "sample": "Sample articles: MAS's own articles replace them before launch",
@@ -187,7 +187,8 @@
   "insightsPage": {
     "title": "Insights",
     "lead": "Notes from MAS on running cafés and restaurants well.",
-    "back": "All insights"
+    "back": "All insights",
+    "sources": "Sources"
   },
   "contactPage": {
     "title": "Discuss your project",
