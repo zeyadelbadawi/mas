@@ -263,4 +263,14 @@ The ten soft-drink photos (cans and bottles shot on white) were re-fetched and f
 
 **Doors, `mas.doors` (revision 1, R2 `videos/mas.doors.r1`):** one 10-second Kling 3.0 4K shot from K1 to K2 (`5cb86101`, 60 credits), first try. Built with `pnpm sequence:video --input doors4k.mp4 --id mas.doors --motion`: 241 frames, desktop 4.9 MB, mobile 2.6 MB. A draft copy for CI is in `apps/mas/public/videos/drafts/mas.doors`.
 
-Credits for MAS so far: 79 (balance 224.75 → 145.75).
+**Doors, revision 2 (R2 `videos/mas.doors.r2`), the walk.** The owner's note on revision 1: it should feel like walking in toward the doors, but the doors seemed to come at the viewer, because the fins nearest the camera stayed put while the far ones slid up to them (K1 and K2 shared the same near fins). Fix: a new end frame with no fins at all, so the camera has to leave the corridor to reach it.
+
+| Frame | Job | Notes |
+|---|---|---|
+| K2 v2 tries | `5c79fce6`, `f5da3e9e` | Not used: they copied the old composition, fins included |
+| K2 v2 (picked) | `61add1aa` | A dark antechamber past the end of the corridor: the end wall with the two gold-framed doors (about 49% of the width), the line splitting to their thresholds, no fins. References: the K2 doors crop and a hero frame |
+| K2 v2 alternative | `d453babd` | Not used: doors span 53% of the width, more cropped on phones |
+
+One 10-second Kling 3.0 4K shot from K1 (`6413dc5b`) to the new K2 (`3422dfca`, 60 credits), first try. Checked with an optical-flow pass: the picture expands from the centre for the whole move (left edge moving left, right edge right, floor down), which is a camera moving forward; the doors grow steadily and the fins pass out of frame. Built with `pnpm sequence:video --input doors4k-r2.mp4 --id mas.doors --motion`: 241 frames, desktop 5.7 MB, mobile 2.8 MB; draft copy replaced. Revision 1 stays on R2, unused.
+
+Credits for MAS so far: 147 (balance 224.75 → 77.75).
