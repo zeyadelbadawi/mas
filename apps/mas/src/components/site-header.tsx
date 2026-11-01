@@ -3,6 +3,17 @@ import { getTranslations } from "next-intl/server";
 import { Header, type HeaderProps } from "@/components/header";
 import { brands } from "@mas/content";
 import { BRAND_POSTERS } from "@/lib/brand-posters";
+import { AromaPetal, AromaWordmark, CovyWordmark } from "@/components/brand-marks";
+
+function brandLogo(id: "covy" | "aroma", small: boolean) {
+  if (id === "covy") return <CovyWordmark className={small ? "h-5 w-auto" : "h-7 w-auto"} />;
+  return (
+    <span className="flex items-center gap-2">
+      <AromaPetal className={small ? "h-6 w-auto" : "h-8 w-auto"} />
+      <AromaWordmark className={small ? "h-3.5 w-auto" : "h-4.5 w-auto"} />
+    </span>
+  );
+}
 
 /** The six pages in the header, in the order of the D13 site map. */
 export const PAGES = ["about", "services", "brands", "events", "insights", "contact"] as const;
@@ -46,6 +57,8 @@ export async function SiteHeader({
           href: pageHref(locale, "brands", `/${id}`),
           line: doors(`${id}.line`),
           image: { src: BRAND_POSTERS[id].webp, position: id === "covy" ? "50% 50%" : "66% 50%" },
+          logo: brandLogo(id, false),
+          logoSmall: brandLogo(id, true),
         })),
       }}
       labels={{
