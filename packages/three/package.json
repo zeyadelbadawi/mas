@@ -7,8 +7,6 @@
   "exports": {
     "./scene-canvas": "./src/client/scene-canvas.tsx",
     "./test-scene": "./src/client/test-scene.tsx",
-    "./obsidian-field": "./src/client/obsidian-field.tsx",
-    "./nine-facets": "./src/client/nine-facets.tsx",
     "./leaf-ring": "./src/client/leaf-ring.tsx"
   },
   "scripts": {

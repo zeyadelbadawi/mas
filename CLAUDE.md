@@ -19,7 +19,7 @@ Three websites in one monorepo:
 5. **Placeholder content is labelled.** Menu items, prices, testimonials, phone numbers, addresses, hours and social links are dummy data until the client provides real data. Mark each record `placeholder: true`. Never present invented reviews as real.
 6. **Brand names:** `COVY` and `Aroma Lounge` (not "CUVY"/"ARUMA").
 7. **Bilingual:** English + Arabic with full RTL support in all three sites.
-8. **Fonts:** free (Google Fonts / OFL) substitutes only. The brand fonts PassionSans and Telegraf are not licensed for us.
+8. **Fonts:** free (Google Fonts / OFL) only. MAS uses Poppins, its identity's own font, which is free (D64). The COVY and Aroma brand fonts (PassionSans, Telegraf) are not licensed for us, so those sites use free substitutes.
 9. **Forms send email only** (no database): Next.js server route → Resend. Recipients: `mas@mas.com`, `covy@mas.com`, `aroma@mas.com`. Guests get an auto-reply. Protect with Cloudflare Turnstile + honeypot + zod validation.
 10. **Analytics:** separate GA4 property and Microsoft Clarity project per site, created on the client's Google/Microsoft accounts, loaded only after cookie consent.
 11. **Do not put model names in commits, PRs or code comments.**

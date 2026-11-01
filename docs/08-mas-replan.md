@@ -1,6 +1,6 @@
 # 08 — MAS re-plan (new identity)
 
-**Status:** proposal, waiting for the owner's approval (CLAUDE.md rule 1). Nothing below is implemented yet.
+**Status:** approved by the owner in full (2026-11-01, D64): hero option per §6 (the owner sends the video; recoloured to gold if it can look right, otherwise regenerated), the doors scene, Noto Kufi Arabic, placeholders for images.
 
 **Once approved, it replaces:**
 - the MAS parts of `03-experience-design.md`: §1 motion row, §2 "MAS — Proposal A" and §4.1;
@@ -74,7 +74,7 @@ The client replaced the MAS identity. The owner's brief (2026-11-01):
   - The tagline: 300 with wide letter-spacing.
 - **Arabic: Noto Kufi Arabic** (Google Fonts, OFL).
   - Proposed because its geometric Kufi shapes echo the wordmark's angles and it sits well next to Poppins.
-  - It is also different from COVY's Alexandria and Aroma's Readex/El Messiri, so the three sites stay distinct.
+  - It is also different from Aroma's Alexandria and COVY's Readex Pro/El Messiri, so the three sites stay distinct.
   - Other option: IBM Plex Sans Arabic.
 
 ### 3.3 The mark and the motif

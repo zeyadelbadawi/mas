@@ -81,34 +81,36 @@ const GUEST_PHOTOS: LocalizedText[] = [
 ];
 
 export const slots: SlotSpec[] = [
-  /* ------------------------------------------------------------ MAS */
+  /* ------------------------------------------------------------ MAS (D64) */
   {
-    kind: "image",
-    id: "mas.hero.poster",
+    kind: "sequence",
+    id: "mas.hero",
     app: "mas",
     page: "Home",
-    section: "M1 Obsidian field",
-    width: 2880,
-    height: 1620,
-    alt: {
-      en: "Dark faceted surface lit by a crimson light",
-      ar: "سطح داكن متعدد الأوجه يضيئه ضوء قرمزي",
+    section: "M1 From a shell to a restaurant",
+    ...SEQ,
+    frameCount: 193,
+    label: {
+      en: "An empty dark restaurant shell: gold lines trace the floor plan and the room is furnished",
+      ar: "مكان مطعم فاضي وغامق: خطوط ذهبية ترسم المسقط، ثم يكتمل المطعم بأثاثه",
     },
     notes:
-      "Still fallback for the real-time 3D hero on low-power devices; we can render it from the 3D scene",
+      "From the owner's 8-second video, in the identity's gold (D64); scroll video like COVY and Aroma (D43, D62)",
   },
   {
     kind: "sequence",
-    id: "mas.portal",
+    id: "mas.doors",
     app: "mas",
     page: "Home",
-    section: "M5 Two doors",
+    section: "M5 One line, two doors",
     ...SEQ,
+    frameCount: 241,
     label: {
-      en: "A stone corridor opening onto COVY and Aroma Lounge",
-      ar: "ممر حجري ينفتح على COVY وأروما لاونج",
+      en: "A gold line on a dark stone floor splits into two, toward a door onto COVY and a door onto Aroma Lounge",
+      ar: "خط ذهبي على أرضية حجر غامقة يتفرّع لخطين، نحو باب على COVY وباب على أروما لاونج",
     },
-    notes: "Generated with MAG",
+    notes:
+      "Generated with Higgsfield (D64); the views through the doors come from COVY's and Aroma's own scenes",
   },
   {
     kind: "image",
