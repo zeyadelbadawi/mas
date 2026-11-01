@@ -114,7 +114,8 @@ export type Testimonial = {
   quote: LocalizedText;
   author: LocalizedText;
   rating: 1 | 2 | 3 | 4 | 5;
-  source: "google" | "placeholder";
+  /** "client": real guest reviews the client sent us (D63). */
+  source: "google" | "client" | "placeholder";
   placeholder: boolean;
 };
 
