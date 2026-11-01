@@ -143,3 +143,25 @@ export type RecurringNight = {
   reservable: boolean;
   placeholder: boolean;
 };
+
+/** One block of an article, in reading order. */
+export type InsightBlock =
+  | { kind: "p"; text: LocalizedText }
+  | { kind: "h2"; text: LocalizedText }
+  | { kind: "list"; items: LocalizedText[] }
+  | { kind: "figure"; imageSlotId: string; caption: LocalizedText };
+
+/** A MAS article (Insights), written from published research (D66). */
+export type Insight = {
+  slug: string;
+  title: LocalizedText;
+  excerpt: LocalizedText;
+  body: InsightBlock[];
+  /** The research the article draws on, cited at its end. */
+  sources: { title: string; url: string }[];
+  /** ISO date, Cairo time. */
+  publishedAt: string;
+  /** The cover: the card on the lists and the top of the article. */
+  imageSlotId: string;
+  placeholder: boolean;
+};

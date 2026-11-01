@@ -10,7 +10,7 @@ export const brands: Record<BrandId, Brand> = {
       ar: "ندعم أصحاب المشاريع لتحقيق أهدافهم.",
     },
     domain: "https://mas.com",
-    inboxEmail: "mas@mas.com",
+    inboxEmail: "info@masegypt.com",
     socials: [
       { network: "instagram", url: "https://instagram.com/" },
       { network: "linkedin", url: "https://linkedin.com/" },

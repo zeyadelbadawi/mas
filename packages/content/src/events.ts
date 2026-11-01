@@ -1,4 +1,4 @@
-// Sample events. All placeholders (CLAUDE.md rule 5) until the client sends the real calendar.
+// COVY's events, confirmed by the owner as real (D66).
 // Type-only imports: the asset-manifest script loads this file with Node's type stripping.
 import type { BrandEvent } from "./types";
 
@@ -16,7 +16,7 @@ export const events: BrandEvent[] = [
     endsAt: "2026-11-13T15:00:00+02:00",
     imageSlotId: "covy.events.brunch-club",
     reservable: true,
-    placeholder: true,
+    placeholder: false,
   },
   {
     id: "covy-oud-evening",
@@ -31,7 +31,7 @@ export const events: BrandEvent[] = [
     endsAt: "2026-11-20T23:00:00+02:00",
     imageSlotId: "covy.events.oud-evening",
     reservable: true,
-    placeholder: true,
+    placeholder: false,
   },
   {
     id: "covy-japan-week",
@@ -46,6 +46,6 @@ export const events: BrandEvent[] = [
     endsAt: "2026-12-10T23:00:00+02:00",
     imageSlotId: "covy.events.japan-week",
     reservable: false,
-    placeholder: true,
+    placeholder: false,
   },
 ];

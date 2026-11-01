@@ -1,25 +1,18 @@
-import { Bebas_Neue, Cairo, IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
+import { Noto_Kufi_Arabic, Poppins } from "next/font/google";
 
-// MAS: condensed caps display (echoes the wordmark) + Inter from the strategy deck; Arabic pair (D4).
-export const bebas = Bebas_Neue({
+// MAS (D64): Poppins is the identity guide's own type family (free, OFL); Noto Kufi Arabic is its Arabic
+// pair, a geometric Kufi that echoes the wordmark's cuts and differs from Aroma's and COVY's Arabic faces.
+export const poppins = Poppins({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-bebas",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
   display: "swap",
 });
-export const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-export const cairo = Cairo({
+export const kufi = Noto_Kufi_Arabic({
   subsets: ["arabic"],
-  variable: "--font-cairo",
-  display: "swap",
-  preload: false,
-});
-export const plexArabic = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-arabic",
+  variable: "--font-kufi",
   display: "swap",
   preload: false,
 });
 
-export const fontVariables = [bebas, inter, cairo, plexArabic].map((f) => f.variable).join(" ");
+export const fontVariables = [poppins, kufi].map((f) => f.variable).join(" ");

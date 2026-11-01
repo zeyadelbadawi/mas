@@ -38,6 +38,102 @@ export type SequenceSlotSpec = {
 
 export type SlotSpec = ImageSlotSpec | SequenceSlotSpec;
 
+/** The nine services' header images (slug, alt EN, alt AR), in the order of masServices. */
+const MAS_SERVICES: [string, string, string][] = [
+  [
+    "fnb-concept-development",
+    "Sketches and a mood board for a new restaurant concept",
+    "رسومات ولوحة إلهام لفكرة مطعم جديد",
+  ],
+  [
+    "fnb-catering-service",
+    "A catering table laid for a corporate event",
+    "طاولة ضيافة مُعدّة لمناسبة شركة",
+  ],
+  [
+    "menu-engineering-costing",
+    "A chef weighing ingredients next to a costing sheet",
+    "شيف يزن المكونات بجوار ورقة حساب التكلفة",
+  ],
+  [
+    "events-management",
+    "A restaurant terrace set up for a private evening",
+    "تراس مطعم مُجهّز لأمسية خاصة",
+  ],
+  [
+    "recruitment-training",
+    "A trainer showing new staff how to set a table",
+    "مدرّب يعلّم فريقًا جديدًا تجهيز الطاولة",
+  ],
+  [
+    "operations-hospitality-management",
+    "A manager greeting guests on a busy service night",
+    "مدير يستقبل الضيوف في ليلة خدمة مزدحمة",
+  ],
+  [
+    "financial-control-performance",
+    "Monthly performance figures on a laptop in a café",
+    "أرقام الأداء الشهري على لابتوب في كافيه",
+  ],
+  [
+    "production-packaging-supply",
+    "Packed sauces and baked goods ready for delivery to the branches",
+    "صوصات ومخبوزات مغلّفة جاهزة للتوزيع على الفروع",
+  ],
+  [
+    "tools-quality-assurance",
+    "A point-of-sale screen and a checklist on a café counter",
+    "شاشة نقطة بيع وقائمة مراجعة على كاونتر كافيه",
+  ],
+];
+
+/**
+ * The articles' images (D66, made with Higgsfield): slot id, file under /images/insights, size, alt EN,
+ * alt AR. The cover is the card and the top of the article; ".pass" and ".service" sit inside the text.
+ */
+const MAS_INSIGHTS: [string, string, number, number, string, string][] = [
+  [
+    "reading-your-menu",
+    "reading-your-menu.webp",
+    1600,
+    1000,
+    "A blank menu card and a brass pen beside a plated scallop on a dark stone table",
+    "بطاقة منيو فارغة وقلم نحاسي بجوار طبق إسكالوب على طاولة حجر غامقة",
+  ],
+  [
+    "reading-your-menu.pass",
+    "reading-your-menu-pass.webp",
+    1600,
+    900,
+    "A chef plating a small dish with tweezers next to a kitchen scale",
+    "شيف يجهّز طبقًا صغيرًا بالملقط بجوار ميزان مطبخ",
+  ],
+  [
+    "why-restaurants-close",
+    "why-restaurants-close.webp",
+    1600,
+    1000,
+    "An empty restaurant dining room set for service at dusk, lit in warm gold",
+    "صالة مطعم فارغة مجهزة للخدمة وقت الغروب بإضاءة ذهبية دافئة",
+  ],
+  [
+    "what-one-star-is-worth",
+    "what-one-star-is-worth.webp",
+    1600,
+    1000,
+    "A guest photographing a plated dish with a phone by candlelight",
+    "ضيف يصوّر طبقًا بهاتفه على ضوء الشموع",
+  ],
+  [
+    "what-one-star-is-worth.service",
+    "what-one-star-is-worth-service.webp",
+    1600,
+    900,
+    "A server presenting a dish to two guests in a warm, dark restaurant",
+    "نادل يقدّم طبقًا لضيفين في مطعم غامق دافئ",
+  ],
+];
+
 const SEQ = {
   frameCount: 150,
   desktop: { width: 1920, height: 1080 },
@@ -81,34 +177,36 @@ const GUEST_PHOTOS: LocalizedText[] = [
 ];
 
 export const slots: SlotSpec[] = [
-  /* ------------------------------------------------------------ MAS */
+  /* ------------------------------------------------------------ MAS (D64) */
   {
-    kind: "image",
-    id: "mas.hero.poster",
+    kind: "sequence",
+    id: "mas.hero",
     app: "mas",
     page: "Home",
-    section: "M1 Obsidian field",
-    width: 2880,
-    height: 1620,
-    alt: {
-      en: "Dark faceted surface lit by a crimson light",
-      ar: "سطح داكن متعدد الأوجه يضيئه ضوء قرمزي",
+    section: "M1 From a shell to a restaurant",
+    ...SEQ,
+    frameCount: 193,
+    label: {
+      en: "An empty dark restaurant shell: gold lines trace the floor plan and the room is furnished",
+      ar: "مكان مطعم فاضي وغامق: خطوط ذهبية ترسم المسقط، ثم يكتمل المطعم بأثاثه",
     },
     notes:
-      "Still fallback for the real-time 3D hero on low-power devices; we can render it from the 3D scene",
+      "From the owner's 8-second video, in the identity's gold (D64); scroll video like COVY and Aroma (D43, D62)",
   },
   {
     kind: "sequence",
-    id: "mas.portal",
+    id: "mas.doors",
     app: "mas",
     page: "Home",
-    section: "M5 Two doors",
+    section: "M5 One line, two doors",
     ...SEQ,
+    frameCount: 241,
     label: {
-      en: "A stone corridor opening onto COVY and Aroma Lounge",
-      ar: "ممر حجري ينفتح على COVY وأروما لاونج",
+      en: "A gold line on a dark stone floor splits into two, toward a door onto COVY and a door onto Aroma Lounge",
+      ar: "خط ذهبي على أرضية حجر غامقة يتفرّع لخطين، نحو باب على COVY وباب على أروما لاونج",
     },
-    notes: "Generated with MAG",
+    notes:
+      "Generated with Higgsfield (D64); the views through the doors come from COVY's and Aroma's own scenes",
   },
   {
     kind: "image",
@@ -120,6 +218,45 @@ export const slots: SlotSpec[] = [
     height: 630,
     alt: { en: "MAS", ar: "MAS" },
   },
+  {
+    kind: "image",
+    id: "mas.about.story",
+    app: "mas",
+    page: "About",
+    section: "What we do",
+    width: 1600,
+    height: 1000,
+    alt: {
+      en: "The MAS team planning a restaurant opening around a table",
+      ar: "فريق MAS يخطط لافتتاح مطعم حول طاولة",
+    },
+  },
+  ...MAS_SERVICES.map(
+    ([slug, en, ar]): ImageSlotSpec => ({
+      kind: "image",
+      id: `mas.services.${slug}`,
+      app: "mas",
+      page: "Service detail",
+      section: "Header image",
+      width: 1600,
+      height: 900,
+      alt: { en, ar },
+    }),
+  ),
+  ...MAS_INSIGHTS.map(
+    ([slug, file, width, height, en, ar]): ImageSlotSpec => ({
+      kind: "image",
+      id: `mas.insights.${slug}`,
+      app: "mas",
+      page: "Home, Insights",
+      section: slug.includes(".") ? "Image in the article" : "Article cover",
+      width,
+      height,
+      alt: { en, ar },
+      src: `/images/insights/${file}`,
+      notes: "Made with Higgsfield (D66)",
+    }),
+  ),
 
   /* ------------------------------------------------------------ COVY */
   {

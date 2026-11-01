@@ -187,9 +187,6 @@ importers:
       '@mas/seo':
         specifier: workspace:*
         version: link:../../packages/seo
-      '@mas/three':
-        specifier: workspace:*
-        version: link:../../packages/three
       '@mas/ui':
         specifier: workspace:*
         version: link:../../packages/ui

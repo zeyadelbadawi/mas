@@ -6,8 +6,402 @@
 @source "../../../../packages/motion/src";
 @source "../../../../packages/forms/src";
 @source "../../../../packages/analytics/src";
-@source "../../../../packages/three/src";
 
 @theme inline {
   --font-editorial: var(--brand-font-editorial);
+}
+
+/* Splash gate (D62/D64, shared hook useSplashGate): same rules as COVY and Aroma. The head script marks the
+   landing page "hold" before the body is parsed; an opaque dark cover hides the page until the panel is up. */
+@keyframes mas-splash-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.mas-splash {
+  animation: mas-splash-failsafe 0.4s ease-out 6.5s forwards;
+}
+html[data-splash="hold"],
+html[data-splash="leaving"] {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+html[data-splash="hold"]::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--mas-ink);
+}
+[data-splash="seen"] .mas-splash {
+  display: none;
+}
+/* The splash writes the outline wordmark stroke by stroke (pathLength 1 on each letter). */
+@keyframes mas-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.mas-draw [data-letter] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mas-draw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.mas-draw [data-letter]:nth-of-type(2) {
+  animation-delay: 0.18s;
+}
+.mas-draw [data-letter]:nth-of-type(3) {
+  animation-delay: 0.36s;
+}
+[data-quick] .mas-draw [data-letter] {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+/*
+ * The identity's motifs (D64).
+ * - .mas-cut: the top-end corner clipped on the wordmark's diagonal (50.5deg, so the cut is 1.213 times as
+ *   tall as it is wide). --cut sets its width.
+ * - .mas-rule: the short gold rule that ends the tagline, drawn after a line of text.
+ * - .mas-wipe: content revealed along the diagonal as it scrolls into view (scroll-driven, so it costs no
+ *   script; browsers without scroll timelines show it at once).
+ */
+.mas-cut {
+  --cut: 0.9rem;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--cut)) 0,
+    100% calc(var(--cut) * 1.213),
+    100% 100%,
+    0 100%
+  );
+}
+[dir="rtl"] .mas-cut {
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--cut) * 1.213));
+}
+.mas-rule::after {
+  content: "";
+  display: inline-block;
+  width: 3.5rem;
+  height: 1px;
+  margin-inline-start: 1rem;
+  vertical-align: middle;
+  background: var(--mas-gold);
+}
+@keyframes mas-wipe {
+  from {
+    clip-path: polygon(0 0, 0 0, -50% 100%, -50% 100%);
+    opacity: 0.2;
+  }
+  to {
+    clip-path: polygon(0 0, 160% 0, 110% 100%, -50% 100%);
+    opacity: 1;
+  }
+}
+@keyframes mas-wipe-rtl {
+  from {
+    clip-path: polygon(100% 0, 100% 0, 150% 100%, 150% 100%);
+    opacity: 0.2;
+  }
+  to {
+    clip-path: polygon(100% 0, -60% 0, -10% 100%, 150% 100%);
+    opacity: 1;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .mas-wipe {
+      animation: mas-wipe linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 38%;
+    }
+    [dir="rtl"] .mas-wipe {
+      animation-name: mas-wipe-rtl;
+    }
+  }
+}
+
+/* The header (D64). Over the home page's scenes: no bar, a dark wash fading down from the top edge (a
+   gradient, not a blur: nothing redraws over the moving picture, D62). Elsewhere: a dark gray bar. */
+.mas-header::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 150%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--mas-ink) 78%, transparent),
+    color-mix(in srgb, var(--mas-ink) 38%, transparent) 55%,
+    transparent
+  );
+}
+.mas-header[data-mode="solid"] {
+  background: var(--mas-ink);
+  border-bottom: 1px solid color-mix(in srgb, var(--mas-silver) 14%, transparent);
+}
+.mas-header[data-mode="solid"]::before {
+  display: none;
+}
+/* A nav link: the gold rule draws under it on hover and stays under the current page. */
+.mas-nav-link {
+  background: linear-gradient(var(--mas-gold), var(--mas-gold)) no-repeat;
+  background-position: left bottom;
+  background-size: 0 1px;
+  transition:
+    background-size 0.35s var(--brand-ease),
+    color 0.2s;
+}
+[dir="rtl"] .mas-nav-link {
+  background-position: right bottom;
+}
+.mas-nav-link:hover,
+.mas-nav-link[aria-current="page"] {
+  background-size: 100% 1px;
+}
+.mas-nav-link[aria-current="page"] {
+  color: var(--mas-gold);
+}
+
+/* A section heading's gold rule, drawn as the heading scrolls in. */
+.mas-heading::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 1px;
+  margin-top: 1.75rem;
+  background: var(--mas-gold);
+  transform-origin: left;
+}
+[dir="rtl"] .mas-heading::after {
+  transform-origin: right;
+}
+/* A text link with the rule after it; the rule stretches on hover. */
+.mas-rule-link::after {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  margin-inline-start: 0.875rem;
+  background: var(--mas-gold);
+  transition: width 0.35s var(--brand-ease);
+}
+.mas-rule-link:hover::after {
+  width: 4rem;
+}
+/* A service row: a quiet border, and the gold rule drawing across it as the row scrolls in. */
+.mas-row {
+  border-top: 1px solid var(--brand-line);
+}
+.mas-row::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: -1px;
+  height: 1px;
+  background: var(--mas-gold);
+  transform: scaleX(0.08);
+  transform-origin: left;
+}
+[dir="rtl"] .mas-row::before {
+  transform-origin: right;
+}
+/* How we work: one gold line through the five steps (down the start edge on phones, across on wide screens). */
+.mas-steps::before {
+  content: "";
+  position: absolute;
+  background: var(--mas-gold);
+  inset-inline-start: 0;
+  top: 0.5rem;
+  bottom: 0;
+  width: 1px;
+  transform-origin: top;
+}
+@media (min-width: 64rem) {
+  .mas-steps::before {
+    inset-inline: 0;
+    top: 0.25rem;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    transform-origin: left;
+  }
+  [dir="rtl"] .mas-steps::before {
+    transform-origin: right;
+  }
+}
+@keyframes mas-draw-x {
+  from {
+    transform: scaleX(0.08);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes mas-draw-heading {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes mas-draw-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .mas-heading::after {
+      animation: mas-draw-heading linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 35%;
+    }
+    .mas-row::before {
+      animation: mas-draw-x linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 45%;
+    }
+    .mas-steps::before {
+      animation: mas-draw-y linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 60%;
+    }
+  }
+}
+@media (min-width: 64rem) {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .mas-steps::before {
+        animation-name: mas-draw-heading;
+      }
+    }
+  }
+}
+/* Without scroll timelines (or with reduced motion) the rules are simply drawn. */
+@supports not (animation-timeline: view()) {
+  .mas-row::before {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mas-row::before {
+    transform: none;
+  }
+}
+
+/* The doors (M5): hovering or focusing a door lights it. */
+.mas-door {
+  outline-offset: 6px;
+}
+.mas-door::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: color-mix(in srgb, #fff 0%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--mas-gold) 0%, transparent);
+  transition:
+    background-color 0.45s var(--brand-ease),
+    box-shadow 0.45s var(--brand-ease);
+}
+.mas-door:hover::before,
+.mas-door:focus-visible::before {
+  background: color-mix(in srgb, #fff 10%, transparent);
+  box-shadow:
+    0 0 0 1px var(--mas-gold),
+    0 0 90px 10px color-mix(in srgb, var(--mas-gold) 28%, transparent);
+}
+
+/*
+ * The letter pattern (the wordmark's shapes, very faint) behind the call to action. It is its own layer,
+ * faded in at the top and out at the foot, and the section's floor deepens into the footer's, so the two
+ * meet without a seam or a cut-off row of letters.
+ */
+.mas-pattern {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(to bottom, var(--mas-ink) 55%, var(--mas-deep));
+}
+.mas-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("/brand/pattern.svg");
+  background-size: 34rem auto;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 55%, transparent 92%);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 55%, transparent 92%);
+}
+
+/* "Our brands" menu (D67): two small doors under the header. */
+.mas-brands-menu {
+  transform: translate(-50%, 6px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.28s var(--brand-ease),
+    transform 0.28s var(--brand-ease),
+    visibility 0s linear 0.28s;
+}
+.mas-brands-menu[data-open] {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.28s var(--brand-ease),
+    transform 0.28s var(--brand-ease),
+    visibility 0s;
+}
+.mas-brands-menu::before {
+  /* The gold rule from the tagline, at the top of the panel. */
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  inset-inline-start: 0;
+  width: 3.5rem;
+  height: 1px;
+  background: var(--mas-gold);
+  z-index: 1;
+}
+@keyframes mas-door-in {
+  from {
+    clip-path: polygon(0 0, 0 0, -60% 100%, -60% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 170% 0, 110% 100%, -60% 100%);
+  }
+}
+.mas-brands-menu[data-open] .mas-menu-door {
+  animation: mas-door-in 0.7s var(--brand-ease) both;
+}
+.mas-menu-frame {
+  border: 1px solid color-mix(in srgb, var(--mas-gold) 45%, transparent);
+  transition:
+    border-color 0.45s var(--brand-ease),
+    box-shadow 0.45s var(--brand-ease);
+}
+.group:hover .mas-menu-frame,
+.group:focus-visible .mas-menu-frame {
+  border-color: var(--mas-gold);
+  box-shadow:
+    0 0 28px 2px color-mix(in srgb, var(--mas-gold) 35%, transparent),
+    inset 0 0 22px color-mix(in srgb, var(--mas-gold) 18%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mas-brands-menu,
+  .mas-brands-menu[data-open] {
+    transition: none;
+  }
+  .mas-brands-menu[data-open] .mas-menu-door {
+    animation: none;
+  }
 }

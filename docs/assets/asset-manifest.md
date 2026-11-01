@@ -10,8 +10,8 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 273 | 226 | 47 |
-| Sequences (generated) | 7 | 0 | 7 |
+| Images | 287 | 231 | 56 |
+| Sequences (generated) | 8 | 0 | 8 |
 
 ## MAS (mas.com)
 
@@ -19,14 +19,29 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `mas.hero.poster` | Home · M1 Obsidian field | 2880 × 1620 px | 16:9 | Dark faceted surface lit by a crimson light | سطح داكن متعدد الأوجه يضيئه ضوء قرمزي | ⬜ placeholder | Still fallback for the real-time 3D hero on low-power devices; we can render it from the 3D scene |
 | `mas.og` | All · Social share image | 1200 × 630 px | 40:21 | MAS | MAS | ⬜ placeholder |  |
+| `mas.about.story` | About · What we do | 1600 × 1000 px | 8:5 | The MAS team planning a restaurant opening around a table | فريق MAS يخطط لافتتاح مطعم حول طاولة | ⬜ placeholder |  |
+| `mas.services.fnb-concept-development` | Service detail · Header image | 1600 × 900 px | 16:9 | Sketches and a mood board for a new restaurant concept | رسومات ولوحة إلهام لفكرة مطعم جديد | ⬜ placeholder |  |
+| `mas.services.fnb-catering-service` | Service detail · Header image | 1600 × 900 px | 16:9 | A catering table laid for a corporate event | طاولة ضيافة مُعدّة لمناسبة شركة | ⬜ placeholder |  |
+| `mas.services.menu-engineering-costing` | Service detail · Header image | 1600 × 900 px | 16:9 | A chef weighing ingredients next to a costing sheet | شيف يزن المكونات بجوار ورقة حساب التكلفة | ⬜ placeholder |  |
+| `mas.services.events-management` | Service detail · Header image | 1600 × 900 px | 16:9 | A restaurant terrace set up for a private evening | تراس مطعم مُجهّز لأمسية خاصة | ⬜ placeholder |  |
+| `mas.services.recruitment-training` | Service detail · Header image | 1600 × 900 px | 16:9 | A trainer showing new staff how to set a table | مدرّب يعلّم فريقًا جديدًا تجهيز الطاولة | ⬜ placeholder |  |
+| `mas.services.operations-hospitality-management` | Service detail · Header image | 1600 × 900 px | 16:9 | A manager greeting guests on a busy service night | مدير يستقبل الضيوف في ليلة خدمة مزدحمة | ⬜ placeholder |  |
+| `mas.services.financial-control-performance` | Service detail · Header image | 1600 × 900 px | 16:9 | Monthly performance figures on a laptop in a café | أرقام الأداء الشهري على لابتوب في كافيه | ⬜ placeholder |  |
+| `mas.services.production-packaging-supply` | Service detail · Header image | 1600 × 900 px | 16:9 | Packed sauces and baked goods ready for delivery to the branches | صوصات ومخبوزات مغلّفة جاهزة للتوزيع على الفروع | ⬜ placeholder |  |
+| `mas.services.tools-quality-assurance` | Service detail · Header image | 1600 × 900 px | 16:9 | A point-of-sale screen and a checklist on a café counter | شاشة نقطة بيع وقائمة مراجعة على كاونتر كافيه | ⬜ placeholder |  |
+| `mas.insights.reading-your-menu` | Home, Insights · Article cover | 1600 × 1000 px | 8:5 | A blank menu card and a brass pen beside a plated scallop on a dark stone table | بطاقة منيو فارغة وقلم نحاسي بجوار طبق إسكالوب على طاولة حجر غامقة | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.reading-your-menu.pass` | Home, Insights · Image in the article | 1600 × 900 px | 16:9 | A chef plating a small dish with tweezers next to a kitchen scale | شيف يجهّز طبقًا صغيرًا بالملقط بجوار ميزان مطبخ | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.why-restaurants-close` | Home, Insights · Article cover | 1600 × 1000 px | 8:5 | An empty restaurant dining room set for service at dusk, lit in warm gold | صالة مطعم فارغة مجهزة للخدمة وقت الغروب بإضاءة ذهبية دافئة | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.what-one-star-is-worth` | Home, Insights · Article cover | 1600 × 1000 px | 8:5 | A guest photographing a plated dish with a phone by candlelight | ضيف يصوّر طبقًا بهاتفه على ضوء الشموع | ✅ delivered | Made with Higgsfield (D66) |
+| `mas.insights.what-one-star-is-worth.service` | Home, Insights · Image in the article | 1600 × 900 px | 16:9 | A server presenting a dish to two guests in a warm, dark restaurant | نادل يقدّم طبقًا لضيفين في مطعم غامق دافئ | ✅ delivered | Made with Higgsfield (D66) |
 
 ### Scroll sequences
 
 | Slot ID | Page · section | Frames | Desktop | Mobile | Description | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `mas.portal` | Home · M5 Two doors | 150 | 1920 × 1080 | 1080 × 1350 | A stone corridor opening onto COVY and Aroma Lounge | ⬜ placeholder | Generated with MAG |
+| `mas.hero` | Home · M1 From a shell to a restaurant | 193 | 1920 × 1080 | 1080 × 1350 | An empty dark restaurant shell: gold lines trace the floor plan and the room is furnished | ⬜ placeholder | From the owner's 8-second video, in the identity's gold (D64); scroll video like COVY and Aroma (D43, D62) |
+| `mas.doors` | Home · M5 One line, two doors | 241 | 1920 × 1080 | 1080 × 1350 | A gold line on a dark stone floor splits into two, toward a door onto COVY and a door onto Aroma Lounge | ⬜ placeholder | Generated with Higgsfield (D64); the views through the doors come from COVY's and Aroma's own scenes |
 
 ## COVY (covy.mas.com)
 

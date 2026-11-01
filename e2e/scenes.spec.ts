@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 /**
- * The scroll scenes and the splash gate (D62), on both landing pages: what the visitor sees from the first
+ * The scroll scenes and the splash gate (D62), on the three home pages: what the visitor sees from the first
  * frame, that the gate only opens when every scene has its frame decoded, and that the frames follow the
  * scroll exactly. Smoothness itself (frames per second on real hardware) is checked with the `?debug=scrub`
  * meter on devices (docs/runbooks/scroll-scenes-check.md); these tests hold the rules that must never break.
@@ -18,6 +18,7 @@ declare global {
 }
 
 const SCENES = {
+  mas: ["mas.hero", "mas.doors"],
   covy: ["covy.hero", "covy.connector", "covy.signature"],
   aroma: ["aroma.morning", "aroma.lake", "aroma.night"],
 } as const;
@@ -52,7 +53,7 @@ function coverProbe() {
     }
     if (document.body && (state === "hold" || state === "leaving")) {
       log.frames++;
-      const panel = document.querySelector<HTMLElement>(".aroma-splash, .covy-splash");
+      const panel = document.querySelector<HTMLElement>(".aroma-splash, .covy-splash, .mas-splash");
       const veil = panel?.querySelector<HTMLElement>("[data-veil]");
       const opaque =
         !!panel &&
@@ -76,7 +77,9 @@ function coverProbe() {
 
 async function gateOpen(page: Page) {
   await page.waitForFunction(() => window.__masGate !== undefined, null, { timeout: 90_000 });
-  await expect(page.locator(".aroma-splash, .covy-splash")).toHaveCount(0, { timeout: 5_000 });
+  await expect(page.locator(".aroma-splash, .covy-splash, .mas-splash")).toHaveCount(0, {
+    timeout: 5_000,
+  });
 }
 
 /**
@@ -118,7 +121,7 @@ async function scrollToFraction(page: Page, fraction: number) {
 test.describe("scroll scenes and the splash gate", () => {
   test.beforeEach(async ({ page: _page }, testInfo) => {
     const app = testInfo.project.metadata.app as string;
-    test.skip(app !== "covy" && app !== "aroma", "landing pages with scroll scenes only");
+    test.skip(!(app in SCENES), "pages with scroll scenes only");
   });
 
   test("the page is covered from the first frame and can't scroll until every scene is ready", async ({
@@ -240,10 +243,11 @@ test.describe("scroll scenes and the splash gate", () => {
     expect(cover.exposed).toBe(0);
   });
 
-  test("a link to a section lands there once the gate opens", async ({ page }) => {
-    await page.goto("/#menu");
+  test("a link to a section lands there once the gate opens", async ({ page }, testInfo) => {
+    const section = testInfo.project.metadata.app === "mas" ? "events" : "menu";
+    await page.goto(`/#${section}`);
     await gateOpen(page);
-    await expect(page.locator("#menu")).toBeInViewport();
+    await expect(page.locator(`#${section}`)).toBeInViewport();
   });
 
   test("without WebCodecs the scenes play from the video element, behind the same gate", async ({
@@ -275,7 +279,7 @@ test.describe("scroll scenes and the splash gate", () => {
     const page = await context.newPage();
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute("data-splash", "seen");
-    await expect(page.locator(".aroma-splash, .covy-splash")).toBeHidden();
+    await expect(page.locator(".aroma-splash, .covy-splash, .mas-splash")).toBeHidden();
     await page.mouse.wheel(0, 600);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
     await context.close();

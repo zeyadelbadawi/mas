@@ -3,6 +3,6 @@ import { createFormRoute } from "@mas/forms/server";
 
 export const POST = createFormRoute({
   brandId: "mas",
-  emailBrand: { name: "MAS", accent: "#c21f30", ink: "#0b0b0c", paper: "#f3efe7" },
+  emailBrand: { name: "MAS", accent: "#ddaf52", ink: "#1c1b1c", paper: "#e5e5e5" },
   inquiry: { services: masServices },
 });

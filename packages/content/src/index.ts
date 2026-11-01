@@ -17,3 +17,4 @@ export { aromaMenu } from "./menus/aroma";
 export { events } from "./events";
 export { nights } from "./nights";
 export { testimonials } from "./testimonials";
+export { insights } from "./insights";

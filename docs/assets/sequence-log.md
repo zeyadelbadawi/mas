@@ -240,3 +240,53 @@ Nano Banana 2.1 at 4K, 3 credits each; balance 286.75 → 259.75.
 | Menu, 51 dishes without a client photo | `a33119f5`, `8cf3e260`, `a8b0839a`, `3d40b85d`, `43ed0842`, `d1ebf660` | One 3×3 grid of nine separate photos per image, cut along the white gutters into 640 px squares: 51 photos for 18 credits. Food and desserts on warm wood like the client's own photos, drinks on white marble by the lake. Listed in `tools/menus/aroma-names.json` `madePhotos` |
 
 The ten soft-drink photos (cans and bottles shot on white) were re-fetched and fitted whole on white instead of cropped square (`savePhoto` in `tools/menus/import-aroma.mjs`), at no cost.
+
+### MAS: hero and doors scene keyframes (D64)
+
+**Hero, `mas.hero` (revision 1, R2 `videos/mas.hero.r1`):**
+- Source: the owner's 8-second Seedance 2.5 video (`b674a0cf`, 1280 × 720, crimson light). The owner's 1080p export has the old red logo burned in, so the clean source was used instead.
+- Upscaled with Topaz to 3840 × 2160 (`3d77e6c1`, 11 credits).
+- Recoloured frame by frame at 4K (no credits):
+  - red light becomes champagne gold (hue about 36°, softer saturation);
+  - red fabric becomes warm charcoal (low saturation, a little darker);
+  - the two are told apart by brightness.
+- Built with `pnpm sequence:video --input gold4k.mp4 --id mas.hero --motion --focal 0.55,0.5`: 193 frames, desktop 3.3 MB, mobile 1.8 MB. A draft copy for CI is in `apps/mas/public/videos/drafts/mas.hero`.
+
+**Doors, `mas.doors`: keyframes (Nano Banana 2.1 at 2K, 2 credits each).**
+
+| Frame | Job | Notes |
+|---|---|---|
+| K1 start (picked) | `6413dc5b` | The corridor: one gold line in a dark stone floor, fins with diagonal-cut tops and gold seams. Reference: a frame of the gold hero |
+| K1 alternative | `bd73888a` | Not used |
+| K2 end (picked) | `b697cb30` | The line splits to two gold-framed doors: COVY's mural and blue tree on the left, Aroma's lake and fountain at sunset on the right. References: K1, a COVY hero frame, an Aroma lake frame |
+| K2 alternative | `47117113` | Not used: its lines make an odd shape on the floor |
+
+**Doors, `mas.doors` (revision 1, R2 `videos/mas.doors.r1`):** one 10-second Kling 3.0 4K shot from K1 to K2 (`5cb86101`, 60 credits), first try. Built with `pnpm sequence:video --input doors4k.mp4 --id mas.doors --motion`: 241 frames, desktop 4.9 MB, mobile 2.6 MB. A draft copy for CI is in `apps/mas/public/videos/drafts/mas.doors`.
+
+**Doors, revision 2 (R2 `videos/mas.doors.r2`), the walk.** The owner's note on revision 1: it should feel like walking in toward the doors, but the doors seemed to come at the viewer, because the fins nearest the camera stayed put while the far ones slid up to them (K1 and K2 shared the same near fins). Fix: a new end frame with no fins at all, so the camera has to leave the corridor to reach it.
+
+| Frame | Job | Notes |
+|---|---|---|
+| K2 v2 tries | `5c79fce6`, `f5da3e9e` | Not used: they copied the old composition, fins included |
+| K2 v2 (picked) | `61add1aa` | A dark antechamber past the end of the corridor: the end wall with the two gold-framed doors (about 49% of the width), the line splitting to their thresholds, no fins. References: the K2 doors crop and a hero frame |
+| K2 v2 alternative | `d453babd` | Not used: doors span 53% of the width, more cropped on phones |
+
+One 10-second Kling 3.0 4K shot from K1 (`6413dc5b`) to the new K2 (`3422dfca`, 60 credits), first try. Checked with an optical-flow pass: the picture expands from the centre for the whole move (left edge moving left, right edge right, floor down), which is a camera moving forward; the doors grow steadily and the fins pass out of frame. Built with `pnpm sequence:video --input doors4k-r2.mp4 --id mas.doors --motion`: 241 frames, desktop 5.7 MB, mobile 2.8 MB; draft copy replaced. Revision 1 stays on R2, unused.
+
+Credits for MAS so far: 147 (balance 224.75 → 77.75).
+
+### MAS: article images (D66)
+
+Five images, Nano Banana 2.1 at 2K, 2 credits each (10 credits, the owner's budget), all used:
+
+| Slot | Job | Notes |
+|---|---|---|
+| `mas.insights.reading-your-menu` | `9f2832c9` | Cover: a blank menu card, a brass pen and a plated dish on dark stone |
+| `mas.insights.reading-your-menu.pass` | `e54f3d62` | In the text: a chef plating next to a scale (display checked: blank) |
+| `mas.insights.why-restaurants-close` | `a0561c65` | Cover: an empty dining room set for service at dusk |
+| `mas.insights.what-one-star-is-worth` | `0fe7fa8c` | Cover: a guest photographing a dish by candlelight (phone screen checked: only the blurred dish) |
+| `mas.insights.what-one-star-is-worth.service` | `9513c335` | In the text: a server presenting a dish |
+
+Saved as WebP in `apps/mas/public/images/insights` (covers 1600 × 1000, images in the text 1600 × 900).
+
+Credits for MAS so far: 157 (balance 224.75 → 67.75).

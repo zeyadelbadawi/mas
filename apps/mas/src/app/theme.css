@@ -1,35 +1,67 @@
-/* MAS — Proposal A (D2): Obsidian Black, Deep Crimson, Warm Ivory, Graphite. Dark-first, single theme. */
+/*
+ * MAS (D64): the client's identity guide ("Gold Option"). Four colours: Dark Gray, Champagne Gold, Soft Grey,
+ * Silver. Dark first (the home page and every page top); `.mas-light` turns a section to soft grey for reading.
+ * Gold is a light, a line and a fill: on soft grey it never carries text (about 1.6 : 1 there).
+ */
 :root {
   color-scheme: dark;
-  --mas-obsidian: #0b0b0c;
-  --mas-crimson: #c21f30;
-  --mas-ivory: #f3efe7;
-  --mas-graphite: #28282a;
+  --mas-ink: #1c1b1c;
+  --mas-gold: #ddaf52;
+  --mas-soft: #e5e5e5;
+  --mas-silver: #d6d6d6;
+  /* The footer's floor: a step deeper than Dark Gray, so the page ends on a quiet base. */
+  --mas-deep: #141314;
+  /* The wordmark's own diagonal (logo.tsx, MAS_DIAGONAL_DEG): cut corners and wipes use it. */
+  --mas-cut: 50.5deg;
 
-  --brand-bg: var(--mas-obsidian);
-  --brand-fg: var(--mas-ivory);
-  --brand-muted: #a8a49c;
-  --brand-surface: #151517;
-  --brand-surface-2: #1d1d20;
-  --brand-line: #34343a;
-  --brand-accent: var(--mas-crimson);
-  --brand-accent-fg: #ffffff;
-  --brand-focus: #ff5a6a;
-  --brand-danger: #ff6b6b;
-  --brand-success: #4cc38a;
-  --brand-slot: #18181b;
-  --brand-slot-fg: #b9b3a8;
+  --brand-bg: var(--mas-ink);
+  --brand-fg: var(--mas-soft);
+  --brand-muted: #a9a6a9;
+  --brand-surface: #242324;
+  --brand-surface-2: #2d2c2d;
+  --brand-line: #3c3a3c;
+  --brand-accent: var(--mas-gold);
+  --brand-accent-fg: var(--mas-ink);
+  /* Small accent text (a brand name, a number): gold on dark; on soft grey it turns dark gray (gold text
+     there is about 1.6 : 1). */
+  --brand-accent-text: var(--mas-gold);
+  --brand-focus: var(--mas-gold);
+  --brand-danger: #ff8a7a;
+  --brand-success: #8fd19e;
+  --brand-slot: #242324;
+  --brand-slot-fg: #a9a6a9;
 
-  --brand-font-display: var(--font-bebas), "Bebas Neue", Impact, "Arial Narrow", sans-serif;
-  --brand-font-editorial: var(--font-inter), "Inter", system-ui, sans-serif;
-  --brand-font-body: var(--font-inter), "Inter", system-ui, sans-serif;
-  --brand-radius-control: 0.125rem;
-  --brand-radius-card: 0.25rem;
-  --brand-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --brand-font-display: var(--font-poppins), "Poppins", "Segoe UI", sans-serif;
+  --brand-font-editorial: var(--font-poppins), "Poppins", "Segoe UI", sans-serif;
+  --brand-font-body: var(--font-poppins), "Poppins", "Segoe UI", sans-serif;
+  /* The identity is cut, not rounded: square corners; cut corners come from the diagonal (globals.css). */
+  --brand-radius-control: 0;
+  --brand-radius-card: 0;
+  /* power3.out: precise and short, no bounce. */
+  --brand-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 :root:lang(ar) {
-  --brand-font-display: var(--font-cairo), "Cairo", "Segoe UI", sans-serif;
-  --brand-font-editorial: var(--font-plex-arabic), "IBM Plex Sans Arabic", "Segoe UI", sans-serif;
-  --brand-font-body: var(--font-plex-arabic), "IBM Plex Sans Arabic", "Segoe UI", sans-serif;
+  --brand-font-display: var(--font-kufi), "Noto Kufi Arabic", "Segoe UI", sans-serif;
+  --brand-font-editorial: var(--font-kufi), "Noto Kufi Arabic", "Segoe UI", sans-serif;
+  --brand-font-body: var(--font-kufi), "Noto Kufi Arabic", "Segoe UI", sans-serif;
+}
+
+/* A reading section on soft grey (inner pages, forms, articles). */
+.mas-light {
+  color-scheme: light;
+  --brand-bg: var(--mas-soft);
+  --brand-fg: var(--mas-ink);
+  --brand-muted: #5b595b;
+  --brand-surface: var(--mas-silver);
+  --brand-surface-2: #dedede;
+  --brand-line: #c3c1c3;
+  --brand-focus: var(--mas-ink);
+  --brand-accent-text: var(--mas-ink);
+  --brand-danger: #b3261e;
+  --brand-success: #1e6b3a;
+  --brand-slot: var(--mas-silver);
+  --brand-slot-fg: #5b595b;
+  background-color: var(--brand-bg);
+  color: var(--brand-fg);
 }

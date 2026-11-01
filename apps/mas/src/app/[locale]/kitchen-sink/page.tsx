@@ -5,7 +5,7 @@ import { isLocale, pick } from "@mas/i18n";
 import { SequencePlayer } from "@mas/motion/sequence-player";
 import { SequenceSlot } from "@mas/motion/sequence-slot";
 import { SplitReveal } from "@mas/motion/split-reveal";
-import { Button, ImageSlot, PlaceholderBadge, SlotBox } from "@mas/ui";
+import { Button, ImageSlot, PlaceholderBadge } from "@mas/ui";
 import { LanguageSwitch } from "@mas/ui/language-switch";
 import type { Metadata } from "next";
 import { internalPagesEnabled } from "@mas/seo";
@@ -13,7 +13,6 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
-import { DemoSceneLoader } from "@/components/demo-scene-loader";
 import { brand, privacyHref } from "@/site";
 
 // Internal review page for the P1 gate: every building block in this brand's theme.
@@ -51,7 +50,7 @@ export default async function KitchenSink({ params }: PageProps<"/[locale]/kitch
   const { locale } = await params;
   if (!isLocale(locale) || !internalPagesEnabled()) notFound();
   setRequestLocale(locale);
-  const seq = sequenceSlot("mas.portal");
+  const seq = sequenceSlot("mas.doors");
   const ar = locale === "ar";
 
   return (
@@ -109,11 +108,6 @@ export default async function KitchenSink({ params }: PageProps<"/[locale]/kitch
         <Section title="Image slots">
           <div className="grid gap-4 md:grid-cols-3">
             <ImageSlot
-              {...imageSlot("mas.hero.poster")}
-              locale={locale}
-              sizes="(min-width: 768px) 33vw, 100vw"
-            />
-            <ImageSlot
               {...imageSlot("mas.og")}
               locale={locale}
               sizes="(min-width: 768px) 33vw, 100vw"
@@ -121,7 +115,7 @@ export default async function KitchenSink({ params }: PageProps<"/[locale]/kitch
           </div>
         </Section>
 
-        <Section title="Sequence slot (placeholder until the MAG render)">
+        <Section title="Sequence slot (placeholder until the Higgsfield render)">
           <SequenceSlot
             id={seq.id}
             frameCount={seq.frameCount}
@@ -148,22 +142,6 @@ export default async function KitchenSink({ params }: PageProps<"/[locale]/kitch
               {ar ? "مرّر للأسفل" : "Scroll"}
             </p>
           </SequencePlayer>
-        </Section>
-
-        <Section title="Real-time 3D (loaded after first paint)">
-          <DemoSceneLoader
-            label="Test scene: a rotating icosahedron"
-            poster={
-              <SlotBox
-                slotId="demo.poster"
-                kind="image"
-                width={1920}
-                height={1080}
-                label="3D poster"
-                lines={["Poster fallback", "demo.poster"]}
-              />
-            }
-          />
         </Section>
 
         <Section title="Inquiry form">

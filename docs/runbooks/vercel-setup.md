@@ -24,7 +24,7 @@ Copy from each app's `.env.example`. Set them for **Preview** and **Production**
 |---|---|---|
 | `RESEND_API_KEY` | from Resend (step 3) | Sensitive. Sending-only key |
 | `MAIL_FROM` | e.g. `COVY <reservations@send.mas.com>` | Must use the domain verified in Resend |
-| `MAIL_TO` | `mas@mas.com` / `covy@mas.com` / `aroma@mas.com` | For testing, your own inbox is fine |
+| `MAIL_TO` | `info@masegypt.com` / `covy@mas.com` / `aroma@mas.com` | For testing, your own inbox is fine |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | from Cloudflare (step 4) | |
 | `TURNSTILE_SECRET_KEY` | from Cloudflare (step 4) | Sensitive. Without it, production forms refuse to send (fail closed) |
 | `NEXT_PUBLIC_SITE_URL` | leave empty on Hobby | Set to the real domain on production |
