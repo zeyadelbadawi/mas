@@ -4,7 +4,7 @@ import { PlaceholderBadge } from "@mas/ui";
 import { getTranslations } from "next-intl/server";
 import { Star } from "@/components/sections/motifs";
 
-/** C8: guest quotes. Until real Google reviews arrive these are labelled samples, never shown as real. */
+/** C8: guest quotes, real reviews from the client (D63). A sample would carry its label (CLAUDE.md rule 5). */
 export async function Reviews({ locale }: { locale: Locale }) {
   const t = await getTranslations("reviews");
   const list = testimonials.filter((r) => r.brandId === "covy");

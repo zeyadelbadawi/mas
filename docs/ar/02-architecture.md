@@ -299,7 +299,7 @@ erDiagram
     string quote
     string author
     int rating
-    string source "google | placeholder"
+    string source "google | client | placeholder"
     bool placeholder
   }
   MAS_SERVICE {
