@@ -261,4 +261,6 @@ The ten soft-drink photos (cans and bottles shot on white) were re-fetched and f
 | K2 end (picked) | `b697cb30` | The line splits to two gold-framed doors: COVY's mural and blue tree on the left, Aroma's lake and fountain at sunset on the right. References: K1, a COVY hero frame, an Aroma lake frame |
 | K2 alternative | `47117113` | Not used: its lines make an odd shape on the floor |
 
-Credits so far: 19 (balance 224.75 → 205.75).
+**Doors, `mas.doors` (revision 1, R2 `videos/mas.doors.r1`):** one 10-second Kling 3.0 4K shot from K1 to K2 (`5cb86101`, 60 credits), first try. Built with `pnpm sequence:video --input doors4k.mp4 --id mas.doors --motion`: 241 frames, desktop 4.9 MB, mobile 2.6 MB. A draft copy for CI is in `apps/mas/public/videos/drafts/mas.doors`.
+
+Credits for MAS so far: 79 (balance 224.75 → 145.75).
