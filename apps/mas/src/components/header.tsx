@@ -3,7 +3,6 @@
 import { LanguageSwitcher } from "@mas/ui/language-switcher";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { AromaPetal, AromaWordmark, CovyWordmark } from "@/components/brand-marks";
 import { MasWordmark } from "@/components/logo";
 
 export type NavLink = { key: string; href: string; label: string };
@@ -15,17 +14,10 @@ export type BrandMenuItem = {
   href: string;
   line: string;
   image: { src: string; position: string };
+  /** The brand's mark, drawn on the server (its SVG paths stay out of the page's JavaScript). */
+  logo: ReactNode;
+  logoSmall: ReactNode;
 };
-
-function BrandLogo({ id, small = false }: { id: BrandMenuItem["id"]; small?: boolean }) {
-  if (id === "covy") return <CovyWordmark className={small ? "h-5 w-auto" : "h-7 w-auto"} />;
-  return (
-    <span className="flex items-center gap-2">
-      <AromaPetal className={small ? "h-6 w-auto" : "h-8 w-auto"} />
-      <AromaWordmark className={small ? "h-3.5 w-auto" : "h-4.5 w-auto"} />
-    </span>
-  );
-}
 
 export type HeaderProps = {
   locale: "en" | "ar";
@@ -68,6 +60,9 @@ export function Header({
 }: HeaderProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const close = () => dialogRef.current?.close();
+  // On the home page the scenes download behind the splash: the header's pages are not fetched ahead
+  // while they do (D29 budget, D62); a click still loads them at once.
+  const prefetch = mode === "overlay" ? false : undefined;
 
   return (
     <header
@@ -83,10 +78,17 @@ export function Header({
           <ul className="flex items-center gap-8 text-sm font-light">
             {links.map((l) =>
               l.key === "brands" ? (
-                <BrandsMenu key={l.key} link={l} current={current === l.key} menu={brandsMenu} />
+                <BrandsMenu
+                  key={l.key}
+                  link={l}
+                  current={current === l.key}
+                  menu={brandsMenu}
+                  prefetch={prefetch}
+                />
               ) : (
                 <li key={l.key}>
                   <Link
+                    prefetch={prefetch}
                     href={l.href}
                     aria-current={current === l.key ? "page" : undefined}
                     className="mas-nav-link py-2"
@@ -107,6 +109,7 @@ export function Header({
             ariaLabel={labels.switchToLabel}
           />
           <Link
+            prefetch={prefetch}
             href={cta.href}
             className="mas-cut hidden h-10 items-center bg-[var(--mas-gold)] px-4 text-sm font-medium text-[var(--mas-ink)] transition-[filter] duration-200 hover:brightness-110 sm:inline-flex"
           >
@@ -164,6 +167,7 @@ export function Header({
               {links.map((l) => (
                 <li key={l.key}>
                   <Link
+                    prefetch={prefetch}
                     href={l.href}
                     onClick={close}
                     aria-current={current === l.key ? "page" : undefined}
@@ -176,12 +180,13 @@ export function Header({
                       {brandsMenu.items.map((b) => (
                         <li key={b.id} className="flex-1">
                           <Link
+                            prefetch={prefetch}
                             href={b.href}
                             onClick={close}
                             aria-label={b.name}
                             className="mas-cut flex h-16 items-center justify-center border border-[var(--mas-gold)]/35 [--cut:0.75rem]"
                           >
-                            <BrandLogo id={b.id} small />
+                            {b.logoSmall}
                           </Link>
                         </li>
                       ))}
@@ -198,6 +203,7 @@ export function Header({
               ariaLabel={labels.switchToLabel}
             />
             <Link
+              prefetch={prefetch}
               href={cta.href}
               onClick={close}
               className="mas-cut inline-flex h-12 items-center bg-[var(--mas-gold)] px-5 font-medium text-[var(--mas-ink)]"
@@ -222,10 +228,12 @@ function BrandsMenu({
   link,
   current,
   menu,
+  prefetch,
 }: {
   link: NavLink;
   current: boolean;
   menu: HeaderProps["brandsMenu"];
+  prefetch: false | undefined;
 }) {
   const [open, setOpen] = useState(false);
   const [everOpened, setEverOpened] = useState(false);
@@ -260,6 +268,7 @@ function BrandsMenu({
     >
       <span className="flex items-center gap-1.5">
         <Link
+          prefetch={prefetch}
           href={link.href}
           aria-current={current ? "page" : undefined}
           className="mas-nav-link py-2"
@@ -297,13 +306,14 @@ function BrandsMenu({
           <ul className="grid grid-cols-2 gap-4">
             {menu.items.map((b, i) => (
               <MenuDoor
+                prefetch={prefetch}
                 key={b.id}
                 item={b}
                 index={i}
                 load={everOpened}
                 onNavigate={() => show(false)}
               >
-                <BrandLogo id={b.id} />
+                {b.logo}
               </MenuDoor>
             ))}
           </ul>
@@ -312,6 +322,7 @@ function BrandsMenu({
               {menu.label}
             </span>
             <Link
+              prefetch={prefetch}
               href={link.href}
               onClick={() => show(false)}
               className="mas-rule-link inline-flex items-center py-1 font-medium"
@@ -330,17 +341,20 @@ function MenuDoor({
   index,
   load,
   onNavigate,
+  prefetch,
   children,
 }: {
   item: BrandMenuItem;
   index: number;
   load: boolean;
   onNavigate: () => void;
+  prefetch: false | undefined;
   children: ReactNode;
 }) {
   return (
     <li className="mas-menu-door" style={{ animationDelay: `${90 + index * 90}ms` }}>
       <Link
+        prefetch={prefetch}
         href={item.href}
         onClick={onNavigate}
         className="group relative block aspect-[4/5] overflow-hidden bg-[var(--brand-surface)]"

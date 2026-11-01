@@ -40,7 +40,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Frames | Desktop | Mobile | Description | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `mas.hero` | Home · M1 From a shell to a restaurant | 193 | 1920 × 1080 | 1080 × 1350 | An empty dark restaurant shell: gold lines trace the floor plan and the room is furnished | ⬜ placeholder | From the owner's 8-second video, in the identity's gold (D64); scroll video like COVY and Aroma (D43, D62) |
+| `mas.hero` | Home · M1 From the detail to the whole | 241 | 1920 × 1080 | 1080 × 1350 | From a crystal glass on a set table, the camera pulls back to reveal the whole restaurant, lit in gold | ⬜ placeholder | Generated with Higgsfield (D68): Kling 3.0 4K from a close-up to the whole room |
 | `mas.doors` | Home · M5 One line, two doors | 241 | 1920 × 1080 | 1080 × 1350 | A gold line on a dark stone floor splits into two, toward a door onto COVY and a door onto Aroma Lounge | ⬜ placeholder | Generated with Higgsfield (D64); the views through the doors come from COVY's and Aroma's own scenes |
 
 ## COVY (covy.mas.com)

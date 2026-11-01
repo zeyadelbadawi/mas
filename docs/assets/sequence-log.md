@@ -290,3 +290,16 @@ Five images, Nano Banana 2.1 at 2K, 2 credits each (10 credits, the owner's budg
 Saved as WebP in `apps/mas/public/images/insights` (covers 1600 × 1000, images in the text 1600 × 900).
 
 Credits for MAS so far: 157 (balance 224.75 → 67.75).
+
+### MAS: hero, revision 2, "From the detail to the whole" (D68)
+
+| Item | Job | Credits | Notes |
+|---|---|---|---|
+| End frame (used) | `06f24fb6` | 2 | The lit dining room; the doors' corridor frame `6413dc5b` as reference |
+| Dark-room frame (not used) | `9e6a3cf2` | 2 | For the first idea ("lights come on"), dropped: it repeated the doors' walk |
+| Start frame (used) | `eec3296c` | 2 | The close-up on a crystal glass, made from the end frame |
+| Shot | `e6f6a539` | 60 | Kling 3.0 4K, 10 s, start to end frame; first try |
+
+Checked: the last frame matches the end frame; frame-to-frame change is even (mean 4.8, max 6.2, no spikes). Built with `pnpm sequence:video --input hero-r2.mp4 --id mas.hero --motion`: 241 frames, desktop 6.0 MB, mobile 2.9 MB; uploaded as `videos/mas.hero.r2`; draft copy replaced. Revision 1 stays on R2, unused.
+
+Credits for MAS so far: 223 (balance 224.75 → 1.75, after the 10 for the article images and 66 here).

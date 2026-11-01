@@ -11,24 +11,30 @@ const HOLD = "var(--seq-hold, 0)";
 const drawOffset = (i: number) => `calc(1 - clamp(0, calc((${P} - ${0.06 + i * 0.1}) * 2.5), 1))`;
 
 /**
- * M1, "From a shell to a restaurant" (D64): the owner's video of an empty dark-stone shell where gold lines
- * trace the floor plan, the walls light up and the room is furnished. As the lines trace the plan, the
- * outline wordmark draws its own lines over the footage; when the furniture arrives it fills with gold and
- * the tagline follows. The headline and the one action come in during the hold on the furnished room.
- * The mark and the copy are HTML over the frames, never in them (rule 4).
+ * M1, "From the detail to the whole" (D68): the scene opens on one detail, a crystal glass on a set table,
+ * and the camera pulls back and rises until the whole restaurant is in view, lit in gold and ready for
+ * service. As the view widens, the outline wordmark draws its lines over the footage; when the whole room
+ * is in view it fills with gold and the tagline follows. The headline and the one action come in during
+ * the hold on the room. The mark and the copy are HTML over the frames, never in them (rule 4).
  */
 export async function Hero({ contactHref }: { contactHref: string }) {
   const t = await getTranslations("hero");
   const home = await getTranslations("home");
   return (
     <div id="top">
-      <ScrollVideo id="mas.hero" {...SCENES.hero} label="" scrollVh={260} holdVh={80} priority>
-        {/* The mark, upper centre over the dark ceiling: drawn with the floor plan, filled with the furniture. */}
+      <ScrollVideo id="mas.hero" {...SCENES.hero} label="" scrollVh={300} holdVh={80} priority>
+        {/* The mark, upper centre over the dark ceiling: drawn as the view widens, filled with the whole room. */}
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-[22svh] flex flex-col items-center px-6 in-data-[animated=false]:top-[16svh]"
+          className="absolute inset-x-0 top-[22svh] isolate flex flex-col items-center px-6 in-data-[animated=false]:top-[16svh]"
           style={{ opacity: `clamp(0, calc((0.5 - ${HOLD}) * 4), 1)` }}
         >
+          {/* A dark pool behind the mark while the close-up's gold lights are blurred behind it. */}
+          <div
+            aria-hidden="true"
+            className="absolute top-1/2 left-1/2 -z-10 h-[150%] w-[min(120vw,52rem)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--mas-ink)_72%,transparent),transparent)]"
+            style={{ opacity: `clamp(0, calc(1 - ${P} * 1.4), 1)` }}
+          />
           <div className="relative w-[min(72vw,30rem)] text-[var(--mas-gold)]">
             <svg
               viewBox={WORDMARK_VIEWBOX}

@@ -183,15 +183,14 @@ export const slots: SlotSpec[] = [
     id: "mas.hero",
     app: "mas",
     page: "Home",
-    section: "M1 From a shell to a restaurant",
+    section: "M1 From the detail to the whole",
     ...SEQ,
-    frameCount: 193,
+    frameCount: 241,
     label: {
-      en: "An empty dark restaurant shell: gold lines trace the floor plan and the room is furnished",
-      ar: "مكان مطعم فاضي وغامق: خطوط ذهبية ترسم المسقط، ثم يكتمل المطعم بأثاثه",
+      en: "From a crystal glass on a set table, the camera pulls back to reveal the whole restaurant, lit in gold",
+      ar: "من كأس كريستال على طاولة مجهزة، تبتعد الكاميرا لتكشف المطعم كله بإضاءته الذهبية",
     },
-    notes:
-      "From the owner's 8-second video, in the identity's gold (D64); scroll video like COVY and Aroma (D43, D62)",
+    notes: "Generated with Higgsfield (D68): Kling 3.0 4K from a close-up to the whole room",
   },
   {
     kind: "sequence",
