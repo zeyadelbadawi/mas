@@ -38,52 +38,52 @@ export type SequenceSlotSpec = {
 
 export type SlotSpec = ImageSlotSpec | SequenceSlotSpec;
 
-/** The nine services' header images (slug, alt EN, alt AR), in the order of masServices. */
+/** The nine services' header images (slug, alt EN, alt AR), in the order of masServices; made with Magnific (D71). */
 const MAS_SERVICES: [string, string, string][] = [
   [
     "fnb-concept-development",
-    "Sketches and a mood board for a new restaurant concept",
-    "رسومات ولوحة إلهام لفكرة مطعم جديد",
+    "Hands placing a small brass pendant into a scale model of a café, beside material samples and pencil sketches",
+    "أيادٍ تضع نجفة نحاسية صغيرة في نموذج مصغّر لكافيه، بجوار عينات خامات ورسومات بالقلم الرصاص",
   ],
   [
     "fnb-catering-service",
-    "A catering table laid for a corporate event",
-    "طاولة ضيافة مُعدّة لمناسبة شركة",
+    "A gloved hand setting the last canapé on a dark marble buffet lined with brass chafing dishes",
+    "يد بقفاز أبيض تضع آخر قطعة كانابيه على بوفيه رخام داكن تصطف عليه سخانات نحاسية",
   ],
   [
     "menu-engineering-costing",
-    "A chef weighing ingredients next to a costing sheet",
-    "شيف يزن المكونات بجوار ورقة حساب التكلفة",
+    "A chef weighing a portion of seared fish on a brass balance next to a finished plate and measured spices",
+    "شيف يزن قطعة سمك مشوية على ميزان نحاسي بجوار طبق جاهز وتوابل موزونة",
   ],
   [
     "events-management",
-    "A restaurant terrace set up for a private evening",
-    "تراس مطعم مُجهّز لأمسية خاصة",
+    "A hand lighting the last candle on a long table set for a private evening",
+    "يد تشعل آخر شمعة على طاولة طويلة مُجهّزة لأمسية خاصة",
   ],
   [
     "recruitment-training",
-    "A trainer showing new staff how to set a table",
-    "مدرّب يعلّم فريقًا جديدًا تجهيز الطاولة",
+    "A trainer guiding a new waiter's hand as he sets a fork beside a plate, with other staff practising behind",
+    "مدرّب يوجّه يد نادل جديد وهو يضع الشوكة بجوار الطبق، وفريق آخر يتدرّب في الخلفية",
   ],
   [
     "operations-hospitality-management",
-    "A manager greeting guests on a busy service night",
-    "مدير يستقبل الضيوف في ليلة خدمة مزدحمة",
+    "Plates leaving the pass on a full service night, a chef finishing a plate as a waiter carries two to the room",
+    "أطباق خارجة من الـ pass في ليلة خدمة مزدحمة، شيف يُنهي طبقًا ونادل يحمل طبقين إلى الصالة",
   ],
   [
     "financial-control-performance",
-    "Monthly performance figures on a laptop in a café",
-    "أرقام الأداء الشهري على لابتوب في كافيه",
+    "An owner's hands on a closed ledger with a gold pen and an espresso at the bar after closing",
+    "يدا صاحب المكان على دفتر حسابات مغلق مع قلم ذهبي وفنجان إسبريسو على البار بعد الإغلاق",
   ],
   [
     "production-packaging-supply",
-    "Packed sauces and baked goods ready for delivery to the branches",
-    "صوصات ومخبوزات مغلّفة جاهزة للتوزيع على الفروع",
+    "A gloved hand lining up sealed jars and black boxes tied with gold cord in a central kitchen",
+    "يد بقفاز تصفّ برطمانات مغلقة وعلبًا سوداء مربوطة بخيط ذهبي في مطبخ مركزي",
   ],
   [
     "tools-quality-assurance",
-    "A point-of-sale screen and a checklist on a café counter",
-    "شاشة نقطة بيع وقائمة مراجعة على كاونتر كافيه",
+    "A white-gloved hand checking a wine glass against a brass pendant light, beside a row of polished glasses",
+    "يد بقفاز أبيض تفحص كأسًا تحت ضوء نجفة نحاسية، بجوار صف من الكؤوس المصقولة",
   ],
 ];
 
@@ -248,6 +248,9 @@ export const slots: SlotSpec[] = [
       width: 1600,
       height: 900,
       alt: { en, ar },
+      src: `/images/services/${slug}.webp`,
+      notes:
+        "Made with Magnific (Nano Banana 2.1, 2K) in the MAS restaurant of the hero scene (D71)",
     }),
   ),
   ...MAS_INSIGHTS.map(

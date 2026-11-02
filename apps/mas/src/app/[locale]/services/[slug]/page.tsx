@@ -28,11 +28,22 @@ export async function generateMetadata({
   if (!isLocale(locale) || !service) return {};
   const t = await getTranslations({ locale, namespace: "seo" });
   const details = serviceDetails[slug];
+  const cover = imageSlot(`mas.services.${slug}`);
   return innerMetadata(
     locale,
     `/services/${slug}`,
     t("service.title", { name: service.title[locale] }),
     details?.intro[locale] ?? service.summary[locale],
+    cover.src
+      ? {
+          image: {
+            url: cover.src,
+            width: cover.width,
+            height: cover.height,
+            alt: cover.alt[locale],
+          },
+        }
+      : {},
   );
 }
 
