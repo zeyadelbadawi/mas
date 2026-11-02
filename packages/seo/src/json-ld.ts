@@ -35,7 +35,8 @@ export function organizationJsonLd(
     ...(extra.logoPath ? { logo: `${origin}${extra.logoPath}` } : {}),
     email: brand.inboxEmail,
     description: brand.tagline[locale],
-    sameAs: brand.socials.map((s) => s.url),
+    // Placeholder accounts are never given to search engines (rule 5).
+    ...(brand.placeholder ? {} : { sameAs: brand.socials.map((s) => s.url) }),
   };
 }
 
@@ -112,7 +113,8 @@ export function restaurantJsonLd(
     ...(extra.parentOrganization
       ? { parentOrganization: { "@id": `${origin}/#organization` } }
       : {}),
-    sameAs: brand.socials.map((s) => s.url),
+    // Placeholder accounts are never given to search engines (rule 5).
+    ...(brand.placeholder ? {} : { sameAs: brand.socials.map((s) => s.url) }),
   };
 }
 

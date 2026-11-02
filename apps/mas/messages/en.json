@@ -3,7 +3,7 @@
     "title": "MAS",
     "tagline": "Café & Restaurant Management",
     "seoTitle": "MAS · Café & Restaurant Management in Egypt",
-    "description": "MAS shapes and runs cafés and restaurants in Egypt: concept, brand, menu, people, operations and growth, from the first idea to a full room."
+    "description": "MAS plans, opens and runs cafés and restaurants in Egypt: concept, brand, menu engineering, recruitment, operations and financial control, from idea to full room."
   },
   "nav": {
     "label": "Main",
@@ -17,7 +17,7 @@
     "open": "Menu",
     "close": "Close",
     "home": "MAS home",
-    "brandsAll": "All our brands"
+    "homeLink": "Home"
   },
   "splash": {
     "loading": "Loading the MAS home page",
@@ -73,7 +73,7 @@
     ]
   },
   "doors": {
-    "title": "Two places we run",
+    "title": "Places under MAS management",
     "intro": "Follow the line.",
     "covy": {
       "name": "COVY",
@@ -167,7 +167,9 @@
         "t": "Hand over or run",
         "d": "We hand it over trained and documented, or keep running it with you."
       }
-    ]
+    ],
+    "receive": "What you receive",
+    "ask": "Discuss this service"
   },
   "brandsPage": {
     "title": "Our brands",
@@ -217,5 +219,50 @@
     "title": "Discuss your project",
     "lead": "Tell us about your café or restaurant, where it stands and what you need. We reply within one business day.",
     "emailLabel": "Or write to us"
+  },
+  "seo": {
+    "home": {
+      "title": "MAS · Café & Restaurant Management in Egypt",
+      "description": "MAS plans, opens and runs cafés and restaurants in Egypt: concept, brand, menu engineering, recruitment, operations and financial control, from idea to full room."
+    },
+    "about": {
+      "title": "About MAS | Café & Restaurant Management Company in Egypt",
+      "description": "MAS is a café and restaurant management company in Egypt. We shape new places and run existing ones, from concept and brand to people, operations and growth."
+    },
+    "services": {
+      "title": "Café & Restaurant Consulting Services in Egypt | MAS",
+      "description": "Nine services for cafés and restaurants in Egypt: concept development, branding, menu engineering, events, recruitment, operations, finance, supply and quality."
+    },
+    "service": {
+      "title": "{name} in Egypt | MAS"
+    },
+    "brands": {
+      "title": "Our Brands: COVY and Aroma Lounge | MAS",
+      "description": "The places MAS runs today: COVY, a restaurant and café with a world-tour menu, and Aroma Lounge, by the lake at Mivida and on The Strip in Madinaty."
+    },
+    "covy": {
+      "title": "COVY Restaurant & Café, Managed by MAS",
+      "description": "COVY is a restaurant and café with a world-tour menu, an interior of blue leaves and a terrace to stay on, managed by MAS. See the menu and book on COVY's site."
+    },
+    "aroma": {
+      "title": "Aroma Lounge Mivida & Madinaty, Managed by MAS",
+      "description": "Aroma Lounge is a café and restaurant by the lake at Mivida and in Madinaty, with breakfast, sunset drinks and live music, managed by MAS. See the menu and book."
+    },
+    "events": {
+      "title": "Events at COVY and Aroma Lounge | MAS",
+      "description": "What's on at the places MAS runs: a Friday brunch club, oud evenings and kitchen weeks at COVY, and live music and match nights at Aroma Lounge."
+    },
+    "insights": {
+      "title": "Insights on Running Cafés & Restaurants | MAS",
+      "description": "Practical notes for café and restaurant owners, drawn from published research: menu engineering, why restaurants close, and what one more review star is worth."
+    },
+    "article": {
+      "title": "{name} | MAS Insights"
+    },
+    "contact": {
+      "title": "Contact MAS | Discuss Your Café or Restaurant Project",
+      "description": "Tell MAS about your café or restaurant in Egypt, where it stands and what you need. We reply within one business day, or write to info@masegypt.com."
+    },
+    "ogAlt": "MAS, Café & Restaurant Management: the gold wordmark over a dark restaurant lit in gold"
   }
 }

@@ -8,11 +8,18 @@ import type { ReactNode } from "react";
 import { BrandMark, siteOf, type BrandKey } from "@/components/brand-case";
 import { PageHero } from "@/components/page-hero";
 import { SiteHeader } from "@/components/site-header";
+import { BRAND_POSTERS } from "@/lib/brand-posters";
 import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { brandSchema } from "@/lib/schema";
 
 export async function brandCaseMetadata(id: BrandKey, locale: "en" | "ar") {
-  const t = await getTranslations({ locale, namespace: "brandsPage" });
-  return innerMetadata(locale, `/brands/${id}`, brands[id].name[locale], t(`${id}.lead`));
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const d = await getTranslations({ locale, namespace: "doors" });
+  // The share image is the picture seen through the brand's door.
+  const poster = BRAND_POSTERS[id];
+  return innerMetadata(locale, `/brands/${id}`, t(`${id}.title`), t(`${id}.description`), {
+    image: { url: poster.webp, width: poster.width, height: poster.height, alt: d("label") },
+  });
 }
 
 /**
@@ -67,10 +74,13 @@ export async function BrandCasePage({ id, locale }: { id: BrandKey; locale: "en"
       <SiteHeader locale={locale} current="brands" />
       <main id="main">
         <JsonLd
-          data={crumbs(locale, [
-            { name: t("title"), path: "/brands" },
-            { name, path: `/brands/${id}` },
-          ])}
+          data={[
+            crumbs(locale, [
+              { name: t("title"), path: "/brands" },
+              { name, path: `/brands/${id}` },
+            ]),
+            brandSchema(id, locale),
+          ]}
         />
         <PageHero
           title={name}

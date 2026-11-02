@@ -1,6 +1,6 @@
 import { isLocale } from "@mas/i18n";
 import { videoPrefetchScript } from "@mas/motion";
-import { JsonLd, organizationJsonLd, websiteJsonLd } from "@mas/seo";
+import { JsonLd, websiteJsonLd } from "@mas/seo";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Doors } from "@/components/home/doors";
@@ -10,6 +10,7 @@ import { Cta, How, Insights, Services, Statement, WhatsOn } from "@/components/h
 import { pageHref, SiteHeader } from "@/components/site-header";
 import { Splash } from "@/components/splash";
 import { brand } from "@/site";
+import { masOrganization } from "@/lib/schema";
 
 /** Both scenes start downloading as the page is parsed (D55): the splash waits on them (D62). */
 const PREFETCH = {
@@ -34,9 +35,9 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         skip={splash("skip")}
         slow={splash("slow")}
       />
-      <SiteHeader locale={locale} mode="overlay" />
+      <SiteHeader locale={locale} mode="overlay" current="home" />
       <main id="main">
-        <JsonLd data={[organizationJsonLd(brand, locale), websiteJsonLd(brand, locale)]} />
+        <JsonLd data={[masOrganization(locale), websiteJsonLd(brand, locale)]} />
         <Hero contactHref={pageHref(locale, "contact")} />
         <Statement locale={locale} />
         <Services locale={locale} />

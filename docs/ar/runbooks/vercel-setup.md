@@ -27,7 +27,7 @@
 | `MAIL_TO` | ‏`info@masegypt.com` / ‏`covy@mas.com` / ‏`aroma@mas.com` | في الاختبار ينفع بريدك أنت |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | من Cloudflare (خطوة 4) | |
 | `TURNSTILE_SECRET_KEY` | من Cloudflare (خطوة 4) | سري. من غيره نماذج الإنتاج بترفض الإرسال |
-| `NEXT_PUBLIC_SITE_URL` | سيبه فاضي على Hobby | بيتضبط على الدومين الحقيقي في الإنتاج |
+| `NEXT_PUBLIC_SITE_URL` | سيبه فاضي على Hobby | بيتضبط على الدومين الحقيقي في الإنتاج (العنوان كامل، مثلًا `https://www.masegypt.com`). لو فاضي أو مش عنوان: بيلد الإنتاج بياخد عنوان Vercel بتاعه (D70) |
 | `NEXT_PUBLIC_GA4_ID` و`NEXT_PUBLIC_CLARITY_ID` | فاضيين دلوقتي | بيتضافوا لما العميل يعمل الحسابات |
 | `NEXT_PUBLIC_MEDIA_URL` | فاضي دلوقتي | بيتضبط لما R2 يجهز (P2) |
 | `SITE_INDEXABLE` | **سيبه فاضي** | ‏`true` على الإنتاج بس وقت الإطلاق. قبل كده كل الصفحات `noindex` |
@@ -63,3 +63,4 @@
 - **التحليلات:** العميل يعمل GA4 property ومشروع Clarity لكل موقع على حساباته في Google وMicrosoft ويضيفك كمستخدم. في Clarity اضبط الإخفاء على **Strict**.
 - **‏Cloudflare R2** لإطارات الـ sequences على `media.mas.com` ‏(P2).
 - **الإنتاج:** نقل المشاريع لفريق Vercel Pro بتاع العميل، وإضافة الدومينات، وضبط `NEXT_PUBLIC_SITE_URL`، ووقت الإطلاق بس `SITE_INDEXABLE=true`.
+- **محركات البحث (بعد الإطلاق):** ضيف كل دومين في Google Search Console وBing Webmaster Tools، وابعت `/sitemap.xml`، واختبر صفحة من كل نوع في Rich Results Test.

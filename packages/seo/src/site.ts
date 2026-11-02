@@ -2,9 +2,33 @@ import type { Brand } from "@mas/content";
 
 export type Locale = "en" | "ar";
 
-/** Origin without a trailing slash. NEXT_PUBLIC_SITE_URL wins so previews link to themselves. */
+/** An origin from a setting, or undefined when it is empty or not a real address (e.g. a stray "n"). */
+function originOf(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  try {
+    const url = new URL(value.includes("://") ? value : `https://${value}`);
+    if (url.hostname !== "localhost" && !url.hostname.includes(".")) return undefined;
+    return url.origin;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * The site's origin, without a trailing slash (canonical links, sitemaps, structured data). In order:
+ * NEXT_PUBLIC_SITE_URL when it is a valid address (the real domain at launch); on a Vercel production build,
+ * the project's own production address (VERCEL_PROJECT_PRODUCTION_URL, set by Vercel), so a live site points
+ * at itself before its domain is connected; otherwise the brand's planned domain. A setting that is not a
+ * valid address is ignored instead of breaking the build (D70).
+ */
 export function siteOrigin(brand: Pick<Brand, "domain">): string {
-  return (process.env.NEXT_PUBLIC_SITE_URL || brand.domain).replace(/\/+$/, "");
+  return (
+    originOf(process.env.NEXT_PUBLIC_SITE_URL) ??
+    (process.env.VERCEL_ENV === "production"
+      ? originOf(process.env.VERCEL_PROJECT_PRODUCTION_URL)
+      : undefined) ??
+    brand.domain.replace(/\/+$/, "")
+  );
 }
 
 /**

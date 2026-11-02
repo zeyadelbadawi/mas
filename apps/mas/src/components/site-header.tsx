@@ -1,7 +1,7 @@
 import { localePath } from "@mas/seo";
 import { getTranslations } from "next-intl/server";
 import { Header, type HeaderProps } from "@/components/header";
-import { brands } from "@mas/content";
+import { brands, masServices } from "@mas/content";
 import { BRAND_POSTERS } from "@/lib/brand-posters";
 import { AromaPetal, AromaWordmark, CovyWordmark } from "@/components/brand-marks";
 
@@ -30,7 +30,7 @@ export async function SiteHeader({
   mode,
 }: {
   locale: "en" | "ar";
-  current?: Page;
+  current?: Page | "home";
   mode?: HeaderProps["mode"];
 }) {
   const t = await getTranslations({ locale, namespace: "nav" });
@@ -42,15 +42,25 @@ export async function SiteHeader({
       mode={mode}
       current={current}
       homeHref={pageHref(locale, "home")}
-      links={PAGES.filter((p) => p !== "contact").map((p) => ({
-        key: p,
-        href: pageHref(locale, p),
-        label: t(p),
-      }))}
+      links={[
+        { key: "home", href: pageHref(locale, "home"), label: t("homeLink") },
+        ...PAGES.filter((p) => p !== "contact").map((p) => ({
+          key: p,
+          href: pageHref(locale, p),
+          label: t(p),
+        })),
+      ]}
       cta={{ href: pageHref(locale, "contact"), label: t("cta") }}
+      servicesMenu={{
+        items: [...masServices]
+          .sort((a, b) => a.order - b.order)
+          .map((sv) => ({
+            order: sv.order,
+            title: sv.title[locale],
+            href: pageHref(locale, "services", `/${sv.slug}`),
+          })),
+      }}
       brandsMenu={{
-        label: t("brands"),
-        all: t("brandsAll"),
         items: (["covy", "aroma"] as const).map((id) => ({
           id,
           name: brands[id].name[locale],

@@ -215,7 +215,13 @@ export const slots: SlotSpec[] = [
     section: "Social share image",
     width: 1200,
     height: 630,
-    alt: { en: "MAS", ar: "MAS" },
+    alt: {
+      en: "MAS, Café & Restaurant Management: the gold wordmark over a dark restaurant lit in gold",
+      ar: "MAS، إدارة الكافيهات والمطاعم: الشعار الذهبي فوق مطعم غامق بإضاءة ذهبية",
+    },
+    src: "/og/mas-en.jpg",
+    notes:
+      "Drawn from the hero scene's end frame, with the wordmark and tagline (D70); Arabic: /og/mas-ar.jpg",
   },
   {
     kind: "image",
@@ -223,12 +229,14 @@ export const slots: SlotSpec[] = [
     app: "mas",
     page: "About",
     section: "What we do",
-    width: 1600,
-    height: 1000,
+    width: 1264,
+    height: 790,
     alt: {
-      en: "The MAS team planning a restaurant opening around a table",
-      ar: "فريق MAS يخطط لافتتاح مطعم حول طاولة",
+      en: "Two people planning a restaurant's floor plan with material samples, a plate and a glass on a dark table",
+      ar: "شخصان يخططان لمسقط مطعم مع عينات خامات وطبق وكأس على طاولة داكنة",
     },
+    src: "/images/about/story.webp",
+    notes: "Made with Higgsfield in the MAS restaurant of the hero scene (D69)",
   },
   ...MAS_SERVICES.map(
     ([slug, en, ar]): ImageSlotSpec => ({

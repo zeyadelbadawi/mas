@@ -1,4 +1,4 @@
-import { imageSlot, masServices } from "@mas/content";
+import { imageSlot, masServices, serviceDetails } from "@mas/content";
 import { isLocale, routing } from "@mas/i18n";
 import { JsonLd } from "@mas/seo";
 import { ImageSlot } from "@mas/ui";
@@ -11,6 +11,7 @@ import { Cta } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { pageHref, SiteHeader } from "@/components/site-header";
 import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { serviceSchema } from "@/lib/schema";
 
 const ordered = [...masServices].sort((a, b) => a.order - b.order);
 const two = (n: number) => String(n).padStart(2, "0");
@@ -25,12 +26,19 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const service = ordered.find((s) => s.slug === slug);
   if (!isLocale(locale) || !service) return {};
-  return innerMetadata(locale, `/services/${slug}`, service.title[locale], service.summary[locale]);
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const details = serviceDetails[slug];
+  return innerMetadata(
+    locale,
+    `/services/${slug}`,
+    t("service.title", { name: service.title[locale] }),
+    details?.intro[locale] ?? service.summary[locale],
+  );
 }
 
 /**
- * One service: what it covers (the client's own summary, one line per point), how it runs, the services
- * next to it in the order, and the one action.
+ * One service (D69): what it is, what it covers and what the owner receives (serviceDetails), how it
+ * runs, the services next to it in the order, and the one action.
  */
 export default async function ServicePage({ params }: PageProps<"/[locale]/services/[slug]">) {
   const { locale, slug } = await params;
@@ -40,10 +48,7 @@ export default async function ServicePage({ params }: PageProps<"/[locale]/servi
   setRequestLocale(locale);
   const t = await getTranslations("servicesPage");
   const steps = t.raw("steps") as { t: string; d: string }[];
-  const points = service.summary[locale]
-    .split(/(?<=[.。])\s+/)
-    .map((p) => p.trim())
-    .filter(Boolean);
+  const details = serviceDetails[slug];
   const related = [ordered[(index + 1) % ordered.length]!, ordered[(index + 2) % ordered.length]!];
   const slot = imageSlot(`mas.services.${slug}`);
 
@@ -57,14 +62,7 @@ export default async function ServicePage({ params }: PageProps<"/[locale]/servi
               { name: t("title"), path: "/services" },
               { name: service.title[locale], path: `/services/${slug}` },
             ]),
-            {
-              "@context": "https://schema.org",
-              "@type": "Service",
-              name: service.title[locale],
-              description: service.summary[locale],
-              provider: { "@type": "Organization", name: "MAS" },
-              areaServed: "EG",
-            },
+            ...(serviceSchema(locale, slug) ? [serviceSchema(locale, slug)!] : []),
           ]}
         />
         <PageHero
@@ -86,28 +84,64 @@ export default async function ServicePage({ params }: PageProps<"/[locale]/servi
           }
         />
         <section aria-labelledby="covers-title" className="mas-light px-4 py-24 sm:px-8 sm:py-32">
-          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-5">
+          <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-7">
+              {details ? (
+                <p className="text-xl leading-[1.65] font-normal text-balance sm:text-2xl">
+                  {details.intro[locale]}
+                </p>
+              ) : null}
               <h2
                 id="covers-title"
-                className="mas-heading text-3xl font-semibold tracking-tight sm:text-4xl rtl:tracking-normal"
+                className="mas-heading mt-16 text-3xl font-semibold tracking-tight sm:text-4xl rtl:tracking-normal"
               >
                 {t("included")}
               </h2>
-              <ul className="mt-8 flex flex-col">
-                {points.map((p) => (
+              <ul className="mt-10 grid gap-x-10 sm:grid-cols-2">
+                {(details?.covers ?? []).map((item) => (
                   <li
-                    key={p}
-                    className="border-t border-[var(--brand-line)] py-4 text-lg leading-relaxed font-light"
+                    key={item.t.en}
+                    className="relative border-t border-[var(--brand-line)] py-6 ps-6"
                   >
-                    {p}
+                    <span
+                      aria-hidden="true"
+                      className="absolute start-0 top-[2.15rem] h-px w-3 bg-[var(--mas-gold)]"
+                    />
+                    <h3 className="text-lg font-medium">{item.t[locale]}</h3>
+                    <p className="text-muted mt-2 leading-relaxed font-light">{item.d[locale]}</p>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="mas-cut [--cut:2.5rem] lg:col-span-6 lg:col-start-7">
-              <ImageSlot {...slot} locale={locale} sizes="(min-width: 1024px) 50vw, 100vw" />
-            </div>
+            <aside className="lg:col-span-4 lg:col-start-9">
+              <div className="lg:sticky lg:top-32">
+                <div className="mas-cut [--cut:2.25rem]">
+                  <ImageSlot {...slot} locale={locale} sizes="(min-width: 1024px) 34vw, 100vw" />
+                </div>
+                {details ? (
+                  <div className="mt-8 border border-[var(--brand-line)] p-6">
+                    <h2 className="text-lg font-semibold">{t("receive")}</h2>
+                    <ul className="mt-4 flex flex-col gap-3">
+                      {details.deliverables.map((d) => (
+                        <li key={d.en} className="flex gap-3 leading-relaxed font-light">
+                          <span
+                            aria-hidden="true"
+                            className="mt-[0.7em] h-px w-3 shrink-0 bg-[var(--mas-gold)]"
+                          />
+                          {d[locale]}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={pageHref(locale, "contact", `?service=${slug}`)}
+                      className="mas-rule-link mt-6 inline-flex items-center py-2 text-sm font-medium"
+                    >
+                      {t("ask")}
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
+            </aside>
           </div>
         </section>
         <section aria-labelledby="runs-title" className="mas-light px-4 pb-28 sm:px-8">

@@ -8,16 +8,16 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { Inquiry } from "@/components/inquiry";
 import { PageHero } from "@/components/page-hero";
 import { SiteHeader } from "@/components/site-header";
-import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { crumbs, seoMetadata } from "@/lib/page-meta";
 import { brand, privacyHref } from "@/site";
+import { webPageSchema } from "@/lib/schema";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/contact">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = await getTranslations({ locale, namespace: "contactPage" });
-  return innerMetadata(locale, "/contact", t("title"), t("lead"));
+  return seoMetadata(locale, "contact", "/contact");
 }
 
 /**
@@ -44,7 +44,12 @@ export default async function ContactPage({
     <>
       <SiteHeader locale={locale} current="contact" />
       <main id="main">
-        <JsonLd data={crumbs(locale, [{ name: t("title"), path: "/contact" }])} />
+        <JsonLd
+          data={[
+            crumbs(locale, [{ name: t("title"), path: "/contact" }]),
+            webPageSchema(locale, "ContactPage", "/contact", t("title")),
+          ]}
+        />
         <PageHero
           title={t("title")}
           lead={t("lead")}

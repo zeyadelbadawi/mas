@@ -9,16 +9,16 @@ import { EventCard } from "@/components/cards";
 import { Cta } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { SiteHeader } from "@/components/site-header";
-import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { crumbs, seoMetadata } from "@/lib/page-meta";
 import { whatsOn } from "@/lib/whats-on";
+import { eventsSchema } from "@/lib/schema";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/events">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = await getTranslations({ locale, namespace: "eventsPage" });
-  return innerMetadata(locale, "/events", t("title"), t("lead"));
+  return seoMetadata(locale, "events", "/events");
 }
 
 /** Everything on at COVY and Aroma Lounge, by brand (shared data; COVY's are still labelled samples). */
@@ -33,7 +33,9 @@ export default async function EventsPage({ params }: PageProps<"/[locale]/events
     <>
       <SiteHeader locale={locale} current="events" />
       <main id="main">
-        <JsonLd data={crumbs(locale, [{ name: t("title"), path: "/events" }])} />
+        <JsonLd
+          data={[crumbs(locale, [{ name: t("title"), path: "/events" }]), ...eventsSchema(locale)]}
+        />
         <PageHero title={t("title")} lead={t("lead")} />
         {(["covy", "aroma"] as const).map((id) => {
           const items = all.filter((i) => i.brand === id);

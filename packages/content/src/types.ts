@@ -11,6 +11,11 @@ export type Brand = {
   tagline: LocalizedText;
   /** Production origin, e.g. https://covy.mas.com (placeholder domain until confirmed). */
   domain: string;
+  /**
+   * Where the brand's site is live today, while `domain` is not connected yet (the owner's links, D70). The
+   * MAS site links here; once the domain is connected, set it to the domain.
+   */
+  liveUrl?: string;
   inboxEmail: string;
   socials: Social[];
   /** Delivery ordering link, when the brand has one (Aroma: talabat). */
@@ -164,4 +169,11 @@ export type Insight = {
   /** The cover: the card on the lists and the top of the article. */
   imageSlotId: string;
   placeholder: boolean;
+};
+
+/** A service in depth (D69): what it is, what it covers and what the owner receives. */
+export type ServiceDetails = {
+  intro: LocalizedText;
+  covers: { t: LocalizedText; d: LocalizedText }[];
+  deliverables: LocalizedText[];
 };

@@ -1,11 +1,11 @@
 import { termsOfUse } from "@mas/content";
 import { isLocale, pick } from "@mas/i18n";
-import { pageMetadata } from "@mas/seo";
 import { LegalArticle } from "@mas/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteHeader } from "@/components/site-header";
+import { innerMetadata } from "@/lib/page-meta";
 import { brand } from "@/site";
 
 const doc = termsOfUse(brand);
@@ -15,13 +15,12 @@ export async function generateMetadata({
 }: PageProps<"/[locale]/terms">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return pageMetadata({
-    brand,
+  return innerMetadata(
     locale,
-    path: "/terms",
-    title: pick(doc.title, locale),
-    description: pick(doc.intro, locale),
-  });
+    "/terms",
+    `${pick(doc.title, locale)} | MAS`,
+    pick(doc.intro, locale),
+  );
 }
 
 export default async function TermsPage({ params }: PageProps<"/[locale]/terms">) {

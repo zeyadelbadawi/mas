@@ -1,16 +1,15 @@
 import { branches, brands } from "@mas/content";
-import { localePath } from "@mas/seo";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { AromaPetal, AromaWordmark, CovyWordmark } from "@/components/brand-marks";
 import { RuleLink } from "@/components/cards";
 import { pageHref } from "@/components/site-header";
 import { BRAND_POSTERS } from "@/lib/brand-posters";
+import { brandSite } from "@/lib/brand-site";
 
 export type BrandKey = "covy" | "aroma";
 
-export const siteOf = (id: BrandKey, locale: "en" | "ar") =>
-  `${brands[id].domain}${localePath(locale, "/")}`.replace(/\/$/, "");
+export const siteOf = (id: BrandKey, locale: "en" | "ar") => brandSite(id, locale);
 
 export function BrandMark({ id, className }: { id: BrandKey; className?: string }) {
   if (id === "covy") return <CovyWordmark className={`h-8 w-auto ${className ?? ""}`} />;

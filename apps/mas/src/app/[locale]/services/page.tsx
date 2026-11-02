@@ -6,15 +6,15 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Cta, How, Services } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { SiteHeader } from "@/components/site-header";
-import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { crumbs, seoMetadata } from "@/lib/page-meta";
+import { servicesList } from "@/lib/schema";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/services">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = await getTranslations({ locale, namespace: "servicesPage" });
-  return innerMetadata(locale, "/services", t("title"), t("lead"));
+  return seoMetadata(locale, "services", "/services");
 }
 
 /** The nine services (D5) in their order, then how MAS works. */
@@ -27,7 +27,9 @@ export default async function ServicesPage({ params }: PageProps<"/[locale]/serv
     <>
       <SiteHeader locale={locale} current="services" />
       <main id="main">
-        <JsonLd data={crumbs(locale, [{ name: t("title"), path: "/services" }])} />
+        <JsonLd
+          data={[crumbs(locale, [{ name: t("title"), path: "/services" }]), servicesList(locale)]}
+        />
         <PageHero title={t("title")} lead={t("lead")} />
         <Services locale={locale} index />
         <How />

@@ -27,7 +27,7 @@ Copy from each app's `.env.example`. Set them for **Preview** and **Production**
 | `MAIL_TO` | `info@masegypt.com` / `covy@mas.com` / `aroma@mas.com` | For testing, your own inbox is fine |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | from Cloudflare (step 4) | |
 | `TURNSTILE_SECRET_KEY` | from Cloudflare (step 4) | Sensitive. Without it, production forms refuse to send (fail closed) |
-| `NEXT_PUBLIC_SITE_URL` | leave empty on Hobby | Set to the real domain on production |
+| `NEXT_PUBLIC_SITE_URL` | leave empty on Hobby | Set to the real domain on production (full address, e.g. `https://www.masegypt.com`). Empty or not an address: a production build uses its Vercel production address (D70) |
 | `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_CLARITY_ID` | empty for now | Added when the client creates the properties |
 | `NEXT_PUBLIC_MEDIA_URL` | empty for now | Set when R2 is ready (P2) |
 | `SITE_INDEXABLE` | **leave empty** | Only `true` on production at launch. Until then every page is `noindex` |
@@ -63,3 +63,4 @@ On each preview URL:
 - **Analytics:** the client creates one GA4 property and one Clarity project per site on their own Google/Microsoft accounts and adds you as a user. In Clarity, set masking to **Strict**.
 - **Cloudflare R2** for sequence frames behind `media.mas.com` (P2).
 - **Production:** transfer the projects to the client's Vercel Pro team, add the domains, set `NEXT_PUBLIC_SITE_URL` and, at launch only, `SITE_INDEXABLE=true`.
+- **Search engines (after launch):** add each domain to Google Search Console and Bing Webmaster Tools, submit `/sitemap.xml`, and check one page of each type in the Rich Results Test.

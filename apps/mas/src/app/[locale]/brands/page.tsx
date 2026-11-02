@@ -7,15 +7,15 @@ import { BrandBlock } from "@/components/brand-case";
 import { Cta } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { SiteHeader } from "@/components/site-header";
-import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { crumbs, seoMetadata } from "@/lib/page-meta";
+import { brandsList } from "@/lib/schema";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/brands">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = await getTranslations({ locale, namespace: "brandsPage" });
-  return innerMetadata(locale, "/brands", t("title"), t("lead"));
+  return seoMetadata(locale, "brands", "/brands");
 }
 
 /** The brands MAS runs today (D13): COVY and Aroma Lounge, each with the picture seen through its door. */
@@ -28,7 +28,9 @@ export default async function BrandsPage({ params }: PageProps<"/[locale]/brands
     <>
       <SiteHeader locale={locale} current="brands" />
       <main id="main">
-        <JsonLd data={crumbs(locale, [{ name: t("title"), path: "/brands" }])} />
+        <JsonLd
+          data={[crumbs(locale, [{ name: t("title"), path: "/brands" }]), brandsList(locale)]}
+        />
         <PageHero title={t("title")} lead={t("lead")} />
         <div className="flex flex-col gap-28 px-4 pb-32 sm:px-8">
           <div className="mx-auto w-full max-w-7xl">

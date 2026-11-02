@@ -9,15 +9,15 @@ import { SectionHeading } from "@/components/cards";
 import { Cta } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { SiteHeader } from "@/components/site-header";
-import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { crumbs, seoMetadata } from "@/lib/page-meta";
+import { webPageSchema } from "@/lib/schema";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/about">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = await getTranslations({ locale, namespace: "about" });
-  return innerMetadata(locale, "/about", t("title"), t("lead"));
+  return seoMetadata(locale, "about", "/about");
 }
 
 /** About MAS (D13, D64): what MAS does, the story of the mark, and what it stands for. */
@@ -34,7 +34,12 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
     <>
       <SiteHeader locale={locale} current="about" />
       <main id="main">
-        <JsonLd data={crumbs(locale, [{ name: t("title"), path: "/about" }])} />
+        <JsonLd
+          data={[
+            crumbs(locale, [{ name: t("title"), path: "/about" }]),
+            webPageSchema(locale, "AboutPage", "/about", t("title")),
+          ]}
+        />
         <PageHero title={t("title")} lead={t("lead")} />
         <section aria-labelledby="story-title" className="mas-light px-4 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
