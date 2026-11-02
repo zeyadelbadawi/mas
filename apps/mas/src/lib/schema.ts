@@ -78,6 +78,7 @@ export function serviceSchema(locale: Locale, slug: string): Thing | null {
   const s = masServices.find((x) => x.slug === slug);
   if (!s) return null;
   const d = serviceDetails[slug];
+  const cover = imageSlot(`mas.services.${slug}`);
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -86,6 +87,7 @@ export function serviceSchema(locale: Locale, slug: string): Thing | null {
     serviceType: s.title[locale],
     description: d?.intro[locale] ?? s.summary[locale],
     url: url(locale, `/services/${slug}`),
+    ...(cover.src ? { image: abs(cover.src) } : {}),
     provider: { "@id": orgId() },
     areaServed: { "@type": "Country", name: locale === "ar" ? "مصر" : "Egypt" },
     ...(d

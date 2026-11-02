@@ -38,52 +38,114 @@ export type SequenceSlotSpec = {
 
 export type SlotSpec = ImageSlotSpec | SequenceSlotSpec;
 
-/** The nine services' header images (slug, alt EN, alt AR), in the order of masServices. */
+/** The nine services' header images (slug, alt EN, alt AR), in the order of masServices; made with Magnific (D71). */
 const MAS_SERVICES: [string, string, string][] = [
   [
     "fnb-concept-development",
-    "Sketches and a mood board for a new restaurant concept",
-    "رسومات ولوحة إلهام لفكرة مطعم جديد",
+    "Hands placing a small brass pendant into a scale model of a café, beside material samples and pencil sketches",
+    "أيادٍ تضع نجفة نحاسية صغيرة في نموذج مصغّر لكافيه، بجوار عينات خامات ورسومات بالقلم الرصاص",
   ],
   [
     "fnb-catering-service",
-    "A catering table laid for a corporate event",
-    "طاولة ضيافة مُعدّة لمناسبة شركة",
+    "A gloved hand setting the last canapé on a dark marble buffet lined with brass chafing dishes",
+    "يد بقفاز أبيض تضع آخر قطعة كانابيه على بوفيه رخام داكن تصطف عليه سخانات نحاسية",
   ],
   [
     "menu-engineering-costing",
-    "A chef weighing ingredients next to a costing sheet",
-    "شيف يزن المكونات بجوار ورقة حساب التكلفة",
+    "A chef weighing a portion of seared fish on a brass balance next to a finished plate and measured spices",
+    "شيف يزن قطعة سمك مشوية على ميزان نحاسي بجوار طبق جاهز وتوابل موزونة",
   ],
   [
     "events-management",
-    "A restaurant terrace set up for a private evening",
-    "تراس مطعم مُجهّز لأمسية خاصة",
+    "A hand lighting the last candle on a long table set for a private evening",
+    "يد تشعل آخر شمعة على طاولة طويلة مُجهّزة لأمسية خاصة",
   ],
   [
     "recruitment-training",
-    "A trainer showing new staff how to set a table",
-    "مدرّب يعلّم فريقًا جديدًا تجهيز الطاولة",
+    "A trainer guiding a new waiter's hand as he sets a fork beside a plate, with other staff practising behind",
+    "مدرّب يوجّه يد نادل جديد وهو يضع الشوكة بجوار الطبق، وفريق آخر يتدرّب في الخلفية",
   ],
   [
     "operations-hospitality-management",
-    "A manager greeting guests on a busy service night",
-    "مدير يستقبل الضيوف في ليلة خدمة مزدحمة",
+    "Plates leaving the pass on a full service night, a chef finishing a plate as a waiter carries two to the room",
+    "أطباق خارجة من الـ pass في ليلة خدمة مزدحمة، شيف يُنهي طبقًا ونادل يحمل طبقين إلى الصالة",
   ],
   [
     "financial-control-performance",
-    "Monthly performance figures on a laptop in a café",
-    "أرقام الأداء الشهري على لابتوب في كافيه",
+    "An owner's hands on a closed ledger with a gold pen and an espresso at the bar after closing",
+    "يدا صاحب المكان على دفتر حسابات مغلق مع قلم ذهبي وفنجان إسبريسو على البار بعد الإغلاق",
   ],
   [
     "production-packaging-supply",
-    "Packed sauces and baked goods ready for delivery to the branches",
-    "صوصات ومخبوزات مغلّفة جاهزة للتوزيع على الفروع",
+    "A gloved hand lining up sealed jars and black boxes tied with gold cord in a central kitchen",
+    "يد بقفاز تصفّ برطمانات مغلقة وعلبًا سوداء مربوطة بخيط ذهبي في مطبخ مركزي",
   ],
   [
     "tools-quality-assurance",
-    "A point-of-sale screen and a checklist on a café counter",
-    "شاشة نقطة بيع وقائمة مراجعة على كاونتر كافيه",
+    "A white-gloved hand checking a wine glass against a brass pendant light, beside a row of polished glasses",
+    "يد بقفاز أبيض تفحص كأسًا تحت ضوء نجفة نحاسية، بجوار صف من الكؤوس المصقولة",
+  ],
+];
+
+/**
+ * The inner pages' full-width hero banners (D72, made with Magnific): page key, alt EN, alt AR. The room sits in
+ * the far third and the start side stays dark for the title; in Arabic the picture is mirrored (no text in it).
+ */
+const MAS_BANNERS: [string, string, string][] = [
+  [
+    "about",
+    "An empty, elegant dining room set for the evening under brass pendant lamps",
+    "صالة طعام أنيقة خالية مُجهّزة للمساء تحت نجف نحاسي",
+  ],
+  [
+    "contact",
+    "A stone host stand with an open reservation book and a brass lamp at a restaurant's entrance",
+    "منصة استقبال حجرية عليها دفتر حجوزات مفتوح ومصباح نحاسي عند مدخل مطعم",
+  ],
+  [
+    "services.fnb-concept-development",
+    "A café scale model and material samples on a long table under a brass lamp, sketches pinned behind",
+    "نموذج مصغّر لكافيه وعينات خامات على طاولة طويلة تحت مصباح نحاسي، ورسومات معلّقة خلفها",
+  ],
+  [
+    "services.fnb-catering-service",
+    "A long marble buffet with brass chafing dishes and canapés in a dark event hall",
+    "بوفيه رخام طويل بسخانات نحاسية وكانابيه في قاعة مناسبات داكنة",
+  ],
+  [
+    "services.menu-engineering-costing",
+    "Plated dishes lined up for tasting on a stone pass beside a brass balance and measured spices",
+    "أطباق مصفوفة للتذوق على كاونتر حجري بجوار ميزان نحاسي وتوابل موزونة",
+  ],
+  [
+    "services.events-management",
+    "A long banquet table with candles, white flowers and gold-rimmed glasses before the guests arrive",
+    "طاولة مأدبة طويلة بالشموع والورود البيضاء والكؤوس المذهّبة قبل وصول الضيوف",
+  ],
+  [
+    "services.recruitment-training",
+    "A trainer briefing new waiters in white shirts and black aprons beside a set table",
+    "مدرّب يشرح لفريق جديد من النُدُل بقمصان بيضاء ومرايل سوداء بجوار طاولة مُجهّزة",
+  ],
+  [
+    "services.operations-hospitality-management",
+    "A full restaurant on a busy night, seen from the end of the bar, waiters moving between tables",
+    "مطعم ممتلئ في ليلة مزدحمة كما يُرى من طرف البار، والنُدُل يتحركون بين الطاولات",
+  ],
+  [
+    "services.financial-control-performance",
+    "A closed ledger, a gold pen and an espresso under a brass lamp at the end of the bar after closing",
+    "دفتر حسابات مغلق وقلم ذهبي وإسبريسو تحت مصباح نحاسي في طرف البار بعد الإغلاق",
+  ],
+  [
+    "services.production-packaging-supply",
+    "Rows of sealed jars and black boxes on long counters in a dark central kitchen",
+    "صفوف من البرطمانات المغلقة والعلب السوداء على كاونترات طويلة في مطبخ مركزي داكن",
+  ],
+  [
+    "services.tools-quality-assurance",
+    "Rows of polished wine glasses, white gloves and linen on a marble table under a brass lamp",
+    "صفوف من الكؤوس المصقولة وقفازات بيضاء ومناديل على طاولة رخام تحت مصباح نحاسي",
   ],
 ];
 
@@ -248,6 +310,23 @@ export const slots: SlotSpec[] = [
       width: 1600,
       height: 900,
       alt: { en, ar },
+      src: `/images/services/${slug}.webp`,
+      notes:
+        "Made with Magnific (Nano Banana 2.1, 2K) in the MAS restaurant of the hero scene (D71)",
+    }),
+  ),
+  ...MAS_BANNERS.map(
+    ([key, en, ar]): ImageSlotSpec => ({
+      kind: "image",
+      id: `mas.banner.${key}`,
+      app: "mas",
+      page: key.startsWith("services.") ? "Service detail" : key === "about" ? "About" : "Contact",
+      section: "Hero banner (full width)",
+      width: 2520,
+      height: 1080,
+      alt: { en, ar },
+      src: `/images/banners/${key.replace("services.", "")}.webp`,
+      notes: "Made with Magnific (Nano Banana 2.1, 2K, 21:9); mirrored in Arabic (D72)",
     }),
   ),
   ...MAS_INSIGHTS.map(
