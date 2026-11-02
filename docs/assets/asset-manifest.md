@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 287 | 232 | 55 |
+| Images | 287 | 233 | 54 |
 | Sequences (generated) | 8 | 0 | 8 |
 
 ## MAS (mas.com)
@@ -19,7 +19,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Delivery size | Ratio | Alt (EN) | Alt (AR) | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `mas.og` | All · Social share image | 1200 × 630 px | 40:21 | MAS | MAS | ⬜ placeholder |  |
+| `mas.og` | All · Social share image | 1200 × 630 px | 40:21 | MAS, Café & Restaurant Management: the gold wordmark over a dark restaurant lit in gold | MAS، إدارة الكافيهات والمطاعم: الشعار الذهبي فوق مطعم غامق بإضاءة ذهبية | ✅ delivered | Drawn from the hero scene's end frame, with the wordmark and tagline (D70); Arabic: /og/mas-ar.jpg |
 | `mas.about.story` | About · What we do | 1264 × 790 px | 8:5 | Two people planning a restaurant's floor plan with material samples, a plate and a glass on a dark table | شخصان يخططان لمسقط مطعم مع عينات خامات وطبق وكأس على طاولة داكنة | ✅ delivered | Made with Higgsfield in the MAS restaurant of the hero scene (D69) |
 | `mas.services.fnb-concept-development` | Service detail · Header image | 1600 × 900 px | 16:9 | Sketches and a mood board for a new restaurant concept | رسومات ولوحة إلهام لفكرة مطعم جديد | ⬜ placeholder |  |
 | `mas.services.fnb-catering-service` | Service detail · Header image | 1600 × 900 px | 16:9 | A catering table laid for a corporate event | طاولة ضيافة مُعدّة لمناسبة شركة | ⬜ placeholder |  |

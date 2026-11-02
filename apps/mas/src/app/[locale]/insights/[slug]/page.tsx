@@ -1,6 +1,6 @@
 import { imageSlot, insights, type Insight } from "@mas/content";
 import { formatDate, isLocale, routing } from "@mas/i18n";
-import { JsonLd, siteOrigin } from "@mas/seo";
+import { JsonLd } from "@mas/seo";
 import { ImageSlot } from "@mas/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import { Cta } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { pageHref, SiteHeader } from "@/components/site-header";
 import { crumbs, innerMetadata } from "@/lib/page-meta";
-import { brand } from "@/site";
+import { articleSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => insights.map((i) => ({ locale, slug: i.slug })));
@@ -23,7 +23,27 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const item = insights.find((i) => i.slug === slug);
   if (!isLocale(locale) || !item) return {};
-  return innerMetadata(locale, `/insights/${slug}`, item.title[locale], item.excerpt[locale]);
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const cover = imageSlot(item.imageSlotId);
+  return innerMetadata(
+    locale,
+    `/insights/${slug}`,
+    t("article.title", { name: item.title[locale] }),
+    item.excerpt[locale],
+    {
+      article: { publishedTime: item.publishedAt },
+      ...(cover.src
+        ? {
+            image: {
+              url: cover.src,
+              width: cover.width,
+              height: cover.height,
+              alt: cover.alt[locale],
+            },
+          }
+        : {}),
+    },
+  );
 }
 
 /** Minutes to read, from the words in the article (about 220 a minute in English, 180 in Arabic). */
@@ -71,18 +91,7 @@ export default async function InsightPage({ params }: PageProps<"/[locale]/insig
               { name: t("title"), path: "/insights" },
               { name: item.title[locale], path: `/insights/${slug}` },
             ]),
-            {
-              "@context": "https://schema.org",
-              "@type": "Article",
-              headline: item.title[locale],
-              description: item.excerpt[locale],
-              datePublished: item.publishedAt,
-              inLanguage: locale,
-              image: cover.src ? `${siteOrigin(brand)}${cover.src}` : undefined,
-              author: { "@type": "Organization", name: brand.name[locale] },
-              publisher: { "@type": "Organization", name: brand.name[locale] },
-              citation: item.sources.map((src) => src.url),
-            },
+            ...(articleSchema(locale, slug) ? [articleSchema(locale, slug)!] : []),
           ]}
         />
         <PageHero

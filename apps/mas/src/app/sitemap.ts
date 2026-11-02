@@ -14,7 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/brands/aroma", priority: 0.6 },
     { path: "/events", priority: 0.6 },
     { path: "/insights", priority: 0.6 },
-    ...insights.map((i) => ({ path: `/insights/${i.slug}`, priority: 0.5 })),
+    ...insights.map((i) => ({
+      path: `/insights/${i.slug}`,
+      priority: 0.6,
+      lastModified: i.publishedAt,
+    })),
     { path: "/contact", priority: 0.9 },
     { path: "/privacy", priority: 0.2 },
     { path: "/terms", priority: 0.2 },

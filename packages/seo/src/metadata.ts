@@ -11,6 +11,10 @@ type PageMetadataInput = {
   description: string;
   /** Use the title as-is instead of appending the brand name. */
   absoluteTitle?: boolean;
+  /** The share image (Open Graph and X): a path on the site or an absolute URL. */
+  image?: { url: string; width: number; height: number; alt: string };
+  /** An article: its Open Graph type and publication date. */
+  article?: { publishedTime: string };
 };
 
 /** Canonical, hreflang alternates, Open Graph and robots for one page. */
@@ -21,6 +25,8 @@ export function pageMetadata({
   title,
   description,
   absoluteTitle,
+  image,
+  article,
 }: PageMetadataInput): Metadata {
   const origin = siteOrigin(brand);
   const url = `${origin}${localePath(locale, path)}`;
@@ -38,15 +44,23 @@ export function pageMetadata({
       },
     },
     openGraph: {
-      type: "website",
+      ...(article
+        ? { type: "article" as const, publishedTime: article.publishedTime }
+        : { type: "website" as const }),
       url,
       siteName,
       title,
       description,
       locale: locale === "ar" ? "ar_EG" : "en_EG",
       alternateLocale: locale === "ar" ? ["en_EG"] : ["ar_EG"],
+      ...(image ? { images: [image] } : {}),
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(image ? { images: [image] } : {}),
+    },
     robots: isIndexable() ? { index: true, follow: true } : { index: false, follow: false },
   };
 }

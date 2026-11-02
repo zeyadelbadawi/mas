@@ -9,15 +9,15 @@ import { InsightCard } from "@/components/cards";
 import { Cta } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { pageHref, SiteHeader } from "@/components/site-header";
-import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { crumbs, seoMetadata } from "@/lib/page-meta";
+import { blogSchema } from "@/lib/schema";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/insights">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = await getTranslations({ locale, namespace: "insightsPage" });
-  return innerMetadata(locale, "/insights", t("title"), t("lead"));
+  return seoMetadata(locale, "insights", "/insights");
 }
 
 /** MAS's articles, newest first (samples until MAS sends its own, labelled). */
@@ -32,7 +32,9 @@ export default async function InsightsPage({ params }: PageProps<"/[locale]/insi
     <>
       <SiteHeader locale={locale} current="insights" />
       <main id="main">
-        <JsonLd data={crumbs(locale, [{ name: t("title"), path: "/insights" }])} />
+        <JsonLd
+          data={[crumbs(locale, [{ name: t("title"), path: "/insights" }]), blogSchema(locale)]}
+        />
         <PageHero title={t("title")} lead={t("lead")} />
         <section aria-label={t("title")} className="px-4 pb-28 sm:px-8">
           <div className="mx-auto max-w-7xl">

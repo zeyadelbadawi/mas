@@ -215,7 +215,13 @@ export const slots: SlotSpec[] = [
     section: "Social share image",
     width: 1200,
     height: 630,
-    alt: { en: "MAS", ar: "MAS" },
+    alt: {
+      en: "MAS, Café & Restaurant Management: the gold wordmark over a dark restaurant lit in gold",
+      ar: "MAS، إدارة الكافيهات والمطاعم: الشعار الذهبي فوق مطعم غامق بإضاءة ذهبية",
+    },
+    src: "/og/mas-en.jpg",
+    notes:
+      "Drawn from the hero scene's end frame, with the wordmark and tagline (D70); Arabic: /og/mas-ar.jpg",
   },
   {
     kind: "image",

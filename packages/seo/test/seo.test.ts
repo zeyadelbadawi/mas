@@ -6,6 +6,7 @@ import {
   restaurantJsonLd,
   robotsFor,
   serializeJsonLd,
+  siteOrigin,
 } from "../src";
 
 afterEach(() => vi.unstubAllEnvs());
@@ -72,5 +73,34 @@ describe("JSON-LD", () => {
     );
     expect(unconfirmed).not.toHaveProperty("telephone");
     expect(unconfirmed).not.toHaveProperty("openingHoursSpecification");
+  });
+});
+
+describe("siteOrigin (D70)", () => {
+  const covy = { domain: "https://covy.mas.com" };
+
+  it("uses NEXT_PUBLIC_SITE_URL when it is a real address", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://www.masegypt.com/");
+    expect(siteOrigin(covy)).toBe("https://www.masegypt.com");
+  });
+
+  it("ignores a value that is not an address instead of breaking the build", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "n");
+    vi.stubEnv("VERCEL_ENV", "");
+    expect(siteOrigin(covy)).toBe("https://covy.mas.com");
+  });
+
+  it("points a Vercel production build at its own production address", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("VERCEL_PROJECT_PRODUCTION_URL", "mas-mas.vercel.app");
+    expect(siteOrigin(covy)).toBe("https://mas-mas.vercel.app");
+  });
+
+  it("keeps the planned domain on previews", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
+    vi.stubEnv("VERCEL_ENV", "preview");
+    vi.stubEnv("VERCEL_PROJECT_PRODUCTION_URL", "mas-mas.vercel.app");
+    expect(siteOrigin(covy)).toBe("https://covy.mas.com");
   });
 });

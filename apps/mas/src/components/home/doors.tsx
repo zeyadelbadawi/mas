@@ -1,10 +1,9 @@
-import { brands } from "@mas/content";
 import { ScrollVideo } from "@mas/motion/scroll-video";
-import { localePath } from "@mas/seo";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { AromaPetal, AromaWordmark, CovyWordmark } from "@/components/brand-marks";
 import { SCENES } from "./scenes";
+import { brandSite } from "@/lib/brand-site";
 
 const P = "var(--seq-progress, 0)";
 const HOLD = "var(--seq-hold, 0)";
@@ -32,8 +31,7 @@ type Door = { id: "covy" | "aroma"; href: string; mark: ReactNode; line: string;
  */
 export async function Doors({ locale }: { locale: "en" | "ar" }) {
   const t = await getTranslations("doors");
-  const site = (id: "covy" | "aroma") =>
-    `${brands[id].domain}${localePath(locale, "/")}`.replace(/\/$/, "");
+  const site = (id: "covy" | "aroma") => brandSite(id, locale);
   const doors: Door[] = [
     {
       id: "covy",

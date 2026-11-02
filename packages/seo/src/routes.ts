@@ -5,14 +5,15 @@ import { isIndexable, localePath, siteOrigin } from "./site";
 /** One entry per path and language, each listing every language version and the x-default (English). */
 export function sitemapFor(
   brand: Brand,
-  paths: { path: string; priority?: number }[],
+  paths: { path: string; priority?: number; lastModified?: string }[],
 ): MetadataRoute.Sitemap {
   const origin = siteOrigin(brand);
-  return paths.flatMap(({ path, priority }) =>
+  return paths.flatMap(({ path, priority, lastModified }) =>
     (["en", "ar"] as const).map((locale) => ({
       url: `${origin}${localePath(locale, path)}`,
       changeFrequency: "monthly" as const,
       ...(priority !== undefined ? { priority } : {}),
+      ...(lastModified ? { lastModified } : {}),
       alternates: {
         languages: {
           en: `${origin}${localePath("en", path)}`,

@@ -11,6 +11,7 @@ import { Cta } from "@/components/home/sections";
 import { PageHero } from "@/components/page-hero";
 import { pageHref, SiteHeader } from "@/components/site-header";
 import { crumbs, innerMetadata } from "@/lib/page-meta";
+import { serviceSchema } from "@/lib/schema";
 
 const ordered = [...masServices].sort((a, b) => a.order - b.order);
 const two = (n: number) => String(n).padStart(2, "0");
@@ -25,7 +26,14 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const service = ordered.find((s) => s.slug === slug);
   if (!isLocale(locale) || !service) return {};
-  return innerMetadata(locale, `/services/${slug}`, service.title[locale], service.summary[locale]);
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const details = serviceDetails[slug];
+  return innerMetadata(
+    locale,
+    `/services/${slug}`,
+    t("service.title", { name: service.title[locale] }),
+    details?.intro[locale] ?? service.summary[locale],
+  );
 }
 
 /**
@@ -54,14 +62,7 @@ export default async function ServicePage({ params }: PageProps<"/[locale]/servi
               { name: t("title"), path: "/services" },
               { name: service.title[locale], path: `/services/${slug}` },
             ]),
-            {
-              "@context": "https://schema.org",
-              "@type": "Service",
-              name: service.title[locale],
-              description: service.summary[locale],
-              provider: { "@type": "Organization", name: "MAS" },
-              areaServed: "EG",
-            },
+            ...(serviceSchema(locale, slug) ? [serviceSchema(locale, slug)!] : []),
           ]}
         />
         <PageHero

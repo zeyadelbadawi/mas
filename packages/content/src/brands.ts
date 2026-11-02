@@ -5,9 +5,10 @@ export const brands: Record<BrandId, Brand> = {
   mas: {
     id: "mas",
     name: { en: "MAS", ar: "MAS" },
+    // The identity's tagline (D64).
     tagline: {
-      en: "Supporting business owners to achieve their goals.",
-      ar: "ندعم أصحاب المشاريع لتحقيق أهدافهم.",
+      en: "Café & Restaurant Management",
+      ar: "إدارة الكافيهات والمطاعم",
     },
     domain: "https://mas.com",
     inboxEmail: "info@masegypt.com",
@@ -22,6 +23,7 @@ export const brands: Record<BrandId, Brand> = {
     name: { en: "COVY", ar: "COVY" },
     tagline: { en: "The Taste of Everywhere", ar: "طعم كل مكان" },
     domain: "https://covy.mas.com",
+    liveUrl: "https://mas-covy-hazel.vercel.app",
     inboxEmail: "covy@mas.com",
     socials: [
       { network: "instagram", url: "https://instagram.com/" },
@@ -37,6 +39,7 @@ export const brands: Record<BrandId, Brand> = {
       ar: "الأكل الحلو بيطلع من القلوب الطيبة، وإحنا بنسعى للاتنين.",
     },
     domain: "https://aroma.mas.com",
+    liveUrl: "https://aroma-black-one.vercel.app",
     inboxEmail: "aroma@mas.com",
     // Aroma's own accounts (D53); the domain is still the placeholder all three sites share.
     socials: [

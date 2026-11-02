@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 import { MasWordmark } from "@/components/logo";
 import { pageHref } from "@/components/site-header";
 import { brand } from "@/site";
+import { brandSite } from "@/lib/brand-site";
 
 function Column({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -33,8 +34,7 @@ export async function Footer({ locale }: { locale: "en" | "ar" }) {
   const f = await getTranslations({ locale, namespace: "footer" });
   const nav = await getTranslations({ locale, namespace: "nav" });
   const home = await getTranslations({ locale, namespace: "home" });
-  const site = (id: "covy" | "aroma") =>
-    `${brands[id].domain}${localePath(locale, "/")}`.replace(/\/$/, "");
+  const site = (id: "covy" | "aroma") => brandSite(id, locale);
 
   return (
     <footer className="bg-[var(--mas-deep)] text-[var(--mas-soft)]">

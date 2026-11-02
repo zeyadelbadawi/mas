@@ -11,6 +11,11 @@ export type Brand = {
   tagline: LocalizedText;
   /** Production origin, e.g. https://covy.mas.com (placeholder domain until confirmed). */
   domain: string;
+  /**
+   * Where the brand's site is live today, while `domain` is not connected yet (the owner's links, D70). The
+   * MAS site links here; once the domain is connected, set it to the domain.
+   */
+  liveUrl?: string;
   inboxEmail: string;
   socials: Social[];
   /** Delivery ordering link, when the brand has one (Aroma: talabat). */
