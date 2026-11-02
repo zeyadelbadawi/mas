@@ -69,3 +69,20 @@ test("a service page pre-selects its service in the inquiry form", async ({ page
   await expect(page).toHaveURL(/\/contact\?service=menu-engineering-costing$/);
   await expect(page.getByRole("checkbox", { name: "Menu Engineering & Costing" })).toBeChecked();
 });
+
+test("a link clicked while the page is still gliding opens the next page at the top", async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, "smooth scrolling (and its glide) runs with a mouse wheel");
+  await page.goto("/services/events-management");
+  // Smooth scrolling starts once the page has loaded and the main thread is idle.
+  await page.waitForFunction(() => document.documentElement.classList.contains("lenis"));
+  await page.mouse.move(700, 450);
+  for (let i = 0; i < 15; i++) await page.mouse.wheel(0, 400);
+  await page.locator('main a[href^="/services/"]').last().click();
+  await expect(page).not.toHaveURL(/events-management/);
+  // Longer than the glide would have run on.
+  await page.waitForTimeout(1500);
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+});

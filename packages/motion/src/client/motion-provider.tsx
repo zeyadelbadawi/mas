@@ -126,7 +126,21 @@ export function MotionProvider({ children, ease = "power3.out" }: MotionProvider
     void document.fonts?.ready.then(refresh);
     refresh();
 
+    // A link to another page drops the glide that is still running: otherwise smooth scrolling carries on
+    // towards its old target after the router has put the new page at the top, and it opens halfway down.
+    const dropGlide = (e: MouseEvent) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const link = e.target instanceof Element ? e.target.closest("a[href]") : null;
+      if (!(link instanceof HTMLAnchorElement) || link.hasAttribute("download")) return;
+      if (link.target && link.target !== "_self") return;
+      const url = new URL(link.href, location.href);
+      if (url.origin !== location.origin || url.pathname === location.pathname) return;
+      lenis.scrollTo(lenis.scroll, { immediate: true, force: true });
+    };
+    document.addEventListener("click", dropGlide, { capture: true });
+
     return () => {
+      document.removeEventListener("click", dropGlide, { capture: true });
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
