@@ -88,6 +88,68 @@ const MAS_SERVICES: [string, string, string][] = [
 ];
 
 /**
+ * The inner pages' full-width hero banners (D72, made with Magnific): page key, alt EN, alt AR. The room sits in
+ * the far third and the start side stays dark for the title; in Arabic the picture is mirrored (no text in it).
+ */
+const MAS_BANNERS: [string, string, string][] = [
+  [
+    "about",
+    "An empty, elegant dining room set for the evening under brass pendant lamps",
+    "صالة طعام أنيقة خالية مُجهّزة للمساء تحت نجف نحاسي",
+  ],
+  [
+    "contact",
+    "A stone host stand with an open reservation book and a brass lamp at a restaurant's entrance",
+    "منصة استقبال حجرية عليها دفتر حجوزات مفتوح ومصباح نحاسي عند مدخل مطعم",
+  ],
+  [
+    "services.fnb-concept-development",
+    "A café scale model and material samples on a long table under a brass lamp, sketches pinned behind",
+    "نموذج مصغّر لكافيه وعينات خامات على طاولة طويلة تحت مصباح نحاسي، ورسومات معلّقة خلفها",
+  ],
+  [
+    "services.fnb-catering-service",
+    "A long marble buffet with brass chafing dishes and canapés in a dark event hall",
+    "بوفيه رخام طويل بسخانات نحاسية وكانابيه في قاعة مناسبات داكنة",
+  ],
+  [
+    "services.menu-engineering-costing",
+    "Plated dishes lined up for tasting on a stone pass beside a brass balance and measured spices",
+    "أطباق مصفوفة للتذوق على كاونتر حجري بجوار ميزان نحاسي وتوابل موزونة",
+  ],
+  [
+    "services.events-management",
+    "A long banquet table with candles, white flowers and gold-rimmed glasses before the guests arrive",
+    "طاولة مأدبة طويلة بالشموع والورود البيضاء والكؤوس المذهّبة قبل وصول الضيوف",
+  ],
+  [
+    "services.recruitment-training",
+    "A trainer briefing new waiters in white shirts and black aprons beside a set table",
+    "مدرّب يشرح لفريق جديد من النُدُل بقمصان بيضاء ومرايل سوداء بجوار طاولة مُجهّزة",
+  ],
+  [
+    "services.operations-hospitality-management",
+    "A full restaurant on a busy night, seen from the end of the bar, waiters moving between tables",
+    "مطعم ممتلئ في ليلة مزدحمة كما يُرى من طرف البار، والنُدُل يتحركون بين الطاولات",
+  ],
+  [
+    "services.financial-control-performance",
+    "A closed ledger, a gold pen and an espresso under a brass lamp at the end of the bar after closing",
+    "دفتر حسابات مغلق وقلم ذهبي وإسبريسو تحت مصباح نحاسي في طرف البار بعد الإغلاق",
+  ],
+  [
+    "services.production-packaging-supply",
+    "Rows of sealed jars and black boxes on long counters in a dark central kitchen",
+    "صفوف من البرطمانات المغلقة والعلب السوداء على كاونترات طويلة في مطبخ مركزي داكن",
+  ],
+  [
+    "services.tools-quality-assurance",
+    "Rows of polished wine glasses, white gloves and linen on a marble table under a brass lamp",
+    "صفوف من الكؤوس المصقولة وقفازات بيضاء ومناديل على طاولة رخام تحت مصباح نحاسي",
+  ],
+];
+
+/**
  * The articles' images (D66, made with Higgsfield): slot id, file under /images/insights, size, alt EN,
  * alt AR. The cover is the card and the top of the article; ".pass" and ".service" sit inside the text.
  */
@@ -251,6 +313,20 @@ export const slots: SlotSpec[] = [
       src: `/images/services/${slug}.webp`,
       notes:
         "Made with Magnific (Nano Banana 2.1, 2K) in the MAS restaurant of the hero scene (D71)",
+    }),
+  ),
+  ...MAS_BANNERS.map(
+    ([key, en, ar]): ImageSlotSpec => ({
+      kind: "image",
+      id: `mas.banner.${key}`,
+      app: "mas",
+      page: key.startsWith("services.") ? "Service detail" : key === "about" ? "About" : "Contact",
+      section: "Hero banner (full width)",
+      width: 2520,
+      height: 1080,
+      alt: { en, ar },
+      src: `/images/banners/${key.replace("services.", "")}.webp`,
+      notes: "Made with Magnific (Nano Banana 2.1, 2K, 21:9); mirrored in Arabic (D72)",
     }),
   ),
   ...MAS_INSIGHTS.map(

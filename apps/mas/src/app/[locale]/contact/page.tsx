@@ -1,4 +1,4 @@
-import { masServices } from "@mas/content";
+import { imageSlot, masServices } from "@mas/content";
 import { isLocale } from "@mas/i18n";
 import { JsonLd } from "@mas/seo";
 import type { Metadata } from "next";
@@ -53,6 +53,7 @@ export default async function ContactPage({
         <PageHero
           title={t("title")}
           lead={t("lead")}
+          banner={{ ...imageSlot("mas.banner.contact"), locale }}
           after={
             <p className="mt-8 text-sm text-[var(--mas-soft)]/70">
               {t("emailLabel")}{" "}

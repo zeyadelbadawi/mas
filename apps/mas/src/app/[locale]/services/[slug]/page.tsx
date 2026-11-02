@@ -79,6 +79,7 @@ export default async function ServicePage({ params }: PageProps<"/[locale]/servi
         <PageHero
           title={service.title[locale]}
           lead={service.summary[locale]}
+          banner={{ ...imageSlot(`mas.banner.services.${slug}`), locale }}
           before={
             <p className="mb-6 text-sm font-light text-[var(--mas-gold)] tabular-nums">
               <Link

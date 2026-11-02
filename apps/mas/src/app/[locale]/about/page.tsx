@@ -40,7 +40,11 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
             webPageSchema(locale, "AboutPage", "/about", t("title")),
           ]}
         />
-        <PageHero title={t("title")} lead={t("lead")} />
+        <PageHero
+          title={t("title")}
+          lead={t("lead")}
+          banner={{ ...imageSlot("mas.banner.about"), locale }}
+        />
         <section aria-labelledby="story-title" className="mas-light px-4 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
