@@ -4,9 +4,9 @@
 // turkey, Casserol → casserole, Oriantal → oriental, Willed → wild, Dynamic → dynamite); the Arabic names are
 // ours, in the way Egyptian menus write them. The sheet lists five sandwiches under both Breakfast and
 // Sandwiches & Burgers, so they appear in both, sharing one photo slot. Drinks, desserts and shisha are not in
-// the sheet and are not shown until the client sends them. Every dish has a photo slot (`covy.menu.dish.*`),
-// a placeholder until the designer delivers it (rule 3). Type-only imports: the asset-manifest script loads
-// this file with Node's type stripping.
+// the sheet and are not shown until the client sends them. Every dish has a photo (`covy.menu.dish.*`), made
+// with Magnific in COVY's style (D75: four 4×4 grids, cut into one photo per dish). Type-only imports: the
+// asset-manifest script loads this file with Node's type stripping.
 import type { MenuCategory, MenuItem } from "../types";
 
 type Row = [slug: string, en: string, ar: string];
@@ -19,8 +19,10 @@ function items(category: string, rows: Row[]): MenuItem[] {
     name: { en, ar },
     description: NONE,
     tags: [],
-    // One photo per dish: a dish listed in two sections shares its slot.
+    // One photo per dish: a dish listed in two sections shares its slot. Made with Magnific in COVY's style (D75).
     imageSlotId: `covy.menu.dish.${slug}`,
+    photo: `/images/menu/${slug}.webp`,
+    photoMade: true,
     placeholder: false,
   }));
 }

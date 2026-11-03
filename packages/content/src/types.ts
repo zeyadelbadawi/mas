@@ -82,7 +82,7 @@ export type MenuItem = {
   imageSlotId?: string;
   /** The client's own photo of the dish, under the app's public folder (Aroma's digital menu, D53). */
   photo?: string;
-  /** The photo is ours, made with Higgsfield, where the client's menu had none (D57). */
+  /** The photo is ours, made with an image model, where the client's menu had none (Aroma D57, COVY D75). */
   photoMade?: boolean;
   placeholder: boolean;
 };
