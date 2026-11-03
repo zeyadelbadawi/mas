@@ -743,7 +743,9 @@ export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
             ? {
                 src: item.photo,
                 notes: item.photoMade
-                  ? "Made with Higgsfield; the client's menu has no photo for this item (D57)"
+                  ? c.brandId === "covy"
+                    ? "Made with Magnific (Nano Banana 2.1, 2K, 4×4 grid) in COVY's style, on its terrazzo (D75)"
+                    : "Made with Higgsfield; the client's menu has no photo for this item (D57)"
                   : "The client's digital-menu photo (D53)",
               }
             : {}),
