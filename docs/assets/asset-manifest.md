@@ -10,7 +10,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | | Total | Done | Waiting |
 |---|---|---|---|
-| Images | 298 | 253 | 45 |
+| Images | 344 | 253 | 91 |
 | Sequences (generated) | 8 | 0 | 8 |
 
 ## MAS (mas.com)
@@ -79,24 +79,70 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 | `covy.spaces.corner.3` | Landing · C6 Spaces | 1200 × 1600 px | 3:4 | Close-up of the sculpted blue lilies and monstera leaves | لقطة قريبة لزهور الزنبق الزرقاء وأوراق المونستيرا المنحوتة | ✅ delivered | Generated with Higgsfield from the client's interior renders (D39) |
 | `covy.visit.facade` | Landing · C10 Find us | 1200 × 1500 px | 4:5 | COVY's arched glass doors seen from the terrace, the blue tree in front, in late-afternoon sun | أبواب COVY الزجاجية المقوّسة من التراس، والشجرة الزرقاء أمامها، في شمس العصر | ✅ delivered | One of our Spaces photos (terrace 2), cropped to 4:5 (D42) |
 | `covy.og` | All · Social share image | 1200 × 630 px | 40:21 | COVY | COVY | ⬜ placeholder |  |
-| `covy.menu.breakfast.hero` | Landing · Menu · Breakfast | 1600 × 1000 px | 8:5 | Breakfast at COVY | الفطار | ⬜ placeholder |  |
-| `covy.menu.covy-benedict` | Landing · Menu · Breakfast · COVY Benedict | 800 × 800 px | 1:1 | COVY Benedict | بينيديكت COVY | ⬜ placeholder |  |
-| `covy.menu.mezze.hero` | Landing · Menu · Mezze | 1600 × 1000 px | 8:5 | Mezze at COVY | المقبلات الشرقية | ⬜ placeholder |  |
-| `covy.menu.mezze-board` | Landing · Menu · Mezze · COVY mezze board | 800 × 800 px | 1:1 | COVY mezze board | تشكيلة مقبلات COVY | ⬜ placeholder |  |
-| `covy.menu.mediterranean.hero` | Landing · Menu · Mediterranean | 1600 × 1000 px | 8:5 | Mediterranean at COVY | البحر المتوسط | ⬜ placeholder |  |
-| `covy.menu.sea-bass` | Landing · Menu · Mediterranean · Grilled sea bass | 800 × 800 px | 1:1 | Grilled sea bass | قاروص مشوي | ⬜ placeholder |  |
-| `covy.menu.asian.hero` | Landing · Menu · Asian kitchen | 1600 × 1000 px | 8:5 | Asian kitchen at COVY | المطبخ الآسيوي | ⬜ placeholder |  |
-| `covy.menu.salmon-poke` | Landing · Menu · Asian kitchen · Salmon poke bowl | 800 × 800 px | 1:1 | Salmon poke bowl | بوكي سلمون | ⬜ placeholder |  |
-| `covy.menu.latin.hero` | Landing · Menu · Latin American | 1600 × 1000 px | 8:5 | Latin American at COVY | أمريكا اللاتينية | ⬜ placeholder |  |
-| `covy.menu.italian.hero` | Landing · Menu · Pasta & pizza | 1600 × 1000 px | 8:5 | Pasta & pizza at COVY | باستا وبيتزا | ⬜ placeholder |  |
-| `covy.menu.truffle-tagliatelle` | Landing · Menu · Pasta & pizza · Truffle tagliatelle | 800 × 800 px | 1:1 | Truffle tagliatelle | تالياتيلي بالترافل | ⬜ placeholder |  |
-| `covy.menu.desserts.hero` | Landing · Menu · Desserts | 1600 × 1000 px | 8:5 | Desserts at COVY | الحلويات | ⬜ placeholder |  |
-| `covy.menu.blue-tree-cake` | Landing · Menu · Desserts · Blue tree cake | 800 × 800 px | 1:1 | Blue tree cake | كيكة الشجرة الزرقاء | ⬜ placeholder |  |
-| `covy.menu.hot-coffee.hero` | Landing · Menu · Hot coffee | 1600 × 1000 px | 8:5 | Hot coffee at COVY | القهوة الساخنة | ⬜ placeholder |  |
-| `covy.menu.iced.hero` | Landing · Menu · Iced & signature | 1600 × 1000 px | 8:5 | Iced & signature at COVY | المثلجات والمشروبات المميزة | ⬜ placeholder |  |
-| `covy.menu.covy-signature` | Landing · Menu · Iced & signature · COVY signature iced latte | 800 × 800 px | 1:1 | COVY signature iced latte | آيس لاتيه COVY | ⬜ placeholder |  |
-| `covy.menu.tea-juices.hero` | Landing · Menu · Tea, juices & smoothies | 1600 × 1000 px | 8:5 | Tea, juices & smoothies at COVY | الشاي والعصائر والسموذي | ⬜ placeholder |  |
-| `covy.menu.shisha.hero` | Landing · Menu · Shisha | 1600 × 1000 px | 8:5 | Shisha at COVY | الشيشة | ⬜ placeholder |  |
+| `covy.menu.dish.oriental-breakfast` | Landing · Menu · Breakfast · Oriental breakfast | 800 × 800 px | 1:1 | Oriental breakfast | فطار شرقي | ⬜ placeholder |  |
+| `covy.menu.dish.salmon-avocado-omelette` | Landing · Menu · Breakfast · Salmon avocado omelette | 800 × 800 px | 1:1 | Salmon avocado omelette | أومليت سلمون وأفوكادو | ⬜ placeholder |  |
+| `covy.menu.dish.mushroom-cheese-omelette` | Landing · Menu · Breakfast · Mushroom cheese omelette | 800 × 800 px | 1:1 | Mushroom cheese omelette | أومليت مشروم وجبنة | ⬜ placeholder |  |
+| `covy.menu.dish.hash-brown-egg-cheese-casserole` | Landing · Menu · Breakfast · Hash brown, egg & cheese casserole | 800 × 800 px | 1:1 | Hash brown, egg & cheese casserole | كاسرول هاش براون بالبيض والجبنة | ⬜ placeholder |  |
+| `covy.menu.dish.salmon-cream-cheese-bruschetta` | Landing · Menu · Breakfast · Salmon cream cheese bruschetta | 800 × 800 px | 1:1 | Salmon cream cheese bruschetta | بروسكيتا سلمون وكريم تشيز | ⬜ placeholder |  |
+| `covy.menu.dish.roasted-garlic-burrata-bruschetta` | Landing · Menu · Breakfast · Roasted garlic burrata bruschetta | 800 × 800 px | 1:1 | Roasted garlic burrata bruschetta | بروسكيتا بوراتا بالتوم المشوي | ⬜ placeholder |  |
+| `covy.menu.dish.savory-bacon-waffle-sandwich` | Landing · Menu · Breakfast · Crunchy waffle sandwich, savory bacon | 800 × 800 px | 1:1 | Crunchy waffle sandwich, savory bacon | ساندوتش وافل مقرمش بالبيكون | ⬜ placeholder |  |
+| `covy.menu.dish.salmon-benedict` | Landing · Menu · Breakfast · Salmon benedict | 800 × 800 px | 1:1 | Salmon benedict | سلمون بينيدكت | ⬜ placeholder |  |
+| `covy.menu.dish.classic-roll-omelette` | Landing · Menu · Breakfast · Classic roll omelette | 800 × 800 px | 1:1 | Classic roll omelette | أومليت رول كلاسيك | ⬜ placeholder |  |
+| `covy.menu.dish.denver-omelette` | Landing · Menu · Breakfast · Denver omelette | 800 × 800 px | 1:1 | Denver omelette | أومليت دنفر | ⬜ placeholder |  |
+| `covy.menu.dish.scrambled-pastrami` | Landing · Menu · Breakfast · Scrambled pastrami | 800 × 800 px | 1:1 | Scrambled pastrami | سكرامبلد بالبسطرمة | ⬜ placeholder |  |
+| `covy.menu.dish.roasted-beef-sandwich` | Landing · Menu · Breakfast · Roasted beef sandwich | 800 × 800 px | 1:1 | Roasted beef sandwich | ساندوتش روست بيف | ⬜ placeholder |  |
+| `covy.menu.dish.smoked-turkey-sandwich` | Landing · Menu · Breakfast · Smoked turkey sandwich | 800 × 800 px | 1:1 | Smoked turkey sandwich | ساندوتش تركي مدخن | ⬜ placeholder |  |
+| `covy.menu.dish.halloumi-pesto-sandwich` | Landing · Menu · Breakfast · Halloumi pesto sandwich | 800 × 800 px | 1:1 | Halloumi pesto sandwich | ساندوتش حلومي بالبيستو | ⬜ placeholder |  |
+| `covy.menu.dish.spicy-tuna-sandwich` | Landing · Menu · Breakfast · Spicy tuna sandwich | 800 × 800 px | 1:1 | Spicy tuna sandwich | ساندوتش تونة سبايسي | ⬜ placeholder |  |
+| `covy.menu.dish.salmon-avocado-sandwich` | Landing · Menu · Breakfast · Salmon avocado sandwich | 800 × 800 px | 1:1 | Salmon avocado sandwich | ساندوتش سلمون وأفوكادو | ⬜ placeholder |  |
+| `covy.menu.dish.plain-croissant` | Landing · Menu · Breakfast · Plain croissant | 800 × 800 px | 1:1 | Plain croissant | كرواسون سادة | ⬜ placeholder |  |
+| `covy.menu.dish.mixed-cheese-croissant` | Landing · Menu · Breakfast · Mixed cheese croissant | 800 × 800 px | 1:1 | Mixed cheese croissant | كرواسون مكس جبن | ⬜ placeholder |  |
+| `covy.menu.dish.turkey-omelette-croissant` | Landing · Menu · Breakfast · Turkey omelette croissant | 800 × 800 px | 1:1 | Turkey omelette croissant | كرواسون أومليت تركي | ⬜ placeholder |  |
+| `covy.menu.dish.creamy-chicken-soup` | Landing · Menu · Soup · Creamy chicken soup | 800 × 800 px | 1:1 | Creamy chicken soup | شوربة فراخ بالكريمة | ⬜ placeholder |  |
+| `covy.menu.dish.wild-mushroom-soup` | Landing · Menu · Soup · Wild mushroom soup | 800 × 800 px | 1:1 | Wild mushroom soup | شوربة مشروم بري | ⬜ placeholder |  |
+| `covy.menu.dish.creamy-seafood-soup` | Landing · Menu · Soup · Creamy seafood soup | 800 × 800 px | 1:1 | Creamy seafood soup | شوربة سي فود بالكريمة | ⬜ placeholder |  |
+| `covy.menu.dish.onion-soup` | Landing · Menu · Soup · Onion soup | 800 × 800 px | 1:1 | Onion soup | شوربة بصل | ⬜ placeholder |  |
+| `covy.menu.dish.dynamite-shrimp` | Landing · Menu · Appetizers · Dynamite shrimp | 800 × 800 px | 1:1 | Dynamite shrimp | جمبري ديناميت | ⬜ placeholder |  |
+| `covy.menu.dish.buffalo-wings` | Landing · Menu · Appetizers · Buffalo wings | 800 × 800 px | 1:1 | Buffalo wings | أجنحة بافلو | ⬜ placeholder |  |
+| `covy.menu.dish.tex-mex-fries` | Landing · Menu · Appetizers · Tex-Mex fries | 800 × 800 px | 1:1 | Tex-Mex fries | بطاطس تكس مكس | ⬜ placeholder |  |
+| `covy.menu.dish.tacos` | Landing · Menu · Appetizers · Tacos (beef or chicken) | 800 × 800 px | 1:1 | Tacos (beef or chicken) | تاكو (لحم أو فراخ) | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-avocado-quesadilla` | Landing · Menu · Appetizers · Chicken avocado quesadilla | 800 × 800 px | 1:1 | Chicken avocado quesadilla | كاساديا فراخ وأفوكادو | ⬜ placeholder |  |
+| `covy.menu.dish.slow-cooked-beef-quesadilla` | Landing · Menu · Appetizers · Slow-cooked beef quesadilla | 800 × 800 px | 1:1 | Slow-cooked beef quesadilla | كاساديا لحم مطهو على نار هادية | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-ranch-quesadilla` | Landing · Menu · Appetizers · Chicken ranch quesadilla | 800 × 800 px | 1:1 | Chicken ranch quesadilla | كاساديا فراخ رانش | ⬜ placeholder |  |
+| `covy.menu.dish.pomegranate-sausage` | Landing · Menu · Appetizers · Pomegranate sausage | 800 × 800 px | 1:1 | Pomegranate sausage | سجق بالرمان | ⬜ placeholder |  |
+| `covy.menu.dish.beef-hawawshi` | Landing · Menu · Appetizers · Beef hawawshi | 800 × 800 px | 1:1 | Beef hawawshi | حواوشي لحم | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-caesar` | Landing · Menu · Salads · Chicken Caesar | 800 × 800 px | 1:1 | Chicken Caesar | سيزر بالفراخ | ⬜ placeholder |  |
+| `covy.menu.dish.salmon-salad` | Landing · Menu · Salads · Salmon salad | 800 × 800 px | 1:1 | Salmon salad | سلطة سلمون | ⬜ placeholder |  |
+| `covy.menu.dish.burrata-tenderloin-salad` | Landing · Menu · Salads · Burrata tenderloin salad | 800 × 800 px | 1:1 | Burrata tenderloin salad | سلطة بوراتا وتندرلوين | ⬜ placeholder |  |
+| `covy.menu.dish.greek-salad` | Landing · Menu · Salads · Traditional Greek salad | 800 × 800 px | 1:1 | Traditional Greek salad | سلطة يوناني تقليدية | ⬜ placeholder |  |
+| `covy.menu.dish.halloumi-quinoa-salad` | Landing · Menu · Salads · Halloumi quinoa salad | 800 × 800 px | 1:1 | Halloumi quinoa salad | سلطة حلومي وكينوا | ⬜ placeholder |  |
+| `covy.menu.dish.burrata-peach-salad` | Landing · Menu · Salads · Burrata peach salad | 800 × 800 px | 1:1 | Burrata peach salad | سلطة بوراتا بالخوخ | ⬜ placeholder |  |
+| `covy.menu.dish.rocca-salad` | Landing · Menu · Salads · Rocca salad | 800 × 800 px | 1:1 | Rocca salad | سلطة جرجير | ⬜ placeholder |  |
+| `covy.menu.dish.buffalo-chicken-salad` | Landing · Menu · Salads · Buffalo chicken salad | 800 × 800 px | 1:1 | Buffalo chicken salad | سلطة فراخ بافلو | ⬜ placeholder |  |
+| `covy.menu.dish.tuna-chunks-salad` | Landing · Menu · Salads · Tuna chunks salad | 800 × 800 px | 1:1 | Tuna chunks salad | سلطة قطع التونة | ⬜ placeholder |  |
+| `covy.menu.dish.bbq-steak` | Landing · Menu · Sandwiches & burgers · BBQ steak | 800 × 800 px | 1:1 | BBQ steak | ستيك باربكيو | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-brioche` | Landing · Menu · Sandwiches & burgers · Chicken brioche | 800 × 800 px | 1:1 | Chicken brioche | بريوش فراخ | ⬜ placeholder |  |
+| `covy.menu.dish.club-sandwich` | Landing · Menu · Sandwiches & burgers · Club sandwich | 800 × 800 px | 1:1 | Club sandwich | كلوب ساندوتش | ⬜ placeholder |  |
+| `covy.menu.dish.fried-chicken-wrap` | Landing · Menu · Sandwiches & burgers · Fried chicken wrap | 800 × 800 px | 1:1 | Fried chicken wrap | راب فراخ مقلية | ⬜ placeholder |  |
+| `covy.menu.dish.truffle-mushroom-burger` | Landing · Menu · Sandwiches & burgers · Truffle mushroom burger | 800 × 800 px | 1:1 | Truffle mushroom burger | برجر مشروم بالترافل | ⬜ placeholder |  |
+| `covy.menu.dish.classic-burger` | Landing · Menu · Sandwiches & burgers · Classic burger | 800 × 800 px | 1:1 | Classic burger | برجر كلاسيك | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-mushroom-pasta` | Landing · Menu · Pasta · Chicken & mushroom | 800 × 800 px | 1:1 | Chicken & mushroom | فراخ ومشروم | ⬜ placeholder |  |
+| `covy.menu.dish.pink-bolognese` | Landing · Menu · Pasta · Pink bolognese | 800 × 800 px | 1:1 | Pink bolognese | بولونيز بينك | ⬜ placeholder |  |
+| `covy.menu.dish.burrata-pasta` | Landing · Menu · Pasta · Burrata | 800 × 800 px | 1:1 | Burrata | بوراتا | ⬜ placeholder |  |
+| `covy.menu.dish.mushroom-truffle-pasta` | Landing · Menu · Pasta · Mushroom truffle | 800 × 800 px | 1:1 | Mushroom truffle | مشروم بالترافل | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-lemon-pasta` | Landing · Menu · Pasta · Chicken lemon | 800 × 800 px | 1:1 | Chicken lemon | فراخ بالليمون | ⬜ placeholder |  |
+| `covy.menu.dish.onion-beef-pasta` | Landing · Menu · Pasta · Onion beef pasta | 800 × 800 px | 1:1 | Onion beef pasta | باستا لحم بالبصل | ⬜ placeholder |  |
+| `covy.menu.dish.rigatoni-steak` | Landing · Menu · Pasta · Rigatoni steak | 800 × 800 px | 1:1 | Rigatoni steak | ريجاتوني ستيك | ⬜ placeholder |  |
+| `covy.menu.dish.creamy-chicken-pesto` | Landing · Menu · Pasta · Creamy chicken pesto | 800 × 800 px | 1:1 | Creamy chicken pesto | فراخ بيستو بالكريمة | ⬜ placeholder |  |
+| `covy.menu.dish.lemon-butter-salmon` | Landing · Menu · Main courses · Lemon butter salmon | 800 × 800 px | 1:1 | Lemon butter salmon | سلمون بزبدة الليمون | ⬜ placeholder |  |
+| `covy.menu.dish.tuscan-shrimp` | Landing · Menu · Main courses · Tuscan shrimp | 800 × 800 px | 1:1 | Tuscan shrimp | جمبري توسكان | ⬜ placeholder |  |
+| `covy.menu.dish.beef-tenderloin` | Landing · Menu · Main courses · Beef tenderloin | 800 × 800 px | 1:1 | Beef tenderloin | تندرلوين لحم | ⬜ placeholder |  |
+| `covy.menu.dish.beef-stroganoff` | Landing · Menu · Main courses · Beef stroganoff | 800 × 800 px | 1:1 | Beef stroganoff | بيف ستروجانوف | ⬜ placeholder |  |
+| `covy.menu.dish.lemon-herb-chicken` | Landing · Menu · Main courses · Lemon herb chicken | 800 × 800 px | 1:1 | Lemon herb chicken | فراخ بالليمون والأعشاب | ⬜ placeholder |  |
+| `covy.menu.dish.porcini-chicken-stroganoff` | Landing · Menu · Main courses · Porcini chicken stroganoff | 800 × 800 px | 1:1 | Porcini chicken stroganoff | ستروجانوف فراخ بالبورتشيني | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-milano` | Landing · Menu · Main courses · Chicken Milano | 800 × 800 px | 1:1 | Chicken Milano | فراخ ميلانو | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-tenders` | Landing · Menu · Main courses · Chicken tenders | 800 × 800 px | 1:1 | Chicken tenders | تشيكن تندرز | ⬜ placeholder |  |
+| `covy.menu.dish.chicken-parmesan` | Landing · Menu · Main courses · Chicken parmesan | 800 × 800 px | 1:1 | Chicken parmesan | فراخ بارميزان | ⬜ placeholder |  |
 | `covy.events.brunch-club` | Landing · Events · Friday brunch club | 1200 × 900 px | 4:3 | COVY's terrace tables joined into one long table, set for brunch with shakshuka, croissants, fruit and orange juice | طاولات تراس COVY مضمومة في طاولة واحدة طويلة ومجهزة للبرانش: شكشوكة وكرواسون وفاكهة وعصير برتقال | ✅ delivered | Generated with Higgsfield from our COVY interior photos (D46) |
 | `covy.events.oud-evening` | Landing · Events · Oud and coffee evening | 1200 × 900 px | 4:3 | An oud resting on a chair under the blue tree in the evening, beside coffee cups, a brass dallah and dates | عود مسنود على كرسي تحت الشجرة الزرقاء في المساء، بجانب فناجين قهوة ودلة نحاسية وتمر | ✅ delivered | Generated with Higgsfield from our COVY interior photos (D46) |
 | `covy.events.japan-week` | Landing · Events · World kitchen week: Japan | 1200 × 900 px | 4:3 | Ramen, gyoza, matcha cake and matcha tea on a table by COVY's sculpted flower wall | رامن وجيوزا وكيك ماتشا وشاي ماتشا على طاولة بجوار جدار الزهور المنحوتة في COVY | ✅ delivered | Generated with Higgsfield from our COVY interior photos (D46) |

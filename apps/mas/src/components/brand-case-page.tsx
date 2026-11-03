@@ -234,9 +234,11 @@ export async function BrandCasePage({ id, locale }: { id: BrandKey; locale: "en"
                       </div>
                       <div className="mt-5 flex items-baseline justify-between gap-4 border-t border-[var(--brand-line)] pt-4">
                         <h3 className="text-lg font-medium">{dish.name[locale]}</h3>
-                        <p className="text-muted shrink-0 text-sm tabular-nums">
-                          {formatPrice(dish.priceEGP, locale)}
-                        </p>
+                        {dish.priceEGP !== undefined ? (
+                          <p className="text-muted shrink-0 text-sm tabular-nums">
+                            {formatPrice(dish.priceEGP, locale)}
+                          </p>
+                        ) : null}
                       </div>
                     </li>
                   ) : null,

@@ -128,9 +128,11 @@ function Category({ category: c, locale }: { category: MenuCategory; locale: Loc
               <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                 <div className="flex items-baseline justify-between gap-4">
                   <h4 className="text-fg font-medium">{pick(item.name, locale)}</h4>
-                  <span className="text-fg shrink-0 tabular-nums">
-                    {formatPrice(item.priceEGP, locale)}
-                  </span>
+                  {item.priceEGP !== undefined ? (
+                    <span className="text-fg shrink-0 tabular-nums">
+                      {formatPrice(item.priceEGP, locale)}
+                    </span>
+                  ) : null}
                 </div>
                 {description ? (
                   <p className="text-muted text-sm leading-relaxed">{description}</p>

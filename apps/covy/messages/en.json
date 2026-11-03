@@ -52,13 +52,14 @@
   },
   "menu": {
     "title": "Menu",
-    "sample": "Sample menu: dishes and prices will be confirmed",
+    "noPrices": "Prices coming soon",
     "search": "Search the menu",
-    "searchPlaceholder": "Try latte, ramen or vegetarian",
+    "searchPlaceholder": "Try burrata, salmon or pasta",
     "filters": "Show only",
     "categories": "Menu sections",
     "clear": "Clear",
-    "allergens": "Tell our team about any allergy before you order. Prices in Egyptian pounds.",
+    "allergens": "Tell our team about any allergy before you order.",
+    "allergensPrices": "Tell our team about any allergy before you order. Prices in Egyptian pounds.",
     "tags": {
       "veg": "Vegetarian",
       "spicy": "Spicy",

@@ -14,22 +14,30 @@ const TAG_WORDS: Record<MenuTag, string> = {
   signature: "signature مميز",
 };
 
-/** C5: the whole menu as server-rendered HTML; MenuControls adds search, filters and the section bar. */
+/**
+ * C5: the whole menu as server-rendered HTML; MenuControls adds search, filters and the section bar. The menu is
+ * the client's (D74): names only for now, so a price, a description, a section intro or the tag filters show
+ * only once the data has them. Every dish has its photo slot (a placeholder until the designer delivers).
+ */
 export async function Menu({ locale }: { locale: Locale }) {
   const t = await getTranslations("menu");
   const tags = ["veg", "spicy", "nuts", "new", "signature"] as const;
+  const used = new Set(covyMenu.flatMap((c) => c.items.flatMap((item) => item.tags)));
+  const filters = (["veg", "spicy", "signature", "new"] as const).filter((tag) => used.has(tag));
+  const priced = covyMenu.some((c) => c.items.some((item) => item.priceEGP !== undefined));
   return (
     <section id="menu" aria-labelledby="menu-title" className="py-28">
       <div className="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-4 px-4 sm:px-8">
         <h2 id="menu-title" className="font-editorial text-fg text-6xl sm:text-7xl">
           {t("title")}
         </h2>
-        <PlaceholderBadge label={t("sample")} />
+        {priced ? null : <PlaceholderBadge label={t("noPrices")} />}
       </div>
 
       <MenuControls
         locale={locale}
         categories={covyMenu.map((c) => ({ id: c.id, name: pick(c.name, locale) }))}
+        filters={filters}
         labels={{
           search: t("search"),
           searchPlaceholder: t("searchPlaceholder"),
@@ -61,15 +69,19 @@ export async function Menu({ locale }: { locale: Locale }) {
                 >
                   {pick(c.name, locale)}
                 </h3>
-                <p className="text-muted mt-3 max-w-md">{pick(c.intro, locale)}</p>
+                {c.intro.en ? (
+                  <p className="text-muted mt-3 max-w-md">{pick(c.intro, locale)}</p>
+                ) : null}
               </div>
-              <div className="menu-hero w-full max-w-sm overflow-hidden rounded-t-[999px] md:justify-self-end">
-                <ImageSlot
-                  {...imageSlot(`covy.menu.${c.id}.hero`)}
-                  locale={locale}
-                  sizes="(min-width: 768px) 24rem, 100vw"
-                />
-              </div>
+              {c.hero === false ? null : (
+                <div className="menu-hero w-full max-w-sm overflow-hidden rounded-t-[999px] md:justify-self-end">
+                  <ImageSlot
+                    {...imageSlot(`covy.menu.${c.id}.hero`)}
+                    locale={locale}
+                    sizes="(min-width: 768px) 24rem, 100vw"
+                  />
+                </div>
+              )}
             </div>
             <ul className="mt-10 grid gap-x-16 md:grid-cols-2">
               {c.items.map((item) => {
@@ -80,7 +92,7 @@ export async function Menu({ locale }: { locale: Locale }) {
                     data-item
                     data-tags={item.tags.join(" ")}
                     data-search={`${item.name.en} ${item.name.ar} ${item.description.en} ${item.description.ar} ${item.tags.map((tag) => TAG_WORDS[tag]).join(" ")}`.toLowerCase()}
-                    className="border-line flex gap-4 border-b py-5"
+                    className="border-line flex items-center gap-4 border-b py-5"
                   >
                     {item.imageSlotId ? (
                       <div className="w-20 shrink-0 overflow-hidden rounded-full sm:w-24">
@@ -100,13 +112,17 @@ export async function Menu({ locale }: { locale: Locale }) {
                             />
                           ) : null}
                         </h4>
-                        <span className="text-fg shrink-0 tabular-nums">
-                          {formatPrice(item.priceEGP, locale)}
-                        </span>
+                        {item.priceEGP !== undefined ? (
+                          <span className="text-fg shrink-0 tabular-nums">
+                            {formatPrice(item.priceEGP, locale)}
+                          </span>
+                        ) : null}
                       </div>
-                      <p className="text-muted text-sm leading-relaxed">
-                        {pick(item.description, locale)}
-                      </p>
+                      {item.description.en ? (
+                        <p className="text-muted text-sm leading-relaxed">
+                          {pick(item.description, locale)}
+                        </p>
+                      ) : null}
                       {tags.length ? (
                         <p className="text-muted flex flex-wrap gap-x-3 text-xs">
                           {tags.map((tag) => (
@@ -121,7 +137,7 @@ export async function Menu({ locale }: { locale: Locale }) {
             </ul>
           </section>
         ))}
-        <p className="text-muted text-sm">{t("allergens")}</p>
+        <p className="text-muted text-sm">{t(priced ? "allergensPrices" : "allergens")}</p>
       </div>
     </section>
   );

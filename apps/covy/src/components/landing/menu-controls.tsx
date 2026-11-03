@@ -3,8 +3,6 @@
 import type { MenuTag } from "@mas/content";
 import { useEffect, useId, useRef, useState } from "react";
 
-const FILTERS: MenuTag[] = ["veg", "spicy", "signature", "new"];
-
 export type MenuControlsLabels = {
   search: string;
   searchPlaceholder: string;
@@ -18,6 +16,8 @@ export type MenuControlsLabels = {
 
 type Props = {
   categories: { id: string; name: string }[];
+  /** The tag filters to offer: only tags some dish has (none while the menu has no tags, D74). */
+  filters: readonly MenuTag[];
   labels: MenuControlsLabels;
   locale: string;
 };
@@ -27,7 +27,7 @@ type Props = {
  * The dishes themselves are server-rendered HTML; filtering hides them in place
  * (data-search / data-tags), so nothing is re-rendered and the menu stays readable without JS.
  */
-export function MenuControls({ categories, labels, locale }: Props) {
+export function MenuControls({ categories, filters, labels, locale }: Props) {
   const searchId = useId();
   const barRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
@@ -109,6 +109,16 @@ export function MenuControls({ categories, labels, locale }: Props) {
   const toggle = (tag: MenuTag) =>
     apply(query, tags.includes(tag) ? tags.filter((x) => x !== tag) : [...tags, tag]);
 
+  const clear = (
+    <button
+      type="button"
+      onClick={() => apply("", [])}
+      className="text-muted hover:text-fg px-2 text-sm underline underline-offset-4"
+    >
+      {labels.clear}
+    </button>
+  );
+
   return (
     <>
       <div className="mx-auto mt-6 grid max-w-7xl gap-4 px-4 sm:px-8 md:grid-cols-[minmax(0,22rem)_1fr] md:items-end">
@@ -125,32 +135,28 @@ export function MenuControls({ categories, labels, locale }: Props) {
             className="rounded-control border-line bg-surface text-fg placeholder:text-muted focus-visible:border-focus focus-visible:ring-focus/40 h-12 w-full border px-4 focus-visible:ring-2 focus-visible:outline-none"
           />
         </div>
-        <fieldset className="flex flex-wrap items-center gap-2">
-          <legend className="text-fg mb-1.5 text-sm font-medium">{labels.filters}</legend>
-          {FILTERS.map((tag) => {
-            const on = tags.includes(tag);
-            return (
-              <button
-                key={tag}
-                type="button"
-                aria-pressed={on}
-                onClick={() => toggle(tag)}
-                className={`rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-fg bg-fg text-bg" : "border-line text-fg hover:border-fg"}`}
-              >
-                {labels.tags[tag]}
-              </button>
-            );
-          })}
-          {filtering ? (
-            <button
-              type="button"
-              onClick={() => apply("", [])}
-              className="text-muted hover:text-fg px-2 text-sm underline underline-offset-4"
-            >
-              {labels.clear}
-            </button>
-          ) : null}
-        </fieldset>
+        {filters.length ? (
+          <fieldset className="flex flex-wrap items-center gap-2">
+            <legend className="text-fg mb-1.5 text-sm font-medium">{labels.filters}</legend>
+            {filters.map((tag) => {
+              const on = tags.includes(tag);
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => toggle(tag)}
+                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-fg bg-fg text-bg" : "border-line text-fg hover:border-fg"}`}
+                >
+                  {labels.tags[tag]}
+                </button>
+              );
+            })}
+            {filtering ? clear : null}
+          </fieldset>
+        ) : (
+          <div className="flex items-center">{filtering ? clear : null}</div>
+        )}
       </div>
       <p role="status" className="text-muted mx-auto mt-3 min-h-5 max-w-7xl px-4 text-sm sm:px-8">
         {filtering && count !== null ? results(count) : ""}

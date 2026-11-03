@@ -696,24 +696,38 @@ export const slots: SlotSpec[] = [
   },
 ];
 
-/** Menu slots: a chapter-opener photo per category and a thumbnail per signature dish. */
+/**
+ * Menu slots: a chapter-opener photo per category (unless it has none) and a photo per dish that has one. A
+ * dish listed in two sections shares its slot, so each slot is listed once.
+ */
 export function menuSlots(menu: MenuCategory[]): ImageSlotSpec[] {
+  const seen = new Set<string>();
   return menu.flatMap((c): ImageSlotSpec[] => [
-    {
-      kind: "image",
-      id: `${c.brandId}.menu.${c.id}.hero`,
-      app: c.brandId,
-      page: "Landing",
-      section: `Menu · ${c.name.en}`,
-      width: 1600,
-      height: 1000,
-      alt: {
-        en: `${c.name.en} at ${c.brandId === "covy" ? "COVY" : "Aroma Lounge"}`,
-        ar: c.name.ar,
-      },
-    },
+    ...(c.hero === false
+      ? []
+      : [
+          {
+            kind: "image",
+            id: `${c.brandId}.menu.${c.id}.hero`,
+            app: c.brandId,
+            page: "Landing",
+            section: `Menu · ${c.name.en}`,
+            width: 1600,
+            height: 1000,
+            alt: {
+              en: `${c.name.en} at ${c.brandId === "covy" ? "COVY" : "Aroma Lounge"}`,
+              ar: c.name.ar,
+            },
+          } satisfies ImageSlotSpec,
+        ]),
     ...c.items
       .filter((item) => item.imageSlotId || item.photo)
+      .filter((item) => {
+        const id = item.imageSlotId ?? `${c.brandId}.menu.${item.id.split(".").pop()}`;
+        if (seen.has(id)) return false;
+        seen.add(id);
+        return true;
+      })
       .map(
         (item): ImageSlotSpec => ({
           kind: "image",

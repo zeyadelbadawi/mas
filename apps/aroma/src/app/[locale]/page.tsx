@@ -29,7 +29,7 @@ const PREFETCH = {
 const CUISINE = ["Egyptian", "International", "Italian"];
 /** The menu's price span (EGP 45 for water to EGP 635 for the rib-eye). */
 const PRICE_RANGE = (() => {
-  const prices = aromaMenu.flatMap((c) => c.items.map((i) => i.priceEGP));
+  const prices = aromaMenu.flatMap((c) => c.items.flatMap((i) => i.priceEGP ?? []));
   return `EGP ${Math.min(...prices)}–${Math.max(...prices)}`;
 })();
 
