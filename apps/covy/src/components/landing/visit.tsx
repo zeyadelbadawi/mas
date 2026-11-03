@@ -3,17 +3,22 @@ import { formatTime, pick, type Locale } from "@mas/i18n";
 import { Button, ImageSlot, PlaceholderBadge } from "@mas/ui";
 import { getTranslations } from "next-intl/server";
 
-/** C10: where, when and how to reach us. All values are placeholders until the client confirms them. */
+/**
+ * C10: where, when and how to reach us. The address and map pin are the client's; the fields still listed in
+ * `placeholderFields` (phone, hours) keep the sample label until the client confirms them.
+ */
 export async function Visit({ locale }: { locale: Locale }) {
   const t = await getTranslations("visit");
   const loc = locations.covy;
+  const hasSamples = loc.placeholder || Boolean(loc.placeholderFields?.length);
   const first = loc.hours[0];
   const sameEveryDay =
     first &&
     loc.hours.length === 7 &&
     loc.hours.every((h) => h.opens === first.opens && h.closes === first.closes);
   const phone = loc.phone.replace(/^\+20/, "0").replace(/(\d{3})(\d{4})(\d{4})/, "$1 $2 $3");
-  const maps = `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}`;
+  const maps =
+    loc.mapsUrl ?? `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}`;
 
   return (
     <section
@@ -26,7 +31,7 @@ export async function Visit({ locale }: { locale: Locale }) {
           <h2 id="visit-title" className="font-editorial text-fg text-5xl sm:text-6xl">
             {t("title")}
           </h2>
-          {loc.placeholder ? <PlaceholderBadge label={t("sample")} /> : null}
+          {hasSamples ? <PlaceholderBadge label={t("sample")} /> : null}
         </div>
         <address className="text-fg text-xl leading-relaxed not-italic">
           {pick(loc.address, locale)}

@@ -78,14 +78,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         <JsonLd
           data={[
             restaurantJsonLd(brand, locations.covy, locale, {
-              servesCuisine: [
-                "Mediterranean",
-                "Asian",
-                "Latin American",
-                "Middle Eastern",
-                "Italian",
-                "Coffee",
-              ],
+              // From the client's menu (D74): breakfast, pasta, Tex-Mex, burgers and Egyptian dishes.
+              servesCuisine: ["International", "Italian", "Mexican", "American", "Egyptian"],
               menuPath: "/#menu",
             }),
             menuJsonLd(brand, covyMenu, locale),

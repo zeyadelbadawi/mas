@@ -4,13 +4,19 @@ const everyDay = (opens: string, closes: string): OpeningHours[] =>
   ([0, 1, 2, 3, 4, 5, 6] as const).map((weekday) => ({ weekday, opens, closes }));
 
 const covy: Location = {
-  // Every value is a placeholder (D6 / CLAUDE.md rule 5) until the client sends real data.
+  // The address and map pin are the client's (2026-11-03). Phone, WhatsApp and hours are still placeholders
+  // (rule 5): they stay labelled on the page and are left out of the structured data.
   id: "covy-main",
   brandId: "covy",
   name: { en: "COVY", ar: "COVY" },
-  address: { en: "Address to be confirmed, Cairo", ar: "العنوان قيد التأكيد، القاهرة" },
-  lat: 30.0444,
-  lng: 31.2357,
+  address: {
+    en: "Street 12, Sayed Darwish Street, Al Rehab, New Cairo",
+    ar: "ستريت 12، شارع سيد درويش، الرحاب، القاهرة الجديدة",
+  },
+  locality: { en: "New Cairo", ar: "القاهرة الجديدة" },
+  mapsUrl: "https://maps.google.com/?q=30.063898,31.475681",
+  lat: 30.063898,
+  lng: 31.475681,
   phone: "+201000000000",
   whatsapp: "201000000000",
   areas: ["indoor", "outdoor", "shisha"],
@@ -20,7 +26,8 @@ const covy: Location = {
   maxTableGuests: 20,
   maxEventGuests: 200,
   bookingWindowDays: 60,
-  placeholder: true,
+  placeholder: false,
+  placeholderFields: ["phone", "whatsapp", "hours"],
 };
 
 // Aroma Lounge's two branches (D52/D53). Everything here comes from Aroma's own social media and its

@@ -26,31 +26,30 @@ test("has no serious accessibility violations in English and Arabic", async ({ p
   }
 });
 
-test("menu search and filters hide non-matching dishes", async ({ page }) => {
+test("the menu is the client's: every dish, no invented prices, search hides the rest", async ({
+  page,
+}) => {
   await page.goto("/");
   await rejectCookies(page);
   const items = page.locator("#menu [data-item]:visible");
-  const total = await items.count();
-  expect(total).toBeGreaterThan(40);
+  // The client's sheet (D74): 69 entries in seven sections, five sandwiches listed twice.
+  await expect(items).toHaveCount(69);
+  await expect(page.locator("#menu [data-menu-section]")).toHaveCount(7);
+  await expect(page.locator("#menu").getByText("Prices coming soon")).toBeVisible();
+  await expect(page.locator("#menu").getByText(/EGP|E£/)).toHaveCount(0);
 
-  await page.getByLabel("Search the menu").fill("ramen");
+  await page.getByLabel("Search the menu").fill("hawawshi");
   await expect(page.getByRole("status").filter({ hasText: "match" })).toHaveText("1 dish matches");
   await expect(items).toHaveCount(1);
 
   await page.getByRole("button", { name: "Clear" }).click();
-  await page.getByRole("button", { name: "Vegetarian" }).click();
-  await expect(items).not.toHaveCount(total);
-  for (const tags of await items.evaluateAll((els) =>
-    els.map((el) => el.getAttribute("data-tags")),
-  )) {
-    expect(tags).toContain("veg");
-  }
+  await expect(items).toHaveCount(69);
 });
 
 test("Arabic search finds dishes by their Arabic name", async ({ page }) => {
   await page.goto("/ar");
   await rejectCookies(page, "رفض الكل");
-  await page.getByLabel("ابحث في المنيو").fill("رامن");
+  await page.getByLabel("ابحث في المنيو").fill("حواوشي");
   await expect(page.locator("#menu [data-item]:visible")).toHaveCount(1);
 });
 

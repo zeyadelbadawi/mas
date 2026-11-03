@@ -75,7 +75,8 @@ export type MenuItem = {
   id: string;
   name: LocalizedText;
   description: LocalizedText;
-  priceEGP: number;
+  /** Left out while the client hasn't given a price (COVY's sheet, D74); the menu then shows no price. */
+  priceEGP?: number;
   tags: MenuTag[];
   /** Thumbnail slot (signature items only); registered in the asset manifest. */
   imageSlotId?: string;
@@ -94,6 +95,8 @@ export type MenuCategory = {
   /** COVY's world tour: which kitchen the category comes from. */
   cuisine?: "mediterranean" | "asian" | "latin" | "middle-eastern" | "italian";
   kind: "food" | "drinks" | "shisha";
+  /** false: no chapter-opener photo for the section (COVY shows a photo per dish instead, D74). */
+  hero?: false;
   /** Which of the client's menus the category belongs to (Aroma's tabs). */
   group?: "breakfast" | "food" | "drinks" | "dessert" | "kids";
   items: MenuItem[];

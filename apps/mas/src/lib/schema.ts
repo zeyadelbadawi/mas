@@ -1,4 +1,12 @@
-import { brands, events, imageSlot, insights, masServices, serviceDetails } from "@mas/content";
+import {
+  brands,
+  events,
+  imageSlot,
+  insights,
+  locations,
+  masServices,
+  serviceDetails,
+} from "@mas/content";
 import type { Locale } from "@mas/i18n";
 import { localePath, siteOrigin } from "@mas/seo";
 import { brand } from "@/site";
@@ -152,7 +160,13 @@ export function eventsSchema(locale: Locale): Thing[] {
           name: brands[e.brandId].name[locale],
           address: {
             "@type": "PostalAddress",
-            addressLocality: locale === "ar" ? "القاهرة" : "Cairo",
+            // COVY has one place, so its events carry its address; a brand with branches gives the city only.
+            ...(e.brandId === "covy"
+              ? {
+                  streetAddress: locations.covy.address[locale],
+                  addressLocality: locations.covy.locality?.[locale],
+                }
+              : { addressLocality: locale === "ar" ? "القاهرة" : "Cairo" }),
             addressCountry: "EG",
           },
         },

@@ -47,7 +47,7 @@ describe("pageMetadata", () => {
 
 describe("JSON-LD", () => {
   it("maps opening hours and escapes markup", () => {
-    const ld = restaurantJsonLd(brands.covy, locations.covy, "en") as {
+    const ld = restaurantJsonLd(brands.aroma, locations.aroma, "en") as {
       openingHoursSpecification: { dayOfWeek: string }[];
     };
     expect(ld.openingHoursSpecification).toHaveLength(7);
@@ -55,6 +55,18 @@ describe("JSON-LD", () => {
     expect(serializeJsonLd({ name: "</script><script>alert(1)</script>" })).not.toContain(
       "</script>",
     );
+  });
+
+  it("gives COVY its real address and leaves out its sample phone and hours", () => {
+    const ld = restaurantJsonLd(brands.covy, locations.covy, "en") as Record<string, unknown> & {
+      address: { streetAddress: string; addressLocality: string };
+      geo: { latitude: number; longitude: number };
+    };
+    expect(ld.address.streetAddress).toContain("Sayed Darwish");
+    expect(ld.address.addressLocality).toBe("New Cairo");
+    expect(ld.geo).toMatchObject({ latitude: 30.063898, longitude: 31.475681 });
+    expect(ld).not.toHaveProperty("telephone");
+    expect(ld).not.toHaveProperty("openingHoursSpecification");
   });
 
   it("gives each branch its own entry and leaves out fields still to confirm", () => {

@@ -148,12 +148,14 @@ export function menuJsonLd(brand: Brand, menu: MenuCategory[], locale: Locale): 
     hasMenuSection: menu.map((c) => ({
       "@type": "MenuSection",
       name: c.name[locale],
-      description: c.intro[locale],
+      ...(c.intro[locale] ? { description: c.intro[locale] } : {}),
       hasMenuItem: c.items.map((i) => ({
         "@type": "MenuItem",
         name: i.name[locale],
         ...(i.description[locale] ? { description: i.description[locale] } : {}),
-        offers: { "@type": "Offer", price: i.priceEGP, priceCurrency: "EGP" },
+        ...(i.priceEGP !== undefined
+          ? { offers: { "@type": "Offer", price: i.priceEGP, priceCurrency: "EGP" } }
+          : {}),
         ...(i.tags.includes("veg") ? { suitableForDiet: "https://schema.org/VegetarianDiet" } : {}),
       })),
     })),
