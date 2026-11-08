@@ -24,6 +24,8 @@ import { brand, privacyHref } from "@/site";
 const PREFETCH = {
   __html: videoPrefetchScript(Object.values(SCENES).map((s) => s.manifestUrl)),
 };
+/** Every scroll scene must be downloaded and have its frame decoded before the page opens (D62). */
+const SCENE_IDS = Object.values(SCENES).map((s) => s.id);
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -61,7 +63,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <>
       {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see PREFETCH */}
       <script dangerouslySetInnerHTML={PREFETCH} />
-      <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
+      <Splash
+        scenes={SCENE_IDS}
+        label={splash("loading")}
+        skip={splash("skip")}
+        slow={splash("slow")}
+      />
       <BackToTop label={common("backToTop")} />
       <Header
         locale={locale}
@@ -86,7 +93,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           ]}
         />
         {/* The three scroll scenes: the header turns to glass over them (D47). */}
-        <div data-walk>
+        <div data-w>
           <Hero />
           <Connector />
           <Signature />

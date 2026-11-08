@@ -25,6 +25,8 @@ import { brand, privacyHref } from "@/site";
 const PREFETCH = {
   __html: videoPrefetchScript(Object.values(SCENES).map((s) => s.manifestUrl)),
 };
+/** Every scroll scene must be downloaded and have its frame decoded before the page opens (D62). */
+const SCENE_IDS = Object.values(SCENES).map((s) => s.id);
 
 const CUISINE = ["Egyptian", "International", "Italian"];
 /** The menu's price span (EGP 45 for water to EGP 635 for the rib-eye). */
@@ -50,7 +52,12 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <>
       {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see PREFETCH */}
       <script dangerouslySetInnerHTML={PREFETCH} />
-      <Splash label={splash("loading")} skip={splash("skip")} slow={splash("slow")} />
+      <Splash
+        scenes={SCENE_IDS}
+        label={splash("loading")}
+        skip={splash("skip")}
+        slow={splash("slow")}
+      />
       <BackToTop label={common("backToTop")} />
       <Header
         locale={locale}
@@ -83,7 +90,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           ]}
         />
         {/* The day at Aroma in three scenes: the header turns to a soft wash over them (D47, D51). */}
-        <div data-walk>
+        <div data-w>
           <Morning />
           <Lake />
           <Night locale={locale} />

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type RefObject } from "react";
 import { videoVariantFor } from "../manifest";
-import { loadMotionLib } from "./motion-lib";
 import { fallBackToStills, useMotion } from "./motion-provider";
 import { markGate, sceneStatus, scenesReady, subscribeScenes } from "./scene-status";
 import {
@@ -121,9 +120,13 @@ export function useSplashGate({
   });
 
   useEffect(() => {
-    // The `?debug=scrub` meter for checks on real devices (scrub-meter.tsx), loaded only when asked for.
-    if (location.search.includes("debug=scrub"))
-      void loadMotionLib().then((m) => m.mountScrubMeter());
+    // The `?debug=scrub` meter for checks on real devices (scrub-meter.tsx), loaded only when asked for, and
+    // never on the production site (D76): previews and local builds keep it.
+    if (
+      process.env.NEXT_PUBLIC_VERCEL_ENV !== "production" &&
+      location.search.includes("debug=scrub")
+    )
+      void import("./scrub-meter").then((m) => m.mountScrubMeter());
     const el = panelRef.current;
     if (!el) return;
     // The script is running: it decides when to leave, not the no-JS failsafe, and it owns the page lock.

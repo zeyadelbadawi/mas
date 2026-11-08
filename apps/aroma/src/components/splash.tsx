@@ -4,8 +4,6 @@ import { useSplashGate } from "@mas/motion/splash-gate";
 import { useEffect, useId, useRef } from "react";
 import { PETAL_PATHS, PETAL_VIEWBOX, WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/logo";
 
-/** Every scroll scene must be downloaded and have its frame decoded before the page opens (D62). */
-const READY = ["aroma.morning", "aroma.lake", "aroma.night"] as const;
 /** On a first visit the petal settles and the wordmark is written before the panel may leave. */
 const MIN_MS = 2600;
 /** Later in the session the files come from the browser's cache: a short panel, the cup already dusted. */
@@ -39,11 +37,22 @@ function animateOut(panel: HTMLElement, done: () => void) {
  * up), so nothing of the page shows before it. A way out appears only if the download stalls or runs past 30
  * seconds, and it never shows without motion or on a weak device (posters only).
  */
-export function Splash({ label, skip, slow }: { label: string; skip: string; slow: string }) {
+export function Splash({
+  scenes,
+  label,
+  skip,
+  slow,
+}: {
+  /** The scroll scenes that must be ready before the page opens (D62), from the page. */
+  scenes: readonly string[];
+  label: string;
+  skip: string;
+  slow: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const skipRef = useRef<HTMLButtonElement>(null);
   const gate = useSplashGate({
-    scenes: READY,
+    scenes,
     minMs: MIN_MS,
     quickMs: QUICK_MS,
     sessionKey: "aroma-ready-",

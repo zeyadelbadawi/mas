@@ -42,7 +42,7 @@ export function mountScrubMeter(): void {
     c.frames++;
     // The scene on screen: the last one the scroll has reached.
     let active: [string, SceneStatus] | null = null;
-    for (const entry of Object.entries(window.__masScenes ?? {}))
+    for (const entry of Object.entries(window.__sc ?? {}))
       if (!active || entry[1].want > 0) active = entry;
     if (!active) return;
     const [id, s] = active;
@@ -58,14 +58,14 @@ export function mountScrubMeter(): void {
 
   window.setInterval(() => {
     const secs = (performance.now() - c.since) / 1000;
-    const gate = window.__masGate;
+    const gate = window.__g;
     const memory = (navigator as { deviceMemory?: number }).deviceMemory;
     const lines = [
       `refresh ${(c.frames / secs).toFixed(0)}/s · lagging still ${c.moving ? ((100 * c.frozen) / c.moving).toFixed(0) : 0}% · max step ${c.maxStep} · max lag ${c.maxLag}`,
       `gate ${gate ? `${gate.openedAt} ms (${gate.how})` : "waiting"} · webcodecs ${typeof VideoDecoder === "function" ? "yes" : "no"} · dpr ${devicePixelRatio} · mem ${memory ?? "?"} GB`,
     ];
     let kept = 0;
-    for (const [id, s] of Object.entries(window.__masScenes ?? {})) {
+    for (const [id, s] of Object.entries(window.__sc ?? {})) {
       const e = s.engine;
       kept += e?.keptBytes ?? 0;
       lines.push(

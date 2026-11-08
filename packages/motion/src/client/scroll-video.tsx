@@ -354,7 +354,7 @@ export function ScrollVideo({
   return (
     <section
       ref={sectionRef}
-      data-sequence-id={id}
+      data-s={id}
       data-animated={animated ? "true" : "false"}
       style={style}
       className={[

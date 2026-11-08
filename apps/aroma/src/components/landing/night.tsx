@@ -18,7 +18,6 @@ export async function Night({ locale }: { locale: Locale }) {
   return (
     <section aria-labelledby="night-title">
       <ScrollVideo
-        id="aroma.night"
         {...src}
         label={t("label")}
         scrollVh={300}

@@ -9,11 +9,11 @@ import { expect, test, type Page } from "@playwright/test";
 
 declare global {
   interface Window {
-    __masScenes?: Record<
+    __sc?: Record<
       string,
       { mode: string; ready: boolean; near: boolean; want: number; shown: number; reason?: string }
     >;
-    __masGate?: { openedAt: number; how: string };
+    __g?: { openedAt: number; how: string };
   }
 }
 
@@ -76,7 +76,7 @@ function coverProbe() {
 }
 
 async function gateOpen(page: Page) {
-  await page.waitForFunction(() => window.__masGate !== undefined, null, { timeout: 90_000 });
+  await page.waitForFunction(() => window.__g !== undefined, null, { timeout: 90_000 });
   await expect(page.locator(".aroma-splash, .covy-splash, .mas-splash")).toHaveCount(0, {
     timeout: 5_000,
   });
@@ -90,7 +90,7 @@ async function settledFrames(page: Page, ids: readonly string[]) {
   await page.waitForFunction(
     (list) =>
       list.every((id) => {
-        const s = window.__masScenes?.[id];
+        const s = window.__sc?.[id];
         return s && s.ready && (!s.near || s.shown === Math.round(s.want));
       }),
     ids,
@@ -99,7 +99,7 @@ async function settledFrames(page: Page, ids: readonly string[]) {
   return page.evaluate(
     (list) =>
       list.map((id) => {
-        const s = window.__masScenes?.[id];
+        const s = window.__sc?.[id];
         return s?.near ? s.shown : -1;
       }),
     ids,
@@ -108,7 +108,7 @@ async function settledFrames(page: Page, ids: readonly string[]) {
 
 async function scrollToFraction(page: Page, fraction: number) {
   await page.evaluate((f) => {
-    const sections = [...document.querySelectorAll("[data-sequence-id]")];
+    const sections = [...document.querySelectorAll("[data-s]")];
     const last = sections[sections.length - 1];
     if (!last) return;
     const end = last.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
@@ -152,8 +152,8 @@ test.describe("scroll scenes and the splash gate", () => {
     // Opened because every scene was ready, each with its frame drawn.
     const state = await page.evaluate(
       (list) => ({
-        how: window.__masGate?.how,
-        scenes: list.map((id) => window.__masScenes?.[id]),
+        how: window.__g?.how,
+        scenes: list.map((id) => window.__sc?.[id]),
       }),
       ids,
     );
@@ -170,12 +170,12 @@ test.describe("scroll scenes and the splash gate", () => {
     await page.goto("/");
     await gateOpen(page);
     const supported = await page.evaluate(
-      (id) => window.__masScenes?.[id]?.reason !== "no WebCodecs H.264 decoder",
+      (id) => window.__sc?.[id]?.reason !== "no WebCodecs H.264 decoder",
       ids[0],
     );
     test.skip(!supported, "this browser build has no H.264 WebCodecs decoder");
     for (const id of ids)
-      expect(await page.evaluate((i) => window.__masScenes?.[i]?.mode, id)).toBe("engine");
+      expect(await page.evaluate((i) => window.__sc?.[i]?.mode, id)).toBe("engine");
   });
 
   test("the same scroll position always shows the same frame, both ways", async ({
@@ -199,7 +199,7 @@ test.describe("scroll scenes and the splash gate", () => {
     await scrollToFraction(page, 1);
     const last = await settledFrames(page, ids);
     const counts = await page.evaluate(
-      (list) => list.map((id) => document.querySelector(`[data-sequence-id="${id}"]`) !== null),
+      (list) => list.map((id) => document.querySelector(`[data-s="${id}"]`) !== null),
       ids,
     );
     expect(counts.every(Boolean)).toBe(true);
@@ -216,11 +216,11 @@ test.describe("scroll scenes and the splash gate", () => {
     for (const id of ids.slice(1)) {
       // The top of the section that continues the previous scene: its stage is revealed right here.
       await page.evaluate((i) => {
-        const s = document.querySelector(`[data-sequence-id="${i}"]`);
+        const s = document.querySelector(`[data-s="${i}"]`);
         if (s) window.scrollTo(0, Math.round(s.getBoundingClientRect().top + window.scrollY + 2));
       }, id);
       await page.waitForTimeout(900);
-      const s = await page.evaluate((i) => window.__masScenes?.[i], id);
+      const s = await page.evaluate((i) => window.__sc?.[i], id);
       expect(s?.ready, id).toBe(true);
       expect(s?.shown, `${id} has a frame on screen at the cut`).toBeGreaterThanOrEqual(0);
     }
@@ -266,7 +266,7 @@ test.describe("scroll scenes and the splash gate", () => {
     );
     expect(cover.exposed).toBe(0);
     for (const id of ids) {
-      const s = await page.evaluate((i) => window.__masScenes?.[i], id);
+      const s = await page.evaluate((i) => window.__sc?.[i], id);
       expect(s?.mode).toBe("video");
       expect(s?.ready).toBe(true);
     }

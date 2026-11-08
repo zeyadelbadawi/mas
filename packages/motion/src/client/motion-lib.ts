@@ -2,7 +2,7 @@ import type { gsap as GsapCore } from "gsap";
 import type { ScrollTrigger as ScrollTriggerClass } from "gsap/ScrollTrigger";
 import type { SplitText as SplitTextClass } from "gsap/SplitText";
 import type LenisClass from "lenis";
-import type { mountScrubMeter, startDriver } from "./scene-driver";
+import type { startDriver } from "./scene-driver";
 
 export type MotionLib = {
   gsap: typeof GsapCore;
@@ -11,8 +11,6 @@ export type MotionLib = {
   Lenis: typeof LenisClass;
   /** What draws the scroll scenes' frames once their files are in (scene-driver, D62). */
   startDriver: typeof startDriver;
-  /** The `?debug=scrub` meter. */
-  mountScrubMeter: typeof mountScrubMeter;
 };
 
 let pending: Promise<MotionLib> | undefined;
@@ -37,7 +35,6 @@ export function loadMotionLib(): Promise<MotionLib> {
       SplitText: split.SplitText,
       Lenis: lenis.default,
       startDriver: driver.startDriver,
-      mountScrubMeter: driver.mountScrubMeter,
     };
   });
   return pending;

@@ -4,8 +4,6 @@ import { useSplashGate } from "@mas/motion/splash-gate";
 import { useEffect, useId, useRef } from "react";
 import { WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/logo";
 
-/** Every scroll scene must be downloaded and have its frame decoded before the page opens (D62). */
-const READY = ["covy.hero", "covy.connector", "covy.signature"] as const;
 /** On a first visit the mark is written out before the panel may leave (about 2.2 s of drawing). */
 const MIN_MS = 2300;
 /** Later in the session the files come from the browser's cache: a short panel, the mark already poured. */
@@ -39,11 +37,22 @@ function animateOut(panel: HTMLElement, done: () => void) {
  * holds the place until it is up), so nothing of the page shows before it. A way out appears only if the
  * download stalls or runs past 30 seconds, and it never shows without motion or on a weak device.
  */
-export function Splash({ label, skip, slow }: { label: string; skip: string; slow: string }) {
+export function Splash({
+  scenes,
+  label,
+  skip,
+  slow,
+}: {
+  /** The scroll scenes that must be ready before the page opens (D62), from the page. */
+  scenes: readonly string[];
+  label: string;
+  skip: string;
+  slow: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const skipRef = useRef<HTMLButtonElement>(null);
   const gate = useSplashGate({
-    scenes: READY,
+    scenes,
     minMs: MIN_MS,
     quickMs: QUICK_MS,
     sessionKey: "covy-ready-",

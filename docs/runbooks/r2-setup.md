@@ -44,6 +44,8 @@ The frames are public images, so allowing every origin is safe; it is read-only.
 
 A new session picks them up. I then run `pnpm sequence:upload --dir <encoded sequences>`.
 
+For scroll videos, after uploading a new revision (`--prefix videos`), add it to the list in `tools/sequences/publish-opaque.mjs` and run `pnpm sequence:publish`. It copies the revision to `v/<key>/` under one-letter file names, which is where the sites load it from (D76). `pnpm sequence:publish --dry-run` prints the keys without writing anything.
+
 ## 5. Point the sites at R2
 
-In each Vercel project (Settings → Environment Variables), set `NEXT_PUBLIC_MEDIA_URL` to the public URL from step 2 (no trailing slash) and redeploy. The pages then load the full-size frames, and the security policy allows that origin automatically.
+In each Vercel project (Settings → Environment Variables), set `NEXT_PUBLIC_MEDIA_URL` to the public URL from step 2 (no trailing slash) and redeploy. The pages then load the full-size frames, and the security policy allows that origin automatically. Once the client's domain is connected to the bucket (R2 → bucket → Settings → Custom Domains, for example `media.<domain>`), put that address here instead of the `r2.dev` one (D76).

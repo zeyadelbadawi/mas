@@ -67,7 +67,7 @@ describe("video preload queue", () => {
       chunks: [new Uint8Array(60)],
       on: null,
     };
-    vi.stubGlobal("__masVideoPrefetch", { "/hero.mp4": early });
+    vi.stubGlobal("__vp", { "/hero.mp4": early });
     const q = await import("../src/client/video-preload");
 
     q.reservePreload("hero", true);
@@ -96,7 +96,7 @@ describe("video preload queue", () => {
       on: null,
       abort: vi.fn(),
     };
-    vi.stubGlobal("__masVideoPrefetch", { "/lake.mp4": early });
+    vi.stubGlobal("__vp", { "/lake.mp4": early });
     const q = await import("../src/client/video-preload");
 
     q.reservePreload("hero", true);

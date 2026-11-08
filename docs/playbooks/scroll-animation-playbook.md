@@ -241,6 +241,7 @@ Also build **draft** versions (960×540 and 432×540, CRF 32–34), committed to
 - Correct `Content-Type` for each file (video/mp4, image/avif, image/webp, application/json).
 - **CORS:** request the videos **without** `crossOrigin` unless you must read pixels from them. With it, some CDNs only send `Access-Control-Allow-Origin` when the request carries an `Origin`, and cached responses without the header broke playback.
 - Upload with a small script (S3-compatible API, 8 uploads in parallel).
+- **Opaque names in production (optional):** if you don't want the browser's Inspect to explain the build, publish each revision a second time under a hashed folder with one-letter files (`v/<hash>/i`, `d`, `m`, `a`, `w`), hash the scene id and revision with one shared function that both the publish script and the site use, and keep readable names only for local drafts. Use short, neutral names for `data-*` attributes and globals, pass scene ids from the server so client bundles don't carry them, and leave debug tools out of production builds. This hides labels, not files: whatever the browser plays can still be saved.
 
 ---
 
@@ -502,7 +503,7 @@ Expose each scene's state for the tests and the meter, for example a small store
 
 ### 10.2 On real devices (a `?debug=scrub` meter)
 
-A tiny overlay, loaded only with `?debug=scrub`, shows:
+A tiny overlay, loaded only with `?debug=scrub` and left out of production builds (previews and local builds only), shows:
 
 - the refresh rate;
 - "lagging still" (the share of frames where the drawn frame trails the scroll);
@@ -645,6 +646,7 @@ Suggested order of use in a new project:
 | Timing curve | `tools/sequences/timing.mjs` |
 | Decode index | `tools/sequences/sample-index.mjs` (`pnpm sequence:reindex` to add it to existing files) |
 | Upload to R2 | `tools/sequences/upload-r2.mjs` (`pnpm sequence:upload --dir out/videos --prefix videos`) |
+| Opaque names on R2 | `tools/sequences/publish-opaque.mjs` (`pnpm sequence:publish`), `sceneKey` in `packages/motion/src/media.ts` |
 | A scene with overlays | `apps/mas/src/components/home/hero.tsx`, `apps/mas/src/components/home/doors.tsx` |
 | A splash | `apps/mas/src/components/splash.tsx` (and COVY's/Aroma's in their apps) |
 | e2e | `e2e/scenes.spec.ts`, `e2e/mas.spec.ts` |

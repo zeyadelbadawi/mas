@@ -4,8 +4,6 @@ import { useSplashGate } from "@mas/motion/splash-gate";
 import { useEffect, useId, useRef } from "react";
 import { MAS_DIAGONAL_DEG, WORDMARK_PATHS, WORDMARK_VIEWBOX } from "@/components/logo";
 
-/** Both scroll scenes must be downloaded and have their frame decoded before the page opens (D62). */
-const READY = ["mas.hero", "mas.doors"] as const;
 /** On a first visit the wordmark is drawn out before the panel may leave (about 1.8 s of drawing). */
 const MIN_MS = 2400;
 /**
@@ -54,11 +52,14 @@ function animateOut(panel: HTMLElement, done: () => void) {
  * 30 seconds.
  */
 export function Splash({
+  scenes,
   label,
   tagline,
   skip,
   slow,
 }: {
+  /** The scroll scenes that must be ready before the page opens (D62), from the page. */
+  scenes: readonly string[];
   label: string;
   tagline: string;
   skip: string;
@@ -67,7 +68,7 @@ export function Splash({
   const ref = useRef<HTMLDivElement>(null);
   const skipRef = useRef<HTMLButtonElement>(null);
   const gate = useSplashGate({
-    scenes: READY,
+    scenes,
     minMs: MIN_MS,
     quickMs: QUICK_MS,
     sessionKey: "mas-ready-",

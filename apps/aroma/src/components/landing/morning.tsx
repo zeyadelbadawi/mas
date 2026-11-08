@@ -18,7 +18,6 @@ export async function Morning() {
       <h1 className="sr-only">{t("title")}</h1>
       {/* The poster's alt is empty: the heading above already names the page. */}
       <ScrollVideo
-        id="aroma.morning"
         {...src}
         label=""
         scrollVh={300}

@@ -13,7 +13,6 @@ export async function Connector() {
   return (
     <section id="story" aria-labelledby="story-title">
       <ScrollVideo
-        id="covy.connector"
         {...src}
         label={t("walk")}
         scrollVh={560}
