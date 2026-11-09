@@ -9,7 +9,7 @@ The automated tests run in Chromium only. Safari (iPhone, iPad, Mac) and Firefox
 
 ## Steps (each device)
 
-1. **Open the page with the meter.** Add `?debug=scrub` to the address, for example `https://mas-aroma.vercel.app/?debug=scrub`. A black box appears at the top left once the splash has gone.
+1. **Open the page with the meter.** Add `?debug=scrub` to the address of a **preview deployment** (the production site leaves the meter out, D76), for example `https://<preview address>.vercel.app/?debug=scrub`. A black box appears at the top left once the splash has gone.
 2. **Watch the opening.** Close the tab, open a new one with the same address, and watch the first second.
    - **Pass:** the first thing you see is the splash (marble with the cup on Aroma, sand with the COVY mark on COVY). The scene never shows behind it or before it, and the page doesn't move while the splash is up, even if you try to scroll.
 3. **Read the second line of the meter.**

@@ -72,7 +72,7 @@ function shownOpacity(el: HTMLElement, stop: HTMLElement): number {
 }
 
 /**
- * D47: while the header sits over the scroll scenes (`[data-walk]`), its bar gives way to a soft wash that
+ * D47: while the header sits over the scroll scenes (`[data-w]`), its bar gives way to a soft wash that
  * fades into the footage. It reads the strip of footage under it and takes whichever tone reads better
  * there by WCAG contrast: navy type on a sand wash over bright frames (sky, the white mural), sand type on a
  * navy wash over dark ones. An overlay that darkens that strip
@@ -82,7 +82,7 @@ function shownOpacity(el: HTMLElement, stop: HTMLElement): number {
 export function useWalkHeader(headerRef: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const header = headerRef.current;
-    const walk = document.querySelector<HTMLElement>("[data-walk]");
+    const walk = document.querySelector<HTMLElement>("[data-w]");
     if (!header || !walk) return;
     const canvas = document.createElement("canvas");
     canvas.width = 24;
@@ -104,7 +104,7 @@ export function useWalkHeader(headerRef: RefObject<HTMLElement | null>) {
      */
     const activeVideo = (h: number) => {
       let top: HTMLElement | null = null;
-      for (const stage of walk.querySelectorAll<HTMLElement>("[data-sequence-id] > div")) {
+      for (const stage of walk.querySelectorAll<HTMLElement>("[data-s] > div")) {
         const r = stage.getBoundingClientRect();
         if (r.top > 1 || r.bottom < h) continue;
         if (shownOpacity(stage, walk) < 0.5) continue;

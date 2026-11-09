@@ -12,7 +12,7 @@ export function BackToTop({ label }: { label: string }) {
   const { getLenis } = useMotion();
 
   useEffect(() => {
-    const walk = document.querySelector<HTMLElement>("[data-walk]");
+    const walk = document.querySelector<HTMLElement>("[data-w]");
     let raf = 0;
     const update = () => {
       raf = 0;

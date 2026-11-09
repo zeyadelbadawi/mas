@@ -16,6 +16,8 @@ import { masOrganization } from "@/lib/schema";
 const PREFETCH = {
   __html: videoPrefetchScript(Object.values(SCENES).map((s) => s.manifestUrl)),
 };
+/** Every scroll scene must be downloaded and have its frame decoded before the page opens (D62). */
+const SCENE_IDS = Object.values(SCENES).map((s) => s.id);
 
 /** The MAS home page (D64, docs/08-mas-replan.md §5): M0 splash to M8 call to action. */
 export default async function Home({ params }: PageProps<"/[locale]">) {
@@ -30,6 +32,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml -- static script, see PREFETCH */}
       <script dangerouslySetInnerHTML={PREFETCH} />
       <Splash
+        scenes={SCENE_IDS}
         label={splash("loading")}
         tagline={home("tagline")}
         skip={splash("skip")}

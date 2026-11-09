@@ -22,7 +22,7 @@ export async function Hero({ contactHref }: { contactHref: string }) {
   const home = await getTranslations("home");
   return (
     <div id="top">
-      <ScrollVideo id="mas.hero" {...SCENES.hero} label="" scrollVh={300} holdVh={80} priority>
+      <ScrollVideo {...SCENES.hero} label="" scrollVh={300} holdVh={80} priority>
         {/* The mark, upper centre over the dark ceiling: drawn as the view widens, filled with the whole room. */}
         <div
           aria-hidden="true"

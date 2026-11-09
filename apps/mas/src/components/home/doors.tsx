@@ -57,7 +57,7 @@ export async function Doors({ locale }: { locale: "en" | "ar" }) {
 
   return (
     <section id="brands" aria-labelledby="doors-title">
-      <ScrollVideo id="mas.doors" {...src} label={t("label")} scrollVh={320} holdVh={90}>
+      <ScrollVideo {...src} label={t("label")} scrollVh={320} holdVh={90}>
         {/* The title over the dark corridor as the walk begins; a thin gold line runs down from it towards
             the line in the floor, the one the walk follows. */}
         <div

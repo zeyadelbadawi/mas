@@ -6,9 +6,6 @@ import type {
   preloadState as PreloadState,
 } from "./video-preload";
 
-// The `?debug=scrub` meter rides in this module, which loads only after the page anyway.
-export { mountScrubMeter } from "./scrub-meter";
-
 /**
  * What draws a scroll scene's frames once its file is in (D62), loaded only then so none of it weighs on the
  * page's first load (D29): the WebCodecs frame engine into the canvas where the browser can decode the file,

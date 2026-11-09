@@ -74,7 +74,7 @@ export function preloadBytes(ids: readonly string[]): { loaded: number; total: n
 
 /** Takes over a download the page's inline script already started (videoPrefetchScript), if there is one. */
 function adoptPrefetch(src: string): VideoPrefetch | undefined {
-  const map = (globalThis as { __masVideoPrefetch?: VideoPrefetchMap }).__masVideoPrefetch;
+  const map = (globalThis as { __vp?: VideoPrefetchMap }).__vp;
   const pre = map?.[src];
   if (pre && map) delete map[src];
   return pre;
@@ -241,7 +241,7 @@ export function abandonAllPreloads(): void {
   active?.abort.abort();
   following.forEach((abort) => abort.abort());
   following.clear();
-  const map = (globalThis as { __masVideoPrefetch?: VideoPrefetchMap }).__masVideoPrefetch;
+  const map = (globalThis as { __vp?: VideoPrefetchMap }).__vp;
   if (map) for (const key of Object.keys(map)) map[key]?.abort?.();
   states.forEach((s, id) => {
     if (!s.done)

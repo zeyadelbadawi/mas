@@ -2,7 +2,7 @@ import type { FrameEngineStats } from "./frame-engine";
 
 /**
  * Where each scroll scene stands, for the splash gate (it opens only when every scene is ready), the
- * `?debug=scrub` meter and the end-to-end tests (`window.__masScenes`).
+ * `?debug=scrub` meter and the end-to-end tests (`window.__sc`).
  *
  * - `engine`: frames decoded with WebCodecs into a canvas (D62).
  * - `video`: the fallback, seeking the video element.
@@ -39,14 +39,14 @@ export type GateStatus = { openedAt: number; how: "ready" | "skipped" | "stills"
 
 declare global {
   interface Window {
-    __masScenes?: Record<string, SceneStatus>;
-    __masGate?: GateStatus;
+    __sc?: Record<string, SceneStatus>;
+    __g?: GateStatus;
   }
 }
 
 export function markGate(how: GateStatus["how"]): void {
-  if (typeof window !== "undefined" && !window.__masGate)
-    window.__masGate = { openedAt: Math.round(performance.now()), how };
+  if (typeof window !== "undefined" && !window.__g)
+    window.__g = { openedAt: Math.round(performance.now()), how };
 }
 
 export function sceneStatus(id: string): SceneStatus | undefined {
@@ -68,7 +68,7 @@ export function updateScene(id: string, patch: Partial<SceneStatus>, quiet = fal
       maxStep: 0,
     };
     scenes[id] = s;
-    if (typeof window !== "undefined") window.__masScenes = scenes;
+    if (typeof window !== "undefined") window.__sc = scenes;
   }
   if (patch.ready && !s.ready) s.readyAt = Math.round(performance.now());
   Object.assign(s, patch);

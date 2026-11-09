@@ -14,7 +14,6 @@ export async function Lake() {
   return (
     <section aria-labelledby="lake-title">
       <ScrollVideo
-        id="aroma.lake"
         {...src}
         label={t("label")}
         scrollVh={400}

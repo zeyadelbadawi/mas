@@ -28,7 +28,6 @@ export async function Signature() {
   return (
     <section aria-labelledby="signature-title">
       <ScrollVideo
-        id="covy.signature"
         {...src}
         // Empty alt: the same words are the section copy, on screen.
         label=""

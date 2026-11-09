@@ -16,7 +16,7 @@ export async function Hero() {
     <div id="top">
       <h1 className="sr-only">{t("title")}</h1>
       {/* The poster's alt is empty: the heading above already names the scene. */}
-      <ScrollVideo id="covy.hero" {...src} label="" scrollVh={300} holdVh={90} priority>
+      <ScrollVideo {...src} label="" scrollVh={300} holdVh={90} priority>
         <div className="relative h-full">
           {/* Opening frames: a quiet line in the sky area and a cue, gone after the first steps. */}
           <div
