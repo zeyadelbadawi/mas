@@ -2,7 +2,7 @@ const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no 0/O, 1/I
 
 /** Short reference shown to the guest and put in both email subjects, e.g. "CV-7K3P". */
 export function makeReference(
-  prefix: "CV" | "AL" | "MS",
+  prefix: "CV" | "AL" | "MS" | "ST",
   random: (n: number) => Uint8Array = (n) => crypto.getRandomValues(new Uint8Array(n)),
 ): string {
   const bytes = random(4);

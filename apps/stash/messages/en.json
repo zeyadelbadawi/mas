@@ -1,0 +1,154 @@
+{
+  "nav": {
+    "label": "Main",
+    "home": "STASH home",
+    "packaging": "Packaging",
+    "design": "Design Studio",
+    "howItWorks": "How it works",
+    "materials": "Materials",
+    "about": "About",
+    "contact": "Contact",
+    "quote": "Get a quote",
+    "allPackaging": "All packaging",
+    "open": "Menu",
+    "close": "Close"
+  },
+  "common": {
+    "sample": "Sample",
+    "illustration": "Illustration",
+    "comingSoon": "Opening soon",
+    "browsePackaging": "Browse packaging",
+    "designYours": "Design your packaging",
+    "askQuote": "Ask for a quote",
+    "viewRange": "See the range",
+    "itemsInRange": "{count} items"
+  },
+  "home": {
+    "eyebrow": "Food-service packaging, made in Egypt",
+    "headline": "Designed by you. Made by STASH.",
+    "lead": "Design the exact box, cup or bag your business needs, see it before it's made, and have it produced in the STASH factory.",
+    "sceneNote": "The opening scene is being made: a flat sheet folding into a finished box.",
+    "rangesTitle": "Eight ranges, one factory",
+    "rangesLead": "Everything a café, restaurant or bakery serves in, carries out or wraps, plain or printed with your brand.",
+    "howTitle": "How it works",
+    "steps": {
+      "design": {
+        "title": "Design it",
+        "body": "Pick the item, the size and the paper, and add your logo."
+      },
+      "see": {
+        "title": "See it",
+        "body": "You get a digital proof of the finished piece before anything is printed."
+      },
+      "make": {
+        "title": "We make it",
+        "body": "Once you approve the proof, the STASH factory produces it."
+      },
+      "deliver": { "title": "It's delivered", "body": "Your order is packed and delivered to you." }
+    },
+    "ctaTitle": "Tell us what you need",
+    "ctaBody": "Send us the items and quantities, and we'll come back with a quote."
+  },
+  "footer": {
+    "tagline": "Designed by you. Made by STASH.",
+    "packaging": "Packaging",
+    "order": "Design & order",
+    "company": "Company",
+    "contact": "Contact",
+    "faq": "Questions"
+  },
+  "pages": {
+    "packaging": {
+      "title": "Packaging",
+      "lead": "Eight ranges for food and drink, each made plain or printed with your brand. Open a range to see what's in it."
+    },
+    "design": {
+      "title": "Design Studio",
+      "lead": "Put your logo on a cup, a box or a bag, turn it around in 3D, and send it to us for a quote.",
+      "soon": "The studio opens in a later phase of this site. Until then, send us your logo with a quote request.",
+      "shapes": {
+        "cup": "Cups, single or double wall",
+        "box": "Takeaway and pastry boxes",
+        "bag": "Paper bags with handles"
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "lead": "From your idea to packaging in your hands, in four steps."
+    },
+    "materials": {
+      "title": "Materials",
+      "lead": "What our packaging is made of, what each material is good for, and how to dispose of it.",
+      "soon": "The material guide is on its way. It will only state what STASH can document."
+    },
+    "about": {
+      "title": "About STASH",
+      "lead": "STASH is where any business or person designs the exact box they need, sees it before it is made, and gets it produced by the STASH factory.",
+      "soon": "More about the factory and how we work is on its way."
+    },
+    "quote": {
+      "title": "Get a quote",
+      "lead": "Tell us what you need and how many, and we'll send you a quote.",
+      "soon": "The quote form opens in a later phase of this site."
+    },
+    "faq": {
+      "title": "Questions",
+      "lead": "Minimum orders, artwork, production and delivery.",
+      "soon": "Answers are on their way."
+    },
+    "contact": {
+      "title": "Contact",
+      "lead": "Talk to the STASH team about your packaging.",
+      "soon": "Our address, phone and WhatsApp will appear here."
+    }
+  },
+  "range": {
+    "inThisRange": "In this range",
+    "subtypeNote": "Sizes, materials and minimum orders for each item will appear here.",
+    "designThis": "Design this",
+    "otherRanges": "Other ranges"
+  },
+  "seo": {
+    "ogAlt": "The STASH wordmark on brown",
+    "home": {
+      "title": "STASH · Custom Food Packaging in Egypt",
+      "description": "Design your own cups, boxes, bags and wraps, see them before they're made, and have them produced by the STASH factory. For cafés, restaurants, bakeries and you."
+    },
+    "packaging": {
+      "title": "Food Packaging Ranges | STASH",
+      "description": "Cups, fast-food boxes, bowls, bakery boxes, paper bags, wrapping paper, sustainable packaging and tableware, plain or printed with your brand."
+    },
+    "range": {
+      "title": "{name} | STASH",
+      "description": "{summary} Plain or printed with your brand, made by STASH in Egypt."
+    },
+    "design": {
+      "title": "Design Studio: Put Your Logo on It | STASH",
+      "description": "Design a cup, a box or a bag with your logo, see it in 3D before it's made, and send it to STASH for a quote."
+    },
+    "howItWorks": {
+      "title": "How Ordering Works | STASH",
+      "description": "Design it, see a digital proof, approve it, and STASH makes and delivers your packaging. Here is each step."
+    },
+    "materials": {
+      "title": "Packaging Materials | STASH",
+      "description": "Kraft, paperboard, bagasse and molded fiber: what each material is good for and how to dispose of it."
+    },
+    "about": {
+      "title": "About STASH · Packaging Made to Order",
+      "description": "STASH is where any business or person designs the packaging they need, sees it first, and gets it made by the STASH factory."
+    },
+    "quote": {
+      "title": "Get a Packaging Quote | STASH",
+      "description": "Tell us the items and quantities you need, plain or printed, and STASH will send you a quote."
+    },
+    "faq": {
+      "title": "Packaging Questions and Answers | STASH",
+      "description": "Minimum orders, artwork files, production times and delivery across Egypt: answers to the questions we hear most."
+    },
+    "contact": {
+      "title": "Contact STASH",
+      "description": "Talk to the STASH team about cups, boxes, bags and wraps for your business."
+    }
+  }
+}

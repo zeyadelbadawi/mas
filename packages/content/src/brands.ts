@@ -49,4 +49,16 @@ export const brands: Record<BrandId, Brand> = {
     orderUrl: "https://www.talabat.com/egypt/aroma-lounge",
     placeholder: false,
   },
+  // Stash (D77, D80): a separate brand, not part of MAS, with its own domain. Food-service packaging, made
+  // to order. The domain and inbox are placeholders (.example never resolves) until the client gives its own;
+  // no social accounts yet.
+  stash: {
+    id: "stash",
+    name: { en: "STASH", ar: "ستاش" },
+    tagline: { en: "Designed by you. Made by STASH.", ar: "تصميمك أنت، وتصنيع STASH." },
+    domain: "https://stash.example",
+    inboxEmail: "quotes@stash.example",
+    socials: [],
+    placeholder: true,
+  },
 };

@@ -1,17 +1,35 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
     "brainstorming": {
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/brainstorming/SKILL.md",
-      "computedHash": "759eaa3b4b3d06d9e1c98c24bcd58eeb4d2faf724b3239f81e8559aa41e28fdd"
+      "computedHash": ""
+    },
+    "information-architecture": {
+      "source": "julianoczkowski/designer-skills",
+      "sourceType": "github",
+      "skillPath": "information-architecture/SKILL.md",
+      "computedHash": "a4226c09c007986fdb7b764ad383fc282e490277be9f0188f8e4b2cc94805e99"
+    },
+    "product-configurator-design": {
+      "source": "rampstackco/claude-skills",
+      "sourceType": "github",
+      "skillPath": "skills/product-configurator-design/SKILL.md",
+      "computedHash": "acc9aaf74c88197126654870b6b8b8b94ecad1c6b54e2acfeda544bab2904cb2"
+    },
+    "rpi-plan-critique": {
+      "source": "microsoft/hve-core",
+      "sourceType": "github",
+      "skillPath": ".github/skills/rpi/rpi-plan-critique/SKILL.md",
+      "computedHash": "6cda8c3624780947159629208f54f247109a59e1afec9f9516400e3e39f82afa"
     },
     "ux-heuristics": {
       "source": "wondelai/skills",
       "sourceType": "github",
       "skillPath": "ux-heuristics/SKILL.md",
-      "computedHash": "078959463a4d191d3ff17fd7a0b036697c79da3e86102251c98f76ffa9e66a28"
+      "computedHash": ""
     }
   }
 }

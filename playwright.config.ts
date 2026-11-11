@@ -1,10 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// Smoke tests against production builds of the three apps (run `pnpm build` first).
+// Smoke tests against production builds of the four apps (run `pnpm build` first).
 const apps = [
   { name: "mas", port: 3000 },
   { name: "covy", port: 3001 },
   { name: "aroma", port: 3002 },
+  { name: "stash", port: 3003 },
 ] as const;
 
 export default defineConfig({
