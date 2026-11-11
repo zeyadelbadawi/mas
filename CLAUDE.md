@@ -1,26 +1,27 @@
 # MAS Websites — Project Rules
 
-Three websites in one monorepo:
+Four websites in one monorepo:
 
 | App | Domain | What it is |
 |---|---|---|
 | `apps/mas` | `mas.com` | MAS corporate site (full multi-page site) |
 | `apps/covy` | `covy.mas.com` | COVY restaurant & café — single landing page |
 | `apps/aroma` | `aroma.mas.com` | Aroma Lounge — single landing page |
+| `apps/stash` | its own domain (to be confirmed) | **Stash, a separate brand: not part of MAS**, never shown on the MAS site, with its own domain. Food-service packaging; a multi-page site with a catalogue, a 3D Design Studio and quotes (D77, plan `docs/09-stash-plan.md`) |
 
-`mas.com` is a placeholder until the real domain is confirmed. Read `docs/` before changing anything. `docs/00-decisions.md` is the source of truth for decisions already made with the user.
+`mas.com` is a placeholder until the real domain is confirmed. Stash is a separate brand with its own domain; it shares only this codebase, and nothing on its site names MAS (D80). Read `docs/` before changing anything. `docs/00-decisions.md` is the source of truth for decisions already made with the user.
 
 ## Hard rules
 
 1. **No implementation without approval.** Planning docs come first; the user approves each phase before code starts.
 2. **Zero new spend.** Use only free tiers or things already paid for (the Higgsfield plan; the Magnific/MAG plan). Before any generation, state the expected credit cost and get approval.
-3. **Image placeholder rule.** Every image is a visible placeholder box until the graphic designer delivers it (exception: the COVY Spaces photos, which we generate with Higgsfield from the client's interior renders, D39, the COVY Visit photo, cropped from one of them, D42, the three COVY event photos, made the same way, D46, and on Aroma Lounge the client's own photos from its posts and digital menu, plus photos we make with Higgsfield from them, D53, the MAS articles' images, made with Higgsfield, D66, the nine MAS service images, made with Magnific, D71, the MAS inner pages' hero banners, made with Magnific, D72, and COVY's menu photos, made with Magnific, D75). The box occupies the image's exact layout space and shows its required size in pixels, aspect ratio and slot ID (e.g. `1600 × 1000 · 16:10 · covy.hero.poster`). Use the shared `<ImageSlot>` / `<SequenceSlot>` components; never ship a bare `<img>` with a stock or AI image in an image slot. Every slot is listed in `docs/assets/asset-manifest.md`.
-4. **Scroll sequences are generated with Higgsfield** (D37; the earlier ones with MAG), not by the designer. Text, logos and UI are never baked into generated frames; they are HTML/SVG layered on top.
+3. **Image placeholder rule.** Every image is a visible placeholder box until the graphic designer delivers it (exception: the COVY Spaces photos, which we generate with Higgsfield from the client's interior renders, D39, the COVY Visit photo, cropped from one of them, D42, the three COVY event photos, made the same way, D46, and on Aroma Lounge the client's own photos from its posts and digital menu, plus photos we make with Higgsfield from them, D53, the MAS articles' images, made with Higgsfield, D66, the nine MAS service images, made with Magnific, D71, the MAS inner pages' hero banners, made with Magnific, D72, and COVY's menu photos, made with Magnific, D75; on Stash, the client's own mockup photos and images made with Magnific, with generated product photos captioned "Illustration", D79). The box occupies the image's exact layout space and shows its required size in pixels, aspect ratio and slot ID (e.g. `1600 × 1000 · 16:10 · covy.hero.poster`). Use the shared `<ImageSlot>` / `<SequenceSlot>` components; never ship a bare `<img>` with a stock or AI image in an image slot. Every slot is listed in `docs/assets/asset-manifest.md`.
+4. **Scroll sequences are generated with Higgsfield** (D37; the earlier ones with MAG; Stash's with Magnific, D78), not by the designer. Text, logos and UI are never baked into generated frames; they are HTML/SVG layered on top.
 5. **Placeholder content is labelled.** Menu items, prices, testimonials, phone numbers, addresses, hours and social links are dummy data until the client provides real data. Mark each record `placeholder: true`. Never present invented reviews as real.
-6. **Brand names:** `COVY` and `Aroma Lounge` (not "CUVY"/"ARUMA").
-7. **Bilingual:** English + Arabic with full RTL support in all three sites.
-8. **Fonts:** free (Google Fonts / OFL) only. MAS uses Poppins, its identity's own font, which is free (D64). The COVY and Aroma brand fonts (PassionSans, Telegraf) are not licensed for us, so those sites use free substitutes.
-9. **Forms send email only** (no database): Next.js server route → Resend. Recipients: `info@masegypt.com` (MAS, D66), `covy@mas.com`, `aroma@mas.com`. Guests get an auto-reply. Protect with Cloudflare Turnstile + honeypot + zod validation.
+6. **Brand names:** `COVY`, `Aroma Lounge` and `STASH` (not "CUVY"/"ARUMA"). Stash's wordmark is all caps; in text, "Stash" is fine.
+7. **Bilingual:** English + Arabic with full RTL support on every site.
+8. **Fonts:** free (Google Fonts / OFL) only. MAS uses Poppins, its identity's own font, which is free (D64). The COVY and Aroma brand fonts (PassionSans, Telegraf) are not licensed for us, so those sites use free substitutes. Stash uses Poppins (its identity's font) with Tajawal for Arabic (D77).
+9. **Forms send email only** (no database): Next.js server route → Resend. Recipients: `info@masegypt.com` (MAS, D66), `covy@mas.com`, `aroma@mas.com`, and a placeholder for Stash until it gives its own address on its own domain. Guests get an auto-reply. Protect with Cloudflare Turnstile + honeypot + zod validation.
 10. **Analytics:** separate GA4 property and Microsoft Clarity project per site, created on the client's Google/Microsoft accounts, loaded only after cookie consent.
 11. **Do not put model names in commits, PRs or code comments.**
 
@@ -37,4 +38,5 @@ Locales: English at `/`, Arabic at `/ar`; Western digits (0-9) in both.
 - Design quality: `build-awwwards-quality-sites`, `frontend-design`, `audit-ai-design-slop`, `web-design-guidelines`, `shadcn`
 - Engineering: `vercel-react-best-practices`, `core-web-vitals`, `accessibility`, `security-and-hardening`, `resend`
 - Content & SEO: `copywriting`, `humanizer`, `no-ai-slop`, `seo-audit`, `ai-seo`, `schema`
+- Planning: `information-architecture`, `product-configurator-design` (Stash's Design Studio), `rpi-plan-critique` (review a plan before the owner sees it)
 - Discovery: `find-skills` (vet installs, stars and security audits before adding any new skill)

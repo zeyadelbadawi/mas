@@ -19,14 +19,22 @@ export type LegalDocument = {
 
 const UPDATED = "2026-10-29";
 
-type Names = { en: string; ar: string; inbox: string; restaurant: boolean };
+type Names = {
+  en: string;
+  ar: string;
+  inbox: string;
+  restaurant: boolean;
+  /** Stash: quote requests and design uploads (D77). */
+  packaging: boolean;
+};
 
 function names(brand: Brand): Names {
   return {
     en: brand.name.en,
     ar: brand.name.ar,
     inbox: brand.inboxEmail,
-    restaurant: brand.id !== "mas",
+    restaurant: brand.id === "covy" || brand.id === "aroma",
+    packaging: brand.id === "stash",
   };
 }
 
@@ -36,7 +44,9 @@ export function privacyPolicy(brand: Brand): LegalDocument {
   const n = names(brand);
   const operator: LocalizedText = n.restaurant
     ? { en: `${n.en} is managed by MAS`, ar: `${n.ar} تديره شركة MAS` }
-    : { en: "MAS", ar: "MAS" };
+    : n.packaging
+      ? { en: n.en, ar: n.ar }
+      : { en: "MAS", ar: "MAS" };
 
   const collected: LocalizedText[] = n.restaurant
     ? [
@@ -49,12 +59,23 @@ export function privacyPolicy(brand: Brand): LegalDocument {
           ar: "الآراء والتقييمات: تقييماتك وتعليقاتك، واسمك وبيانات التواصل فقط لو طلبت أن نتواصل معك.",
         },
       ]
-    : [
-        {
-          en: "Project inquiries: your name, company, role, email, mobile number, city, the services you are interested in, your timeline and budget range if you share them, and your message.",
-          ar: "طلبات المشروعات: اسمك والشركة ودورك فيها وبريدك الإلكتروني ورقم موبايلك والمدينة، والخدمات التي تهمك، والجدول الزمني ونطاق الميزانية لو شاركتهما، ورسالتك.",
-        },
-      ];
+    : n.packaging
+      ? [
+          {
+            en: "Quote requests: your name, mobile number and email, your business name and type if you order for a business, your governorate, the products and quantities you ask about, your printing and artwork choices, the date you need them by, and your notes.",
+            ar: "طلبات عروض الأسعار: اسمك ورقم موبايلك وبريدك الإلكتروني، واسم نشاطك ونوعه لو تطلب لنشاط تجاري، والمحافظة، والمنتجات والكميات التي تسأل عنها، واختياراتك للطباعة والتصميم، والموعد الذي تحتاجها فيه، وملاحظاتك.",
+          },
+          {
+            en: "Your designs: the logo or artwork you upload and a picture of the design you made in the Design Studio. We use them only to prepare your quote, your proof and your order.",
+            ar: "تصميماتك: الشعار أو التصميم الذي ترفعه، وصورة التصميم الذي عملته في استوديو التصميم. نستخدمها فقط لإعداد عرض السعر والبروفة والطلب.",
+          },
+        ]
+      : [
+          {
+            en: "Project inquiries: your name, company, role, email, mobile number, city, the services you are interested in, your timeline and budget range if you share them, and your message.",
+            ar: "طلبات المشروعات: اسمك والشركة ودورك فيها وبريدك الإلكتروني ورقم موبايلك والمدينة، والخدمات التي تهمك، والجدول الزمني ونطاق الميزانية لو شاركتهما، ورسالتك.",
+          },
+        ];
 
   return {
     title: { en: "Privacy Policy", ar: "سياسة الخصوصية" },
@@ -93,10 +114,15 @@ export function privacyPolicy(brand: Brand): LegalDocument {
                 en: "To handle your reservation request, call you to confirm it, prepare for your visit or event, answer your feedback, and improve our service.",
                 ar: "للتعامل مع طلب الحجز، والاتصال بك لتأكيده، والاستعداد لزيارتك أو مناسبتك، والرد على رأيك، وتحسين خدمتنا.",
               }
-            : {
-                en: "To reply to your inquiry, understand your project and prepare a proposal.",
-                ar: "للرد على طلبك، وفهم مشروعك، وإعداد عرض مناسب.",
-              },
+            : n.packaging
+              ? {
+                  en: "To prepare your quote, check your artwork, make a digital proof, and produce and deliver your order if you go ahead.",
+                  ar: "لإعداد عرض السعر، ومراجعة ملف التصميم، وعمل بروفة رقمية، ثم تصنيع طلبك وتوصيله لو قررت المتابعة.",
+                }
+              : {
+                  en: "To reply to your inquiry, understand your project and prepare a proposal.",
+                  ar: "للرد على طلبك، وفهم مشروعك، وإعداد عرض مناسب.",
+                },
           {
             en: "We rely on your consent and on the steps you ask us to take before any agreement, in line with Egypt's Personal Data Protection Law (No. 151 of 2020). We do not sell your data or use it for advertising.",
             ar: "نعتمد على موافقتك وعلى الخطوات التي تطلب منا اتخاذها قبل أي اتفاق، وفقًا لقانون حماية البيانات الشخصية المصري رقم 151 لسنة 2020. لا نبيع بياناتك ولا نستخدمها في الإعلانات.",
@@ -228,21 +254,50 @@ export function termsOfUse(brand: Brand): LegalDocument {
           ],
         },
       ]
-    : [
-        {
-          heading: { en: "Project inquiries", ar: "طلبات المشروعات" },
-          paragraphs: [
-            {
-              en: "Sending an inquiry does not create an agreement. Any work is governed by a separate written proposal or contract signed by both sides.",
-              ar: "إرسال طلب لا يُنشئ أي اتفاق. يخضع أي عمل لعرض أو عقد مكتوب منفصل يوقعه الطرفان.",
-            },
-            {
-              en: "Information about our services, past projects and results is general and does not guarantee the same results for your business.",
-              ar: "المعلومات عن خدماتنا ومشروعاتنا السابقة ونتائجها عامة، ولا تضمن تحقيق النتائج نفسها لمشروعك.",
-            },
-          ],
-        },
-      ];
+    : n.packaging
+      ? [
+          {
+            heading: { en: "Quotes and orders", ar: "عروض الأسعار والطلبات" },
+            paragraphs: [
+              {
+                en: "Sending a quote request is not an order. An order starts only when you accept our written quote and approve the digital proof of your design. The website takes no payments.",
+                ar: "إرسال طلب عرض سعر ليس طلب شراء. يبدأ الطلب فقط عندما توافق على عرض السعر المكتوب وعلى البروفة الرقمية لتصميمك، ولا يتم أي دفع عبر الموقع.",
+              },
+              {
+                en: "Sizes, materials, minimum quantities and lead times on this site are a guide until they are confirmed in your quote. Colours on a screen differ from colours in print.",
+                ar: "المقاسات والخامات وأقل الكميات ومدد التنفيذ المعروضة على الموقع استرشادية حتى يؤكدها عرض السعر، والألوان على الشاشة تختلف عن ألوان الطباعة.",
+              },
+              {
+                en: 'Product pictures marked "Illustration" show the kind of product, not the exact item we make.',
+                ar: 'صور المنتجات المكتوب عليها "صورة توضيحية" تعرض نوع المنتج، وليس القطعة نفسها التي نصنعها.',
+              },
+            ],
+          },
+          {
+            heading: { en: "Your designs", ar: "تصميماتك" },
+            paragraphs: [
+              {
+                en: "When you upload a logo or artwork, you confirm you have the right to use it and to have it printed. We use your files only to prepare your quote and your order, and we do not share them with anyone else.",
+                ar: "عندما ترفع شعارًا أو تصميمًا، فأنت تؤكد أن لك حق استخدامه وطباعته. نستخدم ملفاتك فقط لإعداد عرض السعر والطلب، ولا نشاركها مع أي طرف آخر.",
+              },
+            ],
+          },
+        ]
+      : [
+          {
+            heading: { en: "Project inquiries", ar: "طلبات المشروعات" },
+            paragraphs: [
+              {
+                en: "Sending an inquiry does not create an agreement. Any work is governed by a separate written proposal or contract signed by both sides.",
+                ar: "إرسال طلب لا يُنشئ أي اتفاق. يخضع أي عمل لعرض أو عقد مكتوب منفصل يوقعه الطرفان.",
+              },
+              {
+                en: "Information about our services, past projects and results is general and does not guarantee the same results for your business.",
+                ar: "المعلومات عن خدماتنا ومشروعاتنا السابقة ونتائجها عامة، ولا تضمن تحقيق النتائج نفسها لمشروعك.",
+              },
+            ],
+          },
+        ];
 
   return {
     title: { en: "Terms of Use", ar: "شروط الاستخدام" },

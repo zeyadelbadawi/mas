@@ -25,7 +25,12 @@ import { rateLimited } from "./rate-limit";
 import { verifyTurnstile } from "./turnstile";
 
 const MAX_BODY_BYTES = 16 * 1024;
-const PREFIX: Record<BrandId, "CV" | "AL" | "MS"> = { covy: "CV", aroma: "AL", mas: "MS" };
+const PREFIX: Record<BrandId, "CV" | "AL" | "MS" | "ST"> = {
+  covy: "CV",
+  aroma: "AL",
+  mas: "MS",
+  stash: "ST",
+};
 
 export type FormRouteConfig = {
   brandId: BrandId;
@@ -62,7 +67,7 @@ function allowedOrigins(): Set<string> {
   add(process.env.VERCEL_BRANCH_URL);
   add(process.env.VERCEL_PROJECT_PRODUCTION_URL);
   if (process.env.NODE_ENV !== "production") {
-    for (const port of [3000, 3001, 3002]) out.add(`http://localhost:${port}`);
+    for (const port of [3000, 3001, 3002, 3003]) out.add(`http://localhost:${port}`);
   }
   return out;
 }
@@ -150,8 +155,7 @@ export function createFormRoute(config: FormRouteConfig) {
           : [config.reservation.location];
       // With several branches the request names one; a single branch needs nothing.
       const wanted = (envelope.data.data as { locationId?: unknown } | null)?.locationId;
-      const location =
-        list.length === 1 ? list[0] : list.find((l) => l.id === wanted);
+      const location = list.length === 1 ? list[0] : list.find((l) => l.id === wanted);
       if (!location)
         return json({ ok: false, error: "validation", fields: { locationId: "required" } }, 400);
       const result = reservationSchema({ location }).safeParse(envelope.data.data);

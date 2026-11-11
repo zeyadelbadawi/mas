@@ -1,6 +1,6 @@
 # 09 — Stash: plan for a new website
 
-**Status:** draft for the owner's approval, revised after an independent review (`docs/reports/stash-plan-critique.md`: 13 findings, all addressed below). Nothing is built or generated until the owner approves it (CLAUDE.md rule 1). Every phase has its own approval, and every generation step has its own cost gate (rule 2).
+**Status:** approved by the owner in full on 2026-11-11 (D77–D79): brown as the primary colour, the logo as drawn, Magnific, scene 2 option A, and every other recommendation. Revised before approval after an independent review (`docs/reports/stash-plan-critique.md`: 13 findings, all addressed below). Nothing is built or generated until the owner approves it (CLAUDE.md rule 1). Every phase has its own approval, and every generation step has its own cost gate (rule 2).
 
 **Sources (all read in full):**
 - `Stash_Brand_identity.pdf` (9 pages): the logo, the colours, the type and five logo variations.
@@ -325,8 +325,8 @@ Until these arrive, everything shows as a sample (`placeholder: true`, rule 5). 
 3. Which materials and certificates they really have (compostable, recyclable, food-contact). No badge appears without one.
 4. Address, phone, WhatsApp, email for quotes, hours, and the factory location.
 5. Photos of the factory and of real orders, and client logos if they allow it.
-6. **(Needed at S0)** The domain. The plan assumes `stash.mas.com`, like COVY and Aroma.
-7. **(Needed at S0)** Is Stash part of MAS (listed on the MAS site and kept in this repository), or a separate brand?
+6. **The domain:** Stash's own domain, still to come from the client. **Answered (D80):** Stash is a separate brand, not part of MAS, never shown on the MAS site, and not under `mas.com`.
+7. The quote inbox on that domain.
 8. Analytics: the client creates a GA4 property and a Clarity project for Stash on their own accounts (rule 10).
 
 ## 10. Build phases and gates
