@@ -8,7 +8,6 @@ export {
   slots,
   menuSlots,
   eventSlots,
-  stashRangeSlots,
   type SlotSpec,
   type ImageSlotSpec,
   type SequenceSlotSpec,
@@ -20,12 +19,3 @@ export { events } from "./events";
 export { nights } from "./nights";
 export { testimonials } from "./testimonials";
 export { insights } from "./insights";
-export {
-  stashRanges,
-  stashCertificates,
-  visibleSubtypes,
-  findRange,
-  type StashRange,
-  type StashSubtype,
-  type StudioShape,
-} from "./stash/catalogue";

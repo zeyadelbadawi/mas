@@ -1,12 +1,10 @@
 import { events } from "./events";
 import { aromaMenu } from "./menus/aroma";
 import { covyMenu } from "./menus/covy";
-import { stashRanges } from "./stash/catalogue";
 import {
   eventSlots,
   menuSlots,
   slots,
-  stashRangeSlots,
   type ImageSlotSpec,
   type SequenceSlotSpec,
   type SlotSpec,
@@ -18,7 +16,6 @@ export const allSlots: SlotSpec[] = [
   ...menuSlots(covyMenu),
   ...menuSlots(aromaMenu),
   ...eventSlots(events),
-  ...stashRangeSlots(stashRanges),
 ];
 
 /** Image slot props for <ImageSlot {...imageSlot("covy.spaces.indoor")} locale={locale} />. */

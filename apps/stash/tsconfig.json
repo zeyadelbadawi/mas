@@ -1,8 +1,0 @@
-{
-  "extends": "@mas/config/tsconfig/nextjs.json",
-  "compilerOptions": {
-    "paths": { "@/*": ["./src/*"] }
-  },
-  "include": ["next-env.d.ts", "src", "messages/*.json", "*.ts", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
