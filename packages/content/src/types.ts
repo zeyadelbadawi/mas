@@ -1,7 +1,7 @@
 import type { LocalizedText } from "@mas/i18n";
 
-export type BrandId = "mas" | "covy" | "aroma" | "stash";
-export type RestaurantId = "covy" | "aroma";
+export type BrandId = "mas" | "covy" | "aroma";
+export type RestaurantId = Exclude<BrandId, "mas">;
 
 export type Social = { network: "instagram" | "facebook" | "tiktok" | "linkedin"; url: string };
 

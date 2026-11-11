@@ -4,7 +4,7 @@
 import type { LocalizedText } from "@mas/i18n";
 import type { BrandEvent, MenuCategory } from "./types";
 
-type App = "mas" | "covy" | "aroma" | "stash";
+type App = "mas" | "covy" | "aroma";
 
 export type ImageSlotSpec = {
   kind: "image";
@@ -236,42 +236,6 @@ const GUEST_PHOTOS: LocalizedText[] = [
     en: "Two sunset iced drinks glowing in the afternoon sun",
     ar: "مشروبين بطبقات منوّرين في شمس العصر",
   },
-];
-
-/** Stash's page banners (D79, batch I2), one per page that opens on a banner. */
-const STASH_BANNERS: [string, string, string][] = [
-  [
-    "packaging",
-    "The whole range of plain kraft packaging arranged on beige plinths",
-    "كل منتجات التغليف الكرافت السادة مرتبة على قواعد بيج",
-  ],
-  [
-    "design",
-    "A kraft cup and a box on a beige plinth, ready for a logo",
-    "كوب كرافت وعلبة على قاعدة بيج، جاهزان للشعار",
-  ],
-  [
-    "how-it-works",
-    "Printed sheets stacked beside folded boxes on a work table",
-    "أفرخ مطبوعة بجوار علب مطوية على طاولة عمل",
-  ],
-  [
-    "materials",
-    "Kraft board, bagasse and paperboard samples side by side",
-    "عينات من كرتون الكرافت والباجاس والكرتون الأبيض متجاورة",
-  ],
-  ["about", "Finished packaging stacked and ready to ship", "منتجات تغليف جاهزة ومرصوصة للشحن"],
-  [
-    "quote",
-    "A stack of plain boxes and cups on a brown backdrop",
-    "علب وأكواب سادة مرصوصة أمام خلفية بنية",
-  ],
-  ["faq", "A paper bag and a cup carrier on a beige surface", "شنطة ورقية وحامل أكواب على سطح بيج"],
-  [
-    "contact",
-    "A cup carrier with two cups on a beige plinth",
-    "حامل أكواب فيه كوبان على قاعدة بيج",
-  ],
 ];
 
 export const slots: SlotSpec[] = [
@@ -730,76 +694,6 @@ export const slots: SlotSpec[] = [
     notes:
       "Cropped from the lake scene's last keyframe, made with Higgsfield from Aroma's photos (D53)",
   },
-
-  /* ---------------------------------------------------------- Stash (D77) */
-  {
-    kind: "sequence",
-    id: "stash.hero",
-    app: "stash",
-    page: "Home",
-    section: "H1 Flat to form",
-    ...SEQ,
-    frameCount: 241,
-    label: {
-      en: "A flat die-cut kraft sheet on a beige plinth folds itself into a closed box as the camera tilts from above to a low three-quarter view",
-      ar: "فرخ كرافت مقصوص على قاعدة بيج يُطوى من تلقاء نفسه حتى يصبح علبة مغلقة، بينما تميل الكاميرا من أعلى إلى زاوية ثلاثة أرباع منخفضة",
-    },
-    notes: "To generate with Magnific (D78): Kling 3.0, start and end frames, 10 s, 1080p",
-  },
-  {
-    kind: "sequence",
-    id: "stash.range",
-    app: "stash",
-    page: "Home",
-    section: "H5 The whole stash",
-    ...SEQ,
-    frameCount: 241,
-    label: {
-      en: "From the lid of one kraft cup, the camera cranes up and orbits to reveal the whole range of plain packaging on stepped plinths",
-      ar: "من غطاء كوب كرافت، ترتفع الكاميرا وتدور حتى تكشف كل المنتجات السادة على قواعد متدرجة",
-    },
-    notes: "To generate with Magnific (D78); option A of the plan (D77)",
-  },
-  ...STASH_BANNERS.map(
-    ([key, en, ar]): ImageSlotSpec => ({
-      kind: "image",
-      id: `stash.banner.${key}`,
-      app: "stash",
-      page: key,
-      section: "Hero banner (full width)",
-      width: 2520,
-      height: 1080,
-      alt: { en, ar },
-      notes: "To make with Magnific, batch I2 (D79)",
-    }),
-  ),
-  {
-    kind: "image",
-    id: "stash.about.factory",
-    app: "stash",
-    page: "About",
-    section: "The factory",
-    width: 1600,
-    height: 1000,
-    alt: { en: "The Stash factory floor", ar: "خط الإنتاج في مصنع STASH" },
-    notes: "The client's own photo (plan §9)",
-  },
-  {
-    kind: "image",
-    id: "stash.og",
-    app: "stash",
-    page: "All pages",
-    section: "Share image (Open Graph)",
-    width: 1200,
-    height: 630,
-    alt: {
-      en: "The STASH logo and its tagline on the brand's brown, over the wordmark pattern",
-      ar: "شعار STASH وشعاره النصي على بني العلامة، فوق نقشة الكلمة",
-    },
-    src: "/og/stash-en.png",
-    notes:
-      "Made in code from the client's vector logo (no generation); an Arabic version at /og/stash-ar.png",
-  },
 ];
 
 /**
@@ -905,42 +799,4 @@ export function eventSlots(events: BrandEvent[]): ImageSlotSpec[] {
         : {}),
     };
   });
-}
-
-/** Stash's catalogue slots (D79): one 21:9 banner per range (also cropped for its card) and one photo per sub-type. */
-export function stashRangeSlots(
-  ranges: {
-    slug: string;
-    name: LocalizedText;
-    subtypes: { slug: string; name: LocalizedText; needsCertificate?: true }[];
-  }[],
-): ImageSlotSpec[] {
-  return ranges.flatMap((r) => [
-    {
-      kind: "image" as const,
-      id: `stash.range.${r.slug}`,
-      app: "stash" as const,
-      page: `Range · ${r.name.en}`,
-      section: "Banner and card",
-      width: 2520,
-      height: 1080,
-      alt: r.name,
-      notes: "To make with Magnific, batch I1 (D79)",
-    },
-    ...r.subtypes.map(
-      (s): ImageSlotSpec => ({
-        kind: "image",
-        id: `stash.sub.${r.slug}.${s.slug}`,
-        app: "stash",
-        page: `Range · ${r.name.en}`,
-        section: `Sub-type · ${s.name.en}`,
-        width: 600,
-        height: 600,
-        alt: s.name,
-        notes: s.needsCertificate
-          ? "Hidden until the client sends the certificate (D79)"
-          : 'To make with Magnific, batch I3; captioned "Illustration" (D79)',
-      }),
-    ),
-  ]);
 }

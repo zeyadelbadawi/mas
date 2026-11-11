@@ -16,18 +16,6 @@ Import the GitHub repo `zeyadelbadawi/mas` three times, once per site:
 - Keep "Include files outside the Root Directory" on: the apps import the shared `packages/*`.
 - Node.js version: 22.x (matches `.nvmrc`).
 
-### Stash (a separate brand, D80)
-
-Stash is its own brand, not part of MAS. Give it its **own Vercel project** on the same owner account, and later its own domain:
-
-| Project name | Root Directory | Local port |
-|---|---|---|
-| for example `stash-web` | `apps/stash` | 3003 |
-
-- Same settings as above. Production branch: the same one as the other projects.
-- Environment variables: from `apps/stash/.env.example`. `MAIL_FROM` and `MAIL_TO` stay empty until Stash has its own domain and inbox. On a preview, forms then print to the log instead of sending.
-- Domain: Project → Settings → Domains, once the client gives its domain. Don't use a `mas.com` subdomain (D80).
-
 ## 2. Environment variables (per project)
 
 Copy from each app's `.env.example`. Set them for **Preview** and **Production**.

@@ -6,11 +6,7 @@ export type Consent = {
   recordings: boolean;
 };
 
-/**
- * The cookie's name. A site can set its own with NEXT_PUBLIC_CONSENT_COOKIE (inlined at build): Stash, a
- * separate brand, uses a neutral name (D80). The other sites keep "mas_consent", so stored choices stay valid.
- */
-export const CONSENT_COOKIE = process.env.NEXT_PUBLIC_CONSENT_COOKIE || "mas_consent";
+export const CONSENT_COOKIE = "mas_consent";
 export const CONSENT_VERSION = 1;
 export const CONSENT_MAX_AGE = 60 * 60 * 24 * 182;
 

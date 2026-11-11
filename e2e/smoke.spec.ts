@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const appOf = (project: { metadata: Record<string, unknown> }) =>
-  project.metadata.app as "mas" | "covy" | "aroma" | "stash";
+  project.metadata.app as "mas" | "covy" | "aroma";
 
 test.describe("every site", () => {
   test("English at / and Arabic at /ar with the right direction", async ({ page }) => {
@@ -42,7 +42,7 @@ test.describe("every site", () => {
     );
   });
 
-  test("loads no analytics until the visitor allows it", async ({ page }, info) => {
+  test("loads no analytics until the visitor allows it", async ({ page }) => {
     const thirdParty: string[] = [];
     page.on("request", (r) => {
       if (/googletagmanager|google-analytics|clarity\.ms/.test(r.url())) thirdParty.push(r.url());
@@ -53,9 +53,7 @@ test.describe("every site", () => {
     await banner.getByRole("button", { name: "Reject all" }).click();
     await expect(banner).toBeHidden();
     const cookies = await page.context().cookies();
-    // Stash is a separate brand: its cookie has a neutral name (D80).
-    const cookie = appOf(info.project) === "stash" ? "consent" : "mas_consent";
-    expect(cookies.find((c) => c.name === cookie)?.value).toBe("v1.a0.r0");
+    expect(cookies.find((c) => c.name === "mas_consent")?.value).toBe("v1.a0.r0");
     await page.reload();
     await expect(banner).toBeHidden();
     expect(thirdParty).toEqual([]);
@@ -101,7 +99,6 @@ test.describe("forms", () => {
     const app = appOf(info.project);
     // Aroma has no kitchen sink any more: aroma.spec.ts checks its booking form on the landing page.
     test.skip(app === "aroma", "Covered in aroma.spec.ts");
-    test.skip(app === "stash", "Stash's forms arrive in S5 (D77)");
     await page.goto("/ar/kitchen-sink");
     await page
       .locator("section[aria-labelledby=consent-title]")
