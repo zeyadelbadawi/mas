@@ -51,7 +51,7 @@ Every image and scroll-sequence slot on the three sites. Until a file is deliver
 
 | Slot ID | Page · section | Frames | Desktop | Mobile | Description | Status | Notes |
 |---|---|---|---|---|---|---|---|
-| `mas.hero` | Home · M1 From the detail to the whole | 241 | 1920 × 1080 | 1080 × 1350 | From a crystal glass on a set table, the camera pulls back to reveal the whole restaurant, lit in gold | ⬜ placeholder | Generated with Higgsfield (D68): Kling 3.0 4K from a close-up to the whole room |
+| `mas.hero` | Home · M1 One place, all day | 241 | 1920 × 1080 | 1080 × 1350 | In daylight the camera glides along the counter of a casual all-day restaurant, from the coffee station past the open kitchen, into the busy room | ⬜ placeholder | Generated with Magnific (D82): Kling 3.0 1080p from the coffee station to the room |
 | `mas.doors` | Home · M5 One line, two doors | 241 | 1920 × 1080 | 1080 × 1350 | A gold line on a dark stone floor splits into two, toward a door onto COVY and a door onto Aroma Lounge | ⬜ placeholder | Generated with Higgsfield (D64); the views through the doors come from COVY's and Aroma's own scenes |
 
 ## COVY (covy.mas.com)

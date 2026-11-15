@@ -245,14 +245,14 @@ export const slots: SlotSpec[] = [
     id: "mas.hero",
     app: "mas",
     page: "Home",
-    section: "M1 From the detail to the whole",
+    section: "M1 One place, all day",
     ...SEQ,
     frameCount: 241,
     label: {
-      en: "From a crystal glass on a set table, the camera pulls back to reveal the whole restaurant, lit in gold",
-      ar: "من كأس كريستال على طاولة مجهزة، تبتعد الكاميرا لتكشف المطعم كله بإضاءته الذهبية",
+      en: "In daylight the camera glides along the counter of a casual all-day restaurant, from the coffee station past the open kitchen, into the busy room",
+      ar: "في ضوء النهار تنزلق الكاميرا على طول الكاونتر في مطعم كاجوال يعمل طوال اليوم، من ركن القهوة مرورًا بالمطبخ المفتوح، حتى الصالة المزدحمة",
     },
-    notes: "Generated with Higgsfield (D68): Kling 3.0 4K from a close-up to the whole room",
+    notes: "Generated with Magnific (D82): Kling 3.0 1080p from the coffee station to the room",
   },
   {
     kind: "sequence",

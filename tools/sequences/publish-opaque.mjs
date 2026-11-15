@@ -28,7 +28,7 @@ const SCENES = [
   "aroma.morning.r3",
   "aroma.lake.r3",
   "aroma.night.r3",
-  "mas.hero.r2",
+  "mas.hero.r3",
   "mas.doors.r2",
 ];
 
