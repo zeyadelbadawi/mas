@@ -304,6 +304,21 @@ Checked: the last frame matches the end frame; frame-to-frame change is even (me
 
 Credits for MAS so far: 223 (balance 224.75 → 1.75, after the 10 for the article images and 66 here).
 
+### MAS: hero, revision 3, "One place, all day" (D82)
+
+Casual dining, on the client's note that the gold-lit room was too classic. Made with Magnific (the Higgsfield balance is spent), in the Magnific project "MAS".
+
+| Item | Model | Credits | Notes |
+|---|---|---|---|
+| End frame (used) | Nano Banana 2.1 2K | 65 | The busy room in daylight from the end of the oak counter: shared tables, big steel windows, dark ceiling with brass pendants (the calm band for the wordmark) |
+| End frame alternative | Nano Banana 2.1 2K | 65 | Not used: busier aisle, a waiter crossing it |
+| Start frame (used) | Nano Banana 2.1 2K | 65 | The coffee station of the same counter (espresso machine, grinder, croissant case), the open kitchen to the right; made with the end frame as reference. Text-like marks on the machine's badge and displays and on the grinder removed locally (OpenCV inpainting) and the clean frame uploaded as the keyframe |
+| Shot | Kling 3.0, 10 s, 1080p, start and end frames | 900 | Truck right along the counter, past the kitchen pass, turning into the aisle; first try |
+
+Checked: no cut; frame-to-frame change (160 × 90, grey) even, mean 6–12 per second of footage, max 13.1; the camera slows over the last 3 seconds and lands on the end frame. Built with `pnpm sequence:video --input hero-r3.mp4 --id mas.hero --motion`: 241 frames, desktop 7.4 MB, mobile 3.3 MB; uploaded as `videos/mas.hero.r3` and published to `v/<key>/` (`pnpm sequence:publish --only mas.hero.r3`); draft copy replaced. Revision 2 stays on R2, unused.
+
+Credits: 1,095 Magnific (balance 13,904 → 12,809).
+
 ### MAS: About image (D69)
 
 `mas.about.story`, Nano Banana 2.1 at 1K (`7474266b`, 1.5 credits), with the lit-room frame `06f24fb6` as reference: two people's hands over a restaurant floor plan with material samples, a plate and a glass, under a gold pendant. Checked: the plans carry lines only, no text. Saved as WebP 1264 × 790.
